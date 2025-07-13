@@ -42,10 +42,23 @@ const BlogPost = () => {
   if (loading) {
     return (
       <div className="blog-post-container">
+        <Helmet>
+          <title>Loading Post - Andrew J. Hermann</title>
+        </Helmet>
+        
         <Navbar />
+        
         <div className="blog-post-content">
-          <div className="blog-post-loading">Loading post...</div>
+          <div className="blog-post-header">
+            <Link to="/blog" className="blog-back-link">← Back to Blog</Link>
+            <h1 className="blog-post-title">Loading...</h1>
+          </div>
+          
+          <div className="blog-post-main">
+            <div className="blog-post-loading">Loading post...</div>
+          </div>
         </div>
+        
         <Footer content3="© 2025 Andrew J. Hermann. Professional portfolio website." />
       </div>
     )
@@ -54,14 +67,29 @@ const BlogPost = () => {
   if (error || !post) {
     return (
       <div className="blog-post-container">
+        <Helmet>
+          <title>Post Not Found - Andrew J. Hermann</title>
+          <meta name="description" content="The requested blog post could not be found." />
+        </Helmet>
+        
         <Navbar />
+        
         <div className="blog-post-content">
-          <div className="blog-post-error">
-            <h1>Post Not Found</h1>
-            <p>The blog post you're looking for doesn't exist or has been removed.</p>
+          <div className="blog-post-header">
             <Link to="/blog" className="blog-back-link">← Back to Blog</Link>
+            <h1 className="blog-post-title">Post Not Found</h1>
+            <p className="blog-post-subtitle">
+              The blog post you're looking for doesn't exist or has been removed.
+            </p>
+          </div>
+          
+          <div className="blog-post-main">
+            <div className="blog-post-error">
+              <p>Please check the URL or return to the blog to browse other posts.</p>
+            </div>
           </div>
         </div>
+        
         <Footer content3="© 2025 Andrew J. Hermann. Professional portfolio website." />
       </div>
     )
