@@ -79,13 +79,12 @@ const AppRouter = () => {
           path="/admin/posts" 
           element={isAuthenticated ? <PostManager /> : <Navigate to="/admin/login" />}
         />
-        {/* More specific route MUST come first */}
         <Route 
-          path="/admin/posts/edit/new" 
+          path="/admin/posts/edit/:id" 
           element={isAuthenticated ? <PostEditor /> : <Navigate to="/admin/login" />}
         />
         <Route 
-          path="/admin/posts/edit/:id" 
+          path="/admin/posts/edit/new" 
           element={isAuthenticated ? <PostEditor /> : <Navigate to="/admin/login" />}
         />
         <Route 
