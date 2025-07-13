@@ -1,0 +1,152 @@
+.home-container {
+  width: 100%;
+  display: flex;
+  overflow: auto;
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+  background-color: var(--dl-color-theme-neutral-light);
+}
+
+.home-content {
+  width: 100%;
+  display: flex;
+  max-width: 1200px;
+  align-items: center;
+  justify-content: center;
+  padding-top: 120px;
+  flex-direction: column;
+  padding-bottom: 80px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.home-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 60px;
+  flex-direction: column;
+  text-align: center;
+}
+
+.home-title {
+  color: var(--dl-color-theme-neutral-dark);
+  font-size: 3rem;
+  font-style: normal;
+  font-family: Inter;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.home-subtitle {
+  color: var(--dl-color-theme-neutral-dark);
+  font-size: 1.25rem;
+  font-style: normal;
+  font-family: Inter;
+  font-weight: 400;
+  line-height: 1.6;
+  max-width: 800px;
+  margin-bottom: 0;
+}
+
+.home-main {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.home-section {
+  width: 100%;
+  display: flex;
+  padding: 40px;
+  border-radius: 12px;
+  flex-direction: column;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.home-section h2,
+.home-section h3 {
+  color: var(--dl-color-theme-neutral-dark);
+  font-size: 1.75rem;
+  font-style: normal;
+  font-family: Inter;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 10px;
+}
+
+.home-section p {
+  color: var(--dl-color-theme-neutral-dark);
+  font-size: 1rem;
+  font-style: normal;
+  font-family: Inter;
+  font-weight: 400;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+.home-process {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.home-contact {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+@media (max-width: 768px) {
+  .home-content {
+    padding-top: 80px;
+  }
+  
+  .home-title {
+    font-size: 2.5rem;
+  }
+  
+  .home-subtitle {
+    font-size: 1.125rem;
+  }
+  
+  .home-main {
+    gap: 30px;
+  }
+  
+  .home-section {
+    padding: 30px 20px;
+  }
+  
+  .home-section h2,
+  .home-section h3 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-title {
+    font-size: 2rem;
+  }
+  
+  .home-section {
+    padding: 20px;
+  }
+  
+  .home-section h2,
+  .home-section h3 {
+    font-size: 1.25rem;
+  }
+}

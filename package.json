@@ -1,0 +1,54 @@
+{
+  "name": "andrewhermann",
+  "version": "1.0.0",
+  "private": true,
+  "proxy": "http://localhost:3001",
+  "dependencies": {
+    "@craco/craco": "^7.1.0",
+    "@react-three/drei": "^9.122.0",
+    "@react-three/fiber": "^8.18.0",
+    "bcrypt": "^6.0.0",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "dangerous-html": "0.1.13",
+    "express": "^5.1.0",
+    "express-session": "^1.18.1",
+    "framer-motion": "^12.9.0",
+    "multer": "^2.0.1",
+    "next": "^12.1.10",
+    "prop-types": "15.7.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-helmet": "^6.1.0",
+    "react-router-dom": "^6.30.0",
+    "react-scroll-parallax": "^3.4.5",
+    "serve": "^14.2.4",
+    "sqlite3": "^5.1.7",
+    "three": "^0.178.0"
+  },
+  "scripts": {
+    "serve": "serve -s build -l 5000",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test --env=jsdom",
+    "eject": "craco eject"
+  },
+  "engines": {
+    "node": ">=18.x"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "react-scripts": "^5.0.1"
+  }
+}

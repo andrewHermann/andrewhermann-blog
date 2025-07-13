@@ -1,0 +1,185 @@
+import React, { useState, useEffect } from 'react'
+import { useParams, useNavigate, Link } from 'react-router-dom'
+import { API_ENDPOINTS, apiRequest } from '../config/api'
+import './PostEditor.css'
+
+const PostEditor = () => {
+  const { id } = useParams()
+  const navigate = useNavigate()
+  const isEditing = id !== 'new'
+  
+  const [post, setPost] = useState({
+    title: '',
+    content: '',
+    excerpt: '',
+    slug: '',
+    published: false
+  })
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
+
+  useEffect(() => {
+    if (isEditing) {
+      fetchPost()
+    }
+  }, [id, isEditing])
+
+  const fetchPost = async () => {
+    try {
+      const response = await apiRequest(API_ENDPOINTS.ADMIN_POST(id))
+      if (response.ok) {
+        const data = await response.json()
+        setPost(data)
+      } else {
+        setError('Failed to load post')
+      }
+    } catch (err) {
+      setError('Connection error: ' + err.message)
+    }
+  }
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target
+    setPost(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }))
+  }
+
+  const generateSlug = (title) => {
+    return title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+  }
+
+  const handleTitleChange = (e) => {
+    const title = e.target.value
+    setPost(prev => ({
+      ...prev,
+      title,
+      slug: prev.slug === '' || prev.slug === generateSlug(prev.title) ? generateSlug(title) : prev.slug
+    }))
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+    setError('')
+    setSuccess('')
+
+    try {
+      const url = isEditing 
+        ? API_ENDPOINTS.ADMIN_POST(id)
+        : API_ENDPOINTS.ADMIN_POSTS
+      
+      const method = isEditing ? 'PUT' : 'POST'
+      
+      const response = await apiRequest(url, {
+        method,
+        body: JSON.stringify(post),
+      })
+
+      if (response.ok) {
+        setSuccess(isEditing ? 'Post updated successfully!' : 'Post created successfully!')
+        setTimeout(() => {
+          navigate('/admin/posts')
+        }, 1500)
+      } else {
+        const data = await response.json()
+        setError(data.error || 'Failed to save post')
+      }
+    } catch (err) {
+      setError('Connection error: ' + err.message)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return (
+    <div className="post-editor-container">
+      <div className="post-editor-header">
+        <h1>{isEditing ? 'Edit Post' : 'Create New Post'}</h1>
+        <Link to="/admin/posts" className="back-link">← Back to Posts</Link>
+      </div>
+
+      {error && <div className="error-message">{error}</div>}
+      {success && <div className="success-message">{success}</div>}
+
+      <form onSubmit={handleSubmit} className="post-editor-form">
+        <div className="form-group">
+          <label htmlFor="title">Title</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            value={post.title}
+            onChange={handleTitleChange}
+            required
+            placeholder="Enter post title"
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="slug">Slug</label>
+          <input
+            type="text"
+            id="slug"
+            name="slug"
+            value={post.slug}
+            onChange={handleChange}
+            required
+            placeholder="post-url-slug"
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="excerpt">Excerpt</label>
+          <textarea
+            id="excerpt"
+            name="excerpt"
+            value={post.excerpt}
+            onChange={handleChange}
+            rows="3"
+            placeholder="Brief description of the post"
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="content">Content</label>
+          <textarea
+            id="content"
+            name="content"
+            value={post.content}
+            onChange={handleChange}
+            rows="15"
+            required
+            placeholder="Write your post content here (HTML is supported)"
+          />
+        </div>
+
+        <div className="form-group checkbox-group">
+          <label>
+            <input
+              type="checkbox"
+              name="published"
+              checked={post.published}
+              onChange={handleChange}
+            />
+            <span>Publish post</span>
+          </label>
+        </div>
+
+        <div className="form-actions">
+          <button type="submit" disabled={loading} className="save-button">
+            {loading ? 'Saving...' : (isEditing ? 'Update Post' : 'Create Post')}
+          </button>
+          <Link to="/admin/posts" className="cancel-button">Cancel</Link>
+        </div>
+      </form>
+    </div>
+  )
+}
+
+export default PostEditor
