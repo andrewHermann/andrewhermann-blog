@@ -1,7 +1,7 @@
-import React, { useRef, useLayoutEffect, Suspense, useState, useEffect } from react;
-import { useFrame } from @react-three/fiber;
-import { useGLTF } from @react-three/drei;
-import * as THREE from three;
+import React, { useRef, useLayoutEffect, Suspense, useState, useEffect } from 'react';
+import { useFrame } from '@react-three/fiber';
+import { useGLTF } from '@react-three/drei';
+import * as THREE from 'three';
 
 // Fallback component while loading
 const LoadingPlaceholder = () => {
@@ -24,205 +24,242 @@ const LoadingPlaceholder = () => {
 // Robot component that loads the GLB model
 const Robot = () => {
   const group = useRef();
-  const { scene } = useGLTF(/ai-3d-robot.glb);
+  const { scene } = useGLTF('/ai-3d-robot.glb');
   
   // State for fall animation
   const [isAnimating, setIsAnimating] = useState(false);
-  const [animationPhase, setAnimationPhase] = useState(idle);
+  const [animationPhase, setAnimationPhase] = useState('idle'); // 'idle', 'falling', 'down', 'getting_up'
   const [animationProgress, setAnimationProgress] = useState(0);
   
   // State for drag and touch controls
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
-  const [rotation, setRotation] = useState({ x: 0, y: -Math.PI / 2 });
+  const [rotation, setRotation] = useState({ x: 0, y: -Math.PI / 2 }); // Face forward
   const [lastTouch, setLastTouch] = useState({ x: 0, y: 0 });
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [currentRotation, setCurrentRotation] = useState(0);
 
   useLayoutEffect(() => {
     if (scene) {
-      scene.scale.set(90, 90, 90);
-      scene.position.set(0, -10, 0);
-      scene.rotation.y = -Math.PI / 2;
+      scene.scale.set(90, 90, 90); // Large scale
+      scene.position.set(0, -10, 0); // Adjusted position
+      scene.rotation.y = -Math.PI / 2; // Face forward
       
-      // Apply strategic coloring with enhanced lighting
+      // Apply strategic coloring to highlight details
       scene.traverse((child) => {
         if (child.isMesh && child.material) {
+          console.log('Mesh:', child.name, 'Material:', child.material.name);
+          
+          // Clone material to avoid affecting other instances
           child.material = child.material.clone();
-          const name = (child.name || ).toLowerCase();
-          const materialName = (child.material.name || ).toLowerCase();
+          
+          const name = (child.name || '').toLowerCase();
+          const materialName = (child.material.name || '').toLowerCase();
           const combinedName = `${name} ${materialName}`;
           
-          if (combinedName.includes(skin) || combinedName.includes(body) || 
-              combinedName.includes(head) || combinedName.includes(face) ||
-              combinedName.includes(neck) || combinedName.includes(arm) ||
-              combinedName.includes(hand) || combinedName.includes(leg) ||
-              combinedName.includes(foot) || combinedName.includes(torso)) {
-            child.material.color.setHex(0xfdbcb4);
-          } else if (combinedName.includes(eye) || combinedName.includes(pupil) || combinedName.includes(iris)) {
-            child.material.color.setHex(0x4a90e2);
-          } else if (combinedName.includes(hair) || combinedName.includes(scalp)) {
-            child.material.color.setHex(0x8b7355);
-          } else if (combinedName.includes(shirt) || combinedName.includes(top)) {
-            child.material.color.setHex(0x2c5aa0);
-          } else if (combinedName.includes(pants) || combinedName.includes(trouser)) {
-            child.material.color.setHex(0x4a4a4a);
-          } else if (combinedName.includes(shoe) || combinedName.includes(boot)) {
-            child.material.color.setHex(0x654321);
-          } else if (combinedName.includes(button) || combinedName.includes(zipper)) {
-            child.material.color.setHex(0x888888);
-          } else {
+          // Skin/Body parts - fair skin tone
+          if (combinedName.includes('skin') || combinedName.includes('body') || 
+              combinedName.includes('head') || combinedName.includes('face') ||
+              combinedName.includes('neck') || combinedName.includes('arm') ||
+              combinedName.includes('hand') || combinedName.includes('leg') ||
+              combinedName.includes('foot') || combinedName.includes('torso')) {
+            child.material.color.setHex(0xfdbcb4); // Fair skin
+          }
+          
+          // Eyes - blue
+          else if (combinedName.includes('eye') || combinedName.includes('pupil') ||
+                   combinedName.includes('iris')) {
+            child.material.color.setHex(0x4a90e2); // Blue eyes
+          }
+          
+          // Hair - brown
+          else if (combinedName.includes('hair') || combinedName.includes('scalp')) {
+            child.material.color.setHex(0x8b7355); // Light brown hair
+          }
+          
+          // Clothing - various colors
+          else if (combinedName.includes('shirt') || combinedName.includes('top')) {
+            child.material.color.setHex(0x2c5aa0); // Blue shirt
+          }
+          else if (combinedName.includes('pants') || combinedName.includes('trouser')) {
+            child.material.color.setHex(0x4a4a4a); // Dark gray pants
+          }
+          else if (combinedName.includes('shoe') || combinedName.includes('boot')) {
+            child.material.color.setHex(0x654321); // Brown shoes
+          }
+          
+          // Accessories
+          else if (combinedName.includes('button') || combinedName.includes('zipper')) {
+            child.material.color.setHex(0x888888); // Gray accessories
+          }
+          
+          // Default enhancement - brighten very dark parts
+          else {
             const currentColor = child.material.color;
             if (currentColor.r < 0.2 && currentColor.g < 0.2 && currentColor.b < 0.2) {
-              child.material.color.setHex(0x999999);
+              // Brighten very dark parts with a subtle color
+              child.material.color.setHex(0x666666);
             }
           }
           
-          if (child.material.type === MeshStandardMaterial) {
-            child.material.roughness = 0.5;
+          // Ensure proper material properties for visibility
+          if (child.material.type === 'MeshStandardMaterial') {
+            child.material.roughness = 0.7;
             child.material.metalness = 0.1;
-            child.material.emissive = new THREE.Color(0x111111);
-            child.material.emissiveIntensity = 0.05;
           }
         }
       });
       
+      console.log('Robot loaded facing forward with enhanced coloring and touch/drag interaction!');
     }
   }, [scene]);
 
+  // Handle click for fall animation
   const handleClick = (event) => {
     if (!isAnimating) {
       setIsAnimating(true);
-      setAnimationPhase(falling);
+      setAnimationPhase('falling');
       setAnimationProgress(0);
-      setCurrentRotation(group.current.rotation.y);
       event.stopPropagation();
     }
   };
 
+  // Mouse and touch event handlers
   useEffect(() => {
-    // Track mouse movement globally on the entire window
-    const handleGlobalMouseMove = (event) => {
-      setMousePosition({ x: event.clientX, y: event.clientY });
+    const handleMouseDown = (event) => {
+      if (!isAnimating) {
+        setIsDragging(true);
+        setDragStart({ x: event.clientX, y: event.clientY });
+        setLastTouch({ x: event.clientX, y: event.clientY });
+      }
     };
 
-    const handleInteractionStart = (clientX, clientY) => {
-        if (!isAnimating) {
-            setIsDragging(true);
-            setDragStart({ x: clientX, y: clientY });
-            setLastTouch({ x: clientX, y: clientY });
-        }
+    const handleMouseMove = (event) => {
+      if (!isDragging || isAnimating) return;
+      
+      const deltaX = event.clientX - lastTouch.x;
+      const deltaY = event.clientY - lastTouch.y;
+      
+      setRotation(prev => ({
+        x: prev.x + deltaY * 0.01,
+        y: prev.y + deltaX * 0.01
+      }));
+      
+      setLastTouch({ x: event.clientX, y: event.clientY });
     };
 
-    const handleInteractionMove = (clientX, clientY) => {
-        if (!isDragging || isAnimating) return;
-        const deltaX = clientX - lastTouch.x;
-        const deltaY = clientY - lastTouch.y;
-        setRotation(prev => ({ x: prev.x + deltaY * 0.01, y: prev.y + deltaX * 0.01 }));
-        setLastTouch({ x: clientX, y: clientY });
+    const handleMouseUp = () => {
+      setIsDragging(false);
     };
 
-    const handleInteractionEnd = () => {
-        setIsDragging(false);
+    const handleTouchStart = (event) => {
+      if (!isAnimating) {
+        setIsDragging(true);
+        const touch = event.touches[0];
+        setDragStart({ x: touch.clientX, y: touch.clientY });
+        setLastTouch({ x: touch.clientX, y: touch.clientY });
+      }
     };
 
-    const handleMouseDown = (event) => handleInteractionStart(event.clientX, event.clientY);
-    const handleMouseMove = (event) => handleInteractionMove(event.clientX, event.clientY);
-    const handleMouseUp = () => handleInteractionEnd();
+    const handleTouchMove = (event) => {
+      if (!isDragging || isAnimating) return;
+      
+      const touch = event.touches[0];
+      const deltaX = touch.clientX - lastTouch.x;
+      const deltaY = touch.clientY - lastTouch.y;
+      
+      setRotation(prev => ({
+        x: prev.x + deltaY * 0.01,
+        y: prev.y + deltaX * 0.01
+      }));
+      
+      setLastTouch({ x: touch.clientX, y: touch.clientY });
+    };
 
-    const handleTouchStart = (event) => handleInteractionStart(event.touches[0].clientX, event.touches[0].clientY);
-    const handleTouchMove = (event) => handleInteractionMove(event.touches[0].clientX, event.touches[0].clientY);
-    const handleTouchEnd = () => handleInteractionEnd();
+    const handleTouchEnd = () => {
+      setIsDragging(false);
+    };
 
-    // Add global mouse tracking
-    window.addEventListener(mousemove, handleGlobalMouseMove);
-
-    const robotContainer = document.querySelector(.hero-robot-canvas);
+    // Add event listeners to the robot container
+    const robotContainer = document.querySelector('.hero-robot-canvas');
     if (robotContainer) {
-      robotContainer.addEventListener(mousedown, handleMouseDown);
-      robotContainer.addEventListener(touchstart, handleTouchStart, { passive: true });
-      window.addEventListener(mousemove, handleMouseMove);
-      window.addEventListener(touchmove, handleTouchMove);
-      window.addEventListener(mouseup, handleMouseUp);
-      window.addEventListener(touchend, handleTouchEnd);
+      robotContainer.addEventListener('mousedown', handleMouseDown);
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mouseup', handleMouseUp);
+
+      robotContainer.addEventListener('touchstart', handleTouchStart);
+      window.addEventListener('touchmove', handleTouchMove);
+      window.addEventListener('touchend', handleTouchEnd);
     }
 
     return () => {
-      window.removeEventListener(mousemove, handleGlobalMouseMove);
-      
       if (robotContainer) {
-        robotContainer.removeEventListener(mousedown, handleMouseDown);
-        robotContainer.removeEventListener(touchstart, handleTouchStart);
+        robotContainer.removeEventListener('mousedown', handleMouseDown);
+        robotContainer.removeEventListener('touchstart', handleTouchStart);
       }
-      window.removeEventListener(mousemove, handleMouseMove);
-      window.removeEventListener(touchmove, handleTouchMove);
-      window.removeEventListener(mouseup, handleMouseUp);
-      window.removeEventListener(touchend, handleTouchEnd);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchend', handleTouchEnd);
     };
   }, [isDragging, lastTouch, isAnimating]);
 
   useFrame((state) => {
     if (group.current) {
       if (isAnimating) {
-        if (animationPhase === falling) {
+        // Fall animation sequence
+        if (animationPhase === 'falling') {
           setAnimationProgress(prev => prev + 0.04);
+          
+          // Falling backwards - rotate around X axis
           const fallRotation = Math.sin(animationProgress) * 0.8;
           group.current.rotation.x = fallRotation;
-          group.current.position.y = -10 - Math.sin(animationProgress) * 5;
+          
+          // Slight position change to simulate falling
+          group.current.position.y = -Math.sin(animationProgress) * 2;
+          
           if (animationProgress >= Math.PI / 2) {
-            setAnimationPhase(down);
+            setAnimationPhase('down');
             setAnimationProgress(0);
           }
-        } else if (animationPhase === down) {
+        } else if (animationPhase === 'down') {
           setAnimationProgress(prev => prev + 0.02);
+          
+          // Stay down for a moment
           group.current.rotation.x = 0.8;
-          group.current.position.y = -15;
+          group.current.position.y = -2;
+          
           if (animationProgress >= 1) {
-            setAnimationPhase(getting_up);
+            setAnimationPhase('getting_up');
             setAnimationProgress(0);
           }
-        } else if (animationPhase === getting_up) {
+        } else if (animationPhase === 'getting_up') {
           setAnimationProgress(prev => prev + 0.04);
+          
+          // Getting back up - reverse the fall
           const upRotation = 0.8 - (Math.sin(animationProgress) * 0.8);
           group.current.rotation.x = upRotation;
-          group.current.position.y = -15 + (Math.sin(animationProgress) * 5);
+          
+          // Return to original position
+          group.current.position.y = -2 + (Math.sin(animationProgress) * 2);
+          
           if (animationProgress >= Math.PI / 2) {
-            group.current.rotation.x = 0;
-            group.current.position.y = -10;
+            // Reset to original state
+            group.current.rotation.x = rotation.x;
+            group.current.position.y = 0;
             setIsAnimating(false);
-            setAnimationPhase(idle);
+            setAnimationPhase('idle');
             setAnimationProgress(0);
           }
         }
       } else {
-        // JUMPING ANIMATION
-        const jumpHeight = 3;
-        const jumpSpeed = 3;
-        const jumpOffset = Math.sin(state.clock.elapsedTime * jumpSpeed) * jumpHeight;
-        group.current.position.y = -10 + jumpOffset;
-
-        // IMPROVED MOUSE FOLLOWING - Fixed rotation logic
+        // Normal drag and touch rotation when not animating
+        group.current.rotation.x = rotation.x;
+        group.current.rotation.y = rotation.y;
+        
+        // Add subtle mouse hover effect when not dragging
         if (!isDragging) {
-          const robotContainer = document.querySelector(.hero-robot-canvas);
-          if (robotContainer) {
-            const canvasRect = robotContainer.getBoundingClientRect();
-            const robotCenterX = canvasRect.left + canvasRect.width / 2;
-            const robotCenterY = canvasRect.top + canvasRect.height / 2;
-            
-            // Calculate relative mouse position from robot center
-            const deltaX = mousePosition.x - robotCenterX;
-            const deltaY = mousePosition.y - robotCenterY;
-            
-            // Calculate angle correctly - swap deltaX and deltaY for proper rotation
-            const targetAngle = Math.atan2(deltaX, deltaY);
-            
-            // Apply smooth rotation with proper interpolation
-            group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, targetAngle, 0.15);
-          }
-        } else {
-          // When dragging, use manual rotation
-          group.current.rotation.x = rotation.x;
-          group.current.rotation.y = rotation.y;
+          const { mouse } = state;
+          group.current.rotation.y = rotation.y + Math.sin(mouse.x * 0.1) * 0.05;
         }
       }
     }
@@ -244,4 +281,3 @@ const SafeRobot = () => {
 };
 
 export default SafeRobot;
-
