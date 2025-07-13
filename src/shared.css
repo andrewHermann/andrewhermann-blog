@@ -1,0 +1,190 @@
+/* Enhanced Mobile-First Responsive Design and Animations */
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Typography improvements */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  color: var(--dl-color-theme-neutral-dark);
+  background-color: var(--dl-color-theme-neutral-light);
+}
+
+/* Improved focus states for accessibility */
+*:focus {
+  outline: 2px solid var(--dl-color-theme-primary);
+  outline-offset: 2px;
+}
+
+/* Button enhancements */
+.thq-button-filled, .thq-button-outline {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: var(--dl-layout-radius-radius8);
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  border: none;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.thq-button-filled {
+  background-color: var(--dl-color-theme-primary);
+  color: var(--dl-color-theme-neutral-light);
+}
+
+.thq-button-filled:hover {
+  background-color: var(--dl-color-theme-secondary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.thq-button-outline {
+  border: 2px solid var(--dl-color-theme-primary);
+  color: var(--dl-color-theme-primary);
+  background-color: transparent;
+}
+
+.thq-button-outline:hover {
+  background-color: var(--dl-color-theme-primary);
+  color: var(--dl-color-theme-neutral-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Card styles */
+.card {
+  background: var(--dl-color-theme-neutral-light);
+  border-radius: var(--dl-layout-radius-radius8);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Enhanced link styles */
+.thq-link {
+  color: var(--dl-color-theme-primary);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.thq-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--dl-color-theme-primary);
+  transition: width 0.3s ease;
+}
+
+.thq-link:hover::after {
+  width: 100%;
+}
+
+.thq-link:hover {
+  color: var(--dl-color-theme-secondary);
+}
+
+/* Improved spacing for sections */
+.thq-section-padding {
+  padding: var(--dl-layout-space-sixunits) var(--dl-layout-space-twounits);
+}
+
+/* Mobile-first media queries */
+@media (max-width: 768px) {
+  .thq-section-padding {
+    padding: var(--dl-layout-space-fourunits) var(--dl-layout-space-unit);
+  }
+  
+  .thq-button-filled, .thq-button-outline {
+    width: 100%;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .thq-section-padding {
+    padding: var(--dl-layout-space-threeunits) var(--dl-layout-space-unit);
+  }
+  
+  body {
+    font-size: 14px;
+  }
+  
+  .thq-heading-1 {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+  
+  .thq-heading-2 {
+    font-size: 1.5rem;
+    line-height: 1.3;
+  }
+}
+
+/* Loading animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease;
+}
+
+.slide-in-up {
+  animation: slideInUp 0.8s ease;
+}
+
+/* Improved image handling */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Better form styling */
+input, textarea, select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--dl-color-theme-accent1);
+  border-radius: var(--dl-layout-radius-radius4);
+  font-family: inherit;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--dl-color-theme-primary);
+  outline: none;
+}

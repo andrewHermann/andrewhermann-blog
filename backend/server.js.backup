@@ -1,0 +1,208 @@
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const sqlite3 = require('sqlite3').verbose();
+const path = require('path');
+const session = require('express-session');
+const bcrypt = require('bcrypt');
+
+const app = express();
+const PORT = process.env.PORT || 3001;
+
+// Middleware
+app.use(cors({ origin: ["http://localhost:5000", "http://localhost:3000", "http://192.168.178.44:5000"], credentials: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(session({
+  secret: 'your-secret-key-change-this-in-production',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false, httpOnly: true, maxAge: 24 * 60 * 60 * 1000 } // Set to true in production with HTTPS
+}));
+
+// Database setup
+const dbPath = path.join(__dirname, 'blog.db');
+const db = new sqlite3.Database(dbPath);
+
+// Initialize database tables
+db.serialize(() => {
+  // Blog posts table
+  db.run(`
+    CREATE TABLE IF NOT EXISTS blog_posts (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      title TEXT NOT NULL,
+      content TEXT NOT NULL,
+      excerpt TEXT,
+      slug TEXT UNIQUE NOT NULL,
+      published BOOLEAN DEFAULT 0,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+
+  // Admin users table (simple authentication)
+  db.run(`
+    CREATE TABLE IF NOT EXISTS admin_users (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      username TEXT UNIQUE NOT NULL,
+      password_hash TEXT NOT NULL,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+
+  // Create default admin user (username: admin, password: admin123)
+  // Change this in production!
+  const defaultPassword = bcrypt.hashSync('admin123', 10);
+  db.run(`
+    INSERT OR IGNORE INTO admin_users (username, password_hash) 
+    VALUES ('admin', ?)
+  `, [defaultPassword]);
+});
+
+// Helper function to check if user is authenticated
+const requireAuth = (req, res, next) => {
+  if (req.session.isAuthenticated) {
+    next();
+  } else {
+    res.status(401).json({ error: 'Authentication required' });
+  }
+};
+
+// Authentication routes
+app.post('/api/auth/login', (req, res) => {
+  const { username, password } = req.body;
+  
+  db.get('SELECT * FROM admin_users WHERE username = ?', [username], (err, user) => {
+    if (err) {
+      return res.status(500).json({ error: 'Database error' });
+    }
+    
+    if (!user || !bcrypt.compareSync(password, user.password_hash)) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+    
+    req.session.isAuthenticated = true;
+    req.session.userId = user.id;
+    res.json({ message: 'Login successful' });
+  });
+});
+
+app.post('/api/auth/logout', (req, res) => {
+  req.session.destroy();
+  res.json({ message: 'Logout successful' });
+});
+
+app.get('/api/auth/check', (req, res) => {
+  res.json({ isAuthenticated: !!req.session.isAuthenticated });
+});
+
+// Blog routes
+// Get all published blog posts (public)
+app.get('/api/blog/posts', (req, res) => {
+  db.all(`
+    SELECT id, title, excerpt, slug, created_at, updated_at 
+    FROM blog_posts 
+    WHERE published = 1 
+    ORDER BY created_at DESC
+  `, (err, rows) => {
+    if (err) {
+      return res.status(500).json({ error: 'Database error' });
+    }
+    res.json(rows);
+  });
+});
+
+// Get single blog post by slug (public)
+app.get('/api/blog/posts/:slug', (req, res) => {
+  const { slug } = req.params;
+  
+  db.get(`
+    SELECT * FROM blog_posts 
+    WHERE slug = ? AND published = 1
+  `, [slug], (err, row) => {
+    if (err) {
+      return res.status(500).json({ error: 'Database error' });
+    }
+    if (!row) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+    res.json(row);
+  });
+});
+
+// Admin routes (protected)
+// Get all blog posts (including unpublished)
+app.get('/api/admin/posts', requireAuth, (req, res) => {
+  db.all(`
+    SELECT * FROM blog_posts 
+    ORDER BY created_at DESC
+  `, (err, rows) => {
+    if (err) {
+      return res.status(500).json({ error: 'Database error' });
+    }
+    res.json(rows);
+  });
+});
+
+// Get single blog post by ID (admin)
+app.get('/api/admin/posts/:id', requireAuth, (req, res) => {
+  const { id } = req.params;
+  
+  db.get('SELECT * FROM blog_posts WHERE id = ?', [id], (err, row) => {
+    if (err) {
+      return res.status(500).json({ error: 'Database error' });
+    }
+    if (!row) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+    res.json(row);
+  });
+});
+
+// Create new blog post
+// Create new blog post
+
+// Update blog post
+// Update blog post
+
+// Delete blog post
+app.delete('/api/admin/posts/:id', requireAuth, (req, res) => {
+  const { id } = req.params;
+  
+  db.run('DELETE FROM blog_posts WHERE id = ?', [id], function(err) {
+    if (err) {
+      return res.status(500).json({ error: 'Database error' });
+    }
+    res.json({ message: 'Post deleted successfully' });
+  });
+});
+
+// Start server
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Blog API server running on port ${PORT}`);
+});
+
+// Change password endpoint
+app.post('/api/admin/change-password', requireAuth, (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+  const userId = req.session.userId;
+  
+  db.get('SELECT * FROM admin_users WHERE id = ?', [userId], (err, user) => {
+    if (err) {
+      return res.status(500).json({ error: 'Database error' });
+    }
+    
+    if (!user || !bcrypt.compareSync(currentPassword, user.password_hash)) {
+      return res.status(401).json({ error: 'Current password is incorrect' });
+    }
+    
+    const newPasswordHash = bcrypt.hashSync(newPassword, 10);
+    
+    db.run('UPDATE admin_users SET password_hash = ? WHERE id = ?', [newPasswordHash, userId], function(err) {
+      if (err) {
+        return res.status(500).json({ error: 'Database error' });
+      }
+      res.json({ message: 'Password changed successfully' });
+    });
+  });
+});

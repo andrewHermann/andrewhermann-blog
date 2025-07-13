@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://andrew.cloudhopper.ch/sitemap.xml
