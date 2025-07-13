@@ -1,17 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ThreeScene from './ThreeScene';
 import './hero.css';
 
 const Hero = (props) => {
   return (
     <div className="hero-header78">
       <div className="hero-column thq-section-max-width thq-section-padding">
-        <ThreeScene />
         <div className="hero-content1">
           <h1 className="hero-text1 thq-heading-1">{props.heading1}</h1>
           <p className="hero-text2 thq-body-large">{props.content1}</p>
         </div>
+        
         <div className="hero-actions">
           <button className="thq-button-filled hero-button1" onClick={props.onExplorePortfolio}>
             <span className="thq-body-small">{props.action1}</span>
