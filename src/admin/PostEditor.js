@@ -8,6 +8,7 @@ const PostEditor = () => {
   const navigate = useNavigate();
   const isEditing = id !== 'new';
 
+
   const [post, setPost] = useState({
     title: '',
     content: '',
@@ -22,27 +23,46 @@ const PostEditor = () => {
   const [success, setSuccess] = useState('');
 
   useEffect(() => {
+    console.log('PostEditor useEffect - id:', id, 'isEditing:', isEditing);
+    
     if (isEditing) {
+      console.log('Calling fetchPost for id:', id);
       fetchPost();
     } else {
+      console.log('Creating new post - NOT calling fetchPost');
       setError(''); // Clear any existing error
+      // Initialize empty post for new creation
+      setPost({
+        title: '',
+        content: '',
+        excerpt: '',
+        slug: '',
+        published: false,
+        created_at: '',
+        updated_at: ''
+      });
     }
   }, [id, isEditing]);
 
   const fetchPost = async () => {
+    console.log('fetchPost called with id:', id);
     try {
       const response = await apiRequest(API_ENDPOINTS.ADMIN_POST(id));
       if (response.ok) {
         const data = await response.json();
+        console.log('Post loaded successfully:', data);
         setPost({
           ...data,
           created_at: formatDateForInput(data.created_at),
           updated_at: formatDateForInput(data.updated_at)
         });
+        setError(''); // Clear any error
       } else {
+        console.log('Failed to load post - response not ok:', response.status);
         setError('Failed to load post');
       }
     } catch (err) {
+      console.log('Error loading post:', err);
       setError('Connection error: ' + err.message);
     }
   };
@@ -120,6 +140,10 @@ const PostEditor = () => {
       <div className="post-editor-header">
         <h1>{isEditing ? 'Edit Post' : 'Create New Post'}</h1>
         <Link to="/admin/posts" className="back-link">← Back to Posts</Link>
+      </div>
+
+      {/* Debug info */}
+      <div style={{padding: '10px', background: '#f0f0f0', margin: '10px 0', fontSize: '12px'}}>
       </div>
 
       {error && <div className="error-message">{error}</div>}
