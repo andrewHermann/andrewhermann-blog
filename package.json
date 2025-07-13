@@ -29,7 +29,7 @@
   "scripts": {
     "serve": "serve -s build -l 5000",
     "start": "craco start",
-    "build": "craco build",
+    "build": "GENERATE_SOURCEMAP=false craco build",
     "test": "craco test --env=jsdom",
     "eject": "craco eject"
   },
