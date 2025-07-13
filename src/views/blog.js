@@ -17,7 +17,7 @@ const Blog = () => {
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch('/api/blog/posts')
+      const response = await fetch('/api/posts')
       if (!response.ok) {
         throw new Error('Failed to fetch posts')
       }
