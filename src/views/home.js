@@ -11,6 +11,7 @@ import Features2 from '../components/features2'
 import Steps from '../components/steps'
 import Contact from '../components/contact'
 import Footer from '../components/footer'
+import FloatingRobot from "../components/FloatingRobot"
 import './home.css'
 
 const Home = (props) => {
@@ -39,6 +40,7 @@ const Home = (props) => {
 
   return (
     <div className="home-container">
+      <FloatingRobot />
       <Helmet>
         <title>Andrew J. Hermann - Strategic Leadership & AI Innovation</title>
         <meta 
