@@ -59,11 +59,11 @@ const ThreeScene = () => {
     >
       <InteractiveCameraController />
       
-      {/* Enhanced lighting for the robot */}
-      <ambientLight intensity={0.9} />
-      <directionalLight position={[50, 50, 25]} intensity={1.2} color="#ffffff" />
-      <pointLight position={[-50, -50, -50]} intensity={0.6} />
-      <pointLight position={[50, -50, -50]} intensity={0.6} />
+      {/* Balanced lighting - not too bright, not too dark */}
+      <ambientLight intensity={0.4} color="#ffffff" />
+      <directionalLight position={[10, 10, 5]} intensity={0.8} color="#ffffff" />
+      <directionalLight position={[-10, 10, 5]} intensity={0.5} color="#ffffff" />
+      <pointLight position={[0, 0, 10]} intensity={0.3} color="#ffffff" />
       
       {/* Robot in its own container */}
       {useRobot ? (
