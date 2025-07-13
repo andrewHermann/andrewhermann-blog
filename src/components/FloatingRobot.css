@@ -37,12 +37,43 @@
   }
 }
 
-/* Subtle animation */
+/* Ghost-like floating animation with doubled boundaries */
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-5px); }
+  0% { 
+    transform: translateY(0px) translateX(0px); 
+  }
+  10% { 
+    transform: translateY(-6px) translateX(4px); 
+  }
+  20% { 
+    transform: translateY(-12px) translateX(10px); 
+  }
+  30% { 
+    transform: translateY(-16px) translateX(16px); 
+  }
+  40% { 
+    transform: translateY(-12px) translateX(20px); 
+  }
+  50% { 
+    transform: translateY(-4px) translateX(18px); 
+  }
+  60% { 
+    transform: translateY(4px) translateX(12px); 
+  }
+  70% { 
+    transform: translateY(10px) translateX(4px); 
+  }
+  80% { 
+    transform: translateY(12px) translateX(-4px); 
+  }
+  90% { 
+    transform: translateY(6px) translateX(-8px); 
+  }
+  100% { 
+    transform: translateY(0px) translateX(0px); 
+  }
 }
 
 .floating-robot-container {
-  animation: float 3s ease-in-out infinite;
+  animation: float 8s cubic-bezier(0.4, 0.0, 0.6, 1.0) infinite;
 }
