@@ -18,7 +18,7 @@ const BlogPost = () => {
 
   const fetchPost = async () => {
     try {
-      const response = await fetch(`/api/blog/posts/${slug}`)
+      const response = await fetch(`/api/posts/${slug}`)
       if (!response.ok) {
         throw new Error('Post not found')
       }
