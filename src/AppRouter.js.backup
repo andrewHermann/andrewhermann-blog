@@ -26,24 +26,30 @@ const AppRouter = () => {
 
   const checkAuthStatus = async () => {
     try {
-      const response = await fetch('/api/auth/check', {
-        credentials: 'include'
-      })
-      if (response.ok) {
-        const data = await response.json()
-        setIsAuthenticated(data.isAuthenticated)
-      } else {
-        setIsAuthenticated(false)
+      const token = localStorage.getItem('adminToken')
+      if (!token) {
+        setLoading(false)
+        return
       }
-    } catch (err) {
-      setIsAuthenticated(false)
-    } finally {
-      setLoading(false)
+
+      const response = await fetch('http://localhost:5000/api/admin/verify', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      })
+
+      if (response.ok) {
+        setIsAuthenticated(true)
+      } else {
+        localStorage.removeItem('adminToken')
+      }
+    } catch (error) {
+      console.error('Auth check failed:', error)
+      localStorage.removeItem('adminToken')
     }
+    setLoading(false)
   }
 
-  const handleLogin = (status) => {
-    setIsAuthenticated(status)
+  const handleLogin = () => {
+    setIsAuthenticated(true)
   }
 
   const handleLogout = () => {
@@ -79,12 +85,9 @@ const AppRouter = () => {
           path="/admin/posts" 
           element={isAuthenticated ? <PostManager /> : <Navigate to="/admin/login" />}
         />
+        {/* Use single parameterized route for both new and edit */}
         <Route 
           path="/admin/posts/edit/:id" 
-          element={isAuthenticated ? <PostEditor /> : <Navigate to="/admin/login" />}
-        />
-        <Route 
-          path="/admin/posts/edit/new" 
           element={isAuthenticated ? <PostEditor /> : <Navigate to="/admin/login" />}
         />
         <Route 
