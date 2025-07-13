@@ -21,26 +21,11 @@ const PostEditor = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  // Helper function to format date for datetime-local input
-  const formatDateForInput = (dateString) => {
-    if (!dateString) return '';
-    return new Date(dateString).toISOString().slice(0, 16);
-  };
-
-  // Helper function to format date for API
-  const formatDateForAPI = (dateString) => {
-    if (!dateString) return '';
-    return new Date(dateString).toISOString();
-  };
-
   useEffect(() => {
-    console.log("PostEditor useEffect - id:", id, "isEditing:", isEditing);
     if (isEditing) {
-      console.log("Calling fetchPost for id:", id);
       fetchPost();
     } else {
-      console.log("Skipping fetchPost - creating new post");
-      setError(""); // Clear any existing error
+      setError(''); // Clear any existing error
     }
   }, [id, isEditing]);
 
@@ -93,7 +78,6 @@ const PostEditor = () => {
       
       const method = isEditing ? 'PUT' : 'POST';
       
-      // Format dates for API
       const postData = {
         ...post,
         created_at: formatDateForAPI(post.created_at),
@@ -119,6 +103,16 @@ const PostEditor = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const formatDateForInput = (dateString) => {
+    if (!dateString) return '';
+    return new Date(dateString).toISOString().slice(0, 16);
+  };
+
+  const formatDateForAPI = (dateString) => {
+    if (!dateString) return '';
+    return new Date(dateString).toISOString();
   };
 
   return (
