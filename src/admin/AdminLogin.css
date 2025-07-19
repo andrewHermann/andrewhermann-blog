@@ -1,86 +1,162 @@
+/* Admin Login - Consistent with Site Theme */
 .admin-login-container {
-  min-height: 100vh;
+  width: 100%;
   display: flex;
+  overflow: auto;
+  min-height: 100vh;
   align-items: center;
   justify-content: center;
-  background: #0a0a0a;
-  padding: 2rem;
+  flex-direction: column;
+  background-color: var(--dl-color-theme-neutral-light);
+  padding: 40px 20px;
 }
 
+/* Main frame container - matching blog page styling */
 .admin-login-box {
-  background: #1a1a1a;
-  padding: 3rem;
-  border-radius: 12px;
-  border: 1px solid #333;
   max-width: 400px;
   width: 100%;
+  padding: 40px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.admin-login-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 .admin-login-title {
-  color: #ffffff;
-  text-align: center;
-  margin-bottom: 2rem;
+  color: var(--dl-color-theme-neutral-dark);
   font-size: 2rem;
+  font-family: Inter, sans-serif;
   font-weight: 600;
+  text-align: center;
+  margin-bottom: 30px;
+  line-height: 1.2;
 }
 
 .admin-login-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 20px;
 }
 
 .admin-form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
 }
 
 .admin-form-group label {
-  color: #d0d0d0;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  font-family: Inter, sans-serif;
   font-weight: 500;
+  color: var(--dl-color-theme-neutral-dark);
 }
 
 .admin-form-group input {
-  padding: 0.75rem;
-  border: 1px solid #444;
-  border-radius: 6px;
-  background: #2a2a2a;
-  color: #ffffff;
+  padding: 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
   font-size: 1rem;
+  font-family: Inter, sans-serif;
+  background-color: #ffffff;
+  transition: all 0.3s ease;
 }
 
 .admin-form-group input:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: var(--dl-color-theme-primary);
+  box-shadow: 0 0 0 3px rgba(74, 78, 105, 0.1);
 }
 
-.admin-login-button {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: opacity 0.3s ease;
-}
-
-.admin-login-button:hover {
-  opacity: 0.9;
-}
-
-.admin-login-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+.admin-form-group input::placeholder {
+  color: #9ca3af;
 }
 
 .admin-error-message {
-  color: #ff6b6b;
+  color: #dc2626;
+  font-size: 0.875rem;
+  font-family: Inter, sans-serif;
   text-align: center;
-  padding: 0.5rem;
-  background: rgba(255, 107, 107, 0.1);
-  border-radius: 6px;
-  border: 1px solid rgba(255, 107, 107, 0.3);
+  padding: 12px;
+  background-color: rgba(220, 38, 38, 0.1);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  border-radius: 8px;
+  margin: 8px 0;
+}
+
+.admin-login-button {
+  background-color: var(--dl-color-theme-primary);
+  color: #ffffff;
+  padding: 14px 20px;
+  font-size: 1rem;
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 8px;
+}
+
+.admin-login-button:hover:not(:disabled) {
+  background-color: var(--dl-color-theme-secondary);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.admin-login-button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .admin-login-container {
+    padding: 20px 16px;
+  }
+  
+  .admin-login-box {
+    padding: 30px;
+  }
+  
+  .admin-login-title {
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 479px) {
+  .admin-login-container {
+    padding: 20px 12px;
+  }
+  
+  .admin-login-box {
+    padding: 20px;
+  }
+  
+  .admin-login-title {
+    font-size: 1.5rem;
+  }
+  
+  .admin-form-group input {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+}
+
+/* Enhanced interactive effects */
+.admin-login-box {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.admin-login-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 
+              0 0 0 1px rgba(74, 78, 105, 0.1),
+              0 0 20px rgba(74, 78, 105, 0.1);
 }

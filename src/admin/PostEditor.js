@@ -8,7 +8,6 @@ const PostEditor = () => {
   const navigate = useNavigate();
   const isEditing = id !== 'new';
 
-
   const [post, setPost] = useState({
     title: '',
     content: '',
@@ -61,7 +60,6 @@ const PostEditor = () => {
       setError('Connection error: ' + err.message);
     }
   };
-
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -134,107 +132,111 @@ const PostEditor = () => {
 
   return (
     <div className="post-editor-container">
-      <div className="post-editor-header">
-        <h1>{isEditing ? 'Edit Post' : 'Create New Post'}</h1>
-        <Link to="/admin/posts" className="back-link">← Back to Posts</Link>
+      <div className="post-editor-content">
+        <div className="post-editor-frame">
+          <div className="post-editor-header">
+            <h1 className="post-editor-title">{isEditing ? 'Edit Post' : 'Create New Post'}</h1>
+            <Link to="/admin/posts" className="back-link">← Back to Posts</Link>
+          </div>
+
+          {error && <div className="error-message">{error}</div>}
+          {success && <div className="success-message">{success}</div>}
+
+          <form onSubmit={handleSubmit} className="post-editor-form">
+            <div className="form-group">
+              <label htmlFor="title">Title</label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                value={post.title}
+                onChange={handleTitleChange}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="slug">Slug</label>
+              <input
+                type="text"
+                id="slug"
+                name="slug"
+                value={post.slug}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="excerpt">Excerpt</label>
+              <textarea
+                id="excerpt"
+                name="excerpt"
+                value={post.excerpt}
+                onChange={handleChange}
+                rows="3"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="content">Content</label>
+              <textarea
+                id="content"
+                name="content"
+                value={post.content}
+                onChange={handleChange}
+                rows="15"
+                required
+              />
+            </div>
+
+            <div className="date-fields">
+              <div className="form-group">
+                <label htmlFor="created_at">Created At</label>
+                <input
+                  type="datetime-local"
+                  id="created_at"
+                  name="created_at"
+                  value={post.created_at}
+                  onChange={handleChange}
+                  placeholder="Leave empty for current time"
+                />
+              </div>
+              
+              <div className="form-group">
+                <label htmlFor="updated_at">Updated At</label>
+                <input
+                  type="datetime-local"
+                  id="updated_at"
+                  name="updated_at"
+                  value={post.updated_at}
+                  onChange={handleChange}
+                  placeholder="Leave empty for current time"
+                />
+              </div>
+            </div>
+
+            <div className="form-group checkbox-group">
+              <label>
+                <input
+                  type="checkbox"
+                  name="published"
+                  checked={post.published}
+                  onChange={handleChange}
+                />
+                Published
+              </label>
+            </div>
+
+            <div className="form-actions">
+              <button type="submit" disabled={loading} className="save-button">
+                {loading ? 'Saving...' : (isEditing ? 'Update Post' : 'Create Post')}
+              </button>
+              <Link to="/admin/posts" className="cancel-button">Cancel</Link>
+            </div>
+          </form>
+        </div>
       </div>
-
-      {error && <div className="error-message">{error}</div>}
-      {success && <div className="success-message">{success}</div>}
-
-      <form onSubmit={handleSubmit} className="post-editor-form">
-        <div className="form-group">
-          <label htmlFor="title">Title</label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            value={post.title}
-            onChange={handleTitleChange}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="slug">Slug</label>
-          <input
-            type="text"
-            id="slug"
-            name="slug"
-            value={post.slug}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="excerpt">Excerpt</label>
-          <textarea
-            id="excerpt"
-            name="excerpt"
-            value={post.excerpt}
-            onChange={handleChange}
-            rows="3"
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="content">Content</label>
-          <textarea
-            id="content"
-            name="content"
-            value={post.content}
-            onChange={handleChange}
-            rows="15"
-            required
-          />
-        </div>
-
-        <div className="date-fields">
-          <div className="form-group">
-            <label htmlFor="created_at">Created At</label>
-            <input
-              type="datetime-local"
-              id="created_at"
-              name="created_at"
-              value={post.created_at}
-              onChange={handleChange}
-              placeholder="Leave empty for current time"
-            />
-          </div>
-          
-          <div className="form-group">
-            <label htmlFor="updated_at">Updated At</label>
-            <input
-              type="datetime-local"
-              id="updated_at"
-              name="updated_at"
-              value={post.updated_at}
-              onChange={handleChange}
-              placeholder="Leave empty for current time"
-            />
-          </div>
-        </div>
-
-        <div className="form-group">
-          <label>
-            <input
-              type="checkbox"
-              name="published"
-              checked={post.published}
-              onChange={handleChange}
-            />
-            Published
-          </label>
-        </div>
-
-        <div className="form-actions">
-          <button type="submit" disabled={loading} className="save-button">
-            {loading ? 'Saving...' : (isEditing ? 'Update Post' : 'Create Post')}
-          </button>
-          <Link to="/admin/posts" className="cancel-button">Cancel</Link>
-        </div>
-      </form>
     </div>
   );
 };
