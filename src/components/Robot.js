@@ -130,32 +130,30 @@ const Robot = () => {
     }
   }, [actions]);
 
-  // Handle animation completion for Pose -> Idle transition
+  // Handle animation completion for Pose -> Idle transition using mixer events
   useEffect(() => {
-    if (actions && actions.Pose) {
-      const poseAction = actions.Pose;
-      
-      const onFinished = () => {
-        if (isPlayingPose) {
+    if (mixer && actions && actions.Pose) {
+      const onFinished = (event) => {
+        if (event.action === actions.Pose && isPlayingPose) {
           console.log('Pose animation finished, returning to Idle');
           setIsPlayingPose(false);
           setCurrentAnimation('Idle');
           
           // Stop Pose and start Idle
-          poseAction.fadeOut(0.3);
+          actions.Pose.fadeOut(0.3);
           if (actions.Idle) {
             actions.Idle.reset().fadeIn(0.3).play();
           }
         }
       };
       
-      poseAction.addEventListener('finished', onFinished);
+      mixer.addEventListener('finished', onFinished);
       
       return () => {
-        poseAction.removeEventListener('finished', onFinished);
+        mixer.removeEventListener('finished', onFinished);
       };
     }
-  }, [actions, isPlayingPose]);
+  }, [mixer, actions, isPlayingPose]);
 
   // Play Pose animation once
   const playPoseOnce = () => {
