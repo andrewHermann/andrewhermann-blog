@@ -329,16 +329,16 @@ const Robot = () => {
       <directionalLight
         position={[0, 10, 5]}
         intensity={1.5}
-        color="#ffff00"
+        color="#ffffff"
         castShadow={false}
       />
       {/* Add ambient light for overall brightness */}
-      <ambientLight intensity={0.4} color="#fffacd" />
+      <ambientLight intensity={0.4} color="#f0f0f0" />
       {/* Add a subtle fill light from the side */}
       <directionalLight
         position={[5, 2, 5]}
         intensity={0.8}
-        color="#fff8dc"
+        color="#e6f3ff"
         castShadow={false}
       />
       <primitive object={scene} />
