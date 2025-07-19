@@ -1,5 +1,6 @@
 import React from 'react'
 import SEO from '../components/seo'
+import PageFloatingRobot from '../components/PageFloatingRobot'
 
 import Navbar from '../components/navbar'
 import Contact from '../components/contact'
@@ -39,6 +40,10 @@ const ContactPage = (props) => {
         structuredData={contactStructuredData}
         breadcrumbs={contactBreadcrumbs}
       />
+      
+      {/* Floating Robot with red/rose body color */}
+      <PageFloatingRobot bodyColor="#e11d48" glowColor="#f43f5e" />
+      
       <Navbar />
       <Contact />
       <Footer />

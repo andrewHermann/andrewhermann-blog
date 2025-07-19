@@ -1,7 +1,7 @@
 import React from 'react'
 
 import SEO from '../components/seo'
-
+import PageFloatingRobot from '../components/PageFloatingRobot'
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
 import './about.css'
@@ -53,6 +53,10 @@ const About = (props) => {
         structuredData={aboutStructuredData}
         breadcrumbs={aboutBreadcrumbs}
       />
+      
+      {/* Floating Robot with blue/sky body color */}
+      <PageFloatingRobot bodyColor="#06b6d4" glowColor="#67e8f9" />
+      
       <Navbar />
       <div className="about-content">
         <div className="about-header">

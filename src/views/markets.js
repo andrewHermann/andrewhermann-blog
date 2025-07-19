@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet'
 
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
+import PageFloatingRobot from '../components/PageFloatingRobot'
 import './markets.css'
 
 const Markets = () => {
@@ -222,6 +223,9 @@ const Markets = () => {
         
         <link rel="canonical" href="https://andrew.cloudhopper.ch/markets" />
       </Helmet>
+
+      {/* Floating Robot with orange/amber body color */}
+      <PageFloatingRobot bodyColor="#f59e0b" glowColor="#fbbf24" />
 
       <Navbar />
 
