@@ -48,7 +48,7 @@ const Features1 = (props) => {
         </p>
       </div>
       
-      <div className="features1-portfolio-list">
+      <div className="features1-portfolio-grid">
         {portfolioItems.map((item, index) => (
           <div 
             key={index} 
