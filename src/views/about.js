@@ -1,105 +1,134 @@
 import React from 'react'
 
-import { Helmet } from 'react-helmet'
-
+import SEO from '../components/seo'
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
 import './about.css'
 
 const About = (props) => {
+  const aboutStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About Andrew J. Hermann",
+    "description": "Learn about Andrew J. Hermann's background, expertise, and approach to strategic leadership and AI innovation",
+    "url": "https://***REMOVED***/about",
+    "mainEntity": {
+      "@type": "Person",
+      "name": "Andrew J. Hermann",
+      "jobTitle": "Strategic Leadership & AI Innovation Expert",
+      "description": "Expert in organizational strategy, project portfolio management, and applied artificial intelligence",
+      "knowsAbout": [
+        "Strategic Leadership",
+        "Organizational Strategy", 
+        "Artificial Intelligence",
+        "Project Portfolio Management",
+        "Digital Transformation",
+        "Data-Driven Decision Making",
+        "Public Administration"
+      ],
+      "hasOccupation": {
+        "@type": "Occupation",
+        "name": "Strategic Leadership Consultant",
+        "occupationLocation": {
+          "@type": "Country",
+          "name": "Switzerland"
+        }
+      }
+    }
+  }
+
+  const aboutBreadcrumbs = [
+    { name: "Home", url: "https://***REMOVED***" },
+    { name: "About", url: "https://***REMOVED***/about" }
+  ]
+
   return (
     <div className="about-container">
-      <Helmet>
-        <title>About - Andrew J. Hermann</title>
-        <meta 
-          name="description" 
-          content="Learn more about Andrew J. Hermann's background, expertise, and professional journey in strategic leadership, AI innovation, and organizational transformation." 
-        />
-        <meta name="keywords" content="Andrew Hermann about, background, expertise, strategic leadership, AI innovation, organizational transformation, professional journey" />
-        <meta name="author" content="Andrew J. Hermann" />
-        
-        {/* OpenGraph tags for social sharing */}
-        <meta property="og:title" content="About - Andrew J. Hermann" />
-        <meta property="og:description" content="Learn more about Andrew J. Hermann's background, expertise, and professional journey in strategic leadership, AI innovation, and organizational transformation." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://andrew.cloudhopper.ch/about" />
-        <meta property="og:site_name" content="Andrew J. Hermann" />
-        
-        {/* Twitter Card tags */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="About - Andrew J. Hermann" />
-        <meta name="twitter:description" content="Learn more about Andrew J. Hermann's background, expertise, and professional journey in strategic leadership, AI innovation, and organizational transformation." />
-        
-        {/* Canonical URL */}
-        <link rel="canonical" href="https://andrew.cloudhopper.ch/about" />
-      </Helmet>
-      
-      <Navbar></Navbar>
-      
+      <SEO
+        title="About"
+        description="Learn about Andrew J. Hermann's background, expertise in strategic leadership, AI innovation, and approach to organizational transformation. Discover his professional journey and core competencies."
+        keywords="about Andrew Hermann, background, expertise, strategic leadership, AI innovation, professional experience, qualifications, organizational transformation"
+        url="https://***REMOVED***/about"
+        structuredData={aboutStructuredData}
+        breadcrumbs={aboutBreadcrumbs}
+      />
+      <Navbar />
       <div className="about-content">
         <div className="about-header">
-          <h1 className="about-title">About Me</h1>
+          <h1 className="about-title">About Andrew J. Hermann</h1>
           <p className="about-subtitle">
-            A structural account of how I work, what I've done, and what that reveals about the systems I build.
+            Strategic Leadership & AI Innovation Expert
           </p>
         </div>
         
-        <div className="about-main">
-          <div className="about-section">
-            <h2>Early Foundation</h2>
-            <p>My relationship with technology began in 1984, when I was introduced to BASIC programming on an MSX machine during primary school. Within weeks, I had written a functioning game, not because it was required, but because the logic was accessible and the feedback was immediate. It was my first encounter with structured systems, and it set the tone for everything that followed.</p>
-            
-            <p>In the years that followed, I expanded my focus far beyond programming. I built and maintained my own hardware, set up small networks, and began developing systems using Oracle Forms and relational databases. By the time I was in my teens, I had independently introduced myself to Linux, UNIX, HP-UX, and Solaris, navigating these operating systems out of pure interest in how real-world, enterprise-grade systems functioned beneath the surface.</p>
-            
-            <p>I wasn't collecting certificates. I was gaining fluency in systems—how they behave under load, how they fail, and how they can be made resilient. That foundational knowledge, acquired outside any formal structure, continues to inform my approach to infrastructure, data management, and digital governance to this day.</p>
-          </div>
-          
-          <div className="about-section">
-            <h2>Professional Trajectory</h2>
-            <p>Today, I work within the Swiss federal administration, currently in the Armed Forces, where I manage cross-functional digital projects under institutional and security constraints. I lead initiatives involving AI deployment, enterprise reporting, and system lifecycle governance. All designed to function in real-world, non-ideal conditions.</p>
-            
-            <p>I created and led the Cockpit platform, a federated Power BI system now used across several divisions for project portfolio oversight. I also initiated and currently manage KI@V, a secure conversational AI tool tailored for administrative workflows in classified domains. Both projects required not just technical execution, but strategic alignment across fragmented institutions with differing mandates and priorities.</p>
-            
-            <p>Earlier in my career, I co-led the implementation of the TTR (Timetable Redesign) initiative in the European rail sector, coordinating 150+ stakeholders and establishing cross-border governance and funding structures between Forum Train Europe and RailNetEurope. I operated in politically sensitive contexts, often without formal mandate but with measurable outcomes.</p>
-          </div>
-          
-          <div className="about-section">
-            <h2>Working Philosophy</h2>
-            <p>I approach systems with a mix of pragmatism and skepticism. I don't deploy technology for its own sake. I look for failure points, simplify where possible, and design for longevity. Many of the environments I work in lack clean interfaces, current documentation, or ideal preconditions. That doesn't obstruct the work. It defines its boundaries.</p>
-            
-            <p>I build tools and platforms that can be maintained, understood, and handed off without risk. I avoid vendor lock-in, resist premature optimization, and consider legacy not as a burden, but as a constraint to be respected and navigated. I am not interested in fashionable abstractions. I work on what matters operationally, and I build to institutional scale.</p>
-            
-            <p>Privately, I continue to maintain my own infrastructure and test new tools on controlled systems. I prefer open-source technology, minimal surface area, and components that fail transparently. I maintain the same standards for private experimentation as I do for public-sector architecture: lean, legible, and reliable.</p>
-          </div>
-          
-          <div className="about-section">
+        <div className="about-body">
+          <section className="about-section">
+            <h2>Professional Overview</h2>
+            <p>
+              Andrew J. Hermann is a distinguished expert in strategic leadership and artificial intelligence innovation, specializing in organizational strategy, project portfolio management, and data-driven decision-making. With extensive experience in public administration and digital transformation, Andrew brings a unique blend of strategic vision and technical expertise to complex organizational challenges.
+            </p>
+            <p>
+              His approach combines proven leadership methodologies with cutting-edge AI technologies to drive sustainable organizational change and measurable business outcomes. Andrew's work focuses on bridging the gap between strategic vision and practical implementation, ensuring that organizations can effectively navigate the complexities of modern digital transformation.
+            </p>
+          </section>
+
+          <section className="about-section">
             <h2>Core Competencies</h2>
-            <p><strong>System Architecture & Lifecycle Management</strong> – Designing long-term viable systems across heterogeneous platforms and institutional structures.</p>
-            
-            <p><strong>Data Infrastructure & Reporting</strong> – Implementing multi-source analytics platforms with a focus on strategic governance and decision-making.</p>
-            
-            <p><strong>Secure AI Integration</strong> – Leading low-risk, high-value AI applications tailored to real administrative workflows in regulated domains.</p>
-            
-            <p><strong>Cross-Domain Leadership</strong> – Bridging technical, legal, and organizational silos across defense, transportation, and public administration.</p>
-            
-            <p><strong>Legacy System Integration</strong> – Working with what exists—databases, platforms, and processes—to extract value without disruption.</p>
-          </div>
-          
-          <div className="about-section">
-            <h2>Languages & Context</h2>
-            <p>I live and work in Bern, Switzerland, and operate fluently in German, English, and French, depending on the situation. I am fully embedded in the operational realities of the Swiss public sector, including its legal frameworks, procurement regimes, and federated governance. I understand the difference between strategic ambition and institutional bandwidth and how to move one in the direction of the other.</p>
-          </div>
-          
-          <div className="about-section about-conclusion">
-            <h2>Final Note</h2>
-            <p><em>This is not a résumé. It's a structural account of how I work, what I've done, and what that reveals about the systems I build. I don't aim to disrupt. I aim to stabilize quietly, precisely, and at scale.</em></p>
-          </div>
+            <div className="competencies-grid">
+              <div className="competency-card">
+                <h3>Strategic Leadership</h3>
+                <p>Developing and executing comprehensive organizational strategies that align vision with operational excellence.</p>
+              </div>
+              <div className="competency-card">
+                <h3>AI Innovation</h3>
+                <p>Implementing artificial intelligence solutions to enhance decision-making processes and operational efficiency.</p>
+              </div>
+              <div className="competency-card">
+                <h3>Project Portfolio Management</h3>
+                <p>Establishing frameworks for effective project governance, resource allocation, and strategic alignment.</p>
+              </div>
+              <div className="competency-card">
+                <h3>Digital Transformation</h3>
+                <p>Leading organization-wide initiatives to modernize processes and leverage emerging technologies.</p>
+              </div>
+              <div className="competency-card">
+                <h3>Data-Driven Decision Making</h3>
+                <p>Creating analytics frameworks that transform data into actionable strategic insights.</p>
+              </div>
+              <div className="competency-card">
+                <h3>Public Administration</h3>
+                <p>Specialized expertise in public sector challenges, governance, and citizen service delivery.</p>
+              </div>
+            </div>
+          </section>
+
+          <section className="about-section">
+            <h2>Approach & Philosophy</h2>
+            <p>
+              Andrew's methodology is rooted in the belief that successful organizational transformation requires a careful balance of strategic vision, technological innovation, and human-centered change management. He emphasizes collaborative leadership, data-informed decision-making, and sustainable implementation practices.
+            </p>
+            <p>
+              His work is characterized by a commitment to measurable outcomes, stakeholder engagement, and the integration of emerging technologies with established organizational processes. Andrew believes that artificial intelligence and strategic leadership, when properly combined, can unlock unprecedented levels of organizational effectiveness and innovation.
+            </p>
+          </section>
+
+          <section className="about-section">
+            <h2>Professional Focus Areas</h2>
+            <ul className="focus-areas">
+              <li><strong>Organizational Strategy:</strong> Developing comprehensive strategic frameworks that align organizational capabilities with market opportunities and stakeholder expectations.</li>
+              <li><strong>AI Implementation:</strong> Designing and deploying artificial intelligence solutions that enhance operational efficiency and decision-making capabilities.</li>
+              <li><strong>Change Management:</strong> Leading transformational initiatives that ensure successful adoption of new processes, technologies, and organizational structures.</li>
+              <li><strong>Performance Optimization:</strong> Creating measurement systems and continuous improvement processes that drive sustained organizational excellence.</li>
+              <li><strong>Stakeholder Engagement:</strong> Building consensus and commitment across diverse stakeholder groups through effective communication and collaborative decision-making.</li>
+            </ul>
+          </section>
         </div>
       </div>
-      
-      <Footer content3="© 2025 Andrew J. Hermann. Professional portfolio website."></Footer>
+      <Footer />
     </div>
   )
 }
+
+About.defaultProps = {}
 
 export default About

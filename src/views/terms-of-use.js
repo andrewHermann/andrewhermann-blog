@@ -1,18 +1,25 @@
 import React from 'react'
-import { Helmet } from 'react-helmet'
+import SEO from '../components/seo'
 import { Link } from 'react-router-dom'
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
 import './terms-of-use.css'
 
 const TermsOfUse = () => {
+  const termsBreadcrumbs = [
+    { name: "Home", url: "https://***REMOVED***" },
+    { name: "Terms of Use", url: "https://***REMOVED***/terms" }
+  ]
+
   return (
     <div className="terms-container">
-      <Helmet>
-        <title>Terms of Use - Andrew J. Hermann</title>
-        <meta property="og:title" content="Terms of Use - Andrew J. Hermann" />
-        <meta name="description" content="Terms of Use for Andrew J. Hermann's professional website and services." />
-      </Helmet>
+      <SEO
+        title="Terms of Use"
+        description="Terms of Use for Andrew J. Hermann's professional website and services. Review the legal terms governing the use of this website and professional consulting services."
+        keywords="terms of use, legal terms, website terms, professional services terms, consulting agreement"
+        url="https://***REMOVED***/terms"
+        breadcrumbs={termsBreadcrumbs}
+      />
       <Navbar />
       <div className="terms-content">
         <div className="terms-header">
