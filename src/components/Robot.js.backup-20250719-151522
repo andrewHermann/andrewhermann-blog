@@ -59,11 +59,11 @@ const Robot = () => {
           const materialName = (child.material.name || '').toLowerCase();
           const combinedName = `${name} ${materialName}`;
           
-          // Body parts - BRIGHT BLUE
+          // Body parts - WHITE
           if (combinedName.includes('body') || combinedName.includes('armorout') || 
               combinedName.includes('armorin') || combinedName.includes('torso') ||
               combinedName.includes('chest') || combinedName.includes('main')) {
-            child.material.color.setHex(0x0000ff); // Pure white
+            child.material.color.setHex(0xffffff); // Pure white
             child.material.roughness = 0.3;
             child.material.metalness = 0.1;
           }
@@ -103,7 +103,7 @@ const Robot = () => {
           // Arms and legs - white to match body
           else if (combinedName.includes('arm') || combinedName.includes('hand') || 
                    combinedName.includes('leg') || combinedName.includes('foot')) {
-            child.material.color.setHex(0x0066ff); // Slightly off-white
+            child.material.color.setHex(0xf8f8f8); // Slightly off-white
             child.material.roughness = 0.4;
             child.material.metalness = 0.2;
           }
@@ -332,37 +332,37 @@ const Robot = () => {
       {/* Bright blue directional light from top left */}
       <directionalLight
         position={[-10, 10, 5]}
-        intensity={3.0}
+        intensity={2.0}
         color="#0088ff"
         castShadow={false}
       />
       {/* Bright blue directional light from top right */}
       <directionalLight
         position={[10, 10, 5]}
-        intensity={3.0}
+        intensity={2.0}
         color="#0088ff"
         castShadow={false}
       />
       {/* Ambient light for base illumination */}
-      <ambientLight intensity={0.9} color="#ffffff" />
+      <ambientLight intensity={0.6} color="#ffffff" />
       {/* Front directional white light for front visibility */}
       <directionalLight
         position={[0, 12, 15]}
-        intensity={2.7}
+        intensity={1.8}
         color="#ffffff"
         castShadow={false}
       />
       {/* Red directional light from top front */}
       <directionalLight
         position={[0, 15, 10]}
-        intensity={2.25}
+        intensity={1.5}
         color="#ff4444"
         castShadow={false}
       />
       {/* Red directional light from top back */}
       <directionalLight
         position={[0, 15, -10]}
-        intensity={2.25}
+        intensity={1.5}
         color="#ff4444"
         castShadow={false}
       />
