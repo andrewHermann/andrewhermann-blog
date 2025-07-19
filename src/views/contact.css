@@ -1,0 +1,34 @@
+.contact-page-container {
+  width: 100%;
+  display: flex;
+  overflow: auto;
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+  background: linear-gradient(135deg, var(--dl-color-theme-neutral-light), var(--dl-color-theme-accent2));
+}
+
+.contact-page-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+}
+
+/* Ensure the contact component fits well in the dedicated page */
+.contact-page-content .contact-contact20 {
+  padding: var(--dl-layout-space-fourunits) var(--dl-layout-space-twounits);
+}
+
+@media(max-width: 767px) {
+  .contact-page-content .contact-contact20 {
+    padding: var(--dl-layout-space-threeunits) var(--dl-layout-space-unit);
+  }
+}
+
+@media(max-width: 479px) {
+  .contact-page-content .contact-contact20 {
+    padding: var(--dl-layout-space-twounits) var(--dl-layout-space-unit);
+  }
+}
