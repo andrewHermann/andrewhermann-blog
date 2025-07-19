@@ -1,6 +1,7 @@
 import React from 'react'
 
 import SEO from '../components/seo'
+
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
 import './portfolio.css'
@@ -11,21 +12,7 @@ const Portfolio = (props) => {
     "@type": "WebPage",
     "name": "Professional Portfolio",
     "description": "Andrew J. Hermann's professional portfolio showcasing expertise in organizational strategy, AI innovation, and project management",
-    "url": "https://andrewhermann.com/portfolio",
-    "mainEntity": {
-      "@type": "Person",
-      "name": "Andrew J. Hermann",
-      "hasCredential": [
-        {
-          "@type": "EducationalOccupationalCredential",
-          "name": "Strategic Leadership"
-        },
-        {
-          "@type": "EducationalOccupationalCredential", 
-          "name": "AI Innovation"
-        }
-      ]
-    }
+    "url": "https://andrewhermann.com/portfolio"
   }
 
   const portfolioBreadcrumbs = [
@@ -43,102 +30,110 @@ const Portfolio = (props) => {
         structuredData={portfolioStructuredData}
         breadcrumbs={portfolioBreadcrumbs}
       />
-      <Navbar />
+      
+      <Navbar></Navbar>
+      
       <div className="portfolio-content">
         <div className="portfolio-header">
           <h1 className="portfolio-title">Professional Portfolio</h1>
           <p className="portfolio-subtitle">
-            Showcasing strategic leadership and innovation across diverse projects
+            Showcasing my expertise in organizational strategy, project portfolio management, 
+            data-driven decision-making, and applied artificial intelligence.
           </p>
         </div>
         
-        <div className="portfolio-grid">
-          <div className="portfolio-card">
-            <div className="portfolio-card-content">
-              <h2>Strategic Organizational Transformation</h2>
-              <p>
-                Led comprehensive organizational restructuring initiatives that improved operational efficiency by 40% while maintaining service quality and employee satisfaction.
-              </p>
-              <div className="portfolio-tags">
-                <span className="portfolio-tag">Strategy</span>
-                <span className="portfolio-tag">Change Management</span>
-                <span className="portfolio-tag">Leadership</span>
-              </div>
-            </div>
+        <div className="portfolio-main">
+          <div className="portfolio-section">
+            <h2>KI@V – Conversational AI for the Swiss Armed Forces (2023–2025)</h2>
+            <p>
+              Leading the development and implementation of conversational artificial intelligence systems 
+              for defense applications. This project involves designing AI-driven communication and 
+              decision-support tools that enhance operational effectiveness while maintaining strict 
+              security and privacy standards required for defense environments.
+            </p>
+            <h3>Key Responsibilities & Achievements:</h3>
+            <ul>
+              <li>Strategic planning and architectural design for AI systems in defense contexts</li>
+              <li>Cross-functional team leadership across technical and operational domains</li>
+              <li>Stakeholder management and requirement gathering from military leadership</li>
+              <li>Implementation of AI governance frameworks ensuring compliance with security protocols</li>
+              <li>Development of training and adoption strategies for end-user acceptance</li>
+            </ul>
           </div>
 
-          <div className="portfolio-card">
-            <div className="portfolio-card-content">
-              <h2>AI-Driven Decision Support Systems</h2>
-              <p>
-                Designed and implemented artificial intelligence solutions for data-driven decision making in public administration, resulting in 25% faster processing times and improved accuracy.
-              </p>
-              <div className="portfolio-tags">
-                <span className="portfolio-tag">AI</span>
-                <span className="portfolio-tag">Data Analytics</span>
-                <span className="portfolio-tag">Public Sector</span>
-              </div>
-            </div>
+          <div className="portfolio-section">
+            <h2>Digital Transformation & Project Portfolio Management</h2>
+            <p>
+              Extensive experience in leading large-scale digital transformation initiatives across 
+              public sector organizations. Specialized in establishing project portfolio management 
+              frameworks that align strategic objectives with operational delivery.
+            </p>
+            <h3>Core Competencies:</h3>
+            <ul>
+              <li>Strategic portfolio planning and resource allocation optimization</li>
+              <li>Agile and traditional project management methodologies</li>
+              <li>Change management and organizational development</li>
+              <li>Stakeholder engagement and communication strategies</li>
+              <li>Performance measurement and continuous improvement processes</li>
+            </ul>
           </div>
 
-          <div className="portfolio-card">
-            <div className="portfolio-card-content">
-              <h2>Project Portfolio Management</h2>
-              <p>
-                Established enterprise-wide project portfolio management frameworks that increased project success rates by 35% and improved resource allocation efficiency.
-              </p>
-              <div className="portfolio-tags">
-                <span className="portfolio-tag">PMO</span>
-                <span className="portfolio-tag">Portfolio Management</span>
-                <span className="portfolio-tag">Resource Optimization</span>
-              </div>
-            </div>
+          <div className="portfolio-section">
+            <h2>Data-Driven Decision Making & Analytics</h2>
+            <p>
+              Proven track record in implementing data analytics frameworks that transform 
+              organizational decision-making processes. Expertise in developing metrics, 
+              KPIs, and dashboard solutions that provide actionable insights for leadership.
+            </p>
+            <h3>Technical & Strategic Skills:</h3>
+            <ul>
+              <li>Business intelligence and analytics platform implementation</li>
+              <li>Data governance and quality management frameworks</li>
+              <li>Predictive modeling and trend analysis for strategic planning</li>
+              <li>Dashboard and reporting solution design</li>
+              <li>Training and capability building for data-driven cultures</li>
+            </ul>
           </div>
 
-          <div className="portfolio-card">
-            <div className="portfolio-card-content">
-              <h2>Digital Transformation Initiatives</h2>
-              <p>
-                Spearheaded organization-wide digital transformation programs that modernized legacy systems and improved citizen service delivery capabilities.
-              </p>
-              <div className="portfolio-tags">
-                <span className="portfolio-tag">Digital Transformation</span>
-                <span className="portfolio-tag">Process Improvement</span>
-                <span className="portfolio-tag">Innovation</span>
-              </div>
-            </div>
+          <div className="portfolio-section">
+            <h2>Public Administration & Policy Implementation</h2>
+            <p>
+              Deep understanding of public sector challenges with specialized expertise in 
+              policy implementation, regulatory compliance, and citizen service delivery 
+              optimization. Experience working with multiple levels of government and 
+              international organizations.
+            </p>
+            <h3>Areas of Impact:</h3>
+            <ul>
+              <li>Policy development and implementation strategy</li>
+              <li>Regulatory compliance and risk management</li>
+              <li>Citizen service digitalization and improvement</li>
+              <li>Inter-agency collaboration and coordination</li>
+              <li>Public-private partnership development and management</li>
+            </ul>
           </div>
 
-          <div className="portfolio-card">
-            <div className="portfolio-card-content">
-              <h2>Data-Driven Performance Analytics</h2>
-              <p>
-                Developed comprehensive performance measurement systems using advanced analytics to drive strategic decision-making and continuous improvement.
-              </p>
-              <div className="portfolio-tags">
-                <span className="portfolio-tag">Analytics</span>
-                <span className="portfolio-tag">Performance Management</span>
-                <span className="portfolio-tag">KPIs</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="portfolio-card">
-            <div className="portfolio-card-content">
-              <h2>Cross-Functional Team Leadership</h2>
-              <p>
-                Successfully managed multi-disciplinary teams across various strategic initiatives, fostering collaboration and delivering exceptional results within budget and timeline constraints.
-              </p>
-              <div className="portfolio-tags">
-                <span className="portfolio-tag">Team Leadership</span>
-                <span className="portfolio-tag">Collaboration</span>
-                <span className="portfolio-tag">Results Delivery</span>
-              </div>
-            </div>
+          <div className="portfolio-section">
+            <h2>AI Strategy & Innovation Leadership</h2>
+            <p>
+              Strategic leadership in artificial intelligence adoption across organizations, 
+              with focus on practical implementation, ethical considerations, and measurable 
+              business outcomes. Experience bridging technical possibilities with strategic 
+              organizational needs.
+            </p>
+            <h3>Innovation Focus Areas:</h3>
+            <ul>
+              <li>AI strategy development and roadmap planning</li>
+              <li>Ethical AI framework design and implementation</li>
+              <li>Machine learning and automation solution deployment</li>
+              <li>AI governance and risk management</li>
+              <li>Organizational capability building for AI adoption</li>
+            </ul>
           </div>
         </div>
       </div>
-      <Footer />
+      
+      <Footer></Footer>
     </div>
   )
 }
