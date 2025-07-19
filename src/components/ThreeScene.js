@@ -53,7 +53,7 @@ const ThreeScene = () => {
   
   return (
     <Canvas
-      shadows={true}
+      shadows={false}
       className="hero-robot-canvas"
       camera={{ position: [0, 0, 100], fov: 75 }}
       style={{ width: '100%', height: '100%' }}
