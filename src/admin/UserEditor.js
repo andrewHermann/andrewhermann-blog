@@ -25,9 +25,9 @@ const UserEditor = () => {
 
   const fetchUser = async () => {
     try {
-      const response = await apiRequest(API_ENDPOINTS.ADMIN_USER(id));
-      if (response.ok) {
-        const data = await response.json();
+      const response = await apiRequest(`${API_ENDPOINTS.ADMIN_USERS}/${id}`);
+      if (response) {
+        // apiRequest already returns JSON data
         setUser({ ...data, password: '' }); // Don't load password for security
       } else {
         setError('Failed to load user');
@@ -53,7 +53,7 @@ const UserEditor = () => {
 
     try {
       const url = isEditing 
-        ? API_ENDPOINTS.ADMIN_USER(id)
+        ? `${API_ENDPOINTS.ADMIN_USERS}/${id}`
         : API_ENDPOINTS.ADMIN_USERS;
       
       const method = isEditing ? 'PUT' : 'POST';
@@ -67,13 +67,13 @@ const UserEditor = () => {
         body: JSON.stringify(userData),
       });
 
-      if (response.ok) {
+      if (response) {
         setSuccess(isEditing ? 'User updated successfully!' : 'User created successfully!');
         setTimeout(() => {
           navigate('/admin/users');
         }, 1500);
       } else {
-        const data = await response.json();
+        // apiRequest already returns JSON data
         setError(data.error || 'Failed to save user');
       }
     } catch (err) {

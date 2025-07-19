@@ -24,9 +24,9 @@ const UserManager = () => {
   const fetchUsers = async () => {
     try {
       const response = await apiRequest(API_ENDPOINTS.ADMIN_USERS);
-      if (response.ok) {
-        const data = await response.json();
-        setUsers(data);
+      if (response) {
+        // apiRequest already returns JSON data
+        setUsers(response);
       } else {
         setError('Failed to load users');
       }
@@ -40,12 +40,12 @@ const UserManager = () => {
   const deleteUser = async (id) => {
     if (window.confirm('Are you sure you want to delete this user?')) {
       try {
-        const response = await apiRequest(API_ENDPOINTS.ADMIN_USER(id), { method: 'DELETE' });
-        if (response.ok) {
+        const response = await apiRequest(`${API_ENDPOINTS.ADMIN_USERS}/${id}`, { method: 'DELETE' });
+        if (response) {
           setSuccess('User deleted successfully!');
           fetchUsers();
         } else {
-          const data = await response.json();
+          // apiRequest already returns JSON data
           setError(data.error || 'Failed to delete user');
         }
       } catch (err) {
@@ -88,7 +88,7 @@ const UserManager = () => {
         }),
       });
 
-      if (response.ok) {
+      if (response) {
         setSuccess('Password changed successfully!');
         setPasswordData({
           currentPassword: '',
@@ -96,7 +96,7 @@ const UserManager = () => {
           confirmPassword: ''
         });
       } else {
-        const data = await response.json();
+        // apiRequest already returns JSON data
         setError(data.error || 'Failed to change password');
       }
     } catch (err) {
