@@ -12,6 +12,7 @@ import NotFound1 from './views/not-found'
 import TermsOfUse from './views/terms-of-use'
 import PrivacyPolicy from './views/privacy-policy'
 import CookiesPolicy from './views/cookies-policy'
+import CookieConsent from './components/cookie-consent'
 
 import AdminLogin from './admin/AdminLogin'
 import AdminDashboard from './admin/AdminDashboard'
@@ -111,6 +112,9 @@ const AppRouter = () => {
 
         <Route path="*" element={<Navigate to="/not-found" replace />} />
       </Routes>
+      
+      {/* Cookie Consent Banner - appears on all pages */}
+      <CookieConsent />
     </Router>
   )
 }
