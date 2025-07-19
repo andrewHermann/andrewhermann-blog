@@ -1,44 +1,55 @@
 import React from 'react'
-
 import PropTypes from 'prop-types'
-
 import './cta.css'
 
 const CTA = (props) => {
+  // Define informational cards about skills and experience
+  const infoCards = [
+    {
+      title: "Strategic Leadership & Innovation",
+      description: "Experienced in developing and implementing organizational strategies that drive innovation and operational excellence across complex systems.",
+      action: "View Portfolio"
+    },
+    {
+      title: "Applied Artificial Intelligence",
+      description: "Specialized in leveraging AI technologies to solve real-world problems in public administration and organizational management.",
+      action: "See AI Projects"
+    },
+    {
+      title: "Data-Driven Decision Making",
+      description: "Proven track record of using analytics and data science to inform strategic decisions and optimize organizational performance.",
+      action: "Explore Methods"
+    },
+    {
+      title: "Project Portfolio Management",
+      description: "Expert in managing complex project portfolios, resource allocation, and stakeholder coordination across multiple initiatives.",
+      action: "Learn About Experience"
+    }
+  ]
+
   return (
-    <div className="thq-section-padding">
-      <div className="thq-section-max-width">
-        <div className="cta-accent2-bg">
-          <div className="cta-accent1-bg">
-            <div className="cta-container2">
-              <div className="cta-content">
-                <span className="thq-heading-2">{props.heading1}</span>
-                <p className="thq-body-large">{props.content1}</p>
-              </div>
-              <div className="cta-actions">
-                <button type="button" className="thq-button-filled cta-button">
-                  {props.action1}
-                </button>
-              </div>
+    <div className="cta-steps-container">
+      <div className="cta-steps-max-width">
+        <div className="cta-steps-header">
+          <h2 className="cta-steps-title">Core Competencies</h2>
+          <p className="cta-steps-subtitle">Key areas of expertise and professional focus</p>
+        </div>
+        <div className="cta-cards-container">
+          {infoCards.map((card, index) => (
+            <div key={index} className={`cta-card cta-card-${index + 1}`}>
+              <h3 className="cta-card-title">{card.title}</h3>
+              <p className="cta-card-description">{card.description}</p>
+              <button className="cta-card-button">{card.action}</button>
+              <span className="cta-card-number">{String(index + 1).padStart(2, '0')}</span>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>
   )
 }
 
-CTA.defaultProps = {
-  action1: 'Contact me for a consultation',
-  heading1: 'Ready to revolutionize your organization?',
-  content1:
-    'Explore how I can help you drive innovation and achieve your strategic goals.',
-}
-
-CTA.propTypes = {
-  action1: PropTypes.string,
-  heading1: PropTypes.string,
-  content1: PropTypes.string,
-}
+CTA.defaultProps = {}
+CTA.propTypes = {}
 
 export default CTA

@@ -35,12 +35,11 @@ const Robot = () => {
   const [lastTouch, setLastTouch] = useState({ x: 0, y: 0 });
   const [dragDistance, setDragDistance] = useState(0);
   const [isPlayingPose, setIsPlayingPose] = useState(false);
-  const [isPlayingReverse, setIsPlayingReverse] = useState(false);
 
   useLayoutEffect(() => {
     if (scene) {
       scene.scale.set(22.5, 22.5, 22.5); // Reduced scale (25% of original)
-      scene.position.set(0, 10, 0); // Adjusted position - moved up another 10 units
+      scene.position.set(0, 0, 0); // Adjusted position
       scene.rotation.y = Math.PI; // Face forward
       
       // Apply strategic coloring with white body
@@ -149,35 +148,19 @@ const Robot = () => {
     }
   }, [actions]);
 
-  // Handle animation completion for Pose animations with reverse playback
+  // Handle animation completion for Pose -> Idle transition using mixer events
   useEffect(() => {
     if (mixer && actions && actions.Pose) {
       const onFinished = (event) => {
-        if (event.action === actions.Pose) {
-          if (isPlayingPose && !isPlayingReverse) {
-            // Forward animation finished, now play it backwards
-            console.log('Pose animation finished forward, playing in reverse');
-            setIsPlayingReverse(true);
-            
-            // Set up reverse playback
-            actions.Pose.reset();
-            actions.Pose.setLoop(THREE.LoopOnce);
-            actions.Pose.timeScale = -1; // Reverse playback
-            actions.Pose.time = actions.Pose.getClip().duration; // Start from the end
-            actions.Pose.play();
-          } else if (isPlayingPose && isPlayingReverse) {
-            // Reverse animation finished, return to Idle
-            console.log('Pose animation finished in reverse, returning to Idle');
-            setIsPlayingPose(false);
-            setIsPlayingReverse(false);
-            setCurrentAnimation('Idle');
-            
-            // Reset and transition to Idle
-            actions.Pose.timeScale = 1; // Reset timescale
-            actions.Pose.fadeOut(0.3);
-            if (actions.Idle) {
-              actions.Idle.reset().fadeIn(0.3).play();
-            }
+        if (event.action === actions.Pose && isPlayingPose) {
+          console.log('Pose animation finished, returning to Idle');
+          setIsPlayingPose(false);
+          setCurrentAnimation('Idle');
+          
+          // Stop Pose and start Idle
+          actions.Pose.fadeOut(0.3);
+          if (actions.Idle) {
+            actions.Idle.reset().fadeIn(0.3).play();
           }
         }
       };
@@ -188,23 +171,20 @@ const Robot = () => {
         mixer.removeEventListener('finished', onFinished);
       };
     }
-  }, [mixer, actions, isPlayingPose, isPlayingReverse]);
+  }, [mixer, actions, isPlayingPose]);
 
-  // Play Pose animation once (forward then reverse)
+  // Play Pose animation once
   const playPoseOnce = () => {
     if (actions && actions.Pose && !isPlayingPose) {
-      console.log('Playing Pose animation forward');
+      console.log('Playing Pose animation once');
       setIsPlayingPose(true);
-      setIsPlayingReverse(false);
       setCurrentAnimation('Pose');
       
-      // Stop Idle and play Pose forward
+      // Stop Idle and play Pose once
       if (actions.Idle) {
         actions.Idle.fadeOut(0.3);
       }
       
-      // Reset timescale and play forward
-      actions.Pose.timeScale = 1;
       actions.Pose.setLoop(THREE.LoopOnce).reset().fadeIn(0.3).play();
     }
   };
