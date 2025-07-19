@@ -49,13 +49,15 @@ const BlogPost = () => {
         <Navbar />
         
         <div className="blog-post-content">
-          <div className="blog-post-header">
-            <Link to="/blog" className="blog-back-link">← Back to Blog</Link>
-            <h1 className="blog-post-title">Loading...</h1>
-          </div>
-          
-          <div className="blog-post-main">
-            <div className="blog-post-loading">Loading post...</div>
+          <div className="blog-post-frame">
+            <div className="blog-post-header">
+              <Link to="/blog" className="blog-back-link">← Back to Blog</Link>
+              <h1 className="blog-post-title">Loading...</h1>
+            </div>
+            
+            <div className="blog-post-main">
+              <div className="blog-post-loading">Loading post...</div>
+            </div>
           </div>
         </div>
         
@@ -75,17 +77,19 @@ const BlogPost = () => {
         <Navbar />
         
         <div className="blog-post-content">
-          <div className="blog-post-header">
-            <Link to="/blog" className="blog-back-link">← Back to Blog</Link>
-            <h1 className="blog-post-title">Post Not Found</h1>
-            <p className="blog-post-subtitle">
-              The blog post you're looking for doesn't exist or has been removed.
-            </p>
-          </div>
-          
-          <div className="blog-post-main">
-            <div className="blog-post-error">
-              <p>Please check the URL or return to the blog to browse other posts.</p>
+          <div className="blog-post-frame">
+            <div className="blog-post-header">
+              <Link to="/blog" className="blog-back-link">← Back to Blog</Link>
+              <h1 className="blog-post-title">Post Not Found</h1>
+              <p className="blog-post-subtitle">
+                The blog post you're looking for doesn't exist or has been removed.
+              </p>
+            </div>
+            
+            <div className="blog-post-main">
+              <div className="blog-post-error">
+                <p>Please check the URL or return to the blog to browse other posts.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -119,28 +123,30 @@ const BlogPost = () => {
       <Navbar />
       
       <div className="blog-post-content">
-        <div className="blog-post-header">
-          <Link to="/blog" className="blog-back-link">← Back to Blog</Link>
-          <h1 className="blog-post-title">{post.title}</h1>
-          <div className="blog-post-meta">
-            <time dateTime={post.created_at}>
-              Published on {formatDate(post.created_at)}
-            </time>
-            {post.updated_at !== post.created_at && (
-              <span className="blog-post-updated">
-                (Updated {formatDate(post.updated_at)})
-              </span>
-            )}
+        <div className="blog-post-frame">
+          <div className="blog-post-header">
+            <Link to="/blog" className="blog-back-link">← Back to Blog</Link>
+            <h1 className="blog-post-title">{post.title}</h1>
+            <div className="blog-post-meta">
+              <time dateTime={post.created_at}>
+                Published on {formatDate(post.created_at)}
+              </time>
+              {post.updated_at !== post.created_at && (
+                <span className="blog-post-updated">
+                  (Updated {formatDate(post.updated_at)})
+                </span>
+              )}
+            </div>
           </div>
-        </div>
-        
-        <div className="blog-post-main">
-          <article className="blog-post-article">
-            <div 
-              className="blog-post-content-body"
-              dangerouslySetInnerHTML={{ __html: post.content }}
-            />
-          </article>
+          
+          <div className="blog-post-main">
+            <article className="blog-post-article">
+              <div 
+                className="blog-post-content-body"
+                dangerouslySetInnerHTML={{ __html: post.content }}
+              />
+            </article>
+          </div>
         </div>
       </div>
       

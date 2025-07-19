@@ -20,6 +20,26 @@
   padding-right: 20px;
 }
 
+/* Main frame container for the blog post - matching blog page styling */
+.blog-post-frame {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid #e5e7eb;
+  padding: 40px;
+  margin: 0 auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-post-frame:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
 .blog-post-header {
   width: 100%;
   display: flex;
@@ -31,7 +51,7 @@
 }
 
 .blog-back-link {
-  color: var(--dl-color-theme-primary1);
+  color: var(--dl-color-theme-primary);
   font-size: 0.875rem;
   font-weight: 600;
   text-decoration: none;
@@ -41,14 +61,14 @@
 }
 
 .blog-back-link:hover {
-  color: var(--dl-color-theme-primary2);
+  color: var(--dl-color-theme-secondary);
 }
 
 .blog-post-title {
   color: var(--dl-color-theme-neutral-dark);
   font-size: 2.5rem;
   font-style: normal;
-  font-family: "STIX Two Text", serif;
+  font-family: Inter, sans-serif;
   font-weight: 600;
   line-height: 1.2;
   margin-top: 0;
@@ -67,6 +87,12 @@
   font-size: 0.875rem;
   line-height: 1.6;
   margin-bottom: 0;
+  font-weight: 500;
+}
+
+.blog-post-meta time {
+  color: #4f46e5;
+  font-weight: 600;
 }
 
 .blog-post-updated {
@@ -96,6 +122,7 @@
 .blog-post-content-body p {
   color: var(--dl-color-theme-neutral-dark);
   font-size: 1.125rem;
+  font-family: Inter, sans-serif;
   line-height: 1.8;
   margin-bottom: 24px;
 }
@@ -107,7 +134,7 @@
 .blog-post-content-body h5,
 .blog-post-content-body h6 {
   color: var(--dl-color-theme-neutral-dark);
-  font-family: "STIX Two Text", serif;
+  font-family: Inter, sans-serif;
   font-weight: 600;
   line-height: 1.3;
   margin-top: 32px;
@@ -155,24 +182,29 @@
 .blog-post-content-body li {
   color: var(--dl-color-theme-neutral-dark);
   font-size: 1.125rem;
+  font-family: Inter, sans-serif;
   line-height: 1.8;
   margin-bottom: 8px;
 }
 
 .blog-post-content-body blockquote {
-  border-left: 4px solid var(--dl-color-theme-primary1);
+  border-left: 4px solid var(--dl-color-theme-primary);
   padding-left: 24px;
   margin: 32px 0;
   font-style: italic;
   color: #6b7280;
+  background-color: #f8fafc;
+  padding: 20px 20px 20px 44px;
+  border-radius: 0 8px 8px 0;
 }
 
 .blog-post-content-body code {
   background: #f3f4f6;
   padding: 2px 6px;
   border-radius: 4px;
-  font-family: monospace;
+  font-family: 'Courier New', monospace;
   font-size: 0.9em;
+  color: #e11d48;
 }
 
 .blog-post-content-body pre {
@@ -181,21 +213,23 @@
   border-radius: 8px;
   overflow-x: auto;
   margin: 24px 0;
+  border: 1px solid #e2e8f0;
 }
 
 .blog-post-content-body pre code {
   background: none;
   padding: 0;
+  color: var(--dl-color-theme-neutral-dark);
 }
 
 .blog-post-content-body a {
-  color: var(--dl-color-theme-primary1);
+  color: var(--dl-color-theme-primary);
   text-decoration: underline;
   transition: color 0.2s ease;
 }
 
 .blog-post-content-body a:hover {
-  color: var(--dl-color-theme-primary2);
+  color: var(--dl-color-theme-secondary);
 }
 
 .blog-post-loading,
@@ -222,6 +256,12 @@
 }
 
 /* Responsive design */
+@media (max-width: 1024px) {
+  .blog-post-frame {
+    padding: 30px;
+  }
+}
+
 @media (max-width: 991px) {
   .blog-post-content {
     padding-top: 100px;
@@ -236,6 +276,10 @@
   .blog-post-content-body p,
   .blog-post-content-body li {
     font-size: 1rem;
+  }
+  
+  .blog-post-frame {
+    padding: 25px;
   }
 }
 
@@ -263,6 +307,10 @@
   .blog-post-content-body h3 {
     font-size: 1.25rem;
   }
+  
+  .blog-post-frame {
+    padding: 20px;
+  }
 }
 
 @media (max-width: 479px) {
@@ -283,4 +331,20 @@
   .blog-post-content-body blockquote {
     padding-left: 16px;
   }
+  
+  .blog-post-frame {
+    padding: 16px;
+  }
+}
+
+/* Enhanced interactive effects */
+.blog-post-frame {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.blog-post-frame:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 
+              0 0 0 1px rgba(74, 78, 105, 0.1),
+              0 0 20px rgba(74, 78, 105, 0.1);
 }
