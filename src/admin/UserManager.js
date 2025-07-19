@@ -44,9 +44,6 @@ const UserManager = () => {
         if (response) {
           setSuccess('User deleted successfully!');
           fetchUsers();
-        } else {
-          // apiRequest already returns JSON data
-          setError(data.error || 'Failed to delete user');
         }
       } catch (err) {
         setError('Connection error: ' + err.message);

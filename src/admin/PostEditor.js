@@ -57,9 +57,6 @@ const PostEditor = () => {
           updated_at: formatDateForInput(data.updated_at)
         });
         setError(''); // Clear any error
-      } else {
-        console.log('Failed to load post - response not ok:', response.status);
-        setError('Failed to load post');
       }
     } catch (err) {
       console.log('Error loading post:', err);
@@ -114,9 +111,6 @@ const PostEditor = () => {
         setTimeout(() => {
           navigate('/admin/posts');
         }, 1500);
-      } else {
-        // apiRequest already returns JSON data
-        setError(data.error || 'Failed to save post');
       }
     } catch (err) {
       setError('Connection error: ' + err.message);
