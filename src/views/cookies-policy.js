@@ -91,24 +91,24 @@ const CookiesPolicy = () => {
               </thead>
               <tbody>
                 <tr>
-                  <td><strong>Essential Cookies</strong></td>
-                  <td>These cookies are essential for you to browse the website and use its features, such as accessing secure areas of the site.</td>
-                  <td>Session</td>
+                  <td data-label="Cookie Type"><strong>Essential Cookies</strong></td>
+                  <td data-label="Purpose">These cookies are essential for you to browse the website and use its features, such as accessing secure areas of the site.</td>
+                  <td data-label="Duration">Session</td>
                 </tr>
                 <tr>
-                  <td><strong>Analytics Cookies</strong></td>
-                  <td>We use Google Analytics to collect information about how visitors use our website. We use the information to compile reports and to help us improve the website.</td>
-                  <td>Up to 2 years</td>
+                  <td data-label="Cookie Type"><strong>Analytics Cookies</strong></td>
+                  <td data-label="Purpose">We use Google Analytics to collect information about how visitors use our website. We use the information to compile reports and to help us improve the website.</td>
+                  <td data-label="Duration">Up to 2 years</td>
                 </tr>
                 <tr>
-                  <td><strong>Functionality Cookies</strong></td>
-                  <td>These cookies remember choices you make to improve your experience (e.g., your username, language, or region).</td>
-                  <td>Up to 1 year</td>
+                  <td data-label="Cookie Type"><strong>Functionality Cookies</strong></td>
+                  <td data-label="Purpose">These cookies remember choices you make to improve your experience (e.g., your username, language, or region).</td>
+                  <td data-label="Duration">Up to 1 year</td>
                 </tr>
                 <tr>
-                  <td><strong>Performance Cookies</strong></td>
-                  <td>These cookies collect information about how you use the website, for instance which pages you visit most often.</td>
-                  <td>Up to 30 days</td>
+                  <td data-label="Cookie Type"><strong>Performance Cookies</strong></td>
+                  <td data-label="Purpose">These cookies collect information about how you use the website, for instance which pages you visit most often.</td>
+                  <td data-label="Duration">Up to 30 days</td>
                 </tr>
               </tbody>
             </table>
