@@ -8,6 +8,7 @@ const PostEditor = () => {
   const navigate = useNavigate();
   const isEditing = id !== 'new';
 
+
   const [post, setPost] = useState({
     title: '',
     content: '',
@@ -21,46 +22,45 @@ const PostEditor = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  // Helper function to format date for datetime-local input
-  const formatDateForInput = (dateString) => {
-    if (!dateString) return '';
-    return new Date(dateString).toISOString().slice(0, 16);
-  };
-
-  // Helper function to format date for API
-  const formatDateForAPI = (dateString) => {
-    if (!dateString) return '';
-    return new Date(dateString).toISOString();
-  };
-
   useEffect(() => {
-    console.log("PostEditor useEffect - id:", id, "isEditing:", isEditing);
+    console.log('PostEditor useEffect - id:', id, 'isEditing:', isEditing);
+    
     if (isEditing) {
-      console.log("Calling fetchPost for id:", id);
+      console.log('Calling fetchPost for id:', id);
       fetchPost();
     } else {
-      console.log("Skipping fetchPost - creating new post");
-      setError(""); // Clear any existing error
+      console.log('Creating new post - NOT calling fetchPost');
+      setError(''); // Clear any existing error
+      // Initialize empty post for new creation
+      setPost({
+        title: '',
+        content: '',
+        excerpt: '',
+        slug: '',
+        published: false,
+        created_at: '',
+        updated_at: ''
+      });
     }
   }, [id, isEditing]);
-
   const fetchPost = async () => {
+    console.log('fetchPost called with id:', id);
     try {
-      const response = await apiRequest(API_ENDPOINTS.ADMIN_POST(id));
-      if (response.ok) {
-        const data = await response.json();
-        setPost({
-          ...data,
-          created_at: formatDateForInput(data.created_at),
-          updated_at: formatDateForInput(data.updated_at)
-        });
-      } else {
-        setError('Failed to load post');
-      }
+      const response = await apiRequest(`${API_ENDPOINTS.ADMIN_POSTS}/${id}`);
+      // apiRequest already returns JSON data directly
+      console.log('Post loaded successfully:', response);
+      setPost({
+        ...response,
+        created_at: formatDateForInput(response.created_at),
+        updated_at: formatDateForInput(response.updated_at)
+      });
+      setError(''); // Clear any error
     } catch (err) {
+      console.log('Error loading post:', err);
       setError('Connection error: ' + err.message);
     }
   };
+
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -88,12 +88,11 @@ const PostEditor = () => {
 
     try {
       const url = isEditing 
-        ? API_ENDPOINTS.ADMIN_POST(id)
+        ? `${API_ENDPOINTS.ADMIN_POSTS}/${id}`
         : API_ENDPOINTS.ADMIN_POSTS;
       
       const method = isEditing ? 'PUT' : 'POST';
       
-      // Format dates for API
       const postData = {
         ...post,
         created_at: formatDateForAPI(post.created_at),
@@ -121,11 +120,25 @@ const PostEditor = () => {
     }
   };
 
+  const formatDateForInput = (dateString) => {
+    if (!dateString) return '';
+    return new Date(dateString).toISOString().slice(0, 16);
+  };
+
+  const formatDateForAPI = (dateString) => {
+    if (!dateString) return '';
+    return new Date(dateString).toISOString();
+  };
+
   return (
     <div className="post-editor-container">
       <div className="post-editor-header">
         <h1>{isEditing ? 'Edit Post' : 'Create New Post'}</h1>
         <Link to="/admin/posts" className="back-link">← Back to Posts</Link>
+      </div>
+
+      {/* Debug info */}
+      <div style={{padding: '10px', background: '#f0f0f0', margin: '10px 0', fontSize: '12px'}}>
       </div>
 
       {error && <div className="error-message">{error}</div>}

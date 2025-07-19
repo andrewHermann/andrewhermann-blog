@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 
-import config from './config/api'
+import { API_ENDPOINTS, apiRequest } from './config/api'
 import Home from './views/home'
 import Portfolio from './views/portfolio'
 import About from './views/about'
@@ -39,18 +39,13 @@ const AppRouter = () => {
         return
       }
 
-      const response = await fetch('${config.API_BASE_URL}/api/admin/verify', {
-        headers: { 'Authorization': `Bearer ${token}` }
-      })
-
-      if (response.ok) {
-        setIsAuthenticated(true)
-      } else {
-        localStorage.removeItem('adminToken')
-      }
+      // Use apiRequest instead of raw fetch
+      await apiRequest(API_ENDPOINTS.CHECK_AUTH)
+      setIsAuthenticated(true)
     } catch (error) {
       console.error('Auth check failed:', error)
       localStorage.removeItem('adminToken')
+      setIsAuthenticated(false)
     }
     setLoading(false)
   }
@@ -61,6 +56,7 @@ const AppRouter = () => {
 
   const handleLogout = () => {
     setIsAuthenticated(false)
+    localStorage.removeItem('adminToken')
   }
 
   if (loading) {
