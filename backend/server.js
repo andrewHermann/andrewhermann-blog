@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 3001;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:5000', 'http://***REMOVED***:5000'],
+  origin: ['http://localhost:3000', 'http://localhost:5000', 'http://***REMOVED***:5000', 'https://andrew.cloudhopper.ch'],
   credentials: true
 }));
 
