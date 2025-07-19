@@ -34,14 +34,14 @@ const Robot = () => {
   // State for drag and touch controls
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
-  const [rotation, setRotation] = useState({ x: 0, y: -Math.PI / 2 }); // Face forward
+  const [rotation, setRotation] = useState({ x: 0, y: Math.PI }); // Face forward
   const [lastTouch, setLastTouch] = useState({ x: 0, y: 0 });
 
   useLayoutEffect(() => {
     if (scene) {
-      scene.scale.set(90, 90, 90); // Large scale
+      scene.scale.set(22.5, 22.5, 22.5); // Reduced scale (25% of original)
       scene.position.set(0, -10, 0); // Adjusted position
-      scene.rotation.y = -Math.PI / 2; // Face forward
+      scene.rotation.y = Math.PI; // Face forward
       
       // Apply strategic coloring to highlight details
       scene.traverse((child) => {
@@ -254,12 +254,18 @@ const Robot = () => {
       } else {
         // Normal drag and touch rotation when not animating
         group.current.rotation.x = rotation.x;
-        group.current.rotation.y = rotation.y;
+        // Custom oscillation: 0° to 180°
+        const oscillation = (Math.sin(state.clock.elapsedTime * 0.3) + 1) / 2; // 0 to 1
+        const targetRotation = oscillation * Math.PI; // 0 to π (0° to 180°)
+        group.current.rotation.y = targetRotation;
         
         // Add subtle mouse hover effect when not dragging
         if (!isDragging) {
           const { mouse } = state;
-          group.current.rotation.y = rotation.y + Math.sin(mouse.x * 0.1) * 0.05;
+          // Custom oscillation with mouse effect
+          const oscillation = (Math.sin(state.clock.elapsedTime * 0.3) + 1) / 2;
+          const targetRotation = oscillation * Math.PI;
+          group.current.rotation.y = targetRotation + Math.sin(mouse.x * 0.1) * 0.05;
         }
       }
     }
