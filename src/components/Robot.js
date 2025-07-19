@@ -33,6 +33,8 @@ const Robot = () => {
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [rotation, setRotation] = useState({ x: 0, y: Math.PI }); // Face forward
   const [lastTouch, setLastTouch] = useState({ x: 0, y: 0 });
+  const [dragDistance, setDragDistance] = useState(0);
+  const [isPlayingPose, setIsPlayingPose] = useState(false);
 
   useLayoutEffect(() => {
     if (scene) {
@@ -121,32 +123,62 @@ const Robot = () => {
       
       // Start the idle animation by default
       if (actions.Idle) {
-        actions.Idle.play();
+        actions.Idle.setLoop(THREE.LoopRepeat).play();
         setCurrentAnimation('Idle');
-        console.log('Playing Idle animation');
+        console.log('Playing Idle animation on loop');
       }
     }
   }, [actions]);
 
+  // Handle animation completion for Pose -> Idle transition
+  useEffect(() => {
+    if (actions && actions.Pose) {
+      const poseAction = actions.Pose;
+      
+      const onFinished = () => {
+        if (isPlayingPose) {
+          console.log('Pose animation finished, returning to Idle');
+          setIsPlayingPose(false);
+          setCurrentAnimation('Idle');
+          
+          // Stop Pose and start Idle
+          poseAction.fadeOut(0.3);
+          if (actions.Idle) {
+            actions.Idle.reset().fadeIn(0.3).play();
+          }
+        }
+      };
+      
+      poseAction.addEventListener('finished', onFinished);
+      
+      return () => {
+        poseAction.removeEventListener('finished', onFinished);
+      };
+    }
+  }, [actions, isPlayingPose]);
+
+  // Play Pose animation once
+  const playPoseOnce = () => {
+    if (actions && actions.Pose && !isPlayingPose) {
+      console.log('Playing Pose animation once');
+      setIsPlayingPose(true);
+      setCurrentAnimation('Pose');
+      
+      // Stop Idle and play Pose once
+      if (actions.Idle) {
+        actions.Idle.fadeOut(0.3);
+      }
+      
+      actions.Pose.setLoop(THREE.LoopOnce).reset().fadeIn(0.3).play();
+    }
+  };
+
   // Handle click for animation switching
   const handleClick = (event) => {
-    if (actions && !isDragging) {
+    // Only trigger if it wasn't a drag (drag distance < 5 pixels)
+    if (dragDistance < 5 && !isPlayingPose) {
       event.stopPropagation();
-      
-      // Switch between Idle and Pose animations
-      const nextAnimation = currentAnimation === 'Idle' ? 'Pose' : 'Idle';
-      
-      if (actions[nextAnimation]) {
-        // Fade out current animation
-        if (actions[currentAnimation]) {
-          actions[currentAnimation].fadeOut(0.5);
-        }
-        
-        // Fade in new animation
-        actions[nextAnimation].reset().fadeIn(0.5).play();
-        setCurrentAnimation(nextAnimation);
-        console.log(`Switched to ${nextAnimation} animation`);
-      }
+      playPoseOnce();
     }
   };
 
@@ -156,6 +188,7 @@ const Robot = () => {
       setIsDragging(true);
       setDragStart({ x: event.clientX, y: event.clientY });
       setLastTouch({ x: event.clientX, y: event.clientY });
+      setDragDistance(0);
     };
 
     const handleMouseMove = (event) => {
@@ -163,6 +196,12 @@ const Robot = () => {
       
       const deltaX = event.clientX - lastTouch.x;
       const deltaY = event.clientY - lastTouch.y;
+      
+      // Calculate total drag distance
+      const totalDeltaX = event.clientX - dragStart.x;
+      const totalDeltaY = event.clientY - dragStart.y;
+      const distance = Math.sqrt(totalDeltaX * totalDeltaX + totalDeltaY * totalDeltaY);
+      setDragDistance(distance);
       
       setRotation(prev => ({
         x: prev.x + deltaY * 0.01,
@@ -181,6 +220,7 @@ const Robot = () => {
       setIsDragging(true);
       setDragStart({ x: touch.clientX, y: touch.clientY });
       setLastTouch({ x: touch.clientX, y: touch.clientY });
+      setDragDistance(0);
     };
 
     const handleTouchMove = (event) => {
@@ -189,6 +229,12 @@ const Robot = () => {
       const touch = event.touches[0];
       const deltaX = touch.clientX - lastTouch.x;
       const deltaY = touch.clientY - lastTouch.y;
+      
+      // Calculate total drag distance
+      const totalDeltaX = touch.clientX - dragStart.x;
+      const totalDeltaY = touch.clientY - dragStart.y;
+      const distance = Math.sqrt(totalDeltaX * totalDeltaX + totalDeltaY * totalDeltaY);
+      setDragDistance(distance);
       
       setRotation(prev => ({
         x: prev.x + deltaY * 0.01,
@@ -224,7 +270,7 @@ const Robot = () => {
       window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('touchend', handleTouchEnd);
     };
-  }, [isDragging, lastTouch]);
+  }, [isDragging, lastTouch, dragStart, dragDistance]);
 
   // Apply rotation from user interaction
   useFrame((state) => {
