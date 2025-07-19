@@ -63,11 +63,34 @@ const Home = (props) => {
         breadcrumbs={homeBreadcrumbs}
       />
       <Navbar />
-      <Hero />
-      <Features1 />
-      <CTA />
-      <Features2 />
-      <Steps />
+      
+      <div className="home-content">
+        {/* Hero section - no frame */}
+        <div className="home-hero">
+          <Hero />
+        </div>
+
+        {/* Professional Portfolio section - framed */}
+        <div className="home-section-frame">
+          <Features1 />
+        </div>
+
+        {/* Core Competencies section - framed */}
+        <div className="home-section-frame">
+          <CTA />
+        </div>
+
+        {/* Features section - framed */}
+        <div className="home-section-frame">
+          <Features2 />
+        </div>
+
+        {/* My Approach section - framed */}
+        <div className="home-section-frame">
+          <Steps />
+        </div>
+      </div>
+
       <Footer />
       <FloatingRobot />
     </div>
