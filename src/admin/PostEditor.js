@@ -47,7 +47,7 @@ const PostEditor = () => {
   const fetchPost = async () => {
     console.log('fetchPost called with id:', id);
     try {
-      const response = await apiRequest(API_ENDPOINTS.ADMIN_POST(id));
+      const response = await apiRequest(`${API_ENDPOINTS.ADMIN_POSTS}/${id}`);
       if (response.ok) {
         const data = await response.json();
         console.log('Post loaded successfully:', data);
@@ -93,7 +93,7 @@ const PostEditor = () => {
 
     try {
       const url = isEditing 
-        ? API_ENDPOINTS.ADMIN_POST(id)
+        ? `${API_ENDPOINTS.ADMIN_POSTS}/${id}`
         : API_ENDPOINTS.ADMIN_POSTS;
       
       const method = isEditing ? 'PUT' : 'POST';

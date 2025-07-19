@@ -30,7 +30,7 @@ const UserList = () => {
   const deleteUser = async (id) => {
     if (window.confirm('Are you sure you want to delete this user?')) {
       try {
-        const response = await apiRequest(API_ENDPOINTS.ADMIN_USER(id), { method: 'DELETE' });
+        const response = await apiRequest(`${API_ENDPOINTS.ADMIN_USERS}/${id}`, { method: 'DELETE' });
         if (response.ok) {
           fetchUsers();
         } else {
