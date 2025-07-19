@@ -34,11 +34,7 @@ const PostManager = () => {
         const response = await apiRequest(`${API_ENDPOINTS.ADMIN_POSTS}/${id}`, {
           method: 'DELETE',
         })
-        if (response) {
-          fetchPosts() // Refresh the list
-        } else {
-          setError('Failed to delete post')
-        }
+        fetchPosts() // Refresh the list
       } catch (err) {
         setError('Connection error: ' + err.message)
       }
