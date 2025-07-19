@@ -1,0 +1,161 @@
+.cookies-container {
+  width: 100%;
+  display: flex;
+  overflow: auto;
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.cookies-content {
+  flex: 1;
+  width: 100%;
+  max-width: 1200px;
+  padding: 2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  margin-top: 80px;
+  min-height: calc(100vh - 160px);
+}
+
+.cookies-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  color: white;
+}
+
+.cookies-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: linear-gradient(45deg, #ffffff, #e0e0ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cookies-subtitle {
+  font-size: 1.2rem;
+  color: #e0e0ff;
+  font-weight: 300;
+}
+
+.cookies-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.cookies-section {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cookies-section:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.cookies-section h2 {
+  color: #2d3748;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #667eea;
+  padding-bottom: 0.5rem;
+}
+
+.cookies-section h3 {
+  color: #4a5568;
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.cookies-section p {
+  color: #4a5568;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.cookies-section ul {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.cookies-section li {
+  color: #4a5568;
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+/* Contact link styling */
+.contact-link {
+  color: #667eea;
+  text-decoration: underline;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.contact-link:hover {
+  color: #5a6fd8;
+  text-decoration: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .cookies-content {
+    padding: 1rem;
+    margin-top: 80px;
+  }
+
+  .cookies-title {
+    font-size: 2rem;
+  }
+
+  .cookies-subtitle {
+    font-size: 1rem;
+  }
+
+  .cookies-section {
+    padding: 1.5rem;
+  }
+
+  .cookies-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .cookies-section h3 {
+    font-size: 1.2rem;
+  }
+
+  .cookies-section p,
+  .cookies-section li {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .cookies-content {
+    padding: 0.5rem;
+  }
+
+  .cookies-section {
+    padding: 1rem;
+  }
+
+  .cookies-title {
+    font-size: 1.8rem;
+  }
+
+  .cookies-section h2 {
+    font-size: 1.3rem;
+  }
+}

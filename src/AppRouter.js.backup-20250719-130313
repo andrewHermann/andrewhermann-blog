@@ -9,9 +9,6 @@ import BlogPost from './views/blog-post'
 import Markets from './views/markets'
 import ContactPage from './views/contact'
 import NotFound1 from './views/not-found'
-import TermsOfUse from './views/terms-of-use'
-import PrivacyPolicy from './views/privacy-policy'
-import CookiesPolicy from './views/cookies-policy'
 
 import AdminLogin from './admin/AdminLogin'
 import AdminDashboard from './admin/AdminDashboard'
@@ -76,9 +73,6 @@ const AppRouter = () => {
         <Route path="/blog/:slug" element={<BlogPost />} />
         <Route path="/markets" element={<Markets />} />
         <Route path="/contact" element={<ContactPage />} />
-        <Route path="/terms" element={<TermsOfUse />} />
-        <Route path="/privacy" element={<PrivacyPolicy />} />
-        <Route path="/cookies" element={<CookiesPolicy />} />
         <Route path="/not-found" element={<NotFound1 />} />
 
         {/* Admin Routes */}
