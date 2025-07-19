@@ -59,11 +59,11 @@ const Robot = () => {
           const materialName = (child.material.name || '').toLowerCase();
           const combinedName = `${name} ${materialName}`;
           
-          // Body parts - BRIGHT WHITE
+          // Body parts - BRIGHT BLUE
           if (combinedName.includes('body') || combinedName.includes('armorout') || 
               combinedName.includes('armorin') || combinedName.includes('torso') ||
               combinedName.includes('chest') || combinedName.includes('main')) {
-            child.material.color.setHex(0xffffff); // Bright white
+            child.material.color.setHex(0x0000ff); // Pure white
             child.material.roughness = 0.3;
             child.material.metalness = 0.1;
           }
@@ -103,7 +103,7 @@ const Robot = () => {
           // Arms and legs - white to match body
           else if (combinedName.includes('arm') || combinedName.includes('hand') || 
                    combinedName.includes('leg') || combinedName.includes('foot')) {
-            child.material.color.setHex(0xf8f8f8); // Slightly off-white
+            child.material.color.setHex(0x0066ff); // Slightly off-white
             child.material.roughness = 0.4;
             child.material.metalness = 0.2;
           }
