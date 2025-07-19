@@ -42,24 +42,30 @@ const CTA = (props) => {
   }
 
   return (
-    <div className="cta-steps-container">
-      <div className="cta-steps-max-width">
+    <div className="cta-steps-container thq-section-padding">
+      <div className="cta-steps-max-width thq-section-max-width">
         <div className="cta-steps-header">
-          <h2 className="cta-steps-title">Core Competencies</h2>
-          <p className="cta-steps-subtitle">Key areas of expertise and professional focus</p>
+          <h2 className="thq-heading-2">Core Competencies</h2>
+          <p className="thq-body-large">
+            My professional expertise spans four interconnected domains that form the foundation of successful organizational transformation. Each competency leverages industry-standard frameworks, advanced methodologies, and cutting-edge technologies to deliver measurable impact.
+            
+            Through strategic application of PMBOK guidelines, ITIL service management principles, and ISO 9001 quality standards, I create sustainable value propositions that align with organizational objectives. My approach integrates stakeholder theory, systems thinking, and evidence-based management practices to ensure comprehensive solution delivery across diverse operational contexts.
+            
+            These competencies are continuously refined through professional development, industry certifications, and practical application in high-stakes environments, ensuring relevance and effectiveness in today's dynamic business landscape.
+          </p>
         </div>
         <div className="cta-cards-container">
           {infoCards.map((card, index) => (
-            <div key={index} className={`cta-card cta-card-${index + 1}`}>
-              <h3 className="cta-card-title">{card.title}</h3>
-              <p className="cta-card-description">{card.description}</p>
+            <div key={index} className={`cta-card cta-card-${index + 1} thq-card`}>
+              <h3 className="thq-heading-2">{card.title}</h3>
+              <p className="thq-body-small">{card.description}</p>
               <button 
                 className="cta-card-button" 
                 onClick={() => handleCardClick(card.link)}
               >
                 {card.action}
               </button>
-              <span className="cta-card-number">{String(index + 1).padStart(2, '0')}</span>
+              <span className="cta-card-number thq-heading-3">{String(index + 1).padStart(2, '0')}</span>
             </div>
           ))}
         </div>

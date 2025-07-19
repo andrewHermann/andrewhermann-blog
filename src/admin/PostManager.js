@@ -52,68 +52,82 @@ const PostManager = () => {
   }
 
   if (loading) {
-    return <div className="admin-loading">Loading posts...</div>
+    return (
+      <div className="post-manager-container">
+        <div className="post-manager-content">
+          <div className="post-manager-frame">
+            <div className="admin-loading">Loading posts...</div>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (
     <div className="post-manager-container">
-      <div className="post-manager-header">
-        <h1>Manage Posts</h1>
-        <div className="post-manager-actions">
-          <Link to="/admin/dashboard" className="back-link">← Back to Dashboard</Link>
-          <Link to="/admin/posts/edit/new" className="create-post-button">Create New Post</Link>
-        </div>
-      </div>
-
-      {error && <div className="error-message">{error}</div>}
-
-      <div className="posts-table">
-        {posts.length === 0 ? (
-          <div className="no-posts">
-            <p>No posts found. <Link to="/admin/posts/edit/new">Create your first post</Link></p>
+      <div className="post-manager-content">
+        <div className="post-manager-frame">
+          <div className="post-manager-header">
+            <h1 className="post-manager-title">Manage Posts</h1>
+            <div className="post-manager-actions">
+              <Link to="/admin/dashboard" className="back-link">← Back to Dashboard</Link>
+              <Link to="/admin/posts/edit/new" className="create-post-button">Create New Post</Link>
+            </div>
           </div>
-        ) : (
-          <table>
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Status</th>
-                <th>Created</th>
-                <th>Updated</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {posts.map(post => (
-                <tr key={post.id}>
-                  <td>
-                    <div className="post-title">{post.title}</div>
-                    <div className="post-excerpt">{post.excerpt}</div>
-                  </td>
-                  <td>
-                    <span className={`status-badge ${post.published ? 'published' : 'draft'}`}>
-                      {post.published ? 'Published' : 'Draft'}
-                    </span>
-                  </td>
-                  <td>{formatDate(post.created_at)}</td>
-                  <td>{formatDate(post.updated_at)}</td>
-                  <td>
-                    <div className="post-actions">
-                      <Link to={`/admin/posts/edit/${post.id}`} className="edit-button">Edit</Link>
-                      <Link to={`/blog/${post.slug}`} className="view-button" target="_blank">View</Link>
-                      <button 
-                        onClick={() => deletePost(post.id)} 
-                        className="delete-button"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
+
+          {error && <div className="error-message">{error}</div>}
+
+          <div className="posts-table-container">
+            {posts.length === 0 ? (
+              <div className="no-posts">
+                <p>No posts found. <Link to="/admin/posts/edit/new">Create your first post</Link></p>
+              </div>
+            ) : (
+              <div className="posts-table">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Status</th>
+                      <th>Created</th>
+                      <th>Updated</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {posts.map(post => (
+                      <tr key={post.id}>
+                        <td>
+                          <div className="post-title">{post.title}</div>
+                          <div className="post-excerpt">{post.excerpt}</div>
+                        </td>
+                        <td>
+                          <span className={`status-badge ${post.published ? 'published' : 'draft'}`}>
+                            {post.published ? 'Published' : 'Draft'}
+                          </span>
+                        </td>
+                        <td>{formatDate(post.created_at)}</td>
+                        <td>{formatDate(post.updated_at)}</td>
+                        <td>
+                          <div className="post-actions">
+                            <Link to={`/admin/posts/edit/${post.id}`} className="edit-button">Edit</Link>
+                            <Link to={`/blog/${post.slug}`} className="view-button" target="_blank">View</Link>
+                            <button 
+                              onClick={() => deletePost(post.id)} 
+                              className="delete-button"
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   )
