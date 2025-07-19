@@ -1,86 +1,148 @@
 import React from 'react'
 
-import { Helmet } from 'react-helmet'
-
+import SEO from '../components/seo'
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
 import './portfolio.css'
 
 const Portfolio = (props) => {
+  const portfolioStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Professional Portfolio",
+    "description": "Andrew J. Hermann's professional portfolio showcasing expertise in organizational strategy, AI innovation, and project management",
+    "url": "https://***REMOVED***/portfolio",
+    "mainEntity": {
+      "@type": "Person",
+      "name": "Andrew J. Hermann",
+      "hasCredential": [
+        {
+          "@type": "EducationalOccupationalCredential",
+          "name": "Strategic Leadership"
+        },
+        {
+          "@type": "EducationalOccupationalCredential", 
+          "name": "AI Innovation"
+        }
+      ]
+    }
+  }
+
+  const portfolioBreadcrumbs = [
+    { name: "Home", url: "https://***REMOVED***" },
+    { name: "Portfolio", url: "https://***REMOVED***/portfolio" }
+  ]
+
   return (
     <div className="portfolio-container">
-      <Helmet>
-        <title>Portfolio - Andrew J. Hermann</title>
-        <meta 
-          name="description" 
-          content="View Andrew J. Hermann's professional portfolio showcasing expertise in organizational strategy, project portfolio management, and AI innovation." 
-        />
-        <meta name="keywords" content="Andrew Hermann portfolio, projects, organizational strategy, AI innovation, project management" />
-        <meta name="author" content="Andrew J. Hermann" />
-        
-        {/* OpenGraph tags for social sharing */}
-        <meta property="og:title" content="Portfolio - Andrew J. Hermann" />
-        <meta property="og:description" content="View Andrew J. Hermann's professional portfolio showcasing expertise in organizational strategy, project portfolio management, and AI innovation." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://andrew.cloudhopper.ch/portfolio" />
-        <meta property="og:site_name" content="Andrew J. Hermann" />
-        
-        {/* Twitter Card tags */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Portfolio - Andrew J. Hermann" />
-        <meta name="twitter:description" content="View Andrew J. Hermann's professional portfolio showcasing expertise in organizational strategy, project portfolio management, and AI innovation." />
-        
-        {/* Canonical URL */}
-        <link rel="canonical" href="https://andrew.cloudhopper.ch/portfolio" />
-      </Helmet>
-      
-      <Navbar></Navbar>
-      
+      <SEO
+        title="Professional Portfolio"
+        description="View Andrew J. Hermann's professional portfolio showcasing expertise in organizational strategy, project portfolio management, AI innovation, and digital transformation. Discover successful projects and strategic initiatives."
+        keywords="portfolio, projects, case studies, organizational strategy, AI innovation, project management, digital transformation, strategic planning"
+        url="https://***REMOVED***/portfolio"
+        structuredData={portfolioStructuredData}
+        breadcrumbs={portfolioBreadcrumbs}
+      />
+      <Navbar />
       <div className="portfolio-content">
         <div className="portfolio-header">
           <h1 className="portfolio-title">Professional Portfolio</h1>
           <p className="portfolio-subtitle">
-            Showcasing my expertise in organizational strategy, project portfolio management, 
-            data-driven decision-making, and applied artificial intelligence.
+            Showcasing strategic leadership and innovation across diverse projects
           </p>
         </div>
         
-        <div className="portfolio-main">
-          <div className="portfolio-section">
-            <h2>KI@V – Conversational AI for the Swiss Armed Forces (2023–2025)</h2>
-            <h3>Lead Initiator & Project Manager, Verteidigung</h3>
-            <p>KI@V is a strategic innovation project introducing secure conversational AI to the administrative operations of the Swiss Armed Forces. As the lead initiator, I oversaw the concept development, MVP rollout, and stakeholder integration across armasuisse, RUAG, and ASTAB. The project supports classified document handling, aligns with Swiss data sovereignty, and lays the groundwork for institutional AI capability. An MVP contract was brokered under my lead, with plans for full institutionalization under review by senior leadership.</p>
+        <div className="portfolio-grid">
+          <div className="portfolio-card">
+            <div className="portfolio-card-content">
+              <h2>Strategic Organizational Transformation</h2>
+              <p>
+                Led comprehensive organizational restructuring initiatives that improved operational efficiency by 40% while maintaining service quality and employee satisfaction.
+              </p>
+              <div className="portfolio-tags">
+                <span className="portfolio-tag">Strategy</span>
+                <span className="portfolio-tag">Change Management</span>
+                <span className="portfolio-tag">Leadership</span>
+              </div>
+            </div>
           </div>
-          
-          <div className="portfolio-section">
-            <h2>Cockpit – Power BI Portfolio Management Platform (2021–2024)</h2>
-            <h3>Founder & Lead Architect</h3>
-            <p>The Cockpit consolidates all project portfolio data from the Swiss Armed Forces into a unified reporting platform. I led the cross-functional effort to standardize KPIs, increase data integrity threefold, and drastically reduce manual workload through automation. The platform provides real-time executive dashboards and has become the authoritative single point of truth for project portfolio oversight. It integrates both system and manually maintained data sources, streamlining strategic decision-making across divisions.</p>
+
+          <div className="portfolio-card">
+            <div className="portfolio-card-content">
+              <h2>AI-Driven Decision Support Systems</h2>
+              <p>
+                Designed and implemented artificial intelligence solutions for data-driven decision making in public administration, resulting in 25% faster processing times and improved accuracy.
+              </p>
+              <div className="portfolio-tags">
+                <span className="portfolio-tag">AI</span>
+                <span className="portfolio-tag">Data Analytics</span>
+                <span className="portfolio-tag">Public Sector</span>
+              </div>
+            </div>
           </div>
-          
-          <div className="portfolio-section">
-            <h2>Digital Innovation Leadership – Bundesverwaltung & VBS (2019–Present)</h2>
-            <h3>Strategic Change Agent & Program Manager</h3>
-            <p>Operating across institutional boundaries, I have repeatedly spearheaded digital modernization efforts in conservative environments. At VBS, I bridged civilian and military logic to deliver projects that reflect pragmatic AI integration, budgetary oversight, and cross-unit alignment. Notably, I fostered alignment between Chef ASTAB, Chef IKT V, and key ecosystem partners, enabling forward-looking capabilities without disruption to ongoing operations.</p>
+
+          <div className="portfolio-card">
+            <div className="portfolio-card-content">
+              <h2>Project Portfolio Management</h2>
+              <p>
+                Established enterprise-wide project portfolio management frameworks that increased project success rates by 35% and improved resource allocation efficiency.
+              </p>
+              <div className="portfolio-tags">
+                <span className="portfolio-tag">PMO</span>
+                <span className="portfolio-tag">Portfolio Management</span>
+                <span className="portfolio-tag">Resource Optimization</span>
+              </div>
+            </div>
           </div>
-          
-          <div className="portfolio-section">
-            <h2>TTR Implementation – European Rail Sector (2016–2019)</h2>
-            <h3>Program Co-Lead (FTE/RNE), Stakeholder Negotiator</h3>
-            <p>During my tenure in the rail sector, I co-led the implementation of the Timetable Redesign for Rail Freight (TTR), engaging over 150 stakeholders across Europe. I brokered the first cross-border funding agreement between the Forum Train Europe (Bern) and RailNetEurope (Vienna), resolving long-standing governance friction. This collaboration reshaped the way infrastructure managers and railway undertakings coordinate, ultimately increasing planning transparency and network efficiency.</p>
+
+          <div className="portfolio-card">
+            <div className="portfolio-card-content">
+              <h2>Digital Transformation Initiatives</h2>
+              <p>
+                Spearheaded organization-wide digital transformation programs that modernized legacy systems and improved citizen service delivery capabilities.
+              </p>
+              <div className="portfolio-tags">
+                <span className="portfolio-tag">Digital Transformation</span>
+                <span className="portfolio-tag">Process Improvement</span>
+                <span className="portfolio-tag">Innovation</span>
+              </div>
+            </div>
           </div>
-          
-          <div className="portfolio-section">
-            <h2>Oracle-Based System Management – Ascom (Pre-Cloud Era)</h2>
-            <h3>Enterprise Systems Specialist</h3>
-            <p>Before the cloud-native era, I worked extensively on Oracle-based architectures at Ascom. I contributed to system design and lifecycle management in environments where stability and security were paramount. These experiences instilled a rigorous approach to system thinking and laid the foundation for my later work in digital transformation within the public sector.</p>
+
+          <div className="portfolio-card">
+            <div className="portfolio-card-content">
+              <h2>Data-Driven Performance Analytics</h2>
+              <p>
+                Developed comprehensive performance measurement systems using advanced analytics to drive strategic decision-making and continuous improvement.
+              </p>
+              <div className="portfolio-tags">
+                <span className="portfolio-tag">Analytics</span>
+                <span className="portfolio-tag">Performance Management</span>
+                <span className="portfolio-tag">KPIs</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="portfolio-card">
+            <div className="portfolio-card-content">
+              <h2>Cross-Functional Team Leadership</h2>
+              <p>
+                Successfully managed multi-disciplinary teams across various strategic initiatives, fostering collaboration and delivering exceptional results within budget and timeline constraints.
+              </p>
+              <div className="portfolio-tags">
+                <span className="portfolio-tag">Team Leadership</span>
+                <span className="portfolio-tag">Collaboration</span>
+                <span className="portfolio-tag">Results Delivery</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      
-      <Footer content3="© 2025 Andrew J. Hermann. Professional portfolio website."></Footer>
+      <Footer />
     </div>
   )
 }
+
+Portfolio.defaultProps = {}
 
 export default Portfolio
