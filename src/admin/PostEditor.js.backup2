@@ -43,25 +43,29 @@ const PostEditor = () => {
       });
     }
   }, [id, isEditing]);
-  
+
   const fetchPost = async () => {
     console.log('fetchPost called with id:', id);
     try {
-      const response = await apiRequest(`${API_ENDPOINTS.ADMIN_POSTS}/${id}`);
-      // apiRequest already returns JSON data directly
-      console.log('Post loaded successfully:', response);
-      setPost({
-        ...response,
-        created_at: formatDateForInput(response.created_at),
-        updated_at: formatDateForInput(response.updated_at)
-      });
-      setError(''); // Clear any error
+      const response = await apiRequest(API_ENDPOINTS.ADMIN_POST(id));
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Post loaded successfully:', data);
+        setPost({
+          ...data,
+          created_at: formatDateForInput(data.created_at),
+          updated_at: formatDateForInput(data.updated_at)
+        });
+        setError(''); // Clear any error
+      } else {
+        console.log('Failed to load post - response not ok:', response.status);
+        setError('Failed to load post');
+      }
     } catch (err) {
       console.log('Error loading post:', err);
       setError('Connection error: ' + err.message);
     }
   };
-
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -89,7 +93,7 @@ const PostEditor = () => {
 
     try {
       const url = isEditing 
-        ? `${API_ENDPOINTS.ADMIN_POSTS}/${id}`
+        ? API_ENDPOINTS.ADMIN_POST(id)
         : API_ENDPOINTS.ADMIN_POSTS;
       
       const method = isEditing ? 'PUT' : 'POST';
@@ -100,22 +104,21 @@ const PostEditor = () => {
         updated_at: formatDateForAPI(post.updated_at)
       };
 
-      // apiRequest returns JSON data directly, not a Response object
-      const data = await apiRequest(url, {
+      const response = await apiRequest(url, {
         method,
         body: JSON.stringify(postData),
       });
 
-      // Since apiRequest already handles the response and returns JSON,
-      // we just need to check if we got data back successfully
-      console.log('Post save response:', data);
-      setSuccess(isEditing ? 'Post updated successfully!' : 'Post created successfully!');
-      setTimeout(() => {
-        navigate('/admin/posts');
-      }, 1500);
-
+      if (response.ok) {
+        setSuccess(isEditing ? 'Post updated successfully!' : 'Post created successfully!');
+        setTimeout(() => {
+          navigate('/admin/posts');
+        }, 1500);
+      } else {
+        const data = await response.json();
+        setError(data.error || 'Failed to save post');
+      }
     } catch (err) {
-      console.log('Error saving post:', err);
       setError('Connection error: ' + err.message);
     } finally {
       setLoading(false);
@@ -137,6 +140,10 @@ const PostEditor = () => {
       <div className="post-editor-header">
         <h1>{isEditing ? 'Edit Post' : 'Create New Post'}</h1>
         <Link to="/admin/posts" className="back-link">← Back to Posts</Link>
+      </div>
+
+      {/* Debug info */}
+      <div style={{padding: '10px', background: '#f0f0f0', margin: '10px 0', fontSize: '12px'}}>
       </div>
 
       {error && <div className="error-message">{error}</div>}

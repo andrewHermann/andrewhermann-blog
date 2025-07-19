@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-import config from '../config/api'
+import { API_ENDPOINTS, apiRequest } from '../config/api'
 import SEO from '../components/seo'
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
@@ -18,13 +18,12 @@ const Blog = () => {
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch('${config.API_BASE_URL}/api/posts/published')
-      if (!response.ok) {
-        throw new Error('Failed to fetch posts')
-      }
-      const data = await response.json()
+      // Use the correct API endpoint - /api/posts already filters for published posts
+      const data = await apiRequest(API_ENDPOINTS.POSTS)
       setPosts(data)
+      setError(null)
     } catch (err) {
+      console.log('Error loading posts:', err)
       setError(err.message)
     } finally {
       setLoading(false)
@@ -41,7 +40,7 @@ const Blog = () => {
     "@type": "Blog",
     "name": "Strategic Leadership & AI Innovation Blog",
     "description": "Insights and articles about strategic leadership, AI innovation, and organizational transformation by Andrew J. Hermann",
-    "url": "https://***REMOVED***/blog",
+    "url": "https://andrew.cloudhopper.ch/blog",
     "author": {
       "@type": "Person",
       "name": "Andrew J. Hermann"
@@ -54,8 +53,8 @@ const Blog = () => {
       "@type": "BlogPosting",
       "headline": post.title,
       "description": post.excerpt,
-      "url": `https://***REMOVED***/blog/${post.slug}`,
-      "datePublished": post.published_at,
+      "url": `https://andrew.cloudhopper.ch/blog/${post.slug}`,
+      "datePublished": post.created_at,
       "author": {
         "@type": "Person",
         "name": "Andrew J. Hermann"
@@ -64,8 +63,8 @@ const Blog = () => {
   }
 
   const blogBreadcrumbs = [
-    { name: "Home", url: "https://***REMOVED***" },
-    { name: "Blog", url: "https://***REMOVED***/blog" }
+    { name: "Home", url: "https://andrew.cloudhopper.ch" },
+    { name: "Blog", url: "https://andrew.cloudhopper.ch/blog" }
   ]
 
   return (
@@ -74,7 +73,7 @@ const Blog = () => {
         title="Blog"
         description="Read insights and articles about strategic leadership, AI innovation, organizational transformation, and digital strategy by Andrew J. Hermann. Expert perspectives on modern business challenges."
         keywords="blog, articles, strategic leadership, AI innovation, organizational transformation, digital strategy, business insights, leadership thoughts"
-        url="https://***REMOVED***/blog"
+        url="https://andrew.cloudhopper.ch/blog"
         structuredData={blogStructuredData}
         breadcrumbs={blogBreadcrumbs}
       />
@@ -107,8 +106,8 @@ const Blog = () => {
               <article key={post.id} className="blog-post">
                 <div className="blog-post-content">
                   <div className="blog-post-meta">
-                    <time dateTime={post.published_at}>
-                      {formatDate(post.published_at)}
+                    <time dateTime={post.created_at}>
+                      {formatDate(post.created_at)}
                     </time>
                     {post.category && (
                       <span className="blog-post-category">{post.category}</span>
