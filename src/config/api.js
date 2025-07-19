@@ -5,21 +5,61 @@ const config = {
   },
   production: {
     API_BASE_URL: 'https://andrew.cloudhopper.ch',
+  },
+  local: {
+    API_BASE_URL: 'http://192.168.178.44:3001',
   }
 }
 
 // Determine current environment
 const environment = process.env.NODE_ENV || 'development'
 
-// Use hostname to determine if we're in production when NODE_ENV isn't set
-const isProduction = typeof window !== 'undefined' && 
-  (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1')
+// Enhanced hostname detection logic
+const isLocalDevelopment = typeof window !== 'undefined' && 
+  (window.location.hostname === 'localhost' || 
+   window.location.hostname === '127.0.0.1' ||
+   window.location.hostname === '192.168.178.44')
 
-const currentConfig = isProduction ? config.production : config[environment] || config.development
+const isProduction = typeof window !== 'undefined' && 
+  !isLocalDevelopment
+
+// Determine config based on access method
+let currentConfig
+if (isLocalDevelopment) {
+  // Use local API when accessing via localhost or LAN IP
+  if (typeof window !== 'undefined' && window.location.hostname === '192.168.178.44') {
+    currentConfig = config.local
+  } else {
+    currentConfig = config.development
+  }
+} else {
+  currentConfig = config.production
+}
+
+// Override: Always use local API for admin endpoints when accessed via any hostname
+// This ensures admin functionality always connects to local backend
+const isAdminEndpoint = (endpoint) => {
+  return endpoint && (
+    endpoint.startsWith('/api/admin/') || 
+    endpoint.includes('/admin/')
+  )
+}
 
 // API request helper function
 export const apiRequest = async (endpoint, options = {}) => {
-  const url = `${currentConfig.API_BASE_URL}${endpoint}`
+  // Force local API for admin endpoints regardless of hostname
+  let apiBaseUrl = currentConfig.API_BASE_URL
+  
+  if (isAdminEndpoint(endpoint)) {
+    // Always use local API for admin functionality
+    if (typeof window !== 'undefined' && window.location.hostname === '192.168.178.44') {
+      apiBaseUrl = config.local.API_BASE_URL
+    } else {
+      apiBaseUrl = config.development.API_BASE_URL
+    }
+  }
+  
+  const url = `${apiBaseUrl}${endpoint}`
   
   const defaultOptions = {
     headers: {
@@ -34,6 +74,7 @@ export const apiRequest = async (endpoint, options = {}) => {
   }
   
   const finalOptions = {
+    credentials: "include",
     ...defaultOptions,
     ...options,
     headers: {
