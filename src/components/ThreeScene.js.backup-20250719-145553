@@ -53,15 +53,21 @@ const ThreeScene = () => {
   
   return (
     <Canvas
-      shadows={true}
       className="hero-robot-canvas"
       camera={{ position: [0, 0, 100], fov: 75 }}
       style={{ width: '100%', height: '100%' }}
     >
       <InteractiveCameraController />
       
-      {/* Minimal ambient light - main lighting comes from Robot component */}
-      <ambientLight intensity={0.2} color="#ffffff" />
+      {/* Enhanced lighting for better robot visibility */}
+      <ambientLight intensity={0.8} color="#ffffff" />
+      <directionalLight position={[20, 20, 10]} intensity={1.5} color="#ffffff" />
+      <directionalLight position={[-20, 20, 10]} intensity={1.2} color="#ffffff" />
+      <directionalLight position={[0, -20, 10]} intensity={0.8} color="#ffffff" />
+      <pointLight position={[0, 0, 20]} intensity={1.0} color="#ffffff" />
+      <pointLight position={[30, 30, 30]} intensity={0.7} color="#ffffff" />
+      <pointLight position={[-30, 30, 30]} intensity={0.7} color="#ffffff" />
+      <spotLight position={[0, 50, 50]} intensity={0.6} color="#ffffff" angle={Math.PI / 4} />
       
       {/* Robot in its own container */}
       {useRobot ? (
