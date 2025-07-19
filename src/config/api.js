@@ -1,7 +1,7 @@
 // API Configuration for different environments
 const config = {
   development: {
-    API_BASE_URL: 'http://localhost:5000',
+    API_BASE_URL: 'http://localhost:3001',
   },
   production: {
     API_BASE_URL: 'https://andrew.cloudhopper.ch',
