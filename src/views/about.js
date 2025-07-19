@@ -1,6 +1,7 @@
 import React from 'react'
 
 import SEO from '../components/seo'
+
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
 import './about.css'
@@ -55,73 +56,37 @@ const About = (props) => {
       <Navbar />
       <div className="about-content">
         <div className="about-header">
-          <h1 className="about-title">About Andrew J. Hermann</h1>
+          <h1 className="about-title">About Me</h1>
           <p className="about-subtitle">
-            Strategic Leadership & AI Innovation Expert
+            A structural account of how I work, what I've done, and what that reveals about the systems I build.
           </p>
         </div>
         
-        <div className="about-body">
-          <section className="about-section">
-            <h2>Professional Overview</h2>
-            <p>
-              Andrew J. Hermann is a distinguished expert in strategic leadership and artificial intelligence innovation, specializing in organizational strategy, project portfolio management, and data-driven decision-making. With extensive experience in public administration and digital transformation, Andrew brings a unique blend of strategic vision and technical expertise to complex organizational challenges.
-            </p>
-            <p>
-              His approach combines proven leadership methodologies with cutting-edge AI technologies to drive sustainable organizational change and measurable business outcomes. Andrew's work focuses on bridging the gap between strategic vision and practical implementation, ensuring that organizations can effectively navigate the complexities of modern digital transformation.
-            </p>
-          </section>
+        <div className="about-main">
+          <div className="about-section">
+            <h2>Early Foundation</h2>
+            <p>My relationship with technology began in 1984, when I was introduced to BASIC programming on an MSX machine during primary school. Within weeks, I had written a functioning game, not because it was required, but because the logic was accessible and the feedback was immediate. It was my first encounter with structured systems, and it set the tone for everything that followed.</p>
+          </div>
 
-          <section className="about-section">
+          <div className="about-section">
+            <h2>Professional Journey</h2>
+            <p>My career has traversed multiple domains, including public administration, artificial intelligence, and strategic leadership. I've led teams of talented professionals, delivered comprehensive projects, and facilitated strategic change within complex organizational structures.</p>
+          </div>
+
+          <div className="about-section">
             <h2>Core Competencies</h2>
-            <div className="competencies-grid">
-              <div className="competency-card">
-                <h3>Strategic Leadership</h3>
-                <p>Developing and executing comprehensive organizational strategies that align vision with operational excellence.</p>
-              </div>
-              <div className="competency-card">
-                <h3>AI Innovation</h3>
-                <p>Implementing artificial intelligence solutions to enhance decision-making processes and operational efficiency.</p>
-              </div>
-              <div className="competency-card">
-                <h3>Project Portfolio Management</h3>
-                <p>Establishing frameworks for effective project governance, resource allocation, and strategic alignment.</p>
-              </div>
-              <div className="competency-card">
-                <h3>Digital Transformation</h3>
-                <p>Leading organization-wide initiatives to modernize processes and leverage emerging technologies.</p>
-              </div>
-              <div className="competency-card">
-                <h3>Data-Driven Decision Making</h3>
-                <p>Creating analytics frameworks that transform data into actionable strategic insights.</p>
-              </div>
-              <div className="competency-card">
-                <h3>Public Administration</h3>
-                <p>Specialized expertise in public sector challenges, governance, and citizen service delivery.</p>
-              </div>
-            </div>
-          </section>
-
-          <section className="about-section">
-            <h2>Approach & Philosophy</h2>
-            <p>
-              Andrew's methodology is rooted in the belief that successful organizational transformation requires a careful balance of strategic vision, technological innovation, and human-centered change management. He emphasizes collaborative leadership, data-informed decision-making, and sustainable implementation practices.
-            </p>
-            <p>
-              His work is characterized by a commitment to measurable outcomes, stakeholder engagement, and the integration of emerging technologies with established organizational processes. Andrew believes that artificial intelligence and strategic leadership, when properly combined, can unlock unprecedented levels of organizational effectiveness and innovation.
-            </p>
-          </section>
-
-          <section className="about-section">
-            <h2>Professional Focus Areas</h2>
-            <ul className="focus-areas">
-              <li><strong>Organizational Strategy:</strong> Developing comprehensive strategic frameworks that align organizational capabilities with market opportunities and stakeholder expectations.</li>
-              <li><strong>AI Implementation:</strong> Designing and deploying artificial intelligence solutions that enhance operational efficiency and decision-making capabilities.</li>
-              <li><strong>Change Management:</strong> Leading transformational initiatives that ensure successful adoption of new processes, technologies, and organizational structures.</li>
-              <li><strong>Performance Optimization:</strong> Creating measurement systems and continuous improvement processes that drive sustained organizational excellence.</li>
-              <li><strong>Stakeholder Engagement:</strong> Building consensus and commitment across diverse stakeholder groups through effective communication and collaborative decision-making.</li>
+            <ul>
+              <li>Strategic Leadership</li>
+              <li>AI Innovation</li>
+              <li>Project Portfolio Management</li>
+              <li>Organizational Transformation</li>
             </ul>
-          </section>
+          </div>
+
+          <div className="about-section">
+            <h2>Personal Philosophy</h2>
+            <p>I believe that technology should empower humans to achieve more, not replace them. My work is guided by a commitment to ethical practices, transparency, and a passion for lifelong learning.</p>
+          </div>
         </div>
       </div>
       <Footer />

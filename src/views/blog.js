@@ -6,7 +6,7 @@ import Navbar from '../components/navbar'
 import Footer from '../components/footer'
 import './blog.css'
 
-const Blog = (props) => {
+const Blog = () => {
   const [posts, setPosts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -18,14 +18,13 @@ const Blog = (props) => {
   const fetchPosts = async () => {
     try {
       const response = await fetch('http://localhost:5000/api/posts/published')
-      if (response.ok) {
-        const data = await response.json()
-        setPosts(data)
-      } else {
-        setError('Failed to load blog posts')
+      if (!response.ok) {
+        throw new Error('Failed to fetch posts')
       }
+      const data = await response.json()
+      setPosts(data)
     } catch (err) {
-      setError('Failed to load blog posts')
+      setError(err.message)
     } finally {
       setLoading(false)
     }
@@ -81,74 +80,62 @@ const Blog = (props) => {
       <Navbar />
       <div className="blog-content">
         <div className="blog-header">
-          <h1 className="blog-title">Strategic Insights</h1>
+          <h1 className="blog-title">Blog & Insights</h1>
           <p className="blog-subtitle">
-            Thoughts on leadership, innovation, and organizational transformation
+            Thoughts and insights on strategic leadership, artificial intelligence, and organizational transformation.
           </p>
         </div>
         
-        <div className="blog-body">
-          {loading ? (
-            <div className="blog-loading">
-              <p>Loading articles...</p>
-            </div>
-          ) : error ? (
-            <div className="blog-error">
-              <h3>Coming Soon</h3>
-              <p>
-                I'm currently working on creating valuable content about strategic leadership, 
-                AI innovation, and organizational transformation. Check back soon for insightful 
-                articles and professional perspectives.
-              </p>
-            </div>
-          ) : posts.length === 0 ? (
-            <div className="blog-empty">
-              <h3>Articles Coming Soon</h3>
-              <p>
-                I'm preparing thoughtful content about strategic leadership, AI innovation, 
-                and organizational transformation. Stay tuned for expert insights and 
-                practical guidance on modern business challenges.
-              </p>
-            </div>
-          ) : (
-            <div className="blog-posts">
-              {posts.map((post) => (
-                <article key={post.id} className="blog-post-card">
-                  <div className="blog-post-content">
-                    <div className="blog-post-meta">
-                      <time dateTime={post.published_at}>
-                        {formatDate(post.published_at)}
-                      </time>
-                      {post.category && (
-                        <span className="blog-post-category">{post.category}</span>
-                      )}
-                    </div>
-                    <h2 className="blog-post-title">
-                      <Link to={`/blog/${post.slug}`}>{post.title}</Link>
-                    </h2>
-                    <p className="blog-post-excerpt">{post.excerpt}</p>
-                    <div className="blog-post-tags">
-                      {post.tags && post.tags.split(',').map((tag, index) => (
-                        <span key={index} className="blog-post-tag">
-                          {tag.trim()}
-                        </span>
-                      ))}
-                    </div>
-                    <Link to={`/blog/${post.slug}`} className="blog-post-link">
-                      Read More →
-                    </Link>
+        {loading ? (
+          <div className="blog-loading">
+            <p>Loading posts...</p>
+          </div>
+        ) : error ? (
+          <div className="blog-error">
+            <h2>Coming Soon</h2>
+            <p>I'm currently working on creating valuable content about strategic leadership, AI innovation, and organizational transformation. Check back soon for insights and perspectives on navigating the modern business landscape.</p>
+          </div>
+        ) : posts.length === 0 ? (
+          <div className="blog-empty">
+            <h2>Articles Coming Soon</h2>
+            <p>I'm preparing thoughtful content about strategic leadership, AI innovation, and organizational transformation. Stay tuned for expert insights and practical guidance on modern business challenges.</p>
+          </div>
+        ) : (
+          <div className="blog-posts">
+            {posts.map((post) => (
+              <article key={post.id} className="blog-post">
+                <div className="blog-post-content">
+                  <div className="blog-post-meta">
+                    <time dateTime={post.published_at}>
+                      {formatDate(post.published_at)}
+                    </time>
+                    {post.category && (
+                      <span className="blog-post-category">{post.category}</span>
+                    )}
                   </div>
-                </article>
-              ))}
-            </div>
-          )}
-        </div>
+                  <h2 className="blog-post-title">
+                    <Link to={`/blog/${post.slug}`}>{post.title}</Link>
+                  </h2>
+                  <p className="blog-post-excerpt">{post.excerpt}</p>
+                  <div className="blog-post-tags">
+                    {post.tags && post.tags.split(',').map((tag, index) => (
+                      <span key={index} className="blog-post-tag">
+                        {tag.trim()}
+                      </span>
+                    ))}
+                  </div>
+                  <Link to={`/blog/${post.slug}`} className="blog-post-link">
+                    Read More →
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
       </div>
       <Footer />
     </div>
   )
 }
-
-Blog.defaultProps = {}
 
 export default Blog
