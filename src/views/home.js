@@ -95,7 +95,7 @@ const Home = (props) => {
           </div>
         </div>
         
-        <div className="home-contact">
+        <div className="home-contact" id="contact">
           <div className="home-section">
             <Contact
               email1="cloudhopper@icloud.com"
