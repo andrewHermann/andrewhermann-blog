@@ -9,99 +9,83 @@ import Features1 from '../components/features1'
 import CTA from '../components/cta'
 import Features2 from '../components/features2'
 import Steps from '../components/steps'
-import Contact from '../components/contact'
 import Footer from '../components/footer'
 import FloatingRobot from "../components/FloatingRobot"
 import './home.css'
 
 const Home = (props) => {
-  const navigate = useNavigate()
-
-  // Navigation functions for the hero buttons
-
-
-  // Smooth scroll function for navigation
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
-
   return (
     <div className="home-container">
-      <FloatingRobot />
       <Helmet>
-        <title>Andrew J. Hermann - Strategic Leadership & AI Innovation</title>
+        <title>Andrew J. Hermann - Strategic Leadership & Innovation</title>
         <meta 
           name="description" 
-          content="Expert in organizational strategy, project portfolio management, data-driven decision-making, and applied artificial intelligence in public administration. Explore Andrew J. Hermann's professional portfolio and expertise." 
+          content="Andrew J. Hermann - Expert in organizational strategy, AI innovation, and project portfolio management. Transforming complex systems through data-driven leadership." 
         />
-        <meta name="keywords" content="Andrew Hermann, organizational strategy, project management, artificial intelligence, public administration, data-driven decisions" />
+        <meta name="keywords" content="Andrew Hermann, strategic leadership, AI innovation, organizational transformation, project management, data-driven decisions" />
         <meta name="author" content="Andrew J. Hermann" />
         
         {/* OpenGraph tags for social sharing */}
-        <meta property="og:title" content="Andrew J. Hermann - Strategic Leadership & AI Innovation" />
-        <meta property="og:description" content="Expert in organizational strategy, project portfolio management, data-driven decision-making, and applied artificial intelligence in public administration." />
+        <meta property="og:title" content="Andrew J. Hermann - Strategic Leadership & Innovation" />
+        <meta property="og:description" content="Expert in organizational strategy, AI innovation, and project portfolio management. Transforming complex systems through data-driven leadership." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://andrew.cloudhopper.ch" />
         <meta property="og:site_name" content="Andrew J. Hermann" />
         
         {/* Twitter Card tags */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Andrew J. Hermann - Strategic Leadership & AI Innovation" />
-        <meta name="twitter:description" content="Expert in organizational strategy, project portfolio management, data-driven decision-making, and applied artificial intelligence in public administration." />
+        <meta name="twitter:title" content="Andrew J. Hermann - Strategic Leadership & Innovation" />
+        <meta name="twitter:description" content="Expert in organizational strategy, AI innovation, and project portfolio management. Transforming complex systems through data-driven leadership." />
         
-        {/* Structured data for search engines */}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Person",
-            "name": "Andrew J. Hermann",
-            "jobTitle": "Strategic Leadership & AI Innovation Expert",
-            "description": "Expert in organizational strategy, project portfolio management, data-driven decision-making, and applied artificial intelligence in public administration",
-            "url": "https://andrew.cloudhopper.ch",
-            "email": "cloudhopper@icloud.com",
-            "telephone": "+1-772-202-0009"
-          })}
-        </script>
+        {/* Canonical URL */}
+        <link rel="canonical" href="https://andrew.cloudhopper.ch" />
       </Helmet>
       
-      <Navbar onNavigate={scrollToSection}></Navbar>
+      <FloatingRobot />
+      <Navbar></Navbar>
       
       <div className="home-content">
-        <div className="home-header">
-          <Hero 
-          ></Hero>
+        <div className="home-hero">
+          <div className="home-section">
+            <Hero></Hero>
+          </div>
         </div>
         
-        <div className="home-main">
+        <div className="home-features1">
           <div className="home-section">
-            <Features1></Features1>
+            <Features1
+              feature1Title="Strategic Leadership"
+              feature2Title="AI Innovation"
+              feature3Title="Project Portfolio Management"
+              feature1Description="Developing and implementing organizational strategies that drive innovation and operational excellence across complex systems."
+              feature2Description="Leveraging artificial intelligence technologies to solve real-world problems in public administration and organizational management."
+              feature3Description="Expert management of complex project portfolios, resource allocation, and stakeholder coordination across multiple initiatives."
+            ></Features1>
           </div>
-          
+        </div>
+        
+        <div className="home-cta">
           <div className="home-section">
             <CTA></CTA>
           </div>
-          
+        </div>
+        
+        <div className="home-features2">
           <div className="home-section">
-            <Features2></Features2>
+            <Features2
+              feature1Title="Data-Driven Excellence"
+              feature2Title="Innovation Leadership"  
+              feature3Title="Organizational Impact"
+              feature1Description="Utilizing advanced analytics and data science methodologies to inform strategic decisions and optimize organizational performance."
+              feature2Description="Leading transformative initiatives that integrate cutting-edge technology with proven business strategies for sustainable growth."
+              feature3Description="Creating measurable impact through systematic approaches to organizational development and process optimization."
+            ></Features2>
           </div>
         </div>
         
-        <div className="home-process">
+        <div className="home-steps">
           <div className="home-section">
             <Steps></Steps>
-          </div>
-        </div>
-        
-        <div className="home-contact" id="contact">
-          <div className="home-section">
-            <Contact
-              email1="cloudhopper@icloud.com"
-              phone1="+1-772-202-0009"
-              content4="Connect on LinkedIn"
-            ></Contact>
           </div>
         </div>
       </div>

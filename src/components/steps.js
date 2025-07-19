@@ -1,10 +1,52 @@
 import React from 'react'
-
 import PropTypes from 'prop-types'
-
+import { useNavigate } from 'react-router-dom'
 import './steps.css'
 
 const Steps = (props) => {
+  const navigate = useNavigate()
+
+  // Define the step cards with their content and links
+  const stepCards = [
+    {
+      id: '01',
+      title: 'Explore My Portfolio',
+      description: 'Browse through a collection of my past projects and initiatives to gain insights into my expertise and capabilities.',
+      link: '/portfolio'
+    },
+    {
+      id: '02', 
+      title: 'Discover Current Initiatives',
+      description: 'Learn about ongoing projects like KI@V and the Orion Cockpit, which showcase cutting-edge solutions in public administration.',
+      link: '/blog'
+    },
+    {
+      id: '03',
+      title: 'Connect with Complex Systems',
+      description: 'Understand how I leverage data-driven decision-making and applied artificial intelligence to create high-impact, scalable solutions.',
+      link: '/about'
+    },
+    {
+      id: '04',
+      title: 'Get in Touch',
+      description: 'Ready to discuss how my expertise can benefit your organization? Let\'s start a conversation about your strategic challenges.',
+      link: '/contact'
+    }
+  ]
+
+  const handleCardClick = (link) => {
+    // Scroll to top of the page
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    // Navigate to the page
+    navigate(link)
+  }
+
+  const handleMethodologyClick = () => {
+    // Scroll to top and navigate to about page for methodology details
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    navigate('/about')
+  }
+
   return (
     <div className="steps-container1 thq-section-padding">
       <div className="steps-max-width thq-section-max-width">
@@ -20,40 +62,29 @@ const Steps = (props) => {
               across public and private sectors.
             </p>
             <div className="steps-actions">
-              <button className="thq-button-animated thq-button-filled steps-button">
+              <button 
+                className="thq-button-animated thq-button-filled steps-button"
+                onClick={handleMethodologyClick}
+              >
                 <span className="thq-body-small">View Methodology</span>
               </button>
             </div>
           </div>
           <div className="steps-container3">
-            <div className="steps-container4 thq-card">
-              <h2 className="thq-heading-2">{props.step1Title}</h2>
-              <span className="steps-text14 thq-body-small">
-                {props.step1Description}
-              </span>
-              <label className="steps-text15 thq-heading-3">01</label>
-            </div>
-            <div className="steps-container5 thq-card">
-              <h2 className="thq-heading-2">{props.step2Title}</h2>
-              <span className="steps-text17 thq-body-small">
-                {props.step2Description}
-              </span>
-              <label className="steps-text18 thq-heading-3">02</label>
-            </div>
-            <div className="steps-container6 thq-card">
-              <h2 className="thq-heading-2">{props.step3Title}</h2>
-              <span className="steps-text20 thq-body-small">
-                {props.step3Description}
-              </span>
-              <label className="steps-text21 thq-heading-3">03</label>
-            </div>
-            <div className="steps-container7 thq-card">
-              <h2 className="thq-heading-2">{props.step4Title}</h2>
-              <span className="steps-text23 thq-body-small">
-                {props.step4Description}
-              </span>
-              <label className="steps-text24 thq-heading-3">04</label>
-            </div>
+            {stepCards.map((step, index) => (
+              <div 
+                key={step.id}
+                className={`steps-container${index + 4} thq-card`}
+                onClick={() => handleCardClick(step.link)}
+                style={{ cursor: 'pointer' }}
+              >
+                <h2 className="thq-heading-2">{step.title}</h2>
+                <span className="steps-text14 thq-body-small">
+                  {step.description}
+                </span>
+                <label className="steps-text15 thq-heading-3">{step.id}</label>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -61,30 +92,7 @@ const Steps = (props) => {
   )
 }
 
-Steps.defaultProps = {
-  step1Title: 'Explore My Portfolio',
-  step4Title: 'Professional Background',
-  step2Title: 'Discover Current Initiatives',
-  step3Title: 'Connect Complex Systems',
-  step1Description:
-    'Browse through a collection of my past projects and initiatives to gain insights into my expertise and capabilities.',
-  step4Description:
-    'View my professional background, education, and career progression in strategic leadership, technology innovation, and public administration.',
-  step3Description:
-    'Understand how I leverage data-driven decision-making and applied artificial intelligence to create high-impact, scalable solutions for complex systems.',
-  step2Description:
-    'Learn about ongoing projects like KI@V and the Orion Cockpit, which showcase cutting-edge solutions in public administration.',
-}
-
-Steps.propTypes = {
-  step1Title: PropTypes.string,
-  step4Title: PropTypes.string,
-  step2Title: PropTypes.string,
-  step3Title: PropTypes.string,
-  step1Description: PropTypes.string,
-  step4Description: PropTypes.string,
-  step3Description: PropTypes.string,
-  step2Description: PropTypes.string,
-}
+Steps.defaultProps = {}
+Steps.propTypes = {}
 
 export default Steps
