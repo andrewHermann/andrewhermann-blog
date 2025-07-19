@@ -7,6 +7,7 @@ import About from './views/about'
 import Blog from './views/blog'
 import BlogPost from './views/blog-post'
 import Markets from './views/markets'
+import ContactPage from './views/contact'
 import NotFound1 from './views/not-found'
 
 import AdminLogin from './admin/AdminLogin'
@@ -71,6 +72,7 @@ const AppRouter = () => {
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
         <Route path="/markets" element={<Markets />} />
+        <Route path="/contact" element={<ContactPage />} />
         <Route path="/not-found" element={<NotFound1 />} />
 
         {/* Admin Routes */}

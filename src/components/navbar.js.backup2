@@ -49,9 +49,7 @@ const Navbar = (props) => {
             <Link to="/about" className={`thq-body-small thq-link ${location.pathname === '/about' ? 'active' : ''}`}>
               {props.link5}
             </Link>
-            <Link to="/contact" className={`thq-body-small thq-link ${location.pathname === '/contact' ? 'active' : ''}`}>
-              {props.link6}
-            </Link>
+            <span className="thq-body-small thq-link">{props.link6}</span>
           </nav>
         </div>
         <div 
@@ -136,13 +134,7 @@ const Navbar = (props) => {
               >
                 {props.link5}
               </Link>
-              <Link 
-                to="/contact" 
-                className={`thq-body-small thq-link ${location.pathname === '/contact' ? 'active' : ''}`}
-                onClick={handleMobileLinkClick}
-              >
-                {props.link6}
-              </Link>
+              <span className="thq-body-small thq-link">{props.link6}</span>
             </nav>
           </div>
         </div>
