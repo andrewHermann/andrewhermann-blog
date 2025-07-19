@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
 import PropTypes from 'prop-types'
@@ -7,20 +7,6 @@ import './navbar.css'
 
 const Navbar = (props) => {
   const location = useLocation()
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen)
-  }
-  
-  const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false)
-  }
-  
-  // Close mobile menu when clicking on a link
-  const handleMobileLinkClick = () => {
-    setIsMobileMenuOpen(false)
-  }
   
   return (
     <header className="navbar-container">
@@ -52,86 +38,41 @@ const Navbar = (props) => {
             <span className="thq-body-small thq-link">{props.link6}</span>
           </nav>
         </div>
-        <div 
-          data-thq="thq-burger-menu" 
-          className="navbar-burger-menu"
-          onClick={toggleMobileMenu}
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              toggleMobileMenu()
-            }
-          }}
-        >
+        <div data-thq="thq-burger-menu" className="navbar-burger-menu">
           <svg viewBox="0 0 1024 1024" className="navbar-icon1">
             <path d="M128 554.667h768c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-768c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667zM128 298.667h768c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-768c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667zM128 810.667h768c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-768c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667z"></path>
           </svg>
         </div>
-        <div 
-          data-thq="thq-mobile-menu" 
-          className={`navbar-mobile-menu ${isMobileMenuOpen ? 'navbar-mobile-menu-open' : ''}`}
-        >
+        <div data-thq="thq-mobile-menu" className="navbar-mobile-menu">
           <div className="navbar-nav">
             <div className="navbar-top">
-              <Link to="/" onClick={handleMobileLinkClick}>
+              <Link to="/">
                 <img
                   alt={props.logoAlt}
                   src={props.logoSrc}
                   className="navbar-logo"
                 />
               </Link>
-              <div 
-                data-thq="thq-close-menu" 
-                className="navbar-close-menu"
-                onClick={closeMobileMenu}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    closeMobileMenu()
-                  }
-                }}
-              >
+              <div data-thq="thq-close-menu" className="navbar-close-menu">
                 <svg viewBox="0 0 1024 1024" className="navbar-icon3">
                   <path d="M810 274l-238 238 238 238-60 60-238-238-238 238-60-60 238-238-238-238 60-60 238 238 238-238z"></path>
                 </svg>
               </div>
             </div>
             <nav className="navbar-links2">
-              <Link 
-                to="/" 
-                className={`thq-body-small thq-link ${location.pathname === '/' ? 'active' : ''}`}
-                onClick={handleMobileLinkClick}
-              >
+              <Link to="/" className={`thq-body-small thq-link ${location.pathname === '/' ? 'active' : ''}`}>
                 {props.link1}
               </Link>
-              <Link 
-                to="/portfolio" 
-                className={`thq-body-small thq-link ${location.pathname === '/portfolio' ? 'active' : ''}`}
-                onClick={handleMobileLinkClick}
-              >
+              <Link to="/portfolio" className={`thq-body-small thq-link ${location.pathname === '/portfolio' ? 'active' : ''}`}>
                 {props.link2}
               </Link>
-              <Link 
-                to="/blog" 
-                className={`thq-body-small thq-link ${location.pathname.startsWith('/blog') ? 'active' : ''}`}
-                onClick={handleMobileLinkClick}
-              >
+              <Link to="/blog" className={`thq-body-small thq-link ${location.pathname.startsWith('/blog') ? 'active' : ''}`}>
                 {props.link3}
               </Link>
-              <Link 
-                to="/markets" 
-                className={`thq-body-small thq-link ${location.pathname === '/markets' ? 'active' : ''}`}
-                onClick={handleMobileLinkClick}
-              >
+              <Link to="/markets" className={`thq-body-small thq-link ${location.pathname === '/markets' ? 'active' : ''}`}>
                 {props.link4}
               </Link>
-              <Link 
-                to="/about" 
-                className={`thq-body-small thq-link ${location.pathname === '/about' ? 'active' : ''}`}
-                onClick={handleMobileLinkClick}
-              >
+              <Link to="/about" className={`thq-body-small thq-link ${location.pathname === '/about' ? 'active' : ''}`}>
                 {props.link5}
               </Link>
               <span className="thq-body-small thq-link">{props.link6}</span>
