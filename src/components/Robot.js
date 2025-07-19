@@ -1,6 +1,6 @@
 import React, { useRef, useLayoutEffect, Suspense, useState, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { useGLTF } from '@react-three/drei';
+import { useGLTF, useAnimations } from '@react-three/drei';
 import * as THREE from 'three';
 
 // Fallback component while loading
@@ -21,17 +21,14 @@ const LoadingPlaceholder = () => {
   );
 };
 
-// Robot component that loads the GLB model
+// Robot component that loads the GLB model with built-in animations
 const Robot = () => {
   const group = useRef();
-  const { scene } = useGLTF('/ai-3d-robot.glb');
+  const { scene, animations } = useGLTF('/ai-3d-robot.glb');
+  const { actions, mixer } = useAnimations(animations, group);
   
-  // State for fall animation
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [animationPhase, setAnimationPhase] = useState('idle'); // 'idle', 'falling', 'down', 'getting_up'
-  const [animationProgress, setAnimationProgress] = useState(0);
-  
-  // State for drag and touch controls
+  // State for interactive controls
+  const [currentAnimation, setCurrentAnimation] = useState('Idle');
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [rotation, setRotation] = useState({ x: 0, y: Math.PI }); // Face forward
@@ -108,32 +105,61 @@ const Robot = () => {
         }
       });
       
-      console.log('Robot loaded facing forward with enhanced coloring and touch/drag interaction!');
+      console.log('Robot loaded with built-in animations:', Object.keys(actions));
     }
-  }, [scene]);
+  }, [scene, actions]);
 
-  // Handle click for fall animation
+  // Set up initial animation
+  useEffect(() => {
+    if (actions) {
+      console.log('Available animations:', Object.keys(actions));
+      
+      // Stop all actions first
+      Object.keys(actions).forEach(actionName => {
+        actions[actionName]?.stop();
+      });
+      
+      // Start the idle animation by default
+      if (actions.Idle) {
+        actions.Idle.play();
+        setCurrentAnimation('Idle');
+        console.log('Playing Idle animation');
+      }
+    }
+  }, [actions]);
+
+  // Handle click for animation switching
   const handleClick = (event) => {
-    if (!isAnimating) {
-      setIsAnimating(true);
-      setAnimationPhase('falling');
-      setAnimationProgress(0);
+    if (actions && !isDragging) {
       event.stopPropagation();
+      
+      // Switch between Idle and Pose animations
+      const nextAnimation = currentAnimation === 'Idle' ? 'Pose' : 'Idle';
+      
+      if (actions[nextAnimation]) {
+        // Fade out current animation
+        if (actions[currentAnimation]) {
+          actions[currentAnimation].fadeOut(0.5);
+        }
+        
+        // Fade in new animation
+        actions[nextAnimation].reset().fadeIn(0.5).play();
+        setCurrentAnimation(nextAnimation);
+        console.log(`Switched to ${nextAnimation} animation`);
+      }
     }
   };
 
-  // Mouse and touch event handlers
+  // Mouse and touch event handlers for rotation
   useEffect(() => {
     const handleMouseDown = (event) => {
-      if (!isAnimating) {
-        setIsDragging(true);
-        setDragStart({ x: event.clientX, y: event.clientY });
-        setLastTouch({ x: event.clientX, y: event.clientY });
-      }
+      setIsDragging(true);
+      setDragStart({ x: event.clientX, y: event.clientY });
+      setLastTouch({ x: event.clientX, y: event.clientY });
     };
 
     const handleMouseMove = (event) => {
-      if (!isDragging || isAnimating) return;
+      if (!isDragging) return;
       
       const deltaX = event.clientX - lastTouch.x;
       const deltaY = event.clientY - lastTouch.y;
@@ -151,16 +177,14 @@ const Robot = () => {
     };
 
     const handleTouchStart = (event) => {
-      if (!isAnimating) {
-        setIsDragging(true);
-        const touch = event.touches[0];
-        setDragStart({ x: touch.clientX, y: touch.clientY });
-        setLastTouch({ x: touch.clientX, y: touch.clientY });
-      }
+      const touch = event.touches[0];
+      setIsDragging(true);
+      setDragStart({ x: touch.clientX, y: touch.clientY });
+      setLastTouch({ x: touch.clientX, y: touch.clientY });
     };
 
     const handleTouchMove = (event) => {
-      if (!isDragging || isAnimating) return;
+      if (!isDragging) return;
       
       const touch = event.touches[0];
       const deltaX = touch.clientX - lastTouch.x;
@@ -197,76 +221,22 @@ const Robot = () => {
       }
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
-
       window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('touchend', handleTouchEnd);
     };
-  }, [isDragging, lastTouch, isAnimating]);
+  }, [isDragging, lastTouch]);
 
+  // Apply rotation from user interaction
   useFrame((state) => {
     if (group.current) {
-      if (isAnimating) {
-        // Fall animation sequence
-        if (animationPhase === 'falling') {
-          setAnimationProgress(prev => prev + 0.04);
-          
-          // Falling backwards - rotate around X axis
-          const fallRotation = Math.sin(animationProgress) * 0.8;
-          group.current.rotation.x = fallRotation;
-          
-          // Slight position change to simulate falling
-          group.current.position.y = -Math.sin(animationProgress) * 2;
-          
-          if (animationProgress >= Math.PI / 2) {
-            setAnimationPhase('down');
-            setAnimationProgress(0);
-          }
-        } else if (animationPhase === 'down') {
-          setAnimationProgress(prev => prev + 0.02);
-          
-          // Stay down for a moment
-          group.current.rotation.x = 0.8;
-          group.current.position.y = -2;
-          
-          if (animationProgress >= 1) {
-            setAnimationPhase('getting_up');
-            setAnimationProgress(0);
-          }
-        } else if (animationPhase === 'getting_up') {
-          setAnimationProgress(prev => prev + 0.04);
-          
-          // Getting back up - reverse the fall
-          const upRotation = 0.8 - (Math.sin(animationProgress) * 0.8);
-          group.current.rotation.x = upRotation;
-          
-          // Return to original position
-          group.current.position.y = -2 + (Math.sin(animationProgress) * 2);
-          
-          if (animationProgress >= Math.PI / 2) {
-            // Reset to original state
-            group.current.rotation.x = rotation.x;
-            group.current.position.y = 0;
-            setIsAnimating(false);
-            setAnimationPhase('idle');
-            setAnimationProgress(0);
-          }
-        }
-      } else {
-        // Normal drag and touch rotation when not animating
-        group.current.rotation.x = rotation.x;
-        // Custom oscillation: 0° to 180°
-        const oscillation = (Math.sin(state.clock.elapsedTime * 0.3) + 1) / 2; // 0 to 1
-        const targetRotation = oscillation * Math.PI; // 0 to π (0° to 180°)
-        group.current.rotation.y = targetRotation;
-        
-        // Add subtle mouse hover effect when not dragging
-        if (!isDragging) {
-          const { mouse } = state;
-          // Custom oscillation with mouse effect
-          const oscillation = (Math.sin(state.clock.elapsedTime * 0.3) + 1) / 2;
-          const targetRotation = oscillation * Math.PI;
-          group.current.rotation.y = targetRotation + Math.sin(mouse.x * 0.1) * 0.05;
-        }
+      // Apply user rotation
+      group.current.rotation.x = rotation.x;
+      group.current.rotation.y = rotation.y;
+      
+      // Add subtle mouse hover effect when not dragging
+      if (!isDragging) {
+        const { mouse } = state;
+        group.current.rotation.y = rotation.y + Math.sin(mouse.x * 0.1) * 0.05;
       }
     }
   });
