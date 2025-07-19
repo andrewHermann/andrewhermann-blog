@@ -71,7 +71,7 @@ export default currentConfig
 // API Endpoints
 export const API_ENDPOINTS = {
   // Auth endpoints
-  LOGIN: '/api/auth/login',
+  LOGIN: '/api/admin/login',
   VERIFY: '/api/admin/verify',
   
   // Admin endpoints
