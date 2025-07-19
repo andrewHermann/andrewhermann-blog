@@ -20,12 +20,12 @@ const AdminLogin = ({ onLogin }) => {
         body: JSON.stringify(credentials),
       })
 
-      if (response.ok) {
+      // apiRequest already returns the JSON data, not a Response object
+      if (response.message === 'Login successful') {
         onLogin(true)
         navigate('/admin/dashboard')
       } else {
-        const data = await response.json()
-        setError(data.error || 'Login failed')
+        setError(response.error || 'Login failed')
       }
     } catch (err) {
       setError('Connection error: ' + err.message)
