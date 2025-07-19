@@ -1,0 +1,31 @@
+{
+  "short_name": "Andrew Hermann",
+  "name": "Andrew J. Hermann - Strategic Leadership & AI Innovation",
+  "description": "Expert in organizational strategy, project portfolio management, and applied artificial intelligence",
+  "icons": [
+    {
+      "src": "ah-logo.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "ah-logo.png", 
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "ah-logo.png",
+      "sizes": "512x512", 
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#ffffff",
+  "theme_color": "#4f46e5", 
+  "display": "standalone",
+  "scope": "/",
+  "orientation": "portrait-primary",
+  "categories": ["business", "professional", "consulting"],
+  "lang": "en",
+  "dir": "ltr"
+}
