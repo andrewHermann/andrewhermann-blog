@@ -47,9 +47,9 @@ const PostEditor = () => {
   const fetchPost = async () => {
     console.log('fetchPost called with id:', id);
     try {
-      const response = await apiRequest(`${API_ENDPOINTS.ADMIN_POSTS}/${id}`);
-      if (response) {
-        // apiRequest already returns JSON data
+      const response = await apiRequest(API_ENDPOINTS.ADMIN_POST(id));
+      if (response.ok) {
+        const data = await response.json();
         console.log('Post loaded successfully:', data);
         setPost({
           ...data,
@@ -57,6 +57,9 @@ const PostEditor = () => {
           updated_at: formatDateForInput(data.updated_at)
         });
         setError(''); // Clear any error
+      } else {
+        console.log('Failed to load post - response not ok:', response.status);
+        setError('Failed to load post');
       }
     } catch (err) {
       console.log('Error loading post:', err);
@@ -90,7 +93,7 @@ const PostEditor = () => {
 
     try {
       const url = isEditing 
-        ? `${API_ENDPOINTS.ADMIN_POSTS}/${id}`
+        ? API_ENDPOINTS.ADMIN_POST(id)
         : API_ENDPOINTS.ADMIN_POSTS;
       
       const method = isEditing ? 'PUT' : 'POST';
@@ -106,11 +109,14 @@ const PostEditor = () => {
         body: JSON.stringify(postData),
       });
 
-      if (response) {
+      if (response.ok) {
         setSuccess(isEditing ? 'Post updated successfully!' : 'Post created successfully!');
         setTimeout(() => {
           navigate('/admin/posts');
         }, 1500);
+      } else {
+        const data = await response.json();
+        setError(data.error || 'Failed to save post');
       }
     } catch (err) {
       setError('Connection error: ' + err.message);
