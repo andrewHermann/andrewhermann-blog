@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
+import config from '../config/api'
 import SEO from '../components/seo'
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
@@ -17,7 +18,7 @@ const Blog = () => {
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/posts/published')
+      const response = await fetch('${config.API_BASE_URL}/api/posts/published')
       if (!response.ok) {
         throw new Error('Failed to fetch posts')
       }

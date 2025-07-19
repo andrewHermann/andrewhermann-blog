@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 
+import config from './config/api'
 import Home from './views/home'
 import Portfolio from './views/portfolio'
 import About from './views/about'
@@ -38,7 +39,7 @@ const AppRouter = () => {
         return
       }
 
-      const response = await fetch('http://localhost:5000/api/admin/verify', {
+      const response = await fetch('${config.API_BASE_URL}/api/admin/verify', {
         headers: { 'Authorization': `Bearer ${token}` }
       })
 
