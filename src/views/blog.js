@@ -102,34 +102,36 @@ const Blog = () => {
           </div>
         ) : (
           <div className="blog-posts">
-            {posts.map((post) => (
-              <article key={post.id} className="blog-post">
-                <div className="blog-post-content">
-                  <div className="blog-post-meta">
-                    <time dateTime={post.created_at}>
-                      {formatDate(post.created_at)}
-                    </time>
-                    {post.category && (
-                      <span className="blog-post-category">{post.category}</span>
-                    )}
+            <div className="blog-posts-grid">
+              {posts.map((post) => (
+                <article key={post.id} className="blog-post">
+                  <div className="blog-post-content">
+                    <div className="blog-post-meta">
+                      <time dateTime={post.created_at}>
+                        {formatDate(post.created_at)}
+                      </time>
+                      {post.category && (
+                        <span className="blog-post-category">{post.category}</span>
+                      )}
+                    </div>
+                    <h2 className="blog-post-title">
+                      <Link to={`/blog/${post.slug}`}>{post.title}</Link>
+                    </h2>
+                    <p className="blog-post-excerpt">{post.excerpt}</p>
+                    <div className="blog-post-tags">
+                      {post.tags && post.tags.split(',').map((tag, index) => (
+                        <span key={index} className="blog-post-tag">
+                          {tag.trim()}
+                        </span>
+                      ))}
+                    </div>
+                    <Link to={`/blog/${post.slug}`} className="blog-post-link">
+                      Read More
+                    </Link>
                   </div>
-                  <h2 className="blog-post-title">
-                    <Link to={`/blog/${post.slug}`}>{post.title}</Link>
-                  </h2>
-                  <p className="blog-post-excerpt">{post.excerpt}</p>
-                  <div className="blog-post-tags">
-                    {post.tags && post.tags.split(',').map((tag, index) => (
-                      <span key={index} className="blog-post-tag">
-                        {tag.trim()}
-                      </span>
-                    ))}
-                  </div>
-                  <Link to={`/blog/${post.slug}`} className="blog-post-link">
-                    Read More →
-                  </Link>
-                </div>
-              </article>
-            ))}
+                </article>
+              ))}
+            </div>
           </div>
         )}
       </div>

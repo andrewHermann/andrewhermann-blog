@@ -49,36 +49,51 @@
   margin-bottom: 0;
 }
 
+/* General frame container for all portfolio sections */
 .portfolio-main {
   width: 100%;
+  max-width: 1000px;
   display: flex;
-  align-items: flex-start;
   flex-direction: column;
-  gap: 40px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid #e5e7eb;
+  padding: 40px;
+  margin: 0 auto;
 }
 
-/* Portfolio section styling inspired by home page portfolio items */
+/* Container for individual portfolio sections */
+.portfolio-sections-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: space-between;
+}
+
+/* Individual portfolio sections - 2/3 width with stacking */
 .portfolio-section {
-  width: 100%;
+  flex: 1 1 calc(66.666% - 15px);
+  min-width: 300px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 40px;
-  background-color: #fff;
+  padding: 30px;
+  background-color: #f8fafc;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e5e7eb;
+  border: 1px solid #e2e8f0;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .portfolio-section:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
 .portfolio-section h2 {
   color: var(--dl-color-theme-primary);
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-style: normal;
   font-family: Inter, sans-serif;
   font-weight: 600;
@@ -93,7 +108,7 @@
 
 .portfolio-section h3 {
   color: #6b7280;
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-style: italic;
   font-family: Inter, sans-serif;
   font-weight: 500;
@@ -103,7 +118,7 @@
 
 .portfolio-section p {
   color: var(--dl-color-theme-neutral-dark);
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-style: normal;
   font-family: Inter, sans-serif;
   font-weight: 400;
@@ -120,12 +135,12 @@
 
 .portfolio-section li {
   color: var(--dl-color-theme-neutral-dark);
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-family: Inter, sans-serif;
   font-weight: 400;
   line-height: 1.6;
-  margin-bottom: 12px;
-  padding-left: 30px;
+  margin-bottom: 10px;
+  padding-left: 25px;
   position: relative;
   transition: transform 0.2s ease;
 }
@@ -137,7 +152,7 @@
 .portfolio-section li::before {
   content: "▶";
   color: var(--dl-color-theme-primary);
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   font-weight: bold;
   position: absolute;
   left: 0;
@@ -159,7 +174,7 @@
 .portfolio-section:nth-child(even) li::before {
   content: "●";
   color: #059669;
-  font-size: 1rem;
+  font-size: 0.85rem;
   transform: none;
 }
 
@@ -168,7 +183,24 @@
   transform: scale(1.2);
 }
 
+/* When there's only one section or odd number, center the last one */
+.portfolio-section:only-child,
+.portfolio-section:nth-child(odd):last-child {
+  flex: 1 1 100%;
+  max-width: 100%;
+}
+
 /* Responsive design */
+@media (max-width: 1024px) {
+  .portfolio-main {
+    padding: 30px;
+  }
+  
+  .portfolio-section {
+    flex: 1 1 100%;
+  }
+}
+
 @media (max-width: 768px) {
   .portfolio-content {
     padding-top: 80px;
@@ -183,29 +215,34 @@
   }
   
   .portfolio-main {
-    gap: 30px;
+    padding: 25px;
+  }
+  
+  .portfolio-sections-grid {
+    gap: 20px;
   }
   
   .portfolio-section {
-    padding: 30px 20px;
+    padding: 25px;
+    flex: 1 1 100%;
   }
   
   .portfolio-section h2 {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
   }
   
   .portfolio-section h3 {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
   
   .portfolio-section li {
-    font-size: 0.95rem;
-    padding-left: 25px;
-    margin-bottom: 10px;
+    font-size: 0.85rem;
+    padding-left: 22px;
+    margin-bottom: 8px;
   }
   
   .portfolio-section li::before {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
   }
 }
 
@@ -214,16 +251,20 @@
     font-size: 2rem;
   }
   
+  .portfolio-main {
+    padding: 20px;
+  }
+  
   .portfolio-section {
     padding: 20px;
   }
   
   .portfolio-section h2 {
-    font-size: 1.25rem;
+    font-size: 1.125rem;
   }
   
   .portfolio-section li {
-    font-size: 0.9rem;
-    padding-left: 22px;
+    font-size: 0.8rem;
+    padding-left: 20px;
   }
 }
