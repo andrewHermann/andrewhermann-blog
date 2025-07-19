@@ -18,17 +18,7 @@ const Home = (props) => {
   const navigate = useNavigate()
 
   // Navigation functions for the hero buttons
-  const handleExplorePortfolio = () => {
-    navigate('/portfolio')
-    // Ensure we start at the top of the page
-    window.scrollTo(0, 0)
-  }
 
-  const handleLearnMore = () => {
-    navigate('/about')
-    // Ensure we start at the top of the page
-    window.scrollTo(0, 0)
-  }
 
   // Smooth scroll function for navigation
   const scrollToSection = (sectionId) => {
@@ -82,8 +72,6 @@ const Home = (props) => {
       <div className="home-content">
         <div className="home-header">
           <Hero 
-            onExplorePortfolio={handleExplorePortfolio}
-            onLearnMore={handleLearnMore}
           ></Hero>
         </div>
         
