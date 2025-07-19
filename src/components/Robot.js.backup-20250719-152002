@@ -59,7 +59,7 @@ const Robot = () => {
           const materialName = (child.material.name || '').toLowerCase();
           const combinedName = `${name} ${materialName}`;
           
-          // Body parts - BRIGHT BLUE
+          // Body parts - WHITE
           if (combinedName.includes('body') || combinedName.includes('armorout') || 
               combinedName.includes('armorin') || combinedName.includes('torso') ||
               combinedName.includes('chest') || combinedName.includes('main')) {

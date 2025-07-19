@@ -61,7 +61,7 @@ const ThreeScene = () => {
       <InteractiveCameraController />
       
       {/* Minimal ambient light - main lighting comes from Robot component */}
-      <ambientLight intensity={0.4} color="#ffffff" />
+      <ambientLight intensity={0.6} color="#ffffff" />
       
       {/* Robot in its own container */}
       {useRobot ? (
