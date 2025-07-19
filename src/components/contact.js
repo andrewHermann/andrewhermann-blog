@@ -63,12 +63,12 @@ const Contact = (props) => {
 
 Contact.defaultProps = {
   email1: 'info@andrewjhermann.com',
-  heading1: 'Get in Touch',
+  heading1: 'Professional Contact',
   content4: 'Connect on LinkedIn',
   content2: 'Connect with me on social media for updates and insights:',
   content5: 'Subscribe to my newsletter for the latest updates and articles.',
   content1:
-    "I'm excited to hear from you. Reach out to discuss collaboration opportunities, consulting services, or to learn more about my work.",
+    "Connect with me to learn more about my professional experience, current projects, or to discuss topics related to organizational strategy and AI innovation.",
   phone1: '+1-555-123-4567',
   content3: 'Follow me on Twitter',
 }

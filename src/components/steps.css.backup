@@ -21,9 +21,9 @@
  
 .steps-section-header {
   gap: var(--dl-layout-space-oneandhalfunits);
-  
+  top: 10%;
   display: flex;
-  
+  position: sticky;
   align-items: flex-start;
   flex-direction: column;
 }
@@ -39,8 +39,8 @@
 }
  
 .steps-container4 {
-  
-  
+  top: 10%;
+  position: sticky;
   transform: rotate(-2deg);
   margin-bottom: var(--dl-layout-space-twounits);
   background-color: var(--dl-color-theme-accent1);
@@ -60,8 +60,8 @@
 }
  
 .steps-container5 {
-  
-  
+  top: 10%;
+  position: sticky;
   transform: rotate(2deg);
   margin-bottom: var(--dl-layout-space-twounits);
   background-color: var(--dl-color-theme-accent2);
@@ -81,8 +81,8 @@
 }
  
 .steps-container6 {
-  
-  
+  top: 10%;
+  position: sticky;
   transform: rotate(-2deg);
   margin-bottom: var(--dl-layout-space-twounits);
   background-color: var(--dl-color-theme-accent1);
@@ -102,8 +102,8 @@
 }
  
 .steps-container7 {
-  
-  
+  top: 10%;
+  position: sticky;
   transform: rotate(2deg);
   background-color: var(--dl-color-theme-accent2);
 }
@@ -154,56 +154,4 @@
   .steps-button {
     width: 100%;
   }
-}
-
-/* Enhanced hover effects for Steps cards */
-.steps-container4:hover,
-.steps-container5:hover,
-.steps-container6:hover,
-.steps-container7:hover {
-  transform: scale(1.05) translateY(-8px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
-  z-index: 10;
-  cursor: pointer;
-}
-
-.steps-container4:hover {
-  transform: rotate(-2deg) scale(1.05) translateY(-8px);
-}
-
-.steps-container6:hover {
-  transform: rotate(-2deg) scale(1.05) translateY(-8px);
-}
-
-.steps-container5:hover {
-  transform: rotate(2deg) scale(1.05) translateY(-8px);
-}
-
-.steps-container7:hover {
-  transform: rotate(2deg) scale(1.05) translateY(-8px);
-}
-
-/* Smooth transitions for all step containers */
-.steps-container4,
-.steps-container5,
-.steps-container6,
-.steps-container7 {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
-}
-
-/* Card content hover effects */
-.steps-container4:hover .steps-text15,
-.steps-container5:hover .steps-text18,
-.steps-container6:hover .steps-text21,
-.steps-container7:hover .steps-text24 {
-  transform: scale(1.1);
-  color: var(--dl-color-theme-primary);
-}
-
-.steps-text15,
-.steps-text18,
-.steps-text21,
-.steps-text24 {
-  transition: all 0.3s ease;
 }
