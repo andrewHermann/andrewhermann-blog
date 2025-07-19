@@ -41,12 +41,6 @@ const Steps = (props) => {
     navigate(link)
   }
 
-  const handleMethodologyClick = () => {
-    // Scroll to top and navigate to about page for methodology details
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-    navigate('/about')
-  }
-
   return (
     <div className="steps-container1 thq-section-padding">
       <div className="steps-max-width thq-section-max-width">
@@ -56,19 +50,12 @@ const Steps = (props) => {
               My Approach to Organizational Transformation
             </h2>
             <p className="thq-body-large">
-              I follow a proven methodology that combines strategic thinking,
-              data-driven insights, and innovative technology solutions
-              to deliver measurable results for organizations
-              across public and private sectors.
+              I employ a comprehensive, evidence-based methodology that integrates strategic frameworks, advanced analytics, and cutting-edge technology to drive sustainable organizational transformation. My approach leverages proven methodologies including Lean Six Sigma, Agile/Scrum, Design Thinking, and Change Management frameworks such as Kotter's 8-Step Process and ADKAR. 
+              
+              Utilizing tools like Microsoft Power BI, Tableau, and Python for data analytics, combined with AI/ML platforms including TensorFlow and Azure Cognitive Services, I create data-driven insights that inform strategic decisions. My project portfolio management employs methodologies such as PMI standards, SAFe (Scaled Agile Framework), and hybrid approaches tailored to organizational contexts.
+              
+              Through stakeholder mapping, risk assessment matrices, and continuous improvement cycles, I ensure alignment between strategic objectives and operational execution, delivering measurable ROI and sustainable competitive advantage across public and private sector organizations.
             </p>
-            <div className="steps-actions">
-              <button 
-                className="thq-button-animated thq-button-filled steps-button"
-                onClick={handleMethodologyClick}
-              >
-                <span className="thq-body-small">View Methodology</span>
-              </button>
-            </div>
           </div>
           <div className="steps-container3">
             {stepCards.map((step, index) => (
