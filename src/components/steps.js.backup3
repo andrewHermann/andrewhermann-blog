@@ -11,17 +11,17 @@ const Steps = (props) => {
         <div className="steps-container2 thq-grid-2">
           <div className="steps-section-header">
             <h2 className="thq-heading-2">
-              My Approach to Organizational Transformation
+              Discover the Power of Our Products
             </h2>
             <p className="thq-body-large">
-              I follow a proven methodology that combines strategic thinking,
-              data-driven insights, and innovative technology solutions
-              to deliver measurable results for organizations
-              across public and private sectors.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Suspendisse varius enim in eros elementum tristique. Duis cursus,
+              mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam
+              libero vitae erat.
             </p>
             <div className="steps-actions">
               <button className="thq-button-animated thq-button-filled steps-button">
-                <span className="thq-body-small">View Methodology</span>
+                <span className="thq-body-small">Main action</span>
               </button>
             </div>
           </div>
@@ -63,13 +63,13 @@ const Steps = (props) => {
 
 Steps.defaultProps = {
   step1Title: 'Explore My Portfolio',
-  step4Title: 'Professional Background',
+  step4Title: 'Get in Touch',
   step2Title: 'Discover Current Initiatives',
   step3Title: 'Connect Complex Systems',
   step1Description:
     'Browse through a collection of my past projects and initiatives to gain insights into my expertise and capabilities.',
   step4Description:
-    'View my professional background, education, and career progression in strategic leadership, technology innovation, and public administration.',
+    'Reach out to discuss collaboration opportunities or to inquire about how my skills can benefit your organization.',
   step3Description:
     'Understand how I leverage data-driven decision-making and applied artificial intelligence to create high-impact, scalable solutions for complex systems.',
   step2Description:

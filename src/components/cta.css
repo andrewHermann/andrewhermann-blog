@@ -1,80 +1,237 @@
-.cta-accent2-bg {
-  gap: var(--dl-layout-space-oneandhalfunits);
-  display: flex;
-  transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(1deg) skew(0deg, 0deg);
-  align-self: stretch;
-  transition: 0.3s;
-  align-items: center;
-  border-radius: var(--dl-layout-radius-cardradius);
-  justify-content: space-between;
-  transform-style: preserve-3d;
-  background-color: var(--dl-color-theme-accent2);
-}
- 
-.cta-accent2-bg:hover {
-  transform: scale3d(1.1,1.1,1.1);
-}
- 
-.cta-accent1-bg {
+.cta-steps-container {
   width: 100%;
   display: flex;
-  transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(-2deg) skew(0deg, 0deg);
+  position: relative;
   align-items: center;
-  border-radius: var(--dl-layout-radius-cardradius);
-  justify-content: space-between;
-  transform-style: preserve-3d;
-  background-color: var(--dl-color-theme-accent1);
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--dl-layout-space-fourunits) 0;
 }
- 
-.cta-container2 {
-  gap: var(--dl-layout-space-threeunits);
+
+.cta-steps-max-width {
+  gap: var(--dl-layout-space-fourunits);
   width: 100%;
+  max-width: var(--dl-layout-size-maxwidth);
   display: flex;
-  transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(1deg) skew(0deg, 0deg);
-  transition: 0.3s;
-  align-items: center;
-  padding-top: var(--dl-layout-space-sixunits);
-  padding-left: var(--dl-layout-space-fourunits);
-  border-radius: var(--dl-layout-radius-cardradius);
-  padding-right: var(--dl-layout-space-fourunits);
-  padding-bottom: var(--dl-layout-space-sixunits);
+  align-items: flex-start;
+  flex-direction: row;
+  margin: 0 auto;
+  padding: 0 var(--dl-layout-space-twounits);
 }
- 
-.cta-container2:hover {
-  color: var(--dl-color-theme-neutral-light);
-  background-color: var(--dl-color-theme-neutral-dark);
-}
- 
-.cta-content {
+
+.cta-steps-header {
   gap: var(--dl-layout-space-oneandhalfunits);
   display: flex;
+  position: sticky;
+  top: 10%;
   align-items: flex-start;
   flex-direction: column;
+  flex: 0 0 40%;
 }
- 
-.cta-actions {
-  gap: var(--dl-layout-space-oneandhalfunits);
+
+.cta-steps-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--dl-color-theme-neutral-dark);
+  margin-bottom: var(--dl-layout-space-unit);
+}
+
+.cta-steps-subtitle {
+  font-size: 1.125rem;
+  color: var(--dl-color-theme-neutral-dark);
+  line-height: 1.6;
+}
+
+.cta-cards-container {
   flex: 1;
   display: flex;
+  flex-direction: column;
+  gap: var(--dl-layout-space-twounits);
+}
+
+.cta-card {
+  gap: var(--dl-layout-space-unit);
+  display: flex;
+  padding: var(--dl-layout-space-threeunits);
+  position: relative;
   align-items: flex-start;
-  justify-content: flex-end;
+  border-radius: var(--dl-layout-radius-cardradius);
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-bottom: var(--dl-layout-space-twounits);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
- 
-@media(max-width: 767px) {
-  .cta-container2 {
-    gap: var(--dl-layout-space-oneandhalfunits);
+
+.cta-card-1 {
+  transform: rotate(-2deg);
+  background-color: var(--dl-color-theme-accent1);
+}
+
+.cta-card-2 {
+  transform: rotate(2deg);
+  background-color: var(--dl-color-theme-accent2);
+}
+
+.cta-card-3 {
+  transform: rotate(-2deg);
+  background-color: var(--dl-color-theme-accent1);
+}
+
+.cta-card-4 {
+  transform: rotate(2deg);
+  background-color: var(--dl-color-theme-accent2);
+}
+
+.cta-card:hover {
+  transform: scale(1.05) translateY(-8px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.cta-card-1:hover {
+  transform: rotate(-2deg) scale(1.05) translateY(-8px);
+}
+
+.cta-card-3:hover {
+  transform: rotate(-2deg) scale(1.05) translateY(-8px);
+}
+
+.cta-card-2:hover {
+  transform: rotate(2deg) scale(1.05) translateY(-8px);
+}
+
+.cta-card-4:hover {
+  transform: rotate(2deg) scale(1.05) translateY(-8px);
+}
+
+.cta-card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--dl-color-theme-neutral-dark);
+  margin-bottom: var(--dl-layout-space-halfunit);
+}
+
+.cta-card-description {
+  font-size: 1rem;
+  color: var(--dl-color-theme-neutral-dark);
+  line-height: 1.6;
+  margin-bottom: var(--dl-layout-space-oneandhalfunits);
+  text-align: left;
+}
+
+.cta-card-button {
+  background-color: var(--dl-color-theme-primary);
+  color: var(--dl-color-theme-neutral-light);
+  border: none;
+  padding: var(--dl-layout-space-unit) var(--dl-layout-space-twounits);
+  border-radius: var(--dl-layout-radius-radius4);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cta-card-button:hover {
+  background-color: var(--dl-color-theme-secondary);
+  transform: translateY(-2px);
+}
+
+.cta-card-number {
+  position: absolute;
+  top: var(--dl-layout-space-unit);
+  right: var(--dl-layout-space-unit);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--dl-color-theme-primary);
+  opacity: 0.7;
+}
+
+@media (max-width: 991px) {
+  .cta-steps-max-width {
     flex-direction: column;
-    justify-content: flex-start;
+  }
+  
+  .cta-steps-header {
+    position: static;
+    margin-bottom: var(--dl-layout-space-twounits);
+    flex: none;
   }
 }
- 
-@media(max-width: 479px) {
-  .cta-actions {
-    flex-wrap: wrap;
-    align-self: stretch;
-    justify-content: center;
+
+@media (max-width: 767px) {
+  .cta-steps-title {
+    font-size: 2rem;
   }
-  .cta-button {
-    flex: 1;
+  
+  .cta-card {
+    width: 100%;
+    transform: rotate(0deg) !important;
   }
+  
+.cta-card:hover {
+  transform: scale(1.05) translateY(-8px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.cta-card-1:hover {
+  transform: rotate(-2deg) scale(1.05) translateY(-8px);
+}
+
+.cta-card-3:hover {
+  transform: rotate(-2deg) scale(1.05) translateY(-8px);
+}
+}
+
+@media (max-width: 479px) {
+  .cta-card-title {
+    font-size: 1.25rem;
+  }
+  
+  .cta-card {
+    padding: var(--dl-layout-space-twounits);
+  }
+}
+
+/* Enhanced transitions and interactions */
+.cta-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.cta-card-button:hover {
+  background-color: var(--dl-color-theme-secondary);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.cta-card-number {
+  transition: all 0.3s ease;
+}
+
+.cta-card:hover .cta-card-number {
+  transform: scale(1.2);
+  color: var(--dl-color-theme-secondary);
+  opacity: 1;
+}
+
+.cta-card-title,
+.cta-card-description {
+  transition: all 0.2s ease;
+}
+
+.cta-card:hover .cta-card-title {
+  color: var(--dl-color-theme-primary);
+  transform: translateY(-2px);
+}
+
+.cta-card:hover .cta-card-description {
+  transform: translateY(-1px);
+}
+
+/* Add subtle glow effect on hover */
+.cta-card:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 
+              0 0 0 1px rgba(74, 78, 105, 0.1),
+              0 0 20px rgba(74, 78, 105, 0.1);
 }
