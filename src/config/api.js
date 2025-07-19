@@ -68,21 +68,26 @@ export const apiRequest = async (endpoint, options = {}) => {
 
 export default currentConfig
 
-// API Endpoints
+// API Endpoints - Updated to match backend routes
 export const API_ENDPOINTS = {
   // Auth endpoints
   LOGIN: '/api/admin/login',
-  VERIFY: '/api/admin/verify',
+  LOGOUT: '/api/admin/logout',
+  CHECK_AUTH: '/api/admin/check-auth',
+  CHANGE_PASSWORD: '/api/admin/change-password',
   
   // Admin endpoints
   ADMIN_DASHBOARD: '/api/admin/dashboard',
   
-  // Posts endpoints
+  // Posts endpoints (public)
   POSTS: '/api/posts',
-  POSTS_PUBLISHED: '/api/posts/published',
+  POSTS_BY_SLUG: '/api/posts', // append /:slug
   
-  // Users endpoints
-  USERS: '/api/users',
+  // Posts endpoints (admin)
+  ADMIN_POSTS: '/api/admin/posts',
+  ADMIN_POSTS_BY_ID: '/api/admin/posts', // append /:id
   
-  // Other endpoints can be added here as needed
+  // Users endpoints (admin)
+  ADMIN_USERS: '/api/admin/users',
+  ADMIN_USERS_BY_ID: '/api/admin/users', // append /:id
 }

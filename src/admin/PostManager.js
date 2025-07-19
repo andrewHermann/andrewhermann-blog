@@ -15,9 +15,9 @@ const PostManager = () => {
   const fetchPosts = async () => {
     try {
       const response = await apiRequest(API_ENDPOINTS.ADMIN_POSTS)
-      if (response.ok) {
-        const data = await response.json()
-        setPosts(data)
+      if (response) {
+        // apiRequest already returns JSON data
+        setPosts(response)
       } else {
         setError('Failed to load posts')
       }
@@ -31,10 +31,10 @@ const PostManager = () => {
   const deletePost = async (id) => {
     if (window.confirm('Are you sure you want to delete this post?')) {
       try {
-        const response = await apiRequest(API_ENDPOINTS.ADMIN_POST(id), {
+        const response = await apiRequest(`${API_ENDPOINTS.ADMIN_POSTS}/${id}`, {
           method: 'DELETE',
         })
-        if (response.ok) {
+        if (response) {
           fetchPosts() // Refresh the list
         } else {
           setError('Failed to delete post')
