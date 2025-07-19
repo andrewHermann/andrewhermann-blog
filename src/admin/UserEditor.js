@@ -28,7 +28,7 @@ const UserEditor = () => {
       const response = await apiRequest(`${API_ENDPOINTS.ADMIN_USERS}/${id}`);
       if (response) {
         // apiRequest already returns JSON data
-        setUser({ ...data, password: '' }); // Don't load password for security
+        setUser({ ...response, password: '' }); // Don't load password for security
       } else {
         setError('Failed to load user');
       }
@@ -72,9 +72,6 @@ const UserEditor = () => {
         setTimeout(() => {
           navigate('/admin/users');
         }, 1500);
-      } else {
-        // apiRequest already returns JSON data
-        setError(data.error || 'Failed to save user');
       }
     } catch (err) {
       setError('Connection error: ' + err.message);
