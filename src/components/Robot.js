@@ -42,7 +42,7 @@ const Robot = () => {
       scene.position.set(0, -10, 0); // Adjusted position
       scene.rotation.y = Math.PI; // Face forward
       
-      // Apply strategic coloring to highlight details
+      // Apply strategic coloring with white body
       scene.traverse((child) => {
         if (child.isMesh && child.material) {
           console.log('Mesh:', child.name, 'Material:', child.material.name);
@@ -54,60 +54,78 @@ const Robot = () => {
           const materialName = (child.material.name || '').toLowerCase();
           const combinedName = `${name} ${materialName}`;
           
-          // Skin/Body parts - fair skin tone
-          if (combinedName.includes('skin') || combinedName.includes('body') || 
-              combinedName.includes('head') || combinedName.includes('face') ||
-              combinedName.includes('neck') || combinedName.includes('arm') ||
-              combinedName.includes('hand') || combinedName.includes('leg') ||
-              combinedName.includes('foot') || combinedName.includes('torso')) {
+          // Body parts - WHITE
+          if (combinedName.includes('body') || combinedName.includes('armorout') || 
+              combinedName.includes('armorin') || combinedName.includes('torso') ||
+              combinedName.includes('chest') || combinedName.includes('main')) {
+            child.material.color.setHex(0xffffff); // Pure white
+            child.material.roughness = 0.3;
+            child.material.metalness = 0.1;
+          }
+          
+          // Head/Face - light skin tone for contrast
+          else if (combinedName.includes('head') || combinedName.includes('face') ||
+                   combinedName.includes('neck') || combinedName.includes('skin')) {
             child.material.color.setHex(0xfdbcb4); // Fair skin
+            child.material.roughness = 0.7;
+            child.material.metalness = 0.1;
           }
           
           // Eyes - blue
           else if (combinedName.includes('eye') || combinedName.includes('pupil') ||
                    combinedName.includes('iris')) {
             child.material.color.setHex(0x4a90e2); // Blue eyes
+            child.material.roughness = 0.2;
+            child.material.metalness = 0.0;
           }
           
           // Hair - brown
           else if (combinedName.includes('hair') || combinedName.includes('scalp')) {
             child.material.color.setHex(0x8b7355); // Light brown hair
+            child.material.roughness = 0.8;
+            child.material.metalness = 0.0;
           }
           
-          // Clothing - various colors
-          else if (combinedName.includes('shirt') || combinedName.includes('top')) {
-            child.material.color.setHex(0x2c5aa0); // Blue shirt
-          }
-          else if (combinedName.includes('pants') || combinedName.includes('trouser')) {
-            child.material.color.setHex(0x4a4a4a); // Dark gray pants
-          }
-          else if (combinedName.includes('shoe') || combinedName.includes('boot')) {
-            child.material.color.setHex(0x654321); // Brown shoes
+          // Lights/Technology parts - bright blue/cyan for tech feel
+          else if (combinedName.includes('light') || combinedName.includes('tech') ||
+                   combinedName.includes('glow') || combinedName.includes('led')) {
+            child.material.color.setHex(0x00ffff); // Cyan lights
+            child.material.emissive.setHex(0x004444); // Slight glow
+            child.material.roughness = 0.1;
+            child.material.metalness = 0.8;
           }
           
-          // Accessories
-          else if (combinedName.includes('button') || combinedName.includes('zipper')) {
-            child.material.color.setHex(0x888888); // Gray accessories
+          // Arms and legs - white to match body
+          else if (combinedName.includes('arm') || combinedName.includes('hand') || 
+                   combinedName.includes('leg') || combinedName.includes('foot')) {
+            child.material.color.setHex(0xf8f8f8); // Slightly off-white
+            child.material.roughness = 0.4;
+            child.material.metalness = 0.2;
           }
           
-          // Default enhancement - brighten very dark parts
+          // Decorative elements - subtle gray
+          else if (combinedName.includes('decor') || combinedName.includes('detail') ||
+                   combinedName.includes('trim')) {
+            child.material.color.setHex(0xe0e0e0); // Light gray
+            child.material.roughness = 0.5;
+            child.material.metalness = 0.3;
+          }
+          
+          // Default enhancement - make sure nothing is too dark
           else {
             const currentColor = child.material.color;
-            if (currentColor.r < 0.2 && currentColor.g < 0.2 && currentColor.b < 0.2) {
-              // Brighten very dark parts with a subtle color
-              child.material.color.setHex(0x666666);
+            if (currentColor.r < 0.3 && currentColor.g < 0.3 && currentColor.b < 0.3) {
+              // Brighten dark parts
+              child.material.color.setHex(0xcccccc);
             }
-          }
-          
-          // Ensure proper material properties for visibility
-          if (child.material.type === 'MeshStandardMaterial') {
-            child.material.roughness = 0.7;
-            child.material.metalness = 0.1;
+            // Ensure proper material properties for good lighting
+            child.material.roughness = child.material.roughness || 0.5;
+            child.material.metalness = child.material.metalness || 0.2;
           }
         }
       });
       
-      console.log('Robot loaded with built-in animations:', Object.keys(actions));
+      console.log('Robot loaded with white body and enhanced lighting materials');
     }
   }, [scene, actions]);
 
@@ -287,6 +305,22 @@ const Robot = () => {
 
   return (
     <group ref={group} onClick={handleClick}>
+      {/* Add top directional light for better illumination */}
+      <directionalLight
+        position={[0, 10, 5]}
+        intensity={1.5}
+        color="#ffffff"
+        castShadow={false}
+      />
+      {/* Add ambient light for overall brightness */}
+      <ambientLight intensity={0.4} color="#f0f0f0" />
+      {/* Add a subtle fill light from the side */}
+      <directionalLight
+        position={[5, 2, 5]}
+        intensity={0.8}
+        color="#e6f3ff"
+        castShadow={false}
+      />
       <primitive object={scene} />
     </group>
   );
