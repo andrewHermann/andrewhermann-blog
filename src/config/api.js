@@ -1,52 +1,88 @@
-// API Configuration - Dynamic based on current host
-const getApiBaseUrl = () => {
-  if (typeof window !== 'undefined') {
-    // In browser - use current host but port 3001
-    const protocol = window.location.protocol;
-    const hostname = window.location.hostname;
-    return `${protocol}//${hostname}:3001`;
+// API Configuration for different environments
+const config = {
+  development: {
+    API_BASE_URL: 'http://localhost:5000',
+  },
+  production: {
+    API_BASE_URL: 'https://andrew.cloudhopper.ch',
   }
-  // Fallback for server-side rendering
-  return 'http://localhost:3001';
-};
+}
 
-const API_BASE_URL = getApiBaseUrl();
+// Determine current environment
+const environment = process.env.NODE_ENV || 'development'
 
-export const API_ENDPOINTS = {
-  // Auth endpoints
-  LOGIN: `${API_BASE_URL}/api/admin/login`,
-  LOGOUT: `${API_BASE_URL}/api/admin/logout`,
-  CHECK_AUTH: `${API_BASE_URL}/api/admin/check-auth`,
-  
-  // Blog endpoints
-  BLOG_POSTS: `${API_BASE_URL}/api/posts`,
-  BLOG_POST: (slug) => `${API_BASE_URL}/api/posts/${slug}`,
-  
-  // Admin endpoints
-  ADMIN_POSTS: `${API_BASE_URL}/api/admin/posts`,
-  ADMIN_POST: (id) => `${API_BASE_URL}/api/admin/posts/${id}`,
-  
-  // User management endpoints
-  ADMIN_USERS: `${API_BASE_URL}/api/admin/users`,
-  ADMIN_USER: (id) => `${API_BASE_URL}/api/admin/users/${id}`,
-  CHANGE_PASSWORD: `${API_BASE_URL}/api/admin/change-password`,
-};
+// Use hostname to determine if we're in production when NODE_ENV isn't set
+const isProduction = typeof window !== 'undefined' && 
+  (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1')
 
-export const apiRequest = async (url, options = {}) => {
-  const config = {
-    ...options,
+const currentConfig = isProduction ? config.production : config[environment] || config.development
+
+// API request helper function
+export const apiRequest = async (endpoint, options = {}) => {
+  const url = `${currentConfig.API_BASE_URL}${endpoint}`
+  
+  const defaultOptions = {
     headers: {
       'Content-Type': 'application/json',
+    },
+  }
+  
+  // Add authorization header if token exists
+  const token = localStorage.getItem('adminToken')
+  if (token) {
+    defaultOptions.headers['Authorization'] = `Bearer ${token}`
+  }
+  
+  const finalOptions = {
+    ...defaultOptions,
+    ...options,
+    headers: {
+      ...defaultOptions.headers,
       ...options.headers,
     },
-    credentials: 'include',
-  };
-
-  try {
-    const response = await fetch(url, config);
-    return response;
-  } catch (error) {
-    console.error('API request failed:', error);
-    throw error;
   }
-};
+  
+  try {
+    const response = await fetch(url, finalOptions)
+    
+    // Handle JSON responses
+    if (response.headers.get('Content-Type')?.includes('application/json')) {
+      const data = await response.json()
+      if (!response.ok) {
+        throw new Error(data.message || `HTTP error! status: ${response.status}`)
+      }
+      return data
+    }
+    
+    // Handle non-JSON responses
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+    
+    return response
+  } catch (error) {
+    console.error('API request failed:', error)
+    throw error
+  }
+}
+
+export default currentConfig
+
+// API Endpoints
+export const API_ENDPOINTS = {
+  // Auth endpoints
+  LOGIN: '/api/auth/login',
+  VERIFY: '/api/admin/verify',
+  
+  // Admin endpoints
+  ADMIN_DASHBOARD: '/api/admin/dashboard',
+  
+  // Posts endpoints
+  POSTS: '/api/posts',
+  POSTS_PUBLISHED: '/api/posts/published',
+  
+  // Users endpoints
+  USERS: '/api/users',
+  
+  // Other endpoints can be added here as needed
+}

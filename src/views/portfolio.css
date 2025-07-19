@@ -142,3 +142,75 @@
     font-size: 1.25rem;
   }
 }
+
+/* Enhanced list styling */
+.portfolio-section ul {
+  margin: 20px 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.portfolio-section li {
+  color: var(--dl-color-theme-neutral-dark);
+  font-size: 1rem;
+  font-family: Inter;
+  font-weight: 400;
+  line-height: 1.6;
+  margin-bottom: 12px;
+  padding-left: 30px;
+  position: relative;
+}
+
+.portfolio-section li::before {
+  content: "▶";
+  color: #4f46e5;
+  font-size: 0.875rem;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  top: 2px;
+  transform: rotate(0deg);
+  transition: transform 0.2s ease;
+}
+
+.portfolio-section li:hover::before {
+  transform: rotate(90deg);
+  color: #6366f1;
+}
+
+.portfolio-section li:last-child {
+  margin-bottom: 0;
+}
+
+/* Alternative bullet styles for different sections */
+.portfolio-section:nth-child(even) li::before {
+  content: "●";
+  color: #059669;
+  font-size: 1rem;
+  transform: none;
+}
+
+.portfolio-section:nth-child(even) li:hover::before {
+  color: #10b981;
+  transform: scale(1.2);
+}
+
+/* Responsive adjustments for lists */
+@media (max-width: 768px) {
+  .portfolio-section li {
+    font-size: 0.95rem;
+    padding-left: 25px;
+    margin-bottom: 10px;
+  }
+  
+  .portfolio-section li::before {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .portfolio-section li {
+    font-size: 0.9rem;
+    padding-left: 22px;
+  }
+}
