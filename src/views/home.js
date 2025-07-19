@@ -9,7 +9,7 @@ import CTA from '../components/cta'
 import Features2 from '../components/features2'
 import Steps from '../components/steps'
 import Footer from '../components/footer'
-import FloatingRobot from "../components/FloatingRobot"
+import PageFloatingRobot from "../components/PageFloatingRobot"
 import './home.css'
 
 const Home = (props) => {
@@ -92,7 +92,7 @@ const Home = (props) => {
       </div>
 
       <Footer />
-      <FloatingRobot />
+      <PageFloatingRobot bodyColor="#1e40af" glowColor="#3b82f6" />
     </div>
   )
 }

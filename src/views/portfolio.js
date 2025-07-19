@@ -1,7 +1,7 @@
 import React from 'react'
 
 import SEO from '../components/seo'
-
+import PageFloatingRobot from '../components/PageFloatingRobot'
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
 import './portfolio.css'
@@ -30,6 +30,9 @@ const Portfolio = (props) => {
         structuredData={portfolioStructuredData}
         breadcrumbs={portfolioBreadcrumbs}
       />
+      
+      {/* Floating Robot with purple/violet body color */}
+      <PageFloatingRobot bodyColor="#7c3aed" glowColor="#a78bfa" />
       
       <Navbar></Navbar>
       
