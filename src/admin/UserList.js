@@ -13,14 +13,11 @@ const UserList = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await apiRequest(API_ENDPOINTS.ADMIN_USERS);
-      if (response.ok) {
-        const data = await response.json();
-        setUsers(data);
-      } else {
-        setError('Failed to load users');
-      }
+      const data = await apiRequest(API_ENDPOINTS.ADMIN_USERS);
+      setUsers(data);
+      setError('');
     } catch (err) {
+      console.log('Error loading users:', err);
       setError('Connection error: ' + err.message);
     } finally {
       setLoading(false);
@@ -30,14 +27,11 @@ const UserList = () => {
   const deleteUser = async (id) => {
     if (window.confirm('Are you sure you want to delete this user?')) {
       try {
-        const response = await apiRequest(`${API_ENDPOINTS.ADMIN_USERS}/${id}`, { method: 'DELETE' });
-        if (response.ok) {
-          fetchUsers();
-        } else {
-          const data = await response.json();
-          setError(data.error || 'Failed to delete user');
-        }
+        await apiRequest(`${API_ENDPOINTS.ADMIN_USERS}/${id}`, { method: 'DELETE' });
+        fetchUsers(); // Reload the list
+        setError('');
       } catch (err) {
+        console.log('Error deleting user:', err);
         setError('Connection error: ' + err.message);
       }
     }

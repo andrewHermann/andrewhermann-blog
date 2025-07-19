@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 
+import { API_ENDPOINTS, apiRequest } from '../config/api'
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
 import './blog-post.css'
@@ -18,13 +19,12 @@ const BlogPost = () => {
 
   const fetchPost = async () => {
     try {
-      const response = await fetch(`/api/posts/${slug}`)
-      if (!response.ok) {
-        throw new Error('Post not found')
-      }
-      const data = await response.json()
+      // Use the correct API endpoint with slug
+      const data = await apiRequest(`${API_ENDPOINTS.POSTS}/${slug}`)
       setPost(data)
+      setError(null)
     } catch (err) {
+      console.log('Error loading post:', err)
       setError(err.message)
     } finally {
       setLoading(false)
