@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 
 import { API_ENDPOINTS, apiRequest } from '../config/api'
 import SEO from '../components/seo'
+import PageFloatingRobot from '../components/PageFloatingRobot'
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
 import './blog.css'
@@ -77,6 +78,10 @@ const Blog = () => {
         structuredData={blogStructuredData}
         breadcrumbs={blogBreadcrumbs}
       />
+      
+      {/* Floating Robot with green/emerald body color */}
+      <PageFloatingRobot bodyColor="#10b981" glowColor="#34d399" />
+      
       <Navbar />
       <div className="blog-content">
         <div className="blog-header">

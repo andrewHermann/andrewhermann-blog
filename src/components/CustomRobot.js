@@ -4,7 +4,7 @@ import { useGLTF, useAnimations } from '@react-three/drei';
 import * as THREE from 'three';
 
 // Fallback component while loading
-const LoadingPlaceholder = () => {
+const LoadingPlaceholder = ({ bodyColor = "blue" }) => {
   const meshRef = useRef();
   
   useFrame((state) => {
@@ -16,13 +16,13 @@ const LoadingPlaceholder = () => {
   return (
     <mesh ref={meshRef}>
       <boxGeometry args={[1, 2, 0.5]} />
-      <meshStandardMaterial color="blue" />
+      <meshStandardMaterial color={bodyColor} />
     </mesh>
   );
 };
 
-// Robot component that loads the GLB model with built-in animations
-const Robot = () => {
+// CustomRobotCore component that loads the GLB model with built-in animations
+const CustomRobotCore = ({ bodyColor = "#4a90e2", glowColor = "#ffffff" }) => {
   const group = useRef();
   const { scene, animations } = useGLTF('/ai-3d-robot.glb');
   const { actions, mixer } = useAnimations(animations, group);
@@ -36,6 +36,7 @@ const Robot = () => {
   const [dragDistance, setDragDistance] = useState(0);
   const [isPlayingPose, setIsPlayingPose] = useState(false);
   const [isPlayingReverse, setIsPlayingReverse] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   useLayoutEffect(() => {
     if (scene) {
@@ -79,7 +80,7 @@ const Robot = () => {
           // Eyes - blue
           else if (combinedName.includes('eye') || combinedName.includes('pupil') ||
                    combinedName.includes('iris')) {
-            child.material.color.setHex(0x4a90e2); // Blue eyes
+            child.material.color = new THREE.Color(bodyColor); // Custom color eyes
             child.material.roughness = 0.2;
             child.material.metalness = 0.0;
           }
@@ -94,8 +95,8 @@ const Robot = () => {
           // Lights/Technology parts - bright blue/cyan for tech feel
           else if (combinedName.includes('light') || combinedName.includes('tech') ||
                    combinedName.includes('glow') || combinedName.includes('led')) {
-            child.material.color.setHex(0x00ffff); // Cyan lights
-            child.material.emissive.setHex(0x004444); // Slight glow
+            child.material.color = new THREE.Color(bodyColor); // Custom color lights
+            child.material.emissive = new THREE.Color(bodyColor).multiplyScalar(0.3); // Custom glow
             child.material.roughness = 0.1;
             child.material.metalness = 0.8;
           }
@@ -130,7 +131,7 @@ const Robot = () => {
         }
       });
       
-      console.log('Robot loaded with white body and enhanced lighting materials');
+      console.log('CustomRobotCore loaded with white body and enhanced lighting materials');
     }
   }, [scene, actions]);
 
@@ -326,6 +327,16 @@ const Robot = () => {
         const { mouse } = state;
         group.current.rotation.y = rotation.y + Math.sin(mouse.x * 0.1) * 0.05;
       }
+      
+      // Smooth zoom effect on hover
+      const targetZ = isHovered ? 15 : 0; // Move closer to camera on hover
+      const targetScale = isHovered ? 1.15 : 1.0; // Slightly larger on hover
+      group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, targetZ, 0.08);
+      
+      // Apply hover scale effect
+      const currentScale = group.current.scale.x;
+      const newScale = THREE.MathUtils.lerp(currentScale, targetScale, 0.08);
+      group.current.scale.set(newScale, newScale, newScale);
     }
   });
 
@@ -371,19 +382,41 @@ const Robot = () => {
       />
       
       {/* Rotating group - only contains the robot model */}
-      <group ref={group} onClick={handleClick}>
+      <group 
+        ref={group} 
+        onClick={handleClick}
+        onPointerEnter={() => setIsHovered(true)}
+        onPointerLeave={() => setIsHovered(false)}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
         <primitive object={scene} />
       </group>
     </>
   );
 };
 
-const SafeRobot = () => {
+const SafeCustomRobotCore = ({ bodyColor, glowColor }) => {
   return (
     <Suspense fallback={<LoadingPlaceholder />}>
-      <Robot />
+      <CustomRobotCore />
     </Suspense>
   );
 };
 
-export default SafeRobot;
+// Main component with error boundary
+const CustomRobot = ({ bodyColor, glowColor }) => {
+  const [hasError, setHasError] = useState(false);
+
+  if (hasError) {
+    return <LoadingPlaceholder bodyColor={bodyColor} />;
+  }
+
+  return (
+    <Suspense fallback={<LoadingPlaceholder bodyColor={bodyColor} />}>
+      <CustomRobotCore bodyColor={bodyColor} glowColor={glowColor} />
+    </Suspense>
+  );
+};
+
+export default CustomRobot;
