@@ -39,7 +39,7 @@ const Robot = () => {
   useLayoutEffect(() => {
     if (scene) {
       scene.scale.set(22.5, 22.5, 22.5); // Reduced scale (25% of original)
-      scene.position.set(0, -10, 0); // Adjusted position
+      scene.position.set(0, 0, 0); // Adjusted position
       scene.rotation.y = Math.PI; // Face forward
       
       // Apply strategic coloring with white body
