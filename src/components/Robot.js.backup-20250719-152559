@@ -328,8 +328,7 @@ const Robot = () => {
   });
 
   return (
-    <>
-      {/* Stationary lights - do not rotate with the model */}
+    <group ref={group} onClick={handleClick}>
       {/* Bright blue directional light from top left */}
       <directionalLight
         position={[-10, 10, 5]}
@@ -367,12 +366,8 @@ const Robot = () => {
         color="#ff4444"
         castShadow={false}
       />
-      
-      {/* Rotating group - only contains the robot model */}
-      <group ref={group} onClick={handleClick}>
-        <primitive object={scene} />
-      </group>
-    </>
+      <primitive object={scene} />
+    </group>
   );
 };
 
