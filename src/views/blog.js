@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 
+import SEO from '../components/seo'
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
 import './blog.css'
 
-const Blog = () => {
+const Blog = (props) => {
   const [posts, setPosts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -17,176 +17,124 @@ const Blog = () => {
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch('/api/posts')
-      if (!response.ok) {
-        throw new Error('Failed to fetch posts')
+      const response = await fetch('http://localhost:5000/api/posts/published')
+      if (response.ok) {
+        const data = await response.json()
+        setPosts(data)
+      } else {
+        setError('Failed to load blog posts')
       }
-      const data = await response.json()
-      setPosts(data)
     } catch (err) {
-      setError(err.message)
+      setError('Failed to load blog posts')
     } finally {
       setLoading(false)
     }
   }
 
   const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    })
+    const options = { year: 'numeric', month: 'long', day: 'numeric' }
+    return new Date(dateString).toLocaleDateString(undefined, options)
   }
 
-  if (loading) {
-    return (
-      <div className="blog-container">
-        <Helmet>
-          <title>Blog - Andrew J. Hermann</title>
-          <meta 
-            name="description" 
-            content="Read Andrew J. Hermann's insights on strategic leadership, AI innovation, and digital transformation in public administration." 
-          />
-          <meta name="keywords" content="Andrew Hermann blog, strategic leadership, AI innovation, digital transformation, public administration" />
-          <meta name="author" content="Andrew J. Hermann" />
-          
-          <meta property="og:title" content="Blog - Andrew J. Hermann" />
-          <meta property="og:description" content="Read Andrew J. Hermann's insights on strategic leadership, AI innovation, and digital transformation in public administration." />
-          <meta property="og:type" content="website" />
-          <meta property="og:url" content="https://andrew.cloudhopper.ch/blog" />
-          <meta property="og:site_name" content="Andrew J. Hermann" />
-          
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content="Blog - Andrew J. Hermann" />
-          <meta name="twitter:description" content="Read Andrew J. Hermann's insights on strategic leadership, AI innovation, and digital transformation in public administration." />
-          
-          <link rel="canonical" href="https://andrew.cloudhopper.ch/blog" />
-        </Helmet>
-        
-        <Navbar />
-        
-        <div className="blog-content">
-          <div className="blog-header">
-            <h1 className="blog-title">Blog</h1>
-            <p className="blog-subtitle">
-              Insights on strategic leadership, AI innovation, and digital transformation in public administration.
-            </p>
-          </div>
-          
-          <div className="blog-main">
-            <div className="blog-loading">Loading blog posts...</div>
-          </div>
-        </div>
-        
-        <Footer content3="© 2025 Andrew J. Hermann. Professional portfolio website." />
-      </div>
-    )
+  const blogStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Strategic Leadership & AI Innovation Blog",
+    "description": "Insights and articles about strategic leadership, AI innovation, and organizational transformation by Andrew J. Hermann",
+    "url": "https://andrewhermann.com/blog",
+    "author": {
+      "@type": "Person",
+      "name": "Andrew J. Hermann"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Andrew J. Hermann"
+    },
+    "blogPost": posts.map(post => ({
+      "@type": "BlogPosting",
+      "headline": post.title,
+      "description": post.excerpt,
+      "url": `https://andrewhermann.com/blog/${post.slug}`,
+      "datePublished": post.published_at,
+      "author": {
+        "@type": "Person",
+        "name": "Andrew J. Hermann"
+      }
+    }))
   }
 
-  if (error) {
-    return (
-      <div className="blog-container">
-        <Helmet>
-          <title>Blog - Andrew J. Hermann</title>
-          <meta 
-            name="description" 
-            content="Read Andrew J. Hermann's insights on strategic leadership, AI innovation, and digital transformation in public administration." 
-          />
-          <meta name="keywords" content="Andrew Hermann blog, strategic leadership, AI innovation, digital transformation, public administration" />
-          <meta name="author" content="Andrew J. Hermann" />
-          
-          <meta property="og:title" content="Blog - Andrew J. Hermann" />
-          <meta property="og:description" content="Read Andrew J. Hermann's insights on strategic leadership, AI innovation, and digital transformation in public administration." />
-          <meta property="og:type" content="website" />
-          <meta property="og:url" content="https://andrew.cloudhopper.ch/blog" />
-          <meta property="og:site_name" content="Andrew J. Hermann" />
-          
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content="Blog - Andrew J. Hermann" />
-          <meta name="twitter:description" content="Read Andrew J. Hermann's insights on strategic leadership, AI innovation, and digital transformation in public administration." />
-          
-          <link rel="canonical" href="https://andrew.cloudhopper.ch/blog" />
-        </Helmet>
-        
-        <Navbar />
-        
-        <div className="blog-content">
-          <div className="blog-header">
-            <h1 className="blog-title">Blog</h1>
-            <p className="blog-subtitle">
-              Insights on strategic leadership, AI innovation, and digital transformation in public administration.
-            </p>
-          </div>
-          
-          <div className="blog-main">
-            <div className="blog-error">Error loading blog posts: {error}</div>
-          </div>
-        </div>
-        
-        <Footer content3="© 2025 Andrew J. Hermann. Professional portfolio website." />
-      </div>
-    )
-  }
+  const blogBreadcrumbs = [
+    { name: "Home", url: "https://andrewhermann.com" },
+    { name: "Blog", url: "https://andrewhermann.com/blog" }
+  ]
 
   return (
     <div className="blog-container">
-      <Helmet>
-        <title>Blog - Andrew J. Hermann</title>
-        <meta 
-          name="description" 
-          content="Read Andrew J. Hermann's insights on strategic leadership, AI innovation, and digital transformation in public administration." 
-        />
-        <meta name="keywords" content="Andrew Hermann blog, strategic leadership, AI innovation, digital transformation, public administration" />
-        <meta name="author" content="Andrew J. Hermann" />
-        
-        <meta property="og:title" content="Blog - Andrew J. Hermann" />
-        <meta property="og:description" content="Read Andrew J. Hermann's insights on strategic leadership, AI innovation, and digital transformation in public administration." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://andrew.cloudhopper.ch/blog" />
-        <meta property="og:site_name" content="Andrew J. Hermann" />
-        
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Blog - Andrew J. Hermann" />
-        <meta name="twitter:description" content="Read Andrew J. Hermann's insights on strategic leadership, AI innovation, and digital transformation in public administration." />
-        
-        <link rel="canonical" href="https://andrew.cloudhopper.ch/blog" />
-      </Helmet>
-      
+      <SEO
+        title="Blog"
+        description="Read insights and articles about strategic leadership, AI innovation, organizational transformation, and digital strategy by Andrew J. Hermann. Expert perspectives on modern business challenges."
+        keywords="blog, articles, strategic leadership, AI innovation, organizational transformation, digital strategy, business insights, leadership thoughts"
+        url="https://andrewhermann.com/blog"
+        structuredData={blogStructuredData}
+        breadcrumbs={blogBreadcrumbs}
+      />
       <Navbar />
-      
       <div className="blog-content">
         <div className="blog-header">
-          <h1 className="blog-title">Blog</h1>
+          <h1 className="blog-title">Strategic Insights</h1>
           <p className="blog-subtitle">
-            Insights on strategic leadership, AI innovation, and digital transformation in public administration.
+            Thoughts on leadership, innovation, and organizational transformation
           </p>
         </div>
         
-        <div className="blog-main">
-          {posts.length === 0 ? (
+        <div className="blog-body">
+          {loading ? (
+            <div className="blog-loading">
+              <p>Loading articles...</p>
+            </div>
+          ) : error ? (
+            <div className="blog-error">
+              <h3>Coming Soon</h3>
+              <p>
+                I'm currently working on creating valuable content about strategic leadership, 
+                AI innovation, and organizational transformation. Check back soon for insightful 
+                articles and professional perspectives.
+              </p>
+            </div>
+          ) : posts.length === 0 ? (
             <div className="blog-empty">
-              <h2>No blog posts yet</h2>
-              <p>Check back soon for insights and updates.</p>
+              <h3>Articles Coming Soon</h3>
+              <p>
+                I'm preparing thoughtful content about strategic leadership, AI innovation, 
+                and organizational transformation. Stay tuned for expert insights and 
+                practical guidance on modern business challenges.
+              </p>
             </div>
           ) : (
             <div className="blog-posts">
-              {posts.map(post => (
+              {posts.map((post) => (
                 <article key={post.id} className="blog-post-card">
-                  <div className="blog-post-header">
+                  <div className="blog-post-content">
+                    <div className="blog-post-meta">
+                      <time dateTime={post.published_at}>
+                        {formatDate(post.published_at)}
+                      </time>
+                      {post.category && (
+                        <span className="blog-post-category">{post.category}</span>
+                      )}
+                    </div>
                     <h2 className="blog-post-title">
                       <Link to={`/blog/${post.slug}`}>{post.title}</Link>
                     </h2>
-                    <div className="blog-post-meta">
-                      <time dateTime={post.created_at}>
-                        {formatDate(post.created_at)}
-                      </time>
+                    <p className="blog-post-excerpt">{post.excerpt}</p>
+                    <div className="blog-post-tags">
+                      {post.tags && post.tags.split(',').map((tag, index) => (
+                        <span key={index} className="blog-post-tag">
+                          {tag.trim()}
+                        </span>
+                      ))}
                     </div>
-                  </div>
-                  <div className="blog-post-excerpt">
-                    <p>{post.excerpt}</p>
-                  </div>
-                  <div className="blog-post-footer">
-                    <Link to={`/blog/${post.slug}`} className="blog-read-more">
+                    <Link to={`/blog/${post.slug}`} className="blog-post-link">
                       Read More →
                     </Link>
                   </div>
@@ -196,10 +144,11 @@ const Blog = () => {
           )}
         </div>
       </div>
-      
-      <Footer content3="© 2025 Andrew J. Hermann. Professional portfolio website." />
+      <Footer />
     </div>
   )
 }
+
+Blog.defaultProps = {}
 
 export default Blog
