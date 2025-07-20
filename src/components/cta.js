@@ -35,10 +35,13 @@ const CTA = (props) => {
   ]
 
   const handleCardClick = (link) => {
-    // Scroll to top of the page
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-    // Navigate to the page
-    navigate(link)
+    try {
+      // Scroll to top of the page
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+      navigate(link)
+    } catch (error) {
+      console.error('Navigation failed:', error)
+    }
   }
 
   return (
