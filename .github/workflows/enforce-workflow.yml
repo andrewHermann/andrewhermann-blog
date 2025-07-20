@@ -1,0 +1,69 @@
+name: Enforce Workflow Standards
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  enforce-pr-workflow:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Check if push bypassed PR
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "🚨 WARNING: Direct push to main branch detected!"
+          echo "Commit SHA: ${{ github.sha }}"
+          echo "Author: ${{ github.actor }}"
+          echo ""
+          echo "This violates our workflow standards."
+          echo "Future pushes should go through PR process."
+          echo ""
+          echo "Proper workflow:"
+          echo "1. Create feature branch"
+          echo "2. Make changes"  
+          echo "3. Create PR"
+          echo "4. Merge via GitHub UI"
+
+  validate-branch-naming:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Check branch naming convention
+        run: |
+          branch_name="${{ github.head_ref }}"
+          if [[ "$branch_name" =~ ^(feature|bugfix|hotfix)/.+ ]]; then
+            echo "✅ Branch name '$branch_name' follows convention"
+          else
+            echo "❌ Branch name '$branch_name' doesn't follow convention"
+            echo "Expected: feature/*, bugfix/*, or hotfix/*"
+            exit 1
+          fi
+
+  validate-pr-content:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Check PR has proper content
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pr_body="${{ github.event.pull_request.body }}"
+          pr_title="${{ github.event.pull_request.title }}"
+          
+          if [[ ${#pr_body} -lt 50 ]]; then
+            echo "❌ PR description too short (${#pr_body} chars)"
+            echo "Please provide detailed description of changes"
+            exit 1
+          fi
+          
+          if [[ ${#pr_title} -lt 10 ]]; then
+            echo "❌ PR title too short"
+            echo "Please provide descriptive title"
+            exit 1
+          fi
+          
+          echo "✅ PR has adequate description and title"
