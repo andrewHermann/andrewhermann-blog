@@ -12,7 +12,7 @@ const CookiesPolicy = () => {
   ]
 
   return (
-    <div className="cookies-container">
+    <div className="page-container">
       <SEO
         title="Cookies Policy"
         description="Cookies Policy for Andrew J. Hermann's professional website detailing how cookies and similar technologies are used, with GDPR compliance information."
@@ -21,14 +21,14 @@ const CookiesPolicy = () => {
         breadcrumbs={cookiesBreadcrumbs}
       />
       <Navbar />
-      <div className="cookies-content">
-        <div className="cookies-header">
-          <h1 className="cookies-title">Cookies Policy</h1>
-          <p className="cookies-subtitle">Last updated: January 19, 2025</p>
+      <div className="page-content">
+        <div className="page-header">
+          <h1 className="page-title">Cookies Policy</h1>
+          <p className="page-subtitle">Last updated: January 19, 2025</p>
         </div>
         
-        <div className="cookies-body">
-          <section className="cookies-section">
+        <div className="content-main">
+          <section className="section-card">
             <h2>1. Introduction</h2>
             <p>
               This Cookies Policy explains how Andrew J. Hermann ("we," "our," or "us") uses cookies and similar technologies to recognize you when you visit our website andrewhermann.com. It explains what these technologies are and why we use them, as well as your rights to control their use.
@@ -38,7 +38,7 @@ const CookiesPolicy = () => {
             </p>
           </section>
 
-          <section className="cookies-section">
+          <section className="section-card">
             <h2>2. What Are Cookies?</h2>
             <p>
               Cookies are small data files that are placed on your computer or mobile device when you visit a website. Cookies are widely used by website owners in order to make their websites work, or to work more efficiently, as well as to provide reporting information.
@@ -48,7 +48,7 @@ const CookiesPolicy = () => {
             </p>
           </section>
 
-          <section className="cookies-section">
+          <section className="section-card">
             <h2>3. Why We Use Cookies</h2>
             <p>
               We use first and third-party cookies for several reasons. Some cookies are required for technical reasons in order for our Website to operate, and we refer to these as "essential" or "strictly necessary" cookies. Other cookies also enable us to track and target the interests of our users to enhance the experience on our Website. Third parties serve cookies through our Website for advertising, analytics and other purposes.
@@ -75,7 +75,7 @@ const CookiesPolicy = () => {
             </p>
           </section>
 
-          <section className="cookies-section">
+          <section className="section-card">
             <h2>4. Types of Cookies We Use</h2>
             <p>
               The specific types of first and third party cookies served through our Website and the purposes they perform are described in the table below:
@@ -114,7 +114,7 @@ const CookiesPolicy = () => {
             </table>
           </section>
 
-          <section className="cookies-section">
+          <section className="section-card">
             <h2>5. Third-Party Cookies</h2>
             <p>
               In addition to our own cookies, we may also use various third-parties cookies to report usage statistics of the Website, deliver advertisements on and through the Website, and so on.
@@ -131,7 +131,7 @@ const CookiesPolicy = () => {
             </p>
           </section>
 
-          <section className="cookies-section">
+          <section className="section-card">
             <h2>6. How Can You Control Cookies?</h2>
             <p>
               You have the right to decide whether to accept or reject cookies. You can exercise your cookie rights by setting your preferences in the Cookie Consent Manager that appears when you first visit our website or by adjusting your browser settings.
@@ -148,7 +148,7 @@ const CookiesPolicy = () => {
             </p>
           </section>
 
-          <section className="cookies-section">
+          <section className="section-card">
             <h2>7. How Often Will You Update This Cookie Policy?</h2>
             <p>
               We may update this Cookie Policy from time to time in order to reflect, for example, changes to the cookies we use or for other operational, legal or regulatory reasons. Please therefore re-visit this Cookie Policy regularly to stay informed about our use of cookies and related technologies.
@@ -158,7 +158,7 @@ const CookiesPolicy = () => {
             </p>
           </section>
 
-          <section className="cookies-section">
+          <section className="section-card">
             <h2>8. Where Can You Get Further Information?</h2>
             <p>
               If you have any questions about our use of cookies or other technologies, please <Link to="/contact" className="contact-link">contact us through our contact form</Link> or refer to our <Link to="/privacy" className="contact-link">Privacy Policy</Link> for more information about how we process personal data.

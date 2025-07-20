@@ -1,338 +1,130 @@
+/* ==========================================================================
+   Cookies Policy Page - Uses Unified CSS Architecture
+   ========================================================================== */
+
+/* Main container using shared layout pattern */
 .cookies-container {
-  width: 100%;
-  display: flex;
-  min-height: 100vh;
-  align-items: flex-start;
-  flex-direction: column;
-  background-color: var(--dl-color-theme-neutral-light);
+  /* Inherits from .page-container in base.css */
 }
 
 .cookies-content {
-  width: 100%;
-  display: flex;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 80px 20px 60px;
-  flex-direction: column;
-  align-items: flex-start;
+  /* Inherits from .page-content in base.css */
 }
 
 .cookies-header {
-  width: 100%;
-  display: flex;
-  margin-bottom: 40px;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+  /* Inherits from .page-header in base.css */
 }
 
 .cookies-title {
-  font-size: 3rem;
-  font-style: normal;
-  font-family: Inter;
-  font-weight: 600;
-  line-height: 1.15;
-  text-decoration: none;
-  color: var(--dl-color-theme-neutral-dark);
-  margin-bottom: 16px;
+  /* Inherits from .page-title in base.css */
 }
 
 .cookies-subtitle {
-  font-size: 1.125rem;
-  font-style: normal;
-  font-family: Inter;
-  font-weight: 400;
-  line-height: 1.22;
-  color: var(--dl-color-theme-neutral-dark);
-  opacity: 0.7;
+  /* Inherits from .page-subtitle in base.css */
 }
 
-.cookies-body {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
+.cookies-main {
+  /* Inherits from .content-main in base.css */
 }
 
+/* Cookies sections */
 .cookies-section {
-  width: 100%;
-  display: flex;
-  padding: 40px;
-  border-radius: 12px;
-  flex-direction: column;
-  background-color: #ffffff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e5e7eb;
+  /* Extends .section-card from base.css */
+  margin-bottom: var(--space-lg);
 }
 
-.cookies-section h2 {
-  color: var(--dl-color-theme-neutral-dark);
-  font-size: 1.75rem;
-  font-style: normal;
-  font-family: Inter;
+.cookies-section:last-child {
+  margin-bottom: 0;
+}
+
+.cookies-section-title {
+  color: var(--color-primary);
+  font-size: var(--font-size-xl);
+  font-family: Inter, sans-serif;
   font-weight: 600;
   line-height: 1.3;
-  margin-bottom: 20px;
+  margin-bottom: var(--space-lg);
 }
 
-.cookies-section h3 {
-  color: #6b7280;
-  font-size: 1.25rem;
-  font-style: normal;
-  font-family: Inter;
-  font-weight: 600;
-  line-height: 1.4;
-  margin-bottom: 12px;
-  margin-top: 20px;
-}
-
-.cookies-section p {
-  color: var(--dl-color-theme-neutral-dark);
-  font-size: 1rem;
-  font-style: normal;
-  font-family: Inter;
+.cookies-text {
+  color: var(--color-neutral-dark);
+  font-size: 0.95rem;
+  font-family: Inter, sans-serif;
   font-weight: 400;
   line-height: 1.6;
-  margin-bottom: 16px;
+  margin-bottom: var(--space-lg);
 }
 
-.cookies-section ul {
-  margin: 16px 0;
-  padding-left: 32px;
+.cookies-text:last-child {
+  margin-bottom: 0;
 }
 
-.cookies-section li {
-  color: var(--dl-color-theme-neutral-dark);
-  font-size: 1rem;
-  font-style: normal;
-  font-family: Inter;
+.cookies-list {
+  margin: var(--space-lg) 0;
+  padding-left: var(--space-xl);
+  color: var(--color-neutral-dark);
+  font-size: 0.95rem;
+  font-family: Inter, sans-serif;
   font-weight: 400;
   line-height: 1.6;
-  margin-bottom: 8px;
 }
 
-/* Consistent Styling for Links */
-.contact-link {
-  color: #667eea;
-  text-decoration: underline;
-  font-weight: 500;
-  transition: color 0.3s ease;
+.cookies-list li {
+  margin-bottom: var(--space-sm);
 }
 
-.contact-link:hover {
-  color: #5a6fd8;
-  text-decoration: none;
+.cookies-list li:last-child {
+  margin-bottom: 0;
 }
 
-@media (max-width: 768px) {
-  .cookies-content {
-    padding: 60px 16px 40px;
-  }
-  
-  .cookies-title {
-    font-size: 2.25rem;
-  }
-  
-  .cookies-body {
-    gap: 24px;
-  }
-  
-  .cookies-section {
-    padding: 30px 20px;
-  }
-  
-  .cookies-section h2 {
-    font-size: 1.5rem;
-  }
-  
-  .cookies-section h3 {
-    font-size: 1.125rem;
-  }
-  
-  .cookies-section p,
-  .cookies-section li {
-    font-size: 0.875rem;
-  }
-  
-  .cookies-section ul {
-    padding-left: 24px;
-  }
+/* Cookie table styling */
+.cookie-table-container {
+  overflow-x: auto;
+  margin: var(--space-xl) 0;
 }
 
-@media (max-width: 480px) {
-  .cookies-content {
-    padding: 40px 12px 30px;
-  }
-  
-  .cookies-title {
-    font-size: 1.875rem;
-  }
-  
-  .cookies-body {
-    gap: 20px;
-  }
-  
-  .cookies-section {
-    padding: 20px;
-  }
-  
-  .cookies-section h2 {
-    font-size: 1.25rem;
-  }
-  
-  .cookies-section h3 {
-    font-size: 1.125rem;
-  }
-}
-
-/* Cookie Table Styling */
 .cookie-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 24px 0;
-  background-color: #ffffff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e5e7eb;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-accent-1);
 }
 
 .cookie-table thead {
-  background: linear-gradient(135deg, var(--dl-color-theme-primary), var(--dl-color-theme-secondary));
+  background-color: var(--color-accent-2);
+}
+
+.cookie-table th,
+.cookie-table td {
+  padding: var(--space-md);
+  text-align: left;
+  border-bottom: 1px solid var(--color-accent-1);
+  font-size: var(--font-size-sm);
+  font-family: Inter, sans-serif;
 }
 
 .cookie-table th {
-  padding: 16px 20px;
-  text-align: left;
   font-weight: 600;
-  font-family: Inter;
-  font-size: 0.95rem;
-  color: var(--dl-color-theme-neutral-light);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  color: var(--color-primary);
 }
 
 .cookie-table td {
-  padding: 16px 20px;
-  font-family: Inter;
-  font-size: 0.95rem;
-  color: var(--dl-color-theme-neutral-dark);
-  border-bottom: 1px solid #f3f4f6;
-  vertical-align: top;
-  line-height: 1.6;
-}
-
-.cookie-table tbody tr {
-  transition: background-color 0.2s ease;
+  color: var(--color-neutral-dark);
 }
 
 .cookie-table tbody tr:hover {
-  background-color: #f9fafb;
+  background-color: #f8fafc;
 }
 
-.cookie-table tbody tr:nth-child(even) {
-  background-color: #fafbfc;
-}
-
-.cookie-table tbody tr:nth-child(even):hover {
-  background-color: #f3f4f6;
-}
-
-.cookie-table tbody tr:last-child td {
-  border-bottom: none;
-}
-
-.cookie-table strong {
-  color: var(--dl-color-theme-primary);
-  font-weight: 600;
-}
-
-/* Responsive Table Design */
-@media (max-width: 768px) {
-  .cookie-table {
-    font-size: 0.875rem;
-  }
-  
-  .cookie-table th,
-  .cookie-table td {
-    padding: 12px 16px;
-  }
-  
-  .cookie-table th {
-    font-size: 0.85rem;
-  }
-  
-  /* Stack table on very small screens */
-  @media (max-width: 640px) {
-    .cookie-table,
-    .cookie-table thead,
-    .cookie-table tbody,
-    .cookie-table th,
-    .cookie-table td,
-    .cookie-table tr {
-      display: block;
-    }
-    
-    .cookie-table thead tr {
-      position: absolute;
-      top: -9999px;
-      left: -9999px;
-    }
-    
-    .cookie-table tr {
-      border: 1px solid #e5e7eb;
-      border-radius: 8px;
-      margin-bottom: 16px;
-      padding: 16px;
-      background-color: #ffffff;
-    }
-    
-    .cookie-table td {
-      border: none;
-      border-bottom: 1px solid #f3f4f6;
-      position: relative;
-      padding: 12px 0 12px 120px;
-      margin: 0;
-    }
-    
-    .cookie-table td:before {
-      content: attr(data-label);
-      position: absolute;
-      left: 0;
-      width: 110px;
-      padding-right: 10px;
-      white-space: nowrap;
-      font-weight: 600;
-      color: var(--dl-color-theme-primary);
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    
-    .cookie-table td:last-child {
-      border-bottom: none;
-    }
-  }
-}
-
-@media (max-width: 480px) {
-  .cookie-table {
-    margin: 16px 0;
-  }
-  
-  .cookie-table tr {
-    padding: 12px;
-    margin-bottom: 12px;
-  }
-  
-  .cookie-table td {
-    padding: 8px 0 8px 100px;
-    font-size: 0.85rem;
-  }
-  
-  .cookie-table td:before {
-    width: 90px;
-    font-size: 0.75rem;
-  }
+/* Last updated information */
+.cookies-updated {
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  font-family: Inter, sans-serif;
+  font-style: italic;
+  margin-top: var(--space-xl);
+  padding-top: var(--space-xl);
+  border-top: 1px solid var(--color-accent-1);
 }

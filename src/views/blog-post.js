@@ -41,15 +41,15 @@ const BlogPost = () => {
 
   if (loading) {
     return (
-      <div className="blog-post-container">
+      <div className="page-container">
         <Helmet>
           <title>Loading Post - Andrew J. Hermann</title>
         </Helmet>
         
         <Navbar />
         
-        <div className="blog-post-content">
-          <div className="blog-post-frame">
+        <div className="page-content">
+          <div className="content-main">
             <div className="blog-post-header">
               <Link to="/blog" className="blog-back-link">← Back to Blog</Link>
               <h1 className="blog-post-title">Loading...</h1>
@@ -68,7 +68,7 @@ const BlogPost = () => {
 
   if (error || !post) {
     return (
-      <div className="blog-post-container">
+      <div className="page-container">
         <Helmet>
           <title>Post Not Found - Andrew J. Hermann</title>
           <meta name="description" content="The requested blog post could not be found." />
@@ -76,8 +76,8 @@ const BlogPost = () => {
         
         <Navbar />
         
-        <div className="blog-post-content">
-          <div className="blog-post-frame">
+        <div className="page-content">
+          <div className="content-main">
             <div className="blog-post-header">
               <Link to="/blog" className="blog-back-link">← Back to Blog</Link>
               <h1 className="blog-post-title">Post Not Found</h1>
@@ -100,7 +100,7 @@ const BlogPost = () => {
   }
 
   return (
-    <div className="blog-post-container">
+    <div className="page-container">
       <Helmet>
         <title>{post.title} - Andrew J. Hermann</title>
         <meta name="description" content={post.excerpt} />
@@ -122,8 +122,8 @@ const BlogPost = () => {
       
       <Navbar />
       
-      <div className="blog-post-content">
-        <div className="blog-post-frame">
+      <div className="page-content">
+        <div className="content-main">
           <div className="blog-post-header">
             <Link to="/blog" className="blog-back-link">← Back to Blog</Link>
             <h1 className="blog-post-title">{post.title}</h1>
@@ -142,7 +142,7 @@ const BlogPost = () => {
           <div className="blog-post-main">
             <article className="blog-post-article">
               <div 
-                className="blog-post-content-body"
+                className="page-content-body"
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
             </article>

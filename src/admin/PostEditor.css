@@ -1,291 +1,314 @@
-/* Post Editor - Consistent with Site Theme */
+/* ==========================================================================
+   Post Editor - Uses Unified CSS Architecture
+   ========================================================================== */
+
+/* Main container using shared layout pattern */
 .post-editor-container {
-  width: 100%;
-  display: flex;
-  overflow: auto;
-  min-height: 100vh;
-  align-items: center;
-  flex-direction: column;
-  background-color: var(--dl-color-theme-neutral-light);
+  /* Inherits from .page-container in base.css */
 }
 
 .post-editor-content {
-  width: 100%;
-  display: flex;
-  max-width: 1200px;
-  align-items: center;
-  justify-content: center;
-  padding-top: 120px;
-  flex-direction: column;
-  padding-bottom: 80px;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-/* Main frame container - matching blog page styling */
-.post-editor-frame {
-  width: 100%;
-  max-width: 1000px;
-  display: flex;
-  flex-direction: column;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  border: 1px solid #e5e7eb;
-  padding: 40px;
-  margin: 0 auto;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.post-editor-frame:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  /* Inherits from .page-content in base.css */
 }
 
 .post-editor-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #e5e7eb;
+  /* Inherits from .page-header in base.css */
 }
 
 .post-editor-title {
-  color: var(--dl-color-theme-neutral-dark);
-  font-size: 2rem;
+  /* Inherits from .page-title in base.css */
+}
+
+.post-editor-main {
+  /* Inherits from .content-main in base.css */
+}
+
+/* Editor form sections */
+.post-editor-section {
+  /* Extends .section-card from base.css */
+  margin-bottom: var(--space-lg);
+}
+
+.post-editor-section:last-child {
+  margin-bottom: 0;
+}
+
+.post-editor-section h3 {
+  color: var(--color-primary);
+  font-size: var(--font-size-lg);
   font-family: Inter, sans-serif;
   font-weight: 600;
-  margin: 0;
-  line-height: 1.2;
+  margin-bottom: var(--space-lg);
 }
 
-.back-link {
-  color: var(--dl-color-theme-primary);
-  font-size: 0.875rem;
-  font-family: Inter, sans-serif;
+/* Form groups using shared patterns */
+.post-form-group {
+  /* Uses .form-group pattern from components.css */
+  margin-bottom: var(--space-lg);
+}
+
+.post-form-label {
+  /* Uses .form-label pattern from components.css */
+  display: block;
+  margin-bottom: var(--space-sm);
   font-weight: 500;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.back-link:hover {
-  color: var(--dl-color-theme-secondary);
-}
-
-.error-message {
-  color: #dc2626;
-  font-size: 0.875rem;
+  color: var(--color-neutral-dark);
   font-family: Inter, sans-serif;
-  text-align: center;
-  padding: 12px;
-  background-color: rgba(220, 38, 38, 0.1);
-  border: 1px solid rgba(220, 38, 38, 0.2);
-  border-radius: 8px;
-  margin-bottom: 20px;
+  font-size: var(--font-size-sm);
 }
 
-.success-message {
-  color: #059669;
-  font-size: 0.875rem;
+.post-form-input {
+  /* Uses .form-control pattern from components.css */
+  width: 100%;
+  padding: var(--space-md);
+  font-size: var(--font-size-base);
   font-family: Inter, sans-serif;
-  text-align: center;
-  padding: 12px;
-  background-color: rgba(5, 150, 105, 0.1);
-  border: 1px solid rgba(5, 150, 105, 0.2);
-  border-radius: 8px;
-  margin-bottom: 20px;
+  border: 1px solid var(--color-accent-1);
+  border-radius: var(--border-radius-md);
+  transition: var(--transition-base);
+  background-color: #f8fafc;
 }
 
-.post-editor-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.form-group label {
-  font-size: 1rem;
-  font-family: Inter, sans-serif;
-  font-weight: 500;
-  color: var(--dl-color-theme-neutral-dark);
-}
-
-.form-group input,
-.form-group textarea {
-  padding: 12px;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-family: Inter, sans-serif;
-  background-color: #ffffff;
-  transition: all 0.3s ease;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
+.post-form-input:focus {
   outline: none;
-  border-color: var(--dl-color-theme-primary);
-  box-shadow: 0 0 0 3px rgba(74, 78, 105, 0.1);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgb(74 78 105 / 10%);
+  background-color: var(--color-neutral-light);
 }
 
-.form-group textarea {
+.post-form-textarea {
+  /* Uses .form-textarea pattern from components.css */
   resize: vertical;
-  line-height: 1.6;
+  min-height: 120px;
 }
 
-.date-fields {
+/* Rich text editor container */
+.post-editor-content-area {
+  border: 1px solid var(--color-accent-1);
+  border-radius: var(--border-radius-md);
+  background-color: var(--color-neutral-light);
+  min-height: 400px;
+}
+
+.post-editor-toolbar {
+  display: flex;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border-bottom: 1px solid var(--color-accent-1);
+  flex-wrap: wrap;
+}
+
+.post-editor-btn {
+  /* Uses .btn pattern with smaller size */
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--font-size-sm);
+  border: 1px solid var(--color-accent-1);
+  background-color: var(--color-accent-2);
+  color: var(--color-primary);
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  font-family: Inter, sans-serif;
+  font-weight: 500;
+}
+
+.post-editor-btn:hover {
+  background-color: var(--color-primary);
+  color: var(--color-neutral-light);
+}
+
+.post-editor-btn.active {
+  background-color: var(--color-primary);
+  color: var(--color-neutral-light);
+}
+
+.post-editor-text-area {
+  padding: var(--space-lg);
+  min-height: 300px;
+  font-family: Inter, sans-serif;
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  border: none;
+  outline: none;
+  resize: none;
+  width: 100%;
+}
+
+/* Metadata section */
+.post-meta-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: var(--space-lg);
 }
 
-.checkbox-group {
-  flex-direction: row;
-  align-items: center;
-  gap: 12px;
+/* Tags input */
+.post-tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border: 1px solid var(--color-accent-1);
+  border-radius: var(--border-radius-md);
+  background-color: #f8fafc;
+  min-height: 48px;
 }
 
-.checkbox-group label {
+.post-tag {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-.checkbox-group input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  margin: 0;
-}
-
-.form-actions {
-  display: flex;
-  gap: 16px;
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid #e5e7eb;
-}
-
-.save-button {
-  background-color: var(--dl-color-theme-primary);
-  color: #ffffff;
-  padding: 14px 24px;
-  font-size: 1rem;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  background-color: var(--color-primary);
+  color: var(--color-neutral-light);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-sm);
   font-family: Inter, sans-serif;
-  font-weight: 600;
+}
+
+.post-tag-remove {
+  background: none;
   border: none;
-  border-radius: 8px;
+  color: var(--color-neutral-light);
   cursor: pointer;
-  transition: all 0.3s ease;
+  padding: 0;
+  font-size: var(--font-size-xs);
 }
 
-.save-button:hover:not(:disabled) {
-  background-color: var(--dl-color-theme-secondary);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+.post-tag-input {
+  flex-grow: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: Inter, sans-serif;
+  font-size: var(--font-size-sm);
+  min-width: 100px;
 }
 
-.save-button:disabled {
-  background-color: #9ca3af;
-  cursor: not-allowed;
-  transform: none;
+/* Action buttons */
+.post-editor-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--space-xl);
+  padding-top: var(--space-xl);
+  border-top: 1px solid var(--color-accent-1);
 }
 
-.cancel-button {
-  background-color: #f3f4f6;
-  color: var(--dl-color-theme-neutral-dark);
-  padding: 14px 24px;
-  font-size: 1rem;
+.post-editor-btn-group {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.post-btn-primary {
+  /* Uses .btn .btn-primary pattern from components.css */
+  padding: var(--space-md) var(--space-xl);
+  background-color: var(--color-primary);
+  color: var(--color-neutral-light);
+  border: none;
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-base);
   font-family: Inter, sans-serif;
   font-weight: 500;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  text-decoration: none;
   cursor: pointer;
-  transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  transition: all var(--transition-base);
 }
 
-.cancel-button:hover {
-  background-color: #e5e7eb;
+.post-btn-primary:hover:not(:disabled) {
+  background-color: var(--color-secondary);
   transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.post-btn-secondary {
+  /* Uses .btn .btn-secondary pattern from components.css */
+  padding: var(--space-md) var(--space-xl);
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-base);
+  font-family: Inter, sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.post-btn-secondary:hover:not(:disabled) {
+  background-color: var(--color-primary);
+  color: var(--color-neutral-light);
+}
+
+.post-btn-danger {
+  padding: var(--space-md) var(--space-xl);
+  background-color: #dc2626;
+  color: var(--color-neutral-light);
+  border: none;
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-base);
+  font-family: Inter, sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.post-btn-danger:hover:not(:disabled) {
+  background-color: #b91c1c;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Status indicators */
+.post-status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--font-size-sm);
+  font-family: Inter, sans-serif;
+}
+
+.post-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--border-radius-round);
+}
+
+.post-status-draft {
+  background-color: #f59e0b;
+}
+
+.post-status-published {
+  background-color: #10b981;
 }
 
 /* Responsive design */
-@media (max-width: 1024px) {
-  .post-editor-frame {
-    padding: 30px;
-  }
-}
-
-@media (max-width: 768px) {
-  .post-editor-content {
-    padding-top: 100px;
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-  
-  .post-editor-header {
-    flex-direction: column;
-    gap: 16px;
-    align-items: flex-start;
-  }
-  
-  .post-editor-title {
-    font-size: 1.75rem;
-  }
-  
-  .post-editor-frame {
-    padding: 25px;
-  }
-  
-  .date-fields {
+@media (width <= 1024px) {
+  .post-meta-grid {
     grid-template-columns: 1fr;
   }
-  
-  .form-actions {
+}
+
+@media (width <= 768px) {
+  .post-editor-toolbar {
+    padding: var(--space-sm);
+  }
+
+  .post-editor-actions {
+    flex-direction: column;
+    gap: var(--space-lg);
+    align-items: stretch;
+  }
+
+  .post-editor-btn-group {
+    justify-content: center;
+  }
+
+  .post-tags-container {
+    padding: var(--space-sm);
+  }
+}
+
+@media (width <= 480px) {
+  .post-editor-btn-group {
     flex-direction: column;
   }
-}
-
-@media (max-width: 479px) {
-  .post-editor-content {
-    padding-left: 12px;
-    padding-right: 12px;
-  }
-  
-  .post-editor-frame {
-    padding: 20px;
-  }
-  
-  .post-editor-title {
-    font-size: 1.5rem;
-  }
-  
-  .form-group input,
-  .form-group textarea {
-    font-size: 0.9rem;
-    padding: 10px;
-  }
-}
-
-/* Enhanced interactive effects */
-.post-editor-frame {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.post-editor-frame:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 
-              0 0 0 1px rgba(74, 78, 105, 0.1),
-              0 0 20px rgba(74, 78, 105, 0.1);
 }
