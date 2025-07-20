@@ -53,7 +53,7 @@ const Home = (props) => {
   ]
 
   return (
-    <div className="home-container">
+    <div className="page-container">
       <SEO
         title=""
         description="Andrew J. Hermann specializes in organizational strategy, project portfolio management, data-driven decision-making, and applied artificial intelligence. Transform your organization with strategic leadership expertise."
@@ -64,30 +64,32 @@ const Home = (props) => {
       />
       <Navbar />
       
-      <div className="home-content">
+      <div className="page-content">
         {/* Hero section - no frame */}
-        <div className="home-hero">
+        <div className="hero-section">
           <Hero />
         </div>
 
-        {/* Professional Portfolio section - framed */}
-        <div className="home-section-frame">
-          <Features1 />
-        </div>
+        <div className="content-main">
+          {/* Professional Portfolio section */}
+          <div className="section-card">
+            <Features1 />
+          </div>
 
-        {/* Core Competencies section - framed */}
-        <div className="home-section-frame">
-          <CTA />
-        </div>
+          {/* Core Competencies section */}
+          <div className="section-card">
+            <CTA />
+          </div>
 
-        {/* Features section - framed */}
-        <div className="home-section-frame">
-          <Features2 />
-        </div>
+          {/* Features section */}
+          <div className="section-card">
+            <Features2 />
+          </div>
 
-        {/* My Approach section - framed */}
-        <div className="home-section-frame">
-          <Steps />
+          {/* My Approach section */}
+          <div className="section-card">
+            <Steps />
+          </div>
         </div>
       </div>
 

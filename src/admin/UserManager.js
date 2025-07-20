@@ -13,7 +13,7 @@ const UserManager = () => {
   const [passwordData, setPasswordData] = useState({
     currentPassword: '',
     newPassword: '',
-    confirmPassword: ''
+    confirmPassword: '',
   });
   const [passwordLoading, setPasswordLoading] = useState(false);
 
@@ -51,7 +51,7 @@ const UserManager = () => {
   const handlePasswordChange = (e) => {
     setPasswordData({
       ...passwordData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -74,11 +74,11 @@ const UserManager = () => {
     }
 
     try {
-      const data = await apiRequest(API_ENDPOINTS.CHANGE_PASSWORD, {
+      await apiRequest(API_ENDPOINTS.CHANGE_PASSWORD, {
         method: 'POST',
         body: JSON.stringify({
           currentPassword: passwordData.currentPassword,
-          newPassword: passwordData.newPassword
+          newPassword: passwordData.newPassword,
         }),
       });
 
@@ -86,7 +86,7 @@ const UserManager = () => {
       setPasswordData({
         currentPassword: '',
         newPassword: '',
-        confirmPassword: ''
+        confirmPassword: '',
       });
     } catch (err) {
       console.log('Error changing password:', err);
@@ -98,10 +98,14 @@ const UserManager = () => {
 
   const getRoleColor = (role) => {
     switch (role) {
-      case 'admin': return '#e74c3c';
-      case 'blogger': return '#3498db';
-      case 'reader': return '#2ecc71';
-      default: return '#95a5a6';
+      case 'admin':
+        return '#e74c3c';
+      case 'blogger':
+        return '#3498db';
+      case 'reader':
+        return '#2ecc71';
+      default:
+        return '#95a5a6';
     }
   };
 
@@ -110,36 +114,52 @@ const UserManager = () => {
   };
 
   return (
-    <div className="user-manager-container">
-      <div className="user-manager-content">
-        <div className="user-manager-frame">
-          <div className="user-manager-header">
-            <h1 className="user-manager-title">User Management</h1>
-            <Link to="/admin/dashboard" className="back-link">← Back to Dashboard</Link>
+    <div className="page-container admin-page">
+      <div className="page-content">
+        <div className="content-main">
+          {/* Page Header */}
+          <div className="section-card">
+            <div className="page-header">
+              <h1 className="page-title">User Management</h1>
+              <div className="header-actions">
+                <Link to="/admin/dashboard" className="btn btn-secondary">
+                  ← Back to Dashboard
+                </Link>
+              </div>
+            </div>
+            <p className="page-subtitle">
+              Manage user accounts, roles, and change your password from this panel.
+            </p>
+            
+            {error && <div className="error-message">{error}</div>}
+            {success && <div className="success-message">{success}</div>}
           </div>
 
-          {error && <div className="error-message">{error}</div>}
-          {success && <div className="success-message">{success}</div>}
-
-          <div className="user-manager-sections">
+          {/* User Management Cards Grid */}
+          <div className="card-grid">
             {/* User List Section */}
-            <div className="user-list-section">
-              <div className="section-header">
+            <div className="section-card">
+              <div className="header-actions">
                 <h2>Manage Users</h2>
-                <Link to="/admin/users/edit/new" className="add-user-button">Add New User</Link>
+                <Link to="/admin/users/edit/new" className="btn btn-primary">
+                  Add New User
+                </Link>
               </div>
-              
+
               {loading ? (
-                <div className="loading">Loading users...</div>
+                <div className="loading-message">Loading users...</div>
               ) : (
-                <div className="users-table-container">
+                <div className="table-container">
                   {users.length === 0 ? (
-                    <div className="no-users">
-                      <p>No users found. <Link to="/admin/users/edit/new">Create your first user</Link></p>
+                    <div className="empty-state">
+                      <p>
+                        No users found.{' '}
+                        <Link to="/admin/users/edit/new" className="link-primary">Create your first user</Link>
+                      </p>
                     </div>
                   ) : (
-                    <div className="users-table">
-                      <table>
+                    <div className="data-table">
+                      <table className="table">
                         <thead>
                           <tr>
                             <th>Username</th>
@@ -150,25 +170,29 @@ const UserManager = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {users.map(user => (
+                          {users.map((user) => (
                             <tr key={user.id}>
-                              <td>{user.username}</td>
+                              <td>
+                                <div className="item-title">{user.username}</div>
+                              </td>
                               <td>{user.email || 'N/A'}</td>
                               <td>
-                                <span 
-                                  className="role-badge" 
+                                <span
+                                  className="role-badge"
                                   style={{ backgroundColor: getRoleColor(user.role) }}
                                 >
                                   {user.role}
                                 </span>
                               </td>
-                              <td>{formatDate(user.created_at)}</td>
+                              <td className="date-cell">{formatDate(user.created_at)}</td>
                               <td>
-                                <div className="user-actions">
-                                  <Link to={`/admin/users/edit/${user.id}`} className="edit-button">Edit</Link>
-                                  <button 
-                                    onClick={() => deleteUser(user.id)} 
-                                    className="delete-button"
+                                <div className="action-buttons">
+                                  <Link to={`/admin/users/edit/${user.id}`} className="btn btn-sm btn-secondary">
+                                    Edit
+                                  </Link>
+                                  <button
+                                    onClick={() => deleteUser(user.id)}
+                                    className="btn btn-sm btn-danger"
                                   >
                                     Delete
                                   </button>
@@ -185,12 +209,11 @@ const UserManager = () => {
             </div>
 
             {/* Password Change Section */}
-            <div className="password-change-section">
+            <div className="section-card">
               <h2>Change Your Password</h2>
-              
-              <form onSubmit={handlePasswordSubmit} className="password-change-form">
+              <form onSubmit={handlePasswordSubmit} className="admin-form">
                 <div className="form-group">
-                  <label htmlFor="currentPassword">Current Password</label>
+                  <label htmlFor="currentPassword" className="form-label">Current Password</label>
                   <input
                     type="password"
                     id="currentPassword"
@@ -199,11 +222,12 @@ const UserManager = () => {
                     onChange={handlePasswordChange}
                     required
                     placeholder="Enter current password"
+                    className="form-input"
                   />
                 </div>
-
+                
                 <div className="form-group">
-                  <label htmlFor="newPassword">New Password</label>
+                  <label htmlFor="newPassword" className="form-label">New Password</label>
                   <input
                     type="password"
                     id="newPassword"
@@ -213,11 +237,12 @@ const UserManager = () => {
                     required
                     placeholder="Enter new password"
                     minLength="6"
+                    className="form-input"
                   />
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="confirmPassword">Confirm New Password</label>
+                  <label htmlFor="confirmPassword" className="form-label">Confirm New Password</label>
                   <input
                     type="password"
                     id="confirmPassword"
@@ -227,44 +252,47 @@ const UserManager = () => {
                     required
                     placeholder="Confirm new password"
                     minLength="6"
+                    className="form-input"
                   />
                 </div>
 
-                <button type="submit" disabled={passwordLoading} className="change-password-button">
-                  {passwordLoading ? 'Changing Password...' : 'Change Password'}
-                </button>
+                <div className="form-actions">
+                  <button type="submit" disabled={passwordLoading} className="btn btn-primary">
+                    {passwordLoading ? 'Changing Password...' : 'Change Password'}
+                  </button>
+                </div>
               </form>
             </div>
+          </div>
 
-            {/* Role Information Section */}
-            <div className="role-info-section">
-              <h2>Role Permissions</h2>
-              <div className="role-info-cards">
-                <div className="role-card">
-                  <h3 style={{ color: getRoleColor('admin') }}>Admin</h3>
-                  <ul>
-                    <li>Full access to all features</li>
-                    <li>Can manage users and roles</li>
-                    <li>Can create, edit, and delete blog posts</li>
-                    <li>Can access all admin functions</li>
-                  </ul>
-                </div>
-                <div className="role-card">
-                  <h3 style={{ color: getRoleColor('blogger') }}>Blogger</h3>
-                  <ul>
-                    <li>Can create, edit, and delete blog posts</li>
-                    <li>Can access blog management features</li>
-                    <li>Cannot manage users or system settings</li>
-                  </ul>
-                </div>
-                <div className="role-card">
-                  <h3 style={{ color: getRoleColor('reader') }}>Reader</h3>
-                  <ul>
-                    <li>Can only read published blog posts</li>
-                    <li>Cannot access admin features</li>
-                    <li>Cannot create or edit content</li>
-                  </ul>
-                </div>
+          {/* Role Information Section - Full Width */}
+          <div className="section-card">
+            <h2>Role Permissions</h2>
+            <div className="role-info-cards">
+              <div className="role-card">
+                <h3 style={{ color: getRoleColor('admin') }}>Admin</h3>
+                <ul>
+                  <li>Full access to all features</li>
+                  <li>Can manage users and roles</li>
+                  <li>Can create, edit, and delete blog posts</li>
+                  <li>Can access all admin functions</li>
+                </ul>
+              </div>
+              <div className="role-card">
+                <h3 style={{ color: getRoleColor('blogger') }}>Blogger</h3>
+                <ul>
+                  <li>Can create, edit, and delete blog posts</li>
+                  <li>Can access blog management features</li>
+                  <li>Cannot manage users or system settings</li>
+                </ul>
+              </div>
+              <div className="role-card">
+                <h3 style={{ color: getRoleColor('reader') }}>Reader</h3>
+                <ul>
+                  <li>Can only read published blog posts</li>
+                  <li>Cannot access admin features</li>
+                  <li>Cannot create or edit content</li>
+                </ul>
               </div>
             </div>
           </div>

@@ -36,27 +36,27 @@ const Markets = () => {
   const fetchCryptoPrices = async () => {
     try {
       setCryptoLoading(true)
-      
+
       const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false&locale=en')
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
-      
+
       const data = await response.json()
       setCryptoPrices(data)
-      setLastUpdated(new Date().toLocaleString('en-US', { 
-        year: 'numeric', 
-        month: 'short', 
-        day: 'numeric', 
-        hour: '2-digit', 
-        minute: '2-digit', 
-        second: '2-digit', 
-        timeZoneName: 'short' 
+      setLastUpdated(new Date().toLocaleString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        timeZoneName: 'short'
       }))
     } catch (error) {
       console.error('Crypto API error:', error)
-      
+
       const fallbackCryptoData = [
         {
           id: 'bitcoin',
@@ -94,16 +94,16 @@ const Markets = () => {
           price_change_percentage_24h: 0.83808
         }
       ]
-      
+
       setCryptoPrices(fallbackCryptoData)
-      setLastUpdated(new Date().toLocaleString('en-US', { 
-        year: 'numeric', 
-        month: 'short', 
-        day: 'numeric', 
-        hour: '2-digit', 
-        minute: '2-digit', 
-        second: '2-digit', 
-        timeZoneName: 'short' 
+      setLastUpdated(new Date().toLocaleString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        timeZoneName: 'short'
       }))
     } finally {
       setCryptoLoading(false)
@@ -113,7 +113,7 @@ const Markets = () => {
   const fetchMetalPrices = async () => {
     try {
       setMetalLoading(true)
-      
+
       const currentMetalData = [
         {
           name: 'Gold',
@@ -151,7 +151,7 @@ const Markets = () => {
           changeClass: 'positive'
         }
       ]
-      
+
       setMetalPrices(currentMetalData)
     } catch (error) {
       console.error('Metals API error:', error)
@@ -165,7 +165,7 @@ const Markets = () => {
     if (typeof price === 'string') {
       numPrice = parseFloat(price.toString().replace(/,/g, ''))
     }
-    
+
     if (typeof numPrice === 'number' && !isNaN(numPrice)) {
       const usdPrice = new Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -173,14 +173,14 @@ const Markets = () => {
         minimumFractionDigits: 2,
         maximumFractionDigits: numPrice < 1 ? 6 : 2
       }).format(numPrice)
-      
+
       const chfPrice = new Intl.NumberFormat('de-CH', {
         style: 'currency',
         currency: 'CHF',
         minimumFractionDigits: 2,
         maximumFractionDigits: numPrice < 1 ? 6 : 2
       }).format(numPrice * exchangeRate)
-      
+
       return `${usdPrice} / ${chfPrice}`
     }
     return price
@@ -201,26 +201,26 @@ const Markets = () => {
   }
 
   return (
-    <div className="markets-container">
+    <div className="page-container">
       <Helmet>
         <title>Markets - Andrew J. Hermann</title>
-        <meta 
-          name="description" 
-          content="View the latest cryptocurrency and precious metal prices with real-time market data." 
+        <meta
+          name="description"
+          content="View the latest cryptocurrency and precious metal prices with real-time market data."
         />
         <meta name="keywords" content="cryptocurrency prices, precious metals, market data, bitcoin, ethereum, gold, silver, platinum" />
         <meta name="author" content="Andrew J. Hermann" />
-        
+
         <meta property="og:title" content="Markets - Andrew J. Hermann" />
         <meta property="og:description" content="View the latest cryptocurrency and precious metal prices with real-time market data." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://andrew.cloudhopper.ch/markets" />
         <meta property="og:site_name" content="Andrew J. Hermann" />
-        
+
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Markets - Andrew J. Hermann" />
         <meta name="twitter:description" content="View the latest cryptocurrency and precious metal prices with real-time market data." />
-        
+
         <link rel="canonical" href="https://andrew.cloudhopper.ch/markets" />
       </Helmet>
 
@@ -229,67 +229,99 @@ const Markets = () => {
 
       <Navbar />
 
-      <div className="markets-content">
-        <div className="markets-header">
-          <h1 className="markets-title">Markets</h1>
-          <p className="markets-subtitle">
+      <div className="page-content">
+        <div className="page-header">
+          <h1 className="page-title">Markets</h1>
+          <p className="page-subtitle">
             Stay updated with the latest market prices for cryptocurrencies and precious metals.
           </p>
         </div>
 
-        <div className="markets-main">
-          <div className="markets-column">
+        <div className="content-main card-grid-wide">
+          <div className="section-card">
             <h2>Cryptocurrencies</h2>
             {cryptoLoading ? (
-              <div className="markets-loading">Loading cryptocurrency prices...</div>
-            ) : null}
-            
-            <ul className="markets-list">
-              {cryptoPrices.map((crypto) => (
-                <li key={crypto.id} className="markets-item">
-                  <div>
-                    <span className="markets-item-name">{crypto.name}</span>
-                    <span className="markets-item-symbol">({crypto.symbol.toUpperCase()})</span>
-                  </div>
-                  <div>
-                    <span className="markets-item-price">{formatPrice(crypto.current_price)}</span>
-                    <span className={`markets-item-change ${getChangeClass(crypto.price_change_percentage_24h)}`}>
-                      {formatChange(crypto.price_change_percentage_24h)}
-                    </span>
-                  </div>
-                </li>
-              ))}
-            </ul>
+              <div className="loading-message">Loading cryptocurrency prices...</div>
+            ) : (
+              <div className="data-table">
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Symbol</th>
+                      <th>Price</th>
+                      <th>24h Change</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {cryptoPrices.map((crypto) => (
+                      <tr key={crypto.id}>
+                        <td>
+                          <div className="item-title">{crypto.name}</div>
+                        </td>
+                        <td>
+                          <div className="symbol-badge">{crypto.symbol.toUpperCase()}</div>
+                        </td>
+                        <td>
+                          <div className="price-cell">{formatPrice(crypto.current_price)}</div>
+                        </td>
+                        <td>
+                          <span className={`change-badge ${getChangeClass(crypto.price_change_percentage_24h)}`}>
+                            {formatChange(crypto.price_change_percentage_24h)}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
 
-          <div className="markets-column">
+          <div className="section-card">
             <h2>Precious Metals</h2>
             {metalLoading ? (
-              <div className="markets-loading">Loading precious metals prices...</div>
-            ) : null}
-            
-            <ul className="markets-list">
-              {metalPrices.map((metal) => (
-                <li key={metal.symbol} className="markets-item">
-                  <div>
-                    <span className="markets-item-name">{metal.name}</span>
-                    <span className="markets-item-symbol">({metal.symbol})</span>
-                  </div>
-                  <div>
-                    <span className="markets-item-price">{formatPrice(metal.price)}</span>
-                    <span className={`markets-item-change ${metal.changeClass}`}>
-                      {metal.change}
-                    </span>
-                  </div>
-                </li>
-              ))}
-            </ul>
+              <div className="loading-message">Loading precious metals prices...</div>
+            ) : (
+              <div className="data-table">
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Symbol</th>
+                      <th>Price</th>
+                      <th>24h Change</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {metalPrices.map((metal) => (
+                      <tr key={metal.symbol}>
+                        <td>
+                          <div className="item-title">{metal.name}</div>
+                        </td>
+                        <td>
+                          <div className="symbol-badge">{metal.symbol}</div>
+                        </td>
+                        <td>
+                          <div className="price-cell">{formatPrice(metal.price)}</div>
+                        </td>
+                        <td>
+                          <span className={`change-badge ${metal.changeClass}`}>
+                            {metal.change}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         </div>
 
         {lastUpdated && (
-          <div className="markets-last-updated">
-            Last updated: {lastUpdated}
+          <div className="last-updated">
+            <em>Last updated: {lastUpdated}</em>
           </div>
         )}
       </div>
