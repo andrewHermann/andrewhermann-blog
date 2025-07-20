@@ -1,0 +1,44 @@
+# Auto-labeling based on file paths
+
+# Frontend changes
+frontend:
+  - src/**
+  - public/**
+  - craco.config.js
+  - package.json
+
+# Backend changes  
+backend:
+  - backend/**
+  - server.js
+
+# Admin panel changes
+admin:
+  - src/admin/**
+
+# Styling changes
+styling:
+  - "**/*.css"
+  - "**/*.scss"
+  - "**/*.sass"
+
+# Database changes
+database:
+  - "**/*.db"
+  - "**/migrations/**"
+  - "**/schema/**"
+
+# Documentation changes
+documentation:
+  - "**.md"
+  - docs/**
+
+# GitHub/CI changes
+github-actions:
+  - .github/**
+
+# Security related
+security:
+  - SECURITY.md
+  - .github/workflows/security.yml
+  - "**/auth/**"
