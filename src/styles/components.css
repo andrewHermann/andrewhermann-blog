@@ -1,0 +1,327 @@
+/* ==========================================================================
+   Component-Specific Styles - Shared Components
+   ========================================================================== */
+
+/* ==========================================================================
+   Navigation Components
+   ========================================================================== */
+
+.navbar-container {
+  width: 100%;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  background-color: var(--color-neutral-light);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(8px);
+}
+
+.navbar-content {
+  width: 100%;
+  display: flex;
+  max-width: var(--layout-max-width);
+  align-items: center;
+  padding: var(--space-xl) var(--space-2xl);
+  justify-content: space-between;
+  position: relative;
+}
+
+/* ==========================================================================
+   Footer Components
+   ========================================================================== */
+
+.footer-container {
+  width: 100%;
+  background-color: var(--color-neutral-dark);
+  color: var(--color-neutral-light);
+  padding: var(--space-4xl) 0;
+}
+
+.footer-content {
+  max-width: var(--layout-max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+}
+
+/* ==========================================================================
+   Form Components
+   ========================================================================== */
+
+.form-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: var(--space-lg);
+}
+
+.form-label {
+  display: block;
+  margin-bottom: var(--space-sm);
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.form-control {
+  width: 100%;
+  padding: var(--space-md);
+  font-size: var(--font-size-base);
+  border: 1px solid var(--color-accent-1);
+  border-radius: var(--border-radius-md);
+  transition: var(--transition-base);
+  background-color: var(--color-neutral-light);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(74, 78, 105, 0.1);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* ==========================================================================
+   Button Components - Extended
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md) var(--space-xl);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition: var(--transition-base);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Button Variants */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-neutral-light);
+  border-color: var(--color-primary);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--color-neutral-dark);
+  border-color: var(--color-neutral-dark);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: var(--color-primary);
+  color: var(--color-neutral-light);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-accent-1);
+}
+
+.btn-outline:hover:not(:disabled) {
+  background-color: var(--color-accent-2);
+  border-color: var(--color-primary);
+}
+
+/* Button Sizes */
+.btn-sm {
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--font-size-sm);
+}
+
+.btn-lg {
+  padding: var(--space-lg) var(--space-2xl);
+  font-size: var(--font-size-lg);
+}
+
+/* ==========================================================================
+   Card Components
+   ========================================================================== */
+
+.card {
+  background: var(--color-neutral-light);
+  border: 1px solid var(--color-accent-1);
+  border-radius: var(--border-radius-md);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-base);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.card-header {
+  padding: var(--space-lg) var(--space-lg) 0;
+  border-bottom: 1px solid var(--color-accent-1);
+  margin-bottom: var(--space-lg);
+}
+
+.card-body {
+  padding: var(--space-lg);
+}
+
+.card-footer {
+  padding: 0 var(--space-lg) var(--space-lg);
+  border-top: 1px solid var(--color-accent-1);
+  margin-top: var(--space-lg);
+}
+
+/* ==========================================================================
+   Grid Components
+   ========================================================================== */
+
+.grid {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.grid-cols-1 { grid-template-columns: 1fr; }
+.grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 768px) {
+  .grid-cols-2,
+  .grid-cols-3,
+  .grid-cols-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   Loading & State Components
+   ========================================================================== */
+
+.loading-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--color-accent-1);
+  border-top: 2px solid var(--color-primary);
+  border-radius: var(--border-radius-round);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.alert {
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--border-radius-md);
+  margin-bottom: var(--space-lg);
+  border: 1px solid transparent;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border-color: #c3e6cb;
+}
+
+.alert-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border-color: #f5c6cb;
+}
+
+.alert-warning {
+  background-color: #fff3cd;
+  color: #856404;
+  border-color: #ffeeba;
+}
+
+.alert-info {
+  background-color: #cce7ff;
+  color: #004085;
+  border-color: #b3d9ff;
+}
+
+/* ==========================================================================
+   Robot/3D Components
+   ========================================================================== */
+
+.robot-canvas {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  touch-action: auto;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  pointer-events: auto;
+}
+
+.robot-canvas:hover,
+.robot-canvas:active {
+  background: transparent !important;
+  border: none !important;
+  cursor: default;
+}
+
+@media (max-width: 768px) {
+  .robot-canvas {
+    touch-action: manipulation;
+  }
+}
+
+/* ==========================================================================
+   Cookie Consent Component
+   ========================================================================== */
+
+.cookie-consent {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--color-neutral-dark);
+  color: var(--color-neutral-light);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-xl);
+  z-index: var(--z-overlay);
+  border-top: 1px solid var(--color-accent-1);
+}
+
+.cookie-consent-content {
+  max-width: var(--layout-max-width);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+}
+
+@media (max-width: 768px) {
+  .cookie-consent-content {
+    flex-direction: column;
+    text-align: center;
+  }
+}
