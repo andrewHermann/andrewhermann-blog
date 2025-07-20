@@ -5,7 +5,7 @@
   "proxy": "http://localhost:3001",
   "dependencies": {
     "@craco/craco": "^7.1.0",
-    "@react-three/drei": "^9.122.0",
+    "@react-three/drei": "^10.5.1",
     "@react-three/fiber": "^9.2.0",
     "bcrypt": "^6.0.0",
     "body-parser": "^2.2.0",
