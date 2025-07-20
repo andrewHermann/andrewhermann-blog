@@ -13,7 +13,7 @@
     "dangerous-html": "0.1.13",
     "express": "^5.1.0",
     "express-session": "^1.18.1",
-    "framer-motion": "^12.9.0",
+    "framer-motion": "^12.23.6",
     "multer": "^2.0.1",
     "next": "^12.1.10",
     "prop-types": "15.7.2",
