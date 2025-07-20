@@ -1,509 +1,378 @@
-/* User Manager - Consistent with Site Theme */
+/* ==========================================================================
+   User Manager - Uses Unified CSS Architecture
+   ========================================================================== */
+
+/* Main container using shared layout pattern */
 .user-manager-container {
-  width: 100%;
-  display: flex;
-  overflow: auto;
-  min-height: 100vh;
-  align-items: center;
-  flex-direction: column;
-  background-color: var(--dl-color-theme-neutral-light);
+  /* Inherits from .page-container in base.css */
 }
 
 .user-manager-content {
-  width: 100%;
-  display: flex;
-  max-width: 1200px;
-  align-items: center;
-  justify-content: center;
-  padding-top: 120px;
-  flex-direction: column;
-  padding-bottom: 80px;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-/* Main frame container - matching blog page styling */
-.user-manager-frame {
-  width: 100%;
-  max-width: 1000px;
-  display: flex;
-  flex-direction: column;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  border: 1px solid #e5e7eb;
-  padding: 40px;
-  margin: 0 auto;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.user-manager-frame:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  /* Inherits from .page-content in base.css */
 }
 
 .user-manager-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #e5e7eb;
+  /* Inherits from .page-header in base.css */
 }
 
 .user-manager-title {
-  color: var(--dl-color-theme-neutral-dark);
-  font-size: 2rem;
-  font-family: Inter, sans-serif;
-  font-weight: 600;
-  margin: 0;
-  line-height: 1.2;
+  /* Inherits from .page-title in base.css */
 }
 
-.back-link {
-  color: var(--dl-color-theme-primary);
-  font-size: 0.875rem;
-  font-family: Inter, sans-serif;
-  font-weight: 500;
-  text-decoration: none;
-  transition: color 0.2s ease;
+.user-manager-main {
+  /* Inherits from .content-main in base.css */
 }
 
-.back-link:hover {
-  color: var(--dl-color-theme-secondary);
-}
-
-.error-message {
-  color: #dc2626;
-  font-size: 0.875rem;
-  font-family: Inter, sans-serif;
-  text-align: center;
-  padding: 12px;
-  background-color: rgba(220, 38, 38, 0.1);
-  border: 1px solid rgba(220, 38, 38, 0.2);
-  border-radius: 8px;
-  margin-bottom: 20px;
-}
-
-.success-message {
-  color: #059669;
-  font-size: 0.875rem;
-  font-family: Inter, sans-serif;
-  text-align: center;
-  padding: 12px;
-  background-color: rgba(5, 150, 105, 0.1);
-  border: 1px solid rgba(5, 150, 105, 0.2);
-  border-radius: 8px;
-  margin-bottom: 20px;
-}
-
-.user-manager-sections {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-/* User List Section */
-.user-list-section {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.section-header {
+/* Controls section */
+.user-manager-controls {
+  /* Extends .section-card from base.css */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 16px;
-  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: var(--space-lg);
+  padding: var(--space-lg);
 }
 
-.section-header h2 {
-  color: var(--dl-color-theme-neutral-dark);
-  font-size: 1.5rem;
-  font-family: Inter, sans-serif;
-  font-weight: 600;
-  margin: 0;
+.user-manager-search {
+  display: flex;
+  gap: var(--space-md);
+  align-items: center;
+  flex-grow: 1;
+  max-width: 400px;
 }
 
-.add-user-button {
-  background-color: var(--dl-color-theme-primary);
-  color: #ffffff;
-  padding: 10px 20px;
-  font-size: 0.875rem;
+.user-search-input {
+  /* Uses .form-control pattern from components.css */
+  flex-grow: 1;
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--font-size-sm);
   font-family: Inter, sans-serif;
-  font-weight: 600;
+  border: 1px solid var(--color-accent-1);
+  border-radius: var(--border-radius-md);
+  background-color: #f8fafc;
+  transition: var(--transition-base);
+}
+
+.user-search-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background-color: var(--color-neutral-light);
+}
+
+.user-filter-select {
+  /* Uses .form-control pattern */
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--font-size-sm);
+  font-family: Inter, sans-serif;
+  border: 1px solid var(--color-accent-1);
+  border-radius: var(--border-radius-md);
+  background-color: #f8fafc;
+  transition: var(--transition-base);
+}
+
+.user-add-btn {
+  /* Uses .btn .btn-primary pattern */
+  padding: var(--space-sm) var(--space-lg);
+  background-color: var(--color-primary);
+  color: var(--color-neutral-light);
   border: none;
-  border-radius: 8px;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.add-user-button:hover {
-  background-color: var(--dl-color-theme-secondary);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.loading {
-  text-align: center;
-  color: var(--dl-color-theme-neutral-dark);
-  font-size: 1.125rem;
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-sm);
   font-family: Inter, sans-serif;
-  padding: 40px;
-}
-
-.no-users {
-  text-align: center;
-  color: var(--dl-color-theme-neutral-dark);
-  font-size: 1.125rem;
-  font-family: Inter, sans-serif;
-  padding: 40px;
-}
-
-.no-users a {
-  color: var(--dl-color-theme-primary);
-  text-decoration: none;
   font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
 }
 
-.no-users a:hover {
-  color: var(--dl-color-theme-secondary);
-  text-decoration: underline;
+.user-add-btn:hover {
+  background-color: var(--color-secondary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
 }
 
-.users-table-container {
-  width: 100%;
+/* Users table section */
+.user-manager-table-section {
+  /* Extends .section-card from base.css */
+}
+
+.user-manager-table-section h3 {
+  color: var(--color-primary);
+  font-size: var(--font-size-xl);
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  margin-bottom: var(--space-lg);
+}
+
+/* Table styling */
+.user-table-container {
   overflow-x: auto;
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--color-accent-1);
 }
 
-.users-table {
+.user-table {
   width: 100%;
   border-collapse: collapse;
+  background-color: var(--color-neutral-light);
 }
 
-.users-table table {
-  width: 100%;
-  border-collapse: collapse;
+.user-table thead {
+  background-color: var(--color-accent-2);
 }
 
-.users-table th,
-.users-table td {
-  padding: 16px 12px;
+.user-table th,
+.user-table td {
+  padding: var(--space-md);
   text-align: left;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--color-accent-1);
   font-family: Inter, sans-serif;
 }
 
-.users-table th {
-  background-color: #f8fafc;
+.user-table th {
   font-weight: 600;
-  color: var(--dl-color-theme-neutral-dark);
-  font-size: 0.875rem;
+  color: var(--color-primary);
+  font-size: var(--font-size-sm);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
-.users-table td {
-  color: var(--dl-color-theme-neutral-dark);
-  font-size: 0.875rem;
+.user-table td {
+  color: var(--color-neutral-dark);
+  font-size: var(--font-size-sm);
 }
 
-.users-table tbody tr:hover {
+.user-table tbody tr:hover {
   background-color: #f8fafc;
 }
 
-.role-badge {
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #ffffff;
+.user-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* User status badges */
+.user-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  font-family: Inter, sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
+.user-status-active {
+  background-color: #d1fae5;
+  color: #065f46;
+  border: 1px solid #10b981;
+}
+
+.user-status-inactive {
+  background-color: #fef3c7;
+  color: #92400e;
+  border: 1px solid #f59e0b;
+}
+
+.user-status-banned {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #ef4444;
+}
+
+/* Action buttons in table */
 .user-actions {
   display: flex;
-  gap: 8px;
+  gap: var(--space-xs);
   align-items: center;
 }
 
-.edit-button {
-  padding: 6px 12px;
-  font-size: 0.75rem;
+.user-action-btn {
+  padding: var(--space-xs) var(--space-sm);
+  border: none;
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-xs);
   font-family: Inter, sans-serif;
   font-weight: 500;
-  background-color: var(--dl-color-theme-primary);
-  color: #ffffff;
-  border: none;
-  border-radius: 6px;
+  cursor: pointer;
+  transition: all var(--transition-base);
   text-decoration: none;
-  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.edit-button:hover {
-  background-color: var(--dl-color-theme-secondary);
-  transform: translateY(-1px);
+.user-action-edit {
+  background-color: #dbeafe;
+  color: #1e40af;
+  border: 1px solid #3b82f6;
 }
 
-.delete-button {
-  padding: 6px 12px;
-  font-size: 0.75rem;
-  font-family: Inter, sans-serif;
-  font-weight: 500;
-  background-color: #ffffff;
+.user-action-edit:hover {
+  background-color: #3b82f6;
+  color: var(--color-neutral-light);
+}
+
+.user-action-delete {
+  background-color: #fecaca;
   color: #dc2626;
-  border: 1px solid #fecaca;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  border: 1px solid #ef4444;
 }
 
-.delete-button:hover {
+.user-action-delete:hover {
   background-color: #dc2626;
-  color: #ffffff;
-  transform: translateY(-1px);
+  color: var(--color-neutral-light);
 }
 
-/* Password Change Section */
-.password-change-section {
+.user-action-view {
+  background-color: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #10b981;
+}
+
+.user-action-view:hover {
+  background-color: #10b981;
+  color: var(--color-neutral-light);
+}
+
+/* Pagination */
+.user-pagination {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 20px;
-  background-color: #f8fafc;
-  border-radius: 8px;
-  border: 1px solid #e2e8f0;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-md);
+  margin-top: var(--space-xl);
+  padding-top: var(--space-xl);
+  border-top: 1px solid var(--color-accent-1);
 }
 
-.password-change-section h2 {
-  color: var(--dl-color-theme-neutral-dark);
-  font-size: 1.5rem;
-  font-family: Inter, sans-serif;
-  font-weight: 600;
-  margin: 0;
-  padding-bottom: 16px;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.password-change-form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.form-group label {
-  font-size: 1rem;
+.user-pagination-btn {
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--color-accent-1);
+  background-color: var(--color-neutral-light);
+  color: var(--color-primary);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-sm);
   font-family: Inter, sans-serif;
   font-weight: 500;
-  color: var(--dl-color-theme-neutral-dark);
-}
-
-.form-group input {
-  padding: 12px;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-family: Inter, sans-serif;
-  background-color: #ffffff;
-  transition: all 0.3s ease;
-}
-
-.form-group input:focus {
-  outline: none;
-  border-color: var(--dl-color-theme-primary);
-  box-shadow: 0 0 0 3px rgba(74, 78, 105, 0.1);
-}
-
-.change-password-button {
-  background-color: var(--dl-color-theme-primary);
-  color: #ffffff;
-  padding: 14px 24px;
-  font-size: 1rem;
-  font-family: Inter, sans-serif;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  align-self: flex-start;
+  transition: all var(--transition-base);
+  text-decoration: none;
 }
 
-.change-password-button:hover:not(:disabled) {
-  background-color: var(--dl-color-theme-secondary);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+.user-pagination-btn:hover:not(:disabled) {
+  background-color: var(--color-primary);
+  color: var(--color-neutral-light);
 }
 
-.change-password-button:disabled {
-  background-color: #9ca3af;
+.user-pagination-btn:disabled {
+  opacity: 0.5;
   cursor: not-allowed;
-  transform: none;
 }
 
-/* Role Information Section */
-.role-info-section {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+.user-pagination-btn.active {
+  background-color: var(--color-primary);
+  color: var(--color-neutral-light);
 }
 
-.role-info-section h2 {
-  color: var(--dl-color-theme-neutral-dark);
-  font-size: 1.5rem;
+/* Empty state */
+.user-manager-empty {
+  text-align: center;
+  padding: var(--space-4xl);
+  color: var(--color-text-secondary);
+}
+
+.user-manager-empty h3 {
+  color: var(--color-primary);
+  font-size: var(--font-size-xl);
   font-family: Inter, sans-serif;
   font-weight: 600;
-  margin: 0;
-  padding-bottom: 16px;
-  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: var(--space-lg);
 }
 
-.role-info-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-}
-
-.role-card {
-  background-color: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 20px;
-  transition: all 0.3s ease;
-}
-
-.role-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.role-card h3 {
-  font-size: 1.25rem;
+.user-manager-empty p {
+  font-size: var(--font-size-base);
   font-family: Inter, sans-serif;
-  font-weight: 600;
-  margin: 0 0 12px 0;
-}
-
-.role-card ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.role-card li {
-  color: var(--dl-color-theme-neutral-dark);
-  font-size: 0.875rem;
-  font-family: Inter, sans-serif;
-  line-height: 1.6;
-  margin-bottom: 8px;
-  padding-left: 16px;
-  position: relative;
-}
-
-.role-card li::before {
-  content: '•';
-  color: var(--dl-color-theme-primary);
-  font-weight: bold;
-  position: absolute;
-  left: 0;
+  margin-bottom: var(--space-xl);
 }
 
 /* Responsive design */
-@media (max-width: 1024px) {
-  .user-manager-frame {
-    padding: 30px;
+@media (width <= 1024px) {
+  .user-manager-controls {
+    flex-direction: column;
+    gap: var(--space-lg);
+    align-items: stretch;
+  }
+
+  .user-manager-search {
+    max-width: none;
   }
 }
 
-@media (max-width: 768px) {
-  .user-manager-content {
-    padding-top: 100px;
-    padding-left: 16px;
-    padding-right: 16px;
+@media (width <= 768px) {
+  .user-table th,
+  .user-table td {
+    padding: var(--space-sm);
   }
-  
-  .user-manager-header {
-    flex-direction: column;
-    gap: 16px;
-    align-items: flex-start;
-  }
-  
-  .user-manager-title {
-    font-size: 1.75rem;
-  }
-  
-  .user-manager-frame {
-    padding: 25px;
-  }
-  
-  .section-header {
-    flex-direction: column;
-    gap: 12px;
-    align-items: flex-start;
-  }
-  
-  .users-table th,
-  .users-table td {
-    padding: 12px 8px;
-  }
-  
-  .role-info-cards {
-    grid-template-columns: 1fr;
-  }
-}
 
-@media (max-width: 479px) {
-  .user-manager-content {
-    padding-left: 12px;
-    padding-right: 12px;
-  }
-  
-  .user-manager-frame {
-    padding: 20px;
-  }
-  
-  .user-manager-title {
-    font-size: 1.5rem;
-  }
-  
-  .users-table th,
-  .users-table td {
-    padding: 8px 6px;
-    font-size: 0.8rem;
-  }
-  
   .user-actions {
     flex-direction: column;
-    gap: 4px;
+    gap: var(--space-xs);
   }
-  
-  .edit-button,
-  .delete-button {
-    width: 100%;
-    text-align: center;
-  }
-  
-  .password-change-section {
-    padding: 16px;
+
+  .user-pagination {
+    flex-wrap: wrap;
   }
 }
 
-/* Enhanced interactive effects */
-.user-manager-frame {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
+@media (width <= 640px) {
+  /* Stack table content vertically on mobile */
+  .user-table-container {
+    border: none;
+  }
 
-.user-manager-frame:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 
-              0 0 0 1px rgba(74, 78, 105, 0.1),
-              0 0 20px rgba(74, 78, 105, 0.1);
+  .user-table,
+  .user-table thead,
+  .user-table tbody,
+  .user-table th,
+  .user-table td,
+  .user-table tr {
+    display: block;
+  }
+
+  .user-table thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  .user-table tr {
+    background-color: var(--color-neutral-light);
+    border: 1px solid var(--color-accent-1);
+    border-radius: var(--border-radius-md);
+    margin-bottom: var(--space-md);
+    padding: var(--space-md);
+  }
+
+  .user-table td {
+    border: none;
+    position: relative;
+    padding-left: 40%;
+    padding-top: var(--space-sm);
+    padding-bottom: var(--space-sm);
+  }
+
+  .user-table td::before {
+    content: attr(data-label) ':';
+    position: absolute;
+    left: var(--space-md);
+    width: 35%;
+    font-weight: 600;
+    color: var(--color-primary);
+  }
 }
