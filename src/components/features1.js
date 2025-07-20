@@ -30,13 +30,21 @@ const Features1 = (props) => {
   ]
 
   const handleItemClick = (itemId) => {
-    navigate('/portfolio', { state: { scrollTo: itemId } })
+    try {
+      navigate('/portfolio', { state: { scrollTo: itemId } })
+    } catch (error) {
+      console.error('Navigation failed:', error)
+    }
   }
 
   const handleViewAllClick = () => {
-    navigate('/portfolio')
-    // Ensure we start at the top of the page
-    window.scrollTo(0, 0)
+    try {
+      // Ensure we start at the top of the page
+      window.scrollTo(0, 0)
+      navigate('/portfolio')
+    } catch (error) {
+      console.error('Navigation failed:', error)
+    }
   }
 
   return (
