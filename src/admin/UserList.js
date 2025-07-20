@@ -38,37 +38,65 @@ const UserList = () => {
   };
 
   return (
-    <div className="user-list-container">
-      <h1>Users</h1>
-      <Link to="/admin/users/new">Add New User</Link>
-      {error && <div className="error-message">{error}</div>}
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <table>
-          <thead>
-            <tr>
-              <th>Username</th>
-              <th>Email</th>
-              <th>Role</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map(user => (
-              <tr key={user.id}>
-                <td>{user.username}</td>
-                <td>{user.email}</td>
-                <td>{user.role}</td>
-                <td>
-                  <Link to={`/admin/users/edit/${user.id}`}>Edit</Link>
-                  <button onClick={() => deleteUser(user.id)}>Delete</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+    <div className="page-container admin-page">
+      <div className="page-content">
+        <div className="content-main">
+          <div className="section-card">
+            <div className="page-header">
+              <h1 className="page-title">Users</h1>
+              <div className="header-actions">
+                <Link to="/admin/users/new" className="btn btn-primary">Add New User</Link>
+              </div>
+            </div>
+            
+            {error && <div className="error-message">{error}</div>}
+            
+            {loading ? (
+              <div className="loading-message">Loading users...</div>
+            ) : (
+              <div className="table-container">
+                <div className="data-table">
+                  <table className="table">
+                    <thead>
+                      <tr>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {users.map((user) => (
+                        <tr key={user.id}>
+                          <td>
+                            <div className="item-title">{user.username}</div>
+                          </td>
+                          <td>{user.email || 'N/A'}</td>
+                          <td>
+                            <span className="role-badge" style={{ backgroundColor: '#3498db' }}>
+                              {user.role}
+                            </span>
+                          </td>
+                          <td>
+                            <div className="action-buttons">
+                              <Link to={`/admin/users/edit/${user.id}`} className="btn btn-sm btn-secondary">
+                                Edit
+                              </Link>
+                              <button onClick={() => deleteUser(user.id)} className="btn btn-sm btn-danger">
+                                Delete
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
