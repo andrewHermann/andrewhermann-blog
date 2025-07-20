@@ -1,26 +1,62 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-import { Helmet } from 'react-helmet'
-
+import SEO from '../components/seo'
+import Navbar from '../components/navbar'
+import Footer from '../components/footer'
+import PageFloatingRobot from '../components/PageFloatingRobot'
 import './not-found.css'
 
-const NotFound1 = (props) => {
+const NotFound = (props) => {
   return (
-    <div className="not-found1-container1">
-      <Helmet>
-        <title>Andrew J. Hermann</title>
-      </Helmet>
-      <h3>OOPS! PAGE NOT FOUND</h3>
-      <div className="not-found1-container2">
-        <h1 className="not-found1-text2">404</h1>
+    <div className="page-container">
+      <SEO
+        title="Page Not Found (404)"
+        description="The page you're looking for doesn't exist. Navigate back to explore Andrew J. Hermann's website."
+        keywords="404, page not found, error"
+        url="https://***REMOVED***/404"
+      />
+      
+      <PageFloatingRobot bodyColor="#ef4444" glowColor="#f87171" />
+      
+      <Navbar />
+      
+      <div className="page-content">
+        <div className="content-main">
+          <div className="section-card text-center">
+            <div className="error-code">404</div>
+            <h1 className="page-title">Page Not Found</h1>
+            <p className="page-subtitle">
+              Sorry, the page you're looking for doesn't exist or has been moved.
+            </p>
+            
+            <div className="error-actions">
+              <Link to="/" className="btn btn-primary">
+                Go Home
+              </Link>
+              <Link to="/about" className="btn btn-secondary">
+                About Me
+              </Link>
+              <Link to="/portfolio" className="btn btn-secondary">
+                Portfolio
+              </Link>
+            </div>
+            
+            <div className="helpful-links">
+              <h3>You might be looking for:</h3>
+              <ul>
+                <li><Link to="/blog" className="link-primary">Blog Posts</Link></li>
+                <li><Link to="/contact" className="link-primary">Contact Information</Link></li>
+                <li><Link to="/markets" className="link-primary">Market Data</Link></li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="not-found1-container3">
-        <h2 className="not-found1-text3">
-          WE ARE SORRY, BUT THE PAGE YOU REQUESTED WAS NOT FOUND
-        </h2>
-      </div>
+      
+      <Footer />
     </div>
   )
 }
 
-export default NotFound1
+export default NotFound

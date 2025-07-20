@@ -12,7 +12,7 @@ const PrivacyPolicy = () => {
   ]
 
   return (
-    <div className="privacy-container">
+    <div className="page-container">
       <SEO
         title="Privacy Policy"
         description="Privacy Policy for Andrew J. Hermann's professional website describing how we collect, use, and protect your personal information in compliance with data protection regulations."
@@ -21,13 +21,13 @@ const PrivacyPolicy = () => {
         breadcrumbs={privacyBreadcrumbs}
       />
       <Navbar />
-      <div className="privacy-content">
-        <div className="privacy-header">
-          <h1 className="privacy-title">Privacy Policy</h1>
-          <p className="privacy-subtitle">Last updated: January 19, 2025</p>
+      <div className="page-content">
+        <div className="page-header">
+          <h1 className="page-title">Privacy Policy</h1>
+          <p className="page-subtitle">Last updated: January 19, 2025</p>
         </div>
         
-        <div className="privacy-body">
+        <div className="content-main">
           <section className="privacy-section">
             <h2>1. Introduction</h2>
             <p>
