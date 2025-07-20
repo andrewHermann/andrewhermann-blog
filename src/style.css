@@ -1,5 +1,8 @@
+/* Import new unified CSS architecture */
+@import url('./styles/main.css');
 @import url('./shared.css');
 
+/* Legacy CSS custom properties for backward compatibility */
 :root {
   --dl-layout-size-large: 144px;
   --dl-layout-size-small: 48px;
@@ -7,203 +10,151 @@
   --dl-layout-size-medium: 96px;
   --dl-layout-size-xlarge: 192px;
   --dl-layout-size-xsmall: 16px;
-  --dl-color-theme-primary: #4A4E69;
-  --dl-color-theme-secondary: #9A8C98;
-  --dl-color-theme-accent1: #C9ADA7;
-  --dl-color-theme-accent2: #F2E9E4;
-  --dl-layout-radius-round: 50%;
+  --dl-color-theme-primary: var(--color-primary);
+  --dl-color-theme-secondary: var(--color-secondary);
+  --dl-color-theme-accent1: var(--color-accent-1);
+  --dl-color-theme-accent2: var(--color-accent-2);
+  --dl-layout-radius-round: var(--border-radius-round);
   --dl-layout-size-xxlarge: 288px;
-  --dl-layout-size-maxwidth: 1400px;
-  --dl-layout-radius-radius2: 2px;
-  --dl-layout-radius-radius4: 4px;
-  --dl-layout-radius-radius8: 8px;
-  --dl-layout-space-halfunit: 8px;
-  --dl-layout-space-sixunits: 96px;
-  --dl-layout-space-twounits: 32px;
-  --dl-color-theme-neutral-dark: #22223B;
-  --dl-color-theme-neutral-light: #FFFFFF;
-  --dl-layout-radius-cardradius: 4px;
-  --dl-layout-space-fiveunits: 80px;
-  --dl-layout-space-fourunits: 64px;
-  --dl-layout-space-threeunits: 48px;
-  --dl-layout-space-oneandhalfunits: 24px;
+  --dl-layout-size-maxwidth: var(--layout-max-width);
+  --dl-layout-radius-radius2: var(--border-radius-sm);
+  --dl-layout-radius-radius4: var(--border-radius-md);
+  --dl-layout-radius-radius8: var(--border-radius-lg);
+  --dl-layout-space-halfunit: var(--space-sm);
+  --dl-layout-space-sixunits: var(--space-5xl);
+  --dl-layout-space-twounits: var(--space-xl);
+  --dl-color-theme-neutral-dark: var(--color-neutral-dark);
+  --dl-color-theme-neutral-light: var(--color-neutral-light);
+  --dl-layout-radius-cardradius: var(--border-radius-md);
+  --dl-layout-space-fiveunits: var(--space-4xl);
+  --dl-layout-space-fourunits: var(--space-3xl);
+  --dl-layout-space-threeunits: var(--space-2xl);
+  --dl-layout-space-oneandhalfunits: var(--space-lg);
 }
 
-/* Apply color variables globally */
+/* Maintain existing global styles for backward compatibility */
 body {
-  background-color: var(--dl-color-theme-neutral-light);
-  color: var(--dl-color-theme-neutral-dark);
+  background-color: var(--color-neutral-light);
+  color: var(--color-neutral-dark);
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: var(--dl-color-theme-primary);
-  margin-bottom: var(--dl-layout-space-halfunit);
+  color: var(--color-primary);
+  margin-bottom: var(--space-sm);
 }
 
-/* Modify button and link styles */
+/* THQ (Theme) button classes - Updated to use new architecture */
 .thq-button-filled {
-  background-color: var(--dl-color-theme-primary);
-  color: var(--dl-color-theme-neutral-light);
-  border-color: var(--dl-color-theme-primary);
+  background-color: var(--color-primary);
+  color: var(--color-neutral-light);
+  border-color: var(--color-primary);
+  padding: var(--space-md) var(--space-xl);
+  border-radius: var(--border-radius-md);
+  transition: var(--transition-base);
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-weight: 500;
 }
 
 .thq-button-filled:hover {
-  background-color: var(--dl-color-theme-secondary);
-  border-color: var(--dl-color-theme-secondary);
+  background-color: var(--color-neutral-dark);
+  border-color: var(--color-neutral-dark);
 }
 
 .thq-button-outline {
-  border: 2px solid var(--dl-color-theme-primary);
-  color: var(--dl-color-theme-primary);
   background-color: transparent;
-  transition: all 0.3s ease;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  padding: var(--space-md) var(--space-xl);
+  border-radius: var(--border-radius-md);
+  transition: var(--transition-base);
+  border: 1px solid var(--color-primary);
+  cursor: pointer;
+  font-weight: 500;
 }
 
 .thq-button-outline:hover {
-  background-color: var(--dl-color-theme-primary);
-  color: var(--dl-color-theme-neutral-light);
+  background-color: var(--color-primary);
+  color: var(--color-neutral-light);
 }
 
-.thq-link {
-  color: var(--dl-color-theme-primary);
-}
-
-.thq-link:hover {
-  color: var(--dl-color-theme-secondary);
-}
-
-/* Missing thq class definitions */
+/* THQ section and layout classes */
 .thq-section-padding {
-  padding-top: var(--dl-layout-space-fourunits);
-  padding-bottom: var(--dl-layout-space-fourunits);
+  padding: var(--space-4xl) 0;
 }
 
 .thq-section-max-width {
-  width: 100%;
-  max-width: var(--dl-layout-size-maxwidth);
+  max-width: var(--layout-max-width);
   margin: 0 auto;
+  padding: 0 var(--space-xl);
 }
 
-.thq-grid-2 {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: var(--dl-layout-space-twounits);
-}
-
-.thq-card {
-  gap: var(--dl-layout-space-unit);
-  display: flex;
-  padding: var(--dl-layout-space-threeunits);
-  position: relative;
-  align-items: flex-start;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-
-@media(max-width: 767px) {
-  .thq-grid-2 {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Additional missing thq class definitions */
-.thq-animated-card-bg-2 {
-  gap: var(--dl-layout-space-unit);
-  display: flex;
-  padding: var(--dl-layout-space-unit);
-  position: relative;
-  align-items: center;
-  border-radius: var(--dl-layout-radius-cardradius);
-  flex-direction: column;
-  justify-content: center;
-  background-color: var(--dl-color-theme-accent2);
-}
-
-.thq-animated-card-bg-1 {
-  gap: var(--dl-layout-space-unit);
-  width: 100%;
-  display: flex;
-  padding: var(--dl-layout-space-unit);
-  align-items: center;
-  border-radius: var(--dl-layout-radius-cardradius);
-  flex-direction: column;
-  justify-content: center;
-  background-color: var(--dl-color-theme-accent1);
-}
-
+/* THQ typography classes */
 .thq-heading-1 {
-  font-size: 3rem;
-  font-weight: 700;
-  line-height: 1.15;
-  color: var(--dl-color-theme-neutral-dark);
+  font-size: var(--font-size-4xl);
+  font-weight: 600;
+  line-height: var(--line-height-tight);
+  color: var(--color-primary);
+  margin-bottom: var(--space-md);
 }
 
 .thq-heading-2 {
-  font-size: 2.25rem;
-  font-weight: 700;
-  line-height: 1.25;
-  color: var(--dl-color-theme-neutral-dark);
+  font-size: var(--font-size-3xl);
+  font-weight: 600;
+  line-height: var(--line-height-tight);
+  color: var(--color-primary);
+  margin-bottom: var(--space-md);
 }
 
 .thq-heading-3 {
-  font-size: 1.875rem;
+  font-size: var(--font-size-2xl);
   font-weight: 600;
-  line-height: 1.35;
-  color: var(--dl-color-theme-neutral-dark);
+  line-height: var(--line-height-tight);
+  color: var(--color-primary);
+  margin-bottom: var(--space-md);
 }
 
 .thq-body-large {
-  font-size: 1.125rem;
-  line-height: 1.6;
-  font-weight: 400;
-  color: var(--dl-color-theme-neutral-dark);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text);
+  margin-bottom: var(--space-md);
 }
 
 .thq-body-small {
-  font-size: 0.875rem;
-  line-height: 1.6;
-  font-weight: 400;
-  color: var(--dl-color-theme-neutral-dark);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-md);
 }
 
-.thq-button-animated {
-  cursor: pointer;
-  display: inline-flex;
-  transition: all 0.3s ease;
+/* THQ card classes */
+.thq-card {
+  background: var(--color-neutral-light);
+  border: 1px solid var(--color-accent-1);
+  border-radius: var(--border-radius-md);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-base);
+}
+
+.thq-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+/* Additional THQ utility classes */
+.thq-flex-row {
+  display: flex;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
 }
 
-.thq-img-ratio-16-9 {
-  width: 100%;
-  object-fit: cover;
-  aspect-ratio: 16/9;
+.thq-flex-column {
+  display: flex;
+  flex-direction: column;
 }
 
-.thq-input {
-  width: 100%;
-  border: 1px solid #e5e7eb;
-  border-radius: var(--dl-layout-radius-radius4);
-  padding: var(--dl-layout-space-unit);
-}
-
-.thq-divider-horizontal {
-  width: 100%;
-  height: 1px;
-  background-color: #e5e7eb;
-}
-
-@media(max-width: 479px) {
-  .thq-heading-1 {
-    font-size: 2rem;
-  }
-  
-  .thq-heading-2 {
-    font-size: 1.5rem;
-  }
-  
-  .thq-heading-3 {
-    font-size: 1.25rem;
-  }
+.thq-animated {
+  transition: var(--transition-base);
 }
