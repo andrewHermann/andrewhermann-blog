@@ -35,10 +35,14 @@ const Steps = (props) => {
   ]
 
   const handleCardClick = (link) => {
-    // Scroll to top of the page
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-    // Navigate to the page
-    navigate(link)
+    try {
+      // Scroll to top of the page
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+      // Navigate to the page
+      navigate(link)
+    } catch (error) {
+      console.error('Navigation failed:', error)
+    }
   }
 
   return (
@@ -64,6 +68,14 @@ const Steps = (props) => {
                 className={`steps-container${index + 4} thq-card`}
                 onClick={() => handleCardClick(step.link)}
                 style={{ cursor: 'pointer' }}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    handleCardClick(step.link)
+                  }
+                }}
               >
                 <h2 className="thq-heading-2">{step.title}</h2>
                 <span className="steps-text14 thq-body-small">
