@@ -1,10 +1,63 @@
-import React from 'react'
-
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import './contact.css'
 
 const Contact = (props) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [showConfirmation, setShowConfirmation] = useState(false)
+  const [submitError, setSubmitError] = useState('')
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmitError('')
+
+    try {
+      const response = await fetch('https://formspree.io/f/xanbnrla', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      if (response.ok) {
+        setShowConfirmation(true)
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        })
+        // Hide confirmation after 5 seconds
+        setTimeout(() => {
+          setShowConfirmation(false)
+        }, 5000)
+      } else {
+        throw new Error('Form submission failed')
+      }
+    } catch (error) {
+      setSubmitError('There was an error sending your message. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   return (
     <div className="contact-contact20 thq-section-padding">
       <div className="contact-max-width thq-section-max-width">
@@ -15,6 +68,8 @@ const Contact = (props) => {
             <p className="contact-text3 thq-body-large">{props.content1}</p>
           </div>
         </div>
+
+        {/* Contact Information Row */}
         <div className="contact-row">
           <div className="contact-content2">
             <svg viewBox="0 0 1024 1024" className="thq-icon-medium">
@@ -56,21 +111,130 @@ const Contact = (props) => {
             </div>
           </div>
         </div>
+
+        {/* Contact Form Section */}
+        <div className="contact-form-section">
+          <div className="contact-form-title">
+            <h3 className="thq-heading-3">Send me a message</h3>
+            <p className="thq-body-large">I'd love to hear from you. Send me a message and I'll respond as soon as possible.</p>
+          </div>
+
+          {showConfirmation && (
+            <div className="contact-confirmation">
+              <svg viewBox="0 0 1024 1024" className="contact-success-icon">
+                <path d="M384 690l452-452 60 60-512 512-238-238 60-60z"></path>
+              </svg>
+              <h4>Message Sent Successfully!</h4>
+              <p>Thank you for your message. I'll get back to you as soon as possible.</p>
+            </div>
+          )}
+
+          {submitError && (
+            <div className="contact-error">
+              <p>{submitError}</p>
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="contact-form">
+            <div className="contact-form-row">
+              <div className="contact-input-group">
+                <label htmlFor="name" className="contact-label">Name *</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  required
+                  className="contact-input"
+                  placeholder="Your full name"
+                />
+              </div>
+              <div className="contact-input-group">
+                <label htmlFor="email" className="contact-label">Email *</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
+                  className="contact-input"
+                  placeholder="your.email@example.com"
+                />
+              </div>
+            </div>
+            
+            <div className="contact-input-group">
+              <label htmlFor="subject" className="contact-label">Subject *</label>
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                value={formData.subject}
+                onChange={handleInputChange}
+                required
+                className="contact-input"
+                placeholder="What's this about?"
+              />
+            </div>
+
+            <div className="contact-input-group">
+              <label htmlFor="message" className="contact-label">Message *</label>
+              <textarea
+                id="message"
+                name="message"
+                value={formData.message}
+                onChange={handleInputChange}
+                required
+                className="contact-textarea"
+                placeholder="Your message here..."
+                rows="6"
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="contact-submit-btn"
+            >
+              {isSubmitting ? (
+                <>
+                  <svg className="contact-loading-spinner" viewBox="0 0 24 24">
+                    <circle
+                      className="contact-spinner-circle"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                      fill="none"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                  Sending...
+                </>
+              ) : (
+                'Send Message'
+              )}
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   )
 }
 
 Contact.defaultProps = {
-  email1: 'info@andrewjhermann.com',
-  heading1: 'Professional Contact',
-  content4: 'Connect on LinkedIn',
-  content2: 'Connect with me on social media for updates and insights:',
-  content5: 'Subscribe to my newsletter for the latest updates and articles.',
+  email1: 'cloudhopper@icloud.com',
+  heading1: 'Let\'s Connect',
+  content4: 'Professional Network',
+  content2: 'Get in touch',
+  content5: 'Available for consultation and collaboration opportunities.',
   content1:
-    "Connect with me to learn more about my professional experience, current projects, or to discuss topics related to organizational strategy and AI innovation.",
-  phone1: '+1-555-123-4567',
-  content3: 'Follow me on Twitter',
+    "I'm always interested in discussing new opportunities, sharing insights about organizational strategy and AI innovation, or exploring potential collaborations.",
+  phone1: '+1-772-202-0009',
+  content3: 'Direct communication',
 }
 
 Contact.propTypes = {

@@ -4,6 +4,7 @@ import SEO from '../components/seo'
 import PageFloatingRobot from '../components/PageFloatingRobot'
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
+import './portfolio.css'
 
 const Portfolio = (props) => {
   const portfolioStructuredData = {
