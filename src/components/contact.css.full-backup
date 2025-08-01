@@ -4,7 +4,7 @@
   position: relative;
   align-items: center;
   flex-direction: column;
-  background: linear-gradient(135deg, var(--dl-color-theme-accent2), var(--dl-color-theme-neutral-light));
+  
   padding: var(--dl-layout-space-sixunits) var(--dl-layout-space-twounits);
 }
 
@@ -67,7 +67,7 @@
   flex-direction: column;
   padding: var(--dl-layout-space-twounits);
   border-radius: var(--dl-layout-radius-radius8);
-  background: var(--dl-color-theme-neutral-light);
+  
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -109,7 +109,7 @@
   gap: var(--dl-layout-space-twounits);
   padding: var(--dl-layout-space-threeunits);
   border-radius: var(--dl-layout-radius-radius12);
-  background: var(--dl-color-theme-neutral-light);
+  
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   animation: fadeInUp 1s ease 0.2s both;
 }

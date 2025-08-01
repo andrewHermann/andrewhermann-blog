@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet'
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
 import PageFloatingRobot from '../components/PageFloatingRobot'
+import './markets.css'
 
 const Markets = () => {
   const [cryptoPrices, setCryptoPrices] = useState([])
@@ -262,7 +263,7 @@ const Markets = () => {
                           <div className="symbol-badge">{crypto.symbol.toUpperCase()}</div>
                         </td>
                         <td>
-                          <div className="item-title">{formatPrice(crypto.current_price)}</div>
+                          <div className="price-cell">{formatPrice(crypto.current_price)}</div>
                         </td>
                         <td>
                           <span className={`change-badge ${getChangeClass(crypto.price_change_percentage_24h)}`}>
@@ -302,7 +303,7 @@ const Markets = () => {
                           <div className="symbol-badge">{metal.symbol}</div>
                         </td>
                         <td>
-                          <div className="item-title">{formatPrice(metal.price)}</div>
+                          <div className="price-cell">{formatPrice(metal.price)}</div>
                         </td>
                         <td>
                           <span className={`change-badge ${metal.changeClass}`}>
