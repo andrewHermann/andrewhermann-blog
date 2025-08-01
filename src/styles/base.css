@@ -241,6 +241,22 @@ body {
   transition: transform var(--transition-base), box-shadow var(--transition-base);
 }
 
+/* Add vertical spacing between stacked section cards */
+.section-card {
+  margin-bottom: var(--space-lg);
+}
+
+.section-card:last-child {
+  margin-bottom: 0;
+}
+
+/* Reset margin when section cards are in grid containers */
+.card-grid .section-card,
+.card-grid-compact .section-card,
+.card-grid-wide .section-card {
+  margin-bottom: 0;
+}
+
 .section-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
@@ -397,7 +413,7 @@ body {
 .admin-form {
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: var(--space-lg);
 }
 
 .form-group {
@@ -928,7 +944,7 @@ body {
 .admin-nav-links {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2.5rem;
+  gap: var(--space-lg);
   margin-top: 2rem;
 }
 
@@ -1177,14 +1193,14 @@ body {
 .content-main {
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: var(--space-lg);
 }
 
 /* Card Grid Container - applies to any container holding multiple cards */
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 2.5rem;
+  gap: var(--space-lg);
   width: 100%;
 }
 
@@ -1192,7 +1208,7 @@ body {
 .card-grid-compact {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2.5rem;
+  gap: var(--space-lg);
   width: 100%;
 }
 
@@ -1200,7 +1216,7 @@ body {
 .card-grid-wide {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-  gap: 2.5rem;
+  gap: var(--space-lg);
   width: 100%;
 }
 
@@ -1252,7 +1268,7 @@ body {
 .admin-nav-links {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2.5rem;
+  gap: var(--space-lg);
   margin-top: 2rem;
 }
 
@@ -1299,7 +1315,7 @@ body {
   list-style: none;
   padding: 0;
   display: flex;
-  gap: 2.5rem;
+  gap: var(--space-lg);
   justify-content: center;
   flex-wrap: wrap;
 }
