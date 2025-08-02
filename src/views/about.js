@@ -65,7 +65,7 @@ const About = (props) => {
           </p>
         </div>
         
-        <div className="content-main">
+        <div className="card-grid">
           <div className="section-card">
             <h2>Early Foundation</h2>
             <p>My relationship with technology began in 1984, when I was introduced to BASIC programming on an MSX machine during primary school. Within weeks, I had written a functioning game, not because it was required, but because the logic was accessible and the feedback was immediate. It was my first encounter with structured systems, and it set the tone for everything that followed.</p>

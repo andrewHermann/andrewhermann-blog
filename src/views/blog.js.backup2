@@ -89,7 +89,7 @@ const Blog = () => {
           </p>
         </div>
         
-        <div className="page-content-wrapper">
+        <div className="content-main">
           {loading ? (
             <div className="loading-message">
               <p>Loading posts...</p>
