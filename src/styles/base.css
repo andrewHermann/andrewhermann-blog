@@ -34,6 +34,11 @@
   --color-background: #f0f0f0;
   --color-text: var(--color-neutral-dark);
   --color-text-secondary: #6B7280;
+  --color-accent-primary: var(--color-primary);
+  --color-accent-secondary: var(--color-neutral-dark);
+  --color-background-tertiary: var(--color-accent-2);
+  --color-text-primary: var(--color-text);
+  --color-border: var(--color-accent-1);
   
   /* Border & Radius System */
   --border-radius-sm: 2px;
@@ -814,10 +819,35 @@ body {
 .link-primary {
   color: var(--color-accent-primary);
   text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0;
+  margin-top: 1rem;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+}
+
+.link-primary::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-accent-primary);
+  transition: width 0.3s ease;
 }
 
 .link-primary:hover {
-  text-decoration: underline;
+  color: var(--color-accent-secondary);
+  transform: translateX(2px);
+}
+
+.link-primary:hover::after {
+  width: 100%;
 }
 
 /* Role Info Cards */
