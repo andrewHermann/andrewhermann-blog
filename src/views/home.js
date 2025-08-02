@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import SEO from '../components/seo'
 import Navbar from '../components/navbar'
 import Hero from '../components/hero'
+import WhatIDo from '../components/what-i-do'
 import Features1 from '../components/features1'
 import CTA from '../components/cta'
 import Features2 from '../components/features2'
@@ -64,13 +65,16 @@ const Home = (props) => {
       />
       <Navbar />
       
+      {/* Hero Section - Full viewport height */}
+      <Hero />
+      
       <div className="page-content">
-        {/* Hero section - no frame */}
-        <div className="hero-section">
-          <Hero />
-        </div>
+        <div className="card-grid">
+          {/* What I Do Section - First in grid */}
+          <div className="section-card">
+            <WhatIDo />
+          </div>
 
-        <div className="content-main">
           {/* Professional Portfolio section */}
           <div className="section-card">
             <Features1 />

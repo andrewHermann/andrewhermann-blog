@@ -279,13 +279,18 @@ body {
 }
 
 .section-card h3 {
-  color: #6b7280;
-  font-size: var(--font-size-base);
-  font-style: italic;
+  color: var(--color-text);
+  font-size: var(--font-size-lg);
+  font-style: normal;
   font-family: Inter, sans-serif;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.4;
-  margin-bottom: var(--space-lg);
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-md);
+}
+
+.section-card h3:first-of-type {
+  margin-top: 0;
 }
 
 .section-card p {

@@ -1,181 +1,141 @@
+/* ==========================================================================
+   Home Page - Uses Unified CSS Architecture
+   ========================================================================== */
+
+/* Main container using shared layout pattern */
 .home-container {
+  /* Using shared page-container pattern */
   width: 100%;
   display: flex;
   overflow: auto;
-  min-height: 100vh;
+  min-height: var(--layout-min-height-full);
   align-items: center;
   flex-direction: column;
-  background-color: var(--dl-color-theme-neutral-light);
-  padding: 0 20px;
+  background-color: var(--color-neutral-light);
 }
 
+/* Content area using shared layout pattern */
 .home-content {
+  /* Using shared page-content pattern */
   width: 100%;
   display: flex;
-  max-width: 1200px;
+  max-width: var(--layout-max-width);
   align-items: center;
-  justify-content: center;
-  padding-top: 120px;
+  padding-top: var(--layout-padding-section);
   flex-direction: column;
-  padding-bottom: 80px;
-  gap: 40px;
+  padding-bottom: var(--layout-padding-content);
+  padding-left: var(--layout-padding-small);
+  padding-right: var(--layout-padding-small);
 }
 
-/* Hero section - no frame */
+/* Home-specific sections */
 .home-hero {
   width: 100%;
-  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4xl);
+  gap: var(--space-3xl);
 }
 
-/* Framed sections for all main content */
-.home-section-frame {
-  width: 100%;
-  max-width: 1000px;
+.home-hero-content {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  border: 1px solid #e5e7eb;
-  padding: 40px;
-  margin: 0 auto 40px auto;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
+  align-items: flex-start;
 }
 
-.home-section-frame:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+.home-hero-title {
+  font-size: var(--font-size-4xl);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: var(--space-lg);
+  line-height: var(--line-height-tight);
 }
 
-.home-section-frame:active {
-  transform: translateY(-2px);
-  transition: transform 0.1s ease;
+.home-hero-subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-xl);
+  line-height: var(--line-height-relaxed);
+  max-width: 600px;
 }
 
-/* Professional Portfolio specific styling */
-.home-section-frame .features1-portfolio-section {
-  display: block;
-  background: transparent;
-  box-shadow: none;
-  border: none;
-  padding: 0;
-}
-
-.home-section-frame .features1-portfolio-grid {
-  display: flex !important;
-  flex-direction: row !important;
+.home-hero-actions {
+  display: flex;
+  gap: var(--space-lg);
   flex-wrap: wrap;
 }
 
-/* CTA section specific styling */
-.home-section-frame .cta-steps-container {
-  background: transparent;
-  padding: 0;
-}
-
-.home-section-frame .cta-steps-max-width {
-  max-width: none;
-}
-
-/* Features2 section specific styling */
-.home-section-frame .features2-container2 {
-  background: transparent;
-}
-
-/* Steps section specific styling */
-.home-section-frame .steps-container1 {
-  background: transparent;
-  padding: 0;
-}
-
-.home-section-frame .steps-max-width {
-  max-width: none;
-}
-
-/* Individual cards within frames - remove double framing */
-.home-section-frame .thq-card {
-  background-color: #f8fafc !important;
-  border: 1px solid #e2e8f0 !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
-}
-
-.home-section-frame .features1-portfolio-item {
-  background-color: #f8fafc !important;
-  border: 1px solid #e2e8f0 !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
-}
-
-.home-section-frame .cta-card {
-  background-color: #f8fafc !important;
-  border: 1px solid #e2e8f0 !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
-}
-
-/* Section spacing and layout */
-.home-main {
-  width: 100%;
+.home-hero-robot {
+  flex: 1;
+  min-height: 400px;
   display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  gap: 0;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Reset margins for components inside frames */
-.home-section-frame > * {
-  margin-top: 0;
-  margin-bottom: 0;
+/* Features sections */
+.home-features {
+  width: 100%;
+  margin: var(--space-4xl) 0;
+}
+
+/* CTA sections */
+.home-cta {
+  width: 100%;
+  margin: var(--space-4xl) 0;
+}
+
+/* Steps sections */
+.home-steps {
+  width: 100%;
+  margin: var(--space-4xl) 0;
+}
+
+/* Contact section */
+.home-contact {
+  width: 100%;
+  margin: var(--space-4xl) 0;
 }
 
 /* Responsive design */
-@media (max-width: 1024px) {
-  .home-section-frame {
-    max-width: 900px;
-    padding: 30px;
-    margin-bottom: 30px;
-  }
-}
-
 @media (max-width: 768px) {
-  .home-container {
-    padding: 0 16px;
+  .home-hero {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--space-2xl);
   }
   
-  .home-content {
-    padding-top: 80px;
-    gap: 30px;
+  .home-hero-content {
+    align-items: center;
   }
   
-  .home-section-frame {
-    padding: 25px;
-    margin-bottom: 25px;
+  .home-hero-title {
+    font-size: var(--font-size-3xl);
   }
   
-  .home-section-frame:hover {
-    transform: translateY(-2px);
+  .home-hero-actions {
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .home-hero-robot {
+    min-height: 300px;
   }
 }
 
 @media (max-width: 480px) {
-  .home-container {
-    padding: 0 12px;
+  .home-hero-title {
+    font-size: var(--font-size-2xl);
   }
   
-  .home-section-frame {
-    padding: 20px;
-    margin-bottom: 20px;
+  .home-hero-actions {
+    flex-direction: column;
+    width: 100%;
   }
   
-  .home-section-frame:hover {
-    transform: none;
+  .home-hero-actions .btn {
+    width: 100%;
   }
-  
-  .home-section-frame:active {
-    transform: none;
-  }
-}
-
-/* Ensure proper spacing between sections */
-.home-section-frame:last-child {
-  margin-bottom: 0;
 }

@@ -8,30 +8,26 @@ const Features1 = (props) => {
 
   const portfolioItems = [
     {
-      title: 'KI@V – Conversational AI for the Swiss Armed Forces',
+      title: 'KI@V – Institutional AI for the Swiss Armed Forces',
       id: 'ki-v'
     },
     {
-      title: 'Cockpit – Power BI Portfolio Management Platform',
+      title: 'COCKPIT – Project Portfolio Dashboard for ASTAB',
       id: 'cockpit'
     },
     {
-      title: 'Digital Innovation Leadership – Bundesverwaltung & VBS',
-      id: 'digital-innovation'
-    },
-    {
-      title: 'TTR Implementation – European Rail Sector',
+      title: 'TTR Rail Planning – European Coordination (SBB / RNE)',
       id: 'ttr'
     },
     {
-      title: 'Oracle-Based System Management – Ascom',
-      id: 'oracle-systems'
+      title: 'AI Policy Briefing – Swiss Public Sector',
+      id: 'ai-policy'
     }
   ]
 
   const handleItemClick = (itemId) => {
     try {
-      navigate('/portfolio', { state: { scrollTo: itemId } })
+      navigate(`/portfolio#${itemId}`)
     } catch (error) {
       console.error('Navigation failed:', error)
     }
