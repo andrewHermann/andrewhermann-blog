@@ -58,3 +58,36 @@ temp/
 # Optional stylelint cache
 .stylelintcache
 coverage/
+
+# Security - Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Security - Configuration files
+ecosystem.config.js
+ecosystem.config.js
+ecosystem.config.js
+ecosystem.config.js
+
+# Security - Authentication and session data
+cookies.txt
+*.session
+*.cookie
+
+# Security - Server logs and output
+nohup.out
+frontend.log
+backend.log
+
+# Security - Backup files
+*.backup
+*.backup.*
+*.backup[0-9]*
+*~
+*.bak
+
+# Security - Personal/sensitive config
+.env.*
+config.local.*
+*local.config.*
