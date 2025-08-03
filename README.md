@@ -102,3 +102,23 @@ The application uses dynamic API configuration:
 - Session-based authentication
 - CORS protection
 - SQL injection prevention
+
+## License
+
+This project is licensed under the GNU General Public License v3.0 or later - see the [LICENSE](LICENSE) file for details.
+
+### What this means:
+- ✅ You can use, modify, and distribute this software
+- ✅ You can use it for commercial purposes
+- ✅ You can distribute modified versions
+- ⚠️ **Any derivative work must also be licensed under GPL v3+**
+- ⚠️ You must include the original license and copyright notice
+- ⚠️ You must document any changes you make
+
+For more information about GPL v3, visit: https://www.gnu.org/licenses/gpl-3.0.html
+
+## Copyright
+
+Copyright (C) 2024 Andrew Hermann
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
