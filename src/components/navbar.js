@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
 import PropTypes from 'prop-types'
@@ -8,6 +8,8 @@ import './navbar.css'
 const Navbar = (props) => {
   const location = useLocation()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const mobileMenuRef = useRef(null)
+  const burgerMenuRef = useRef(null)
   
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
@@ -18,6 +20,29 @@ const Navbar = (props) => {
   }
   
   // Close mobile menu when clicking on a link
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isMobileMenuOpen && 
+          mobileMenuRef.current && 
+          !mobileMenuRef.current.contains(event.target) &&
+          burgerMenuRef.current &&
+          !burgerMenuRef.current.contains(event.target)) {
+        setIsMobileMenuOpen(false)
+      }
+    }
+
+    if (isMobileMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+      document.addEventListener('touchstart', handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('touchstart', handleClickOutside)
+    }
+  }, [isMobileMenuOpen])
+
   const handleMobileLinkClick = () => {
     setIsMobileMenuOpen(false)
   }
@@ -56,7 +81,7 @@ const Navbar = (props) => {
         </div>
         <div 
           data-thq="thq-burger-menu" 
-          className="navbar-burger-menu"
+          className="navbar-burger-menu" ref={burgerMenuRef}
           onClick={toggleMobileMenu}
           role="button"
           tabIndex={0}
@@ -72,7 +97,7 @@ const Navbar = (props) => {
         </div>
         <div 
           data-thq="thq-mobile-menu" 
-          className={`navbar-mobile-menu ${isMobileMenuOpen ? 'navbar-mobile-menu-open' : ''}`}
+          className={`navbar-mobile-menu ${isMobileMenuOpen ? 'navbar-mobile-menu-open' : ''}`} ref={mobileMenuRef}
         >
           <div className="navbar-nav">
             <div className="navbar-top">
