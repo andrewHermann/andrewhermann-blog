@@ -365,6 +365,145 @@ app.post('/api/admin/change-password', requireAuth, (req, res) => {
   });
 });
 
+// Dynamic sitemap generation endpoint
+app.get('/api/sitemap', (req, res) => {
+  // Get the base URL from environment or default
+  const baseUrl = process.env.BASE_URL || 'https://andrew.cloudhopper.ch';
+  
+  // Static pages with their priorities and change frequencies
+  const staticPages = [
+    { url: '/', priority: '1.0', changefreq: 'weekly' },
+    { url: '/portfolio', priority: '0.9', changefreq: 'monthly' },
+    { url: '/about', priority: '0.9', changefreq: 'monthly' },
+    { url: '/blog', priority: '0.8', changefreq: 'weekly' },
+    { url: '/contact', priority: '0.7', changefreq: 'monthly' },
+    { url: '/markets', priority: '0.6', changefreq: 'monthly' },
+    { url: '/terms', priority: '0.3', changefreq: 'yearly' },
+    { url: '/privacy', priority: '0.3', changefreq: 'yearly' },
+    { url: '/cookies', priority: '0.3', changefreq: 'yearly' }
+  ];
+  
+  // Get published blog posts
+  db.all('SELECT slug, created_at, updated_at FROM posts WHERE published = 1 ORDER BY created_at DESC', (err, posts) => {
+    if (err) {
+      console.error('Database error generating sitemap:', err);
+      return res.status(500).json({ error: 'Database error' });
+    }
+    
+    // Build sitemap XML
+    let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">`;
+    
+    // Add static pages
+    staticPages.forEach(page => {
+      const lastmod = new Date().toISOString().split('T')[0]; // Today's date
+      sitemap += `
+  <url>
+    <loc>${baseUrl}${page.url}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>${page.changefreq}</changefreq>
+    <priority>${page.priority}</priority>
+  </url>`;
+    });
+    
+    // Add blog posts
+    posts.forEach(post => {
+      const lastmod = new Date(post.updated_at || post.created_at).toISOString().split('T')[0];
+      sitemap += `
+  <url>
+    <loc>${baseUrl}/blog/${post.slug}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>`;
+    });
+    
+    sitemap += '\n</urlset>\n';
+    
+    res.set('Content-Type', 'application/xml');
+    res.send(sitemap);
+  });
+});
+
+// Endpoint to regenerate static sitemap file
+app.post('/api/admin/regenerate-sitemap', requireBlogger, (req, res) => {
+  const fs = require('fs');
+  const path = require('path');
+  
+  // Generate sitemap content
+  const baseUrl = process.env.BASE_URL || 'https://andrew.cloudhopper.ch';
+  
+  const staticPages = [
+    { url: '/', priority: '1.0', changefreq: 'weekly' },
+    { url: '/portfolio', priority: '0.9', changefreq: 'monthly' },
+    { url: '/about', priority: '0.9', changefreq: 'monthly' },
+    { url: '/blog', priority: '0.8', changefreq: 'weekly' },
+    { url: '/contact', priority: '0.7', changefreq: 'monthly' },
+    { url: '/markets', priority: '0.6', changefreq: 'monthly' },
+    { url: '/terms', priority: '0.3', changefreq: 'yearly' },
+    { url: '/privacy', priority: '0.3', changefreq: 'yearly' },
+    { url: '/cookies', priority: '0.3', changefreq: 'yearly' }
+  ];
+  
+  db.all('SELECT slug, created_at, updated_at FROM posts WHERE published = 1 ORDER BY created_at DESC', (err, posts) => {
+    if (err) {
+      console.error('Database error regenerating sitemap:', err);
+      return res.status(500).json({ error: 'Database error' });
+    }
+    
+    let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">`;
+    
+    // Add static pages
+    staticPages.forEach(page => {
+      const lastmod = new Date().toISOString().split('T')[0];
+      sitemap += `
+  <url>
+    <loc>${baseUrl}${page.url}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>${page.changefreq}</changefreq>
+    <priority>${page.priority}</priority>
+  </url>`;
+    });
+    
+    // Add blog posts
+    posts.forEach(post => {
+      const lastmod = new Date(post.updated_at || post.created_at).toISOString().split('T')[0];
+      sitemap += `
+  <url>
+    <loc>${baseUrl}/blog/${post.slug}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>`;
+    });
+    
+    sitemap += '\n</urlset>\n';
+    
+    // Write to public/sitemap.xml
+    const sitemapPath = path.join(__dirname, '..', 'public', 'sitemap.xml');
+    fs.writeFile(sitemapPath, sitemap, 'utf8', (writeErr) => {
+      if (writeErr) {
+        console.error('Error writing sitemap file:', writeErr);
+        return res.status(500).json({ error: 'Error writing sitemap file' });
+      }
+      
+      console.log('Sitemap regenerated successfully');
+      res.json({ 
+        message: 'Sitemap regenerated successfully', 
+        postsIncluded: posts.length,
+        staticPages: staticPages.length 
+      });
+    });
+  });
+});
+
 // Start server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
