@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Load environment variables from .env file
+if [ -f .env ]; then
+    export $(cat .env | grep -v '^#' | xargs)
+else
+    echo "Warning: .env file not found. Please copy .env.example to .env and configure your settings."
+    exit 1
+fi
+
 # Start the blog application servers
 echo "Starting blog application servers..."
 
@@ -9,8 +17,8 @@ pkill -f "node.*server.js" 2>/dev/null || true
 pkill -f "serve -s build" 2>/dev/null || true
 
 # Start backend server
-echo "Starting backend server on port 3001..."
-cd ***REMOVED***
+echo "Starting backend server on port ${BACKEND_PORT:-3001}..."
+cd "${PROJECT_PATH:-$(dirname "$0")}"
 nohup node backend/server.js > backend.log 2>&1 &
 BACKEND_PID=$!
 
@@ -18,7 +26,7 @@ BACKEND_PID=$!
 sleep 2
 
 # Start frontend server
-echo "Starting frontend server on port 5000..."
+echo "Starting frontend server on port ${FRONTEND_PORT:-5000}..."
 nohup npm run serve > frontend.log 2>&1 &
 FRONTEND_PID=$!
 
@@ -30,17 +38,11 @@ echo "Backend PID: $BACKEND_PID"
 echo "Frontend PID: $FRONTEND_PID"
 echo ""
 echo "Your blog is now accessible at:"
-echo "  - Local: http://localhost:5000"
-echo "  - LAN: http://***REMOVED***:5000"
-echo "  - Admin: http://***REMOVED***:5000/admin"
+echo "  - Local: http://localhost:${FRONTEND_PORT:-5000}"
+echo "  - LAN: http://${SERVER_IP:-localhost}:${FRONTEND_PORT:-5000}"
+echo "  - Admin: http://${SERVER_IP:-localhost}:${FRONTEND_PORT:-5000}/admin"
 echo ""
-echo "Admin credentials:"
-echo "  Username: admin"
-echo "  Password: ***REMOVED***"
+echo "Admin credentials configured via environment variables"
 echo ""
-echo "New Features:"
-echo "  - Manual date override in post editor"
-echo "  - Created At and Updated At fields are now editable"
-echo "  - Leave date fields empty to use current timestamp"
 echo ""
 echo "To stop the servers, run: pkill -f \"node.*server.js\" && pkill -f \"serve -s build\""
