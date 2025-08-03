@@ -60,13 +60,7 @@ const Footer = (props) => {
               {props.column3Title}
             </strong>
             <div className="footer-footer-links3">
-              <OpenSourceBadge 
-                variant="minimal" 
-                position="static" 
-                size="small" 
-                showText={true}
-                className="footer-opensource-badge"
-              />
+              <a href="/behind-the-site" className="thq-body-small">Behind the Site</a>
               <a 
                 href="#" 
                 onClick={handleLicenseClick} 
@@ -74,6 +68,13 @@ const Footer = (props) => {
               >
                 GPL v3 License
               </a>
+              <OpenSourceBadge 
+                variant="minimal" 
+                position="static" 
+                size="small" 
+                showText={true}
+                className="footer-opensource-badge"
+              />
             </div>
           </div>
           <div className="footer-column4">
@@ -95,6 +96,22 @@ const Footer = (props) => {
                   </path>
                 </svg>
                 <span className="thq-body-small">LinkedIn</span>
+              </a>
+              <a 
+                href="https://github.com/andrewHermann"
+                target="_blank"
+                rel="noreferrer noopener"
+                className="footer-link-github"
+              >
+                <svg
+                  viewBox="0 0 1024 1024"
+                  className="thq-icon-small"
+                >
+                  <path
+                    d="M512 76c-240.9 0-437 196.1-437 437 0 193.1 125.1 356.6 299 414.5 21.8 4 29.7-9.5 29.7-21.3v-81.4c-122.5 26.7-148.3-59-148.3-59-19.8-50.1-48.4-63.4-48.4-63.4-39.6-27.1 3-26.6 3-26.6 43.8 3.1 66.8 45 66.8 45 38.8 66.5 101.8 47.3 126.5 36.1 4-28.1 15.2-47.3 27.7-58.3-97.8-11.1-200.5-48.9-200.5-217.6 0-48.1 17.2-87.5 45.4-118.3-4.6-11.2-19.7-56 4.3-116.7 0 0 37.1-11.9 121.5 45.5 35.3-9.8 73.2-14.7 110.9-14.9 37.5 0.2 75.3 5.1 110.9 14.9 84.3-57.4 121.5-45.5 121.5-45.5 24 60.7 8.9 105.5 4.3 116.7 28.2 30.8 45.4 70.2 45.4 118.3 0 169.2-102.8 206.3-200.9 217.1 15.7 13.5 29.7 40.3 29.7 81v120.1c0 11.8 7.9 25.4 30 21.1 174.2-57.9 299.3-221.4 299.3-414.5 0-240.9-196.1-437-437-437z"
+                  ></path>
+                </svg>
+                <span className="thq-body-small">GitHub</span>
               </a>
             </div>
           </div>
