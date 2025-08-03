@@ -37,7 +37,9 @@
     "lint:css": "stylelint \"src/**/*.css\"",
     "lint:css:fix": "stylelint \"src/**/*.css\" --fix",
     "format": "prettier --write \"src/**/*.{js,jsx,css}\" --ignore-path .gitignore",
-    "check:all": "npm run lint && npm run lint:css && npm run build"
+    "check:all": "npm run lint && npm run lint:css && npm run build",
+    "seo:sitemap": "node scripts/regenerate-sitemap.js",
+    "seo:validate": "echo 'Validating SEO files...' && node -e 'console.log(\"robots.txt:\"); console.log(require(\"fs\").readFileSync(\"public/robots.txt\", \"utf8\"))'"
   },
   "engines": {
     "node": ">=18.x"
