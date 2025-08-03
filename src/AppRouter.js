@@ -9,6 +9,7 @@ import Blog from './views/blog'
 import BlogPost from './views/blog-post'
 import Markets from './views/markets'
 import ContactPage from './views/contact'
+import BehindTheSite from './views/behind-the-site'
 import NotFound1 from './views/not-found'
 import TermsOfUse from './views/terms-of-use'
 import PrivacyPolicy from './views/privacy-policy'
@@ -74,6 +75,7 @@ const AppRouter = () => {
         <Route path="/blog/:slug" element={<BlogPost />} />
         <Route path="/markets" element={<Markets />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/behind-the-site" element={<BehindTheSite />} />
         <Route path="/terms" element={<TermsOfUse />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/cookies" element={<CookiesPolicy />} />
