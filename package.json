@@ -1,7 +1,7 @@
 {
   "name": "andrewhermann",
   "version": "2.0.0",
-  "private": true,
+  "license": "GPL-3.0-or-later",
   "proxy": "http://localhost:3001",
   "dependencies": {
     "@craco/craco": "^7.1.0",
