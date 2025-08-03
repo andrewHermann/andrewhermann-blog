@@ -16,14 +16,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-
 import React from 'react'
-
 import PropTypes from 'prop-types'
+import OpenSourceBadge from './OpenSourceBadge'
 
 import './footer.css'
 
 const Footer = (props) => {
+  const handleLicenseClick = () => {
+    window.open('https://github.com/andrewHermann/andrewhermann-blog/blob/main/LICENSE', '_blank', 'noreferrer noopener')
+  }
+
   return (
     <footer className="footer-footer1 thq-section-padding">
       <div className="footer-max-width thq-section-max-width">
@@ -33,36 +36,11 @@ const Footer = (props) => {
               {props.column1Title}
             </strong>
             <div className="footer-footer-links1">
-              <a
-                href="/portfolio"
-                className="thq-body-small"
-              >
-                Portfolio
-              </a>
-              <a
-                href="/blog"
-                className="thq-body-small"
-              >
-                Blog
-              </a>
-              <a
-                href="/about"
-                className="thq-body-small"
-              >
-                About
-              </a>
-              <a
-                href="/contact"
-                className="thq-body-small"
-              >
-                Contact
-              </a>
-              <a
-                href="/markets"
-                className="thq-body-small"
-              >
-                Markets
-              </a>
+              <a href="/portfolio" className="thq-body-small">Portfolio</a>
+              <a href="/blog" className="thq-body-small">Blog</a>
+              <a href="/about" className="thq-body-small">About</a>
+              <a href="/contact" className="thq-body-small">Contact</a>
+              <a href="/markets" className="thq-body-small">Markets</a>
             </div>
           </div>
           <div className="footer-column2">
@@ -70,39 +48,35 @@ const Footer = (props) => {
               {props.column2Title}
             </strong>
             <div className="footer-footer-links2">
-              <a
-                href="/terms"
-                className="thq-body-small"
-              >
-                Terms of Use
-              </a>
-              <a
-                href="/privacy"
-                className="thq-body-small"
-              >
-                Privacy Policy
-              </a>
-              <a
-                href="/cookies"
-                className="thq-body-small"
-              >
-                Cookies Policy
-              </a>
-              <a
-                href="/contact"
-                className="thq-body-small"
-              >
-                Support
-              </a>
-              <a
-                href="/contact"
-                className="thq-body-small"
-              >
-                Contact Us
-              </a>
+              <a href="/terms" className="thq-body-small">Terms of Use</a>
+              <a href="/privacy" className="thq-body-small">Privacy Policy</a>
+              <a href="/cookies" className="thq-body-small">Cookies Policy</a>
+              <a href="/contact" className="thq-body-small">Support</a>
+              <a href="/contact" className="thq-body-small">Contact Us</a>
             </div>
           </div>
           <div className="footer-column3">
+            <strong className="thq-body-large footer-column3-title">
+              {props.column3Title}
+            </strong>
+            <div className="footer-footer-links3">
+              <OpenSourceBadge 
+                variant="minimal" 
+                position="static" 
+                size="small" 
+                showText={true}
+                className="footer-opensource-badge"
+              />
+              <a 
+                href="#" 
+                onClick={handleLicenseClick} 
+                className="thq-body-small footer-license-link"
+              >
+                GPL v3 License
+              </a>
+            </div>
+          </div>
+          <div className="footer-column4">
             <strong className="thq-body-large footer-social-link1-title">
               {props.socialLinkTitleCategory}
             </strong>
@@ -129,7 +103,7 @@ const Footer = (props) => {
           <div className="thq-divider-horizontal"></div>
           <div className="footer-row">
             <span className="thq-body-small">{props.content2}</span>
-            <div className="footer-footer-links3">
+            <div className="footer-footer-links4">
               <a href="/privacy" className="thq-body-small">Privacy</a>
               <a href="/terms" className="thq-body-small">Terms</a>
               <a href="/cookies" className="thq-body-small">Cookies</a>
@@ -160,6 +134,7 @@ Footer.defaultProps = {
   link5: 'Privacy Policy',
   privacyLink: '/privacy',
   column1Title: 'Explore',
+  column3Title: 'Open Source',
 }
 
 Footer.propTypes = {
@@ -181,6 +156,7 @@ Footer.propTypes = {
   link5: PropTypes.string,
   privacyLink: PropTypes.string,
   column1Title: PropTypes.string,
+  column3Title: PropTypes.string,
 }
 
 export default Footer
