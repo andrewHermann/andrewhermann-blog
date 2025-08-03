@@ -1,13 +1,20 @@
-.page-floating-robot-container {
+.page-floating-robot-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: fixed;
-  top: 120px; /* Moved down by 40px */
+  top: 120px;
   left: 20px;
-  width: 320px;  /* Increased by 20px from 300px */
-  height: 320px; /* Increased by 20px from 300px */
   z-index: 1000;
   pointer-events: none;
-  
-  /* Make the container completely invisible */
+}
+
+.page-floating-robot-container {
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+  width: 320px;
+  height: 320px;
+  pointer-events: none;
   background: transparent !important;
   backdrop-filter: none !important;
   border: none !important;
@@ -23,26 +30,57 @@
   outline: none !important;
 }
 
+.opensource-badge-container {
+  margin-top: 0.5rem;
+  pointer-events: auto;
+}
+
+.floating-robot-badge {
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+  box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(12px);
+}
+
+/* Hover effects for the entire wrapper */
+.page-floating-robot-wrapper:hover .page-floating-robot-container {
+  opacity: 1;
+}
+
+.page-floating-robot-wrapper:hover .floating-robot-badge {
+  opacity: 1;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .page-floating-robot-container {
-    width: 220px;  /* Increased by 20px from 200px */
-    height: 220px; /* Increased by 20px from 200px */
+  .page-floating-robot-wrapper {
     top: 110px;
     left: 10px;
+  }
+  
+  .page-floating-robot-container {
+    width: 220px;
+    height: 220px;
   }
 }
 
 @media (max-width: 480px) {
-  .page-floating-robot-container {
-    width: 170px;  /* Increased by 20px from 150px */
-    height: 170px; /* Increased by 20px from 150px */
+  .page-floating-robot-wrapper {
     top: 100px;
     left: 5px;
   }
+  
+  .page-floating-robot-container {
+    width: 170px;
+    height: 170px;
+  }
+  
+  .opensource-badge-container {
+    margin-top: 0.25rem;
+  }
 }
 
-/* Ghost-like floating animation with doubled boundaries */
+/* Ghost-like floating animation */
 @keyframes pageFloat {
   0% { 
     transform: translateY(0px) translateX(0px); 
@@ -79,6 +117,6 @@
   }
 }
 
-.page-floating-robot-container {
+.page-floating-robot-wrapper {
   animation: pageFloat 8s cubic-bezier(0.4, 0.0, 0.6, 1.0) infinite;
 }

@@ -1,0 +1,184 @@
+/* Base Open Source Badge Styles */
+.opensource-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  user-select: none;
+}
+
+.opensource-badge:hover {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.4);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 25px -5px rgba(59, 130, 246, 0.2);
+}
+
+.opensource-badge-icon {
+  width: 18px;
+  height: 18px;
+  color: #374151;
+  transition: color 0.3s ease;
+  flex-shrink: 0;
+}
+
+.opensource-badge:hover .opensource-badge-icon {
+  color: #3b82f6;
+}
+
+.opensource-badge-text {
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  white-space: nowrap;
+}
+
+/* Position Variants */
+.opensource-badge--absolute {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  z-index: 10;
+}
+
+.opensource-badge--fixed {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  z-index: 1000;
+}
+
+.opensource-badge--static {
+  position: static;
+}
+
+/* Size Variants */
+.opensource-badge--small {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8rem;
+}
+
+.opensource-badge--small .opensource-badge-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.opensource-badge--medium {
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+}
+
+.opensource-badge--medium .opensource-badge-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.opensource-badge--large {
+  padding: 1rem 1.25rem;
+  font-size: 1rem;
+}
+
+.opensource-badge--large .opensource-badge-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Style Variants */
+.opensource-badge--minimal {
+  background: transparent;
+  border: 1px solid rgba(156, 163, 175, 0.3);
+  backdrop-filter: none;
+  box-shadow: none;
+}
+
+.opensource-badge--minimal:hover {
+  background: rgba(59, 130, 246, 0.05);
+  border-color: rgba(59, 130, 246, 0.3);
+  box-shadow: 0 2px 8px -2px rgba(59, 130, 246, 0.15);
+}
+
+.opensource-badge--accent {
+  background: linear-gradient(135deg, #3b82f6, #6366f1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.opensource-badge--accent .opensource-badge-icon {
+  color: white;
+}
+
+.opensource-badge--accent:hover {
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4);
+}
+
+.opensource-badge--dark {
+  background: rgba(17, 24, 39, 0.9);
+  border: 1px solid rgba(75, 85, 99, 0.5);
+  color: #f9fafb;
+}
+
+.opensource-badge--dark .opensource-badge-icon {
+  color: #f9fafb;
+}
+
+.opensource-badge--dark:hover {
+  background: rgba(31, 41, 55, 0.95);
+  border-color: rgba(156, 163, 175, 0.5);
+  box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+.opensource-badge--dark:hover .opensource-badge-icon {
+  color: #3b82f6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .opensource-badge--absolute,
+  .opensource-badge--fixed {
+    top: 1rem;
+    right: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .opensource-badge--absolute {
+    position: relative;
+    top: auto;
+    right: auto;
+    align-self: flex-end;
+  }
+  
+  .opensource-badge--small {
+    padding: 0.375rem 0.625rem;
+    font-size: 0.75rem;
+  }
+  
+  .opensource-badge--small .opensource-badge-icon {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .opensource-badge {
+    transition: none;
+  }
+}
+
+.opensource-badge:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
