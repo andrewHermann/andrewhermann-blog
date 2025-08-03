@@ -2,6 +2,17 @@
 
 Thank you for considering contributing to this project! Here's how you can help.
 
+## License
+
+This project is licensed under GPL v3.0 or later. By contributing to this project, you agree that your contributions will be licensed under the same license.
+
+**Important**: All contributions must be compatible with GPL v3+. This means:
+- Your code will be freely available under GPL v3+
+- Any derivative works must also be GPL v3+ licensed
+- You retain copyright but grant GPL v3+ usage rights
+
+For new significant files, please include the GPL v3+ header (see existing files for template).
+
 ## Code of Conduct
 
 This project adheres to a professional code of conduct. Please be respectful and constructive in all interactions.
