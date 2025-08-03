@@ -7,8 +7,8 @@ import './terms-of-use.css'
 
 const TermsOfUse = () => {
   const termsBreadcrumbs = [
-    { name: "Home", url: "https://***REMOVED***" },
-    { name: "Terms of Use", url: "https://***REMOVED***/terms" }
+    { name: "Home", url: "https://andrew.cloudhopper.ch" },
+    { name: "Terms of Use", url: "https://andrew.cloudhopper.ch/terms" }
   ]
 
   return (
@@ -17,7 +17,7 @@ const TermsOfUse = () => {
         title="Terms of Use"
         description="Terms of Use for Andrew J. Hermann's professional website and services. Review the legal terms governing the use of this website and professional consulting services."
         keywords="terms of use, legal terms, website terms, professional services terms, consulting agreement"
-        url="https://***REMOVED***/terms"
+        url="https://andrew.cloudhopper.ch/terms"
         breadcrumbs={termsBreadcrumbs}
       />
       <Navbar />
@@ -31,7 +31,7 @@ const TermsOfUse = () => {
           <section className="section-card">
             <h2>1. Acceptance of Terms</h2>
             <p>
-              By accessing and using this website (***REMOVED***), you accept and agree to be bound by the terms and provision of this agreement. These Terms of Use govern your use of this website and any services provided through it.
+              By accessing and using this website (andrew.cloudhopper.ch), you accept and agree to be bound by the terms and provision of this agreement. These Terms of Use govern your use of this website and any services provided through it.
             </p>
           </section>
 

@@ -11,12 +11,12 @@ const Portfolio = (props) => {
     "@type": "WebPage",
     "name": "Professional Portfolio",
     "description": "Andrew J. Hermann's professional portfolio showcasing expertise in organizational strategy, AI innovation, and project management",
-    "url": "https://***REMOVED***/portfolio"
+    "url": "https://andrew.cloudhopper.ch/portfolio"
   }
 
   const portfolioBreadcrumbs = [
-    { name: "Home", url: "https://***REMOVED***" },
-    { name: "Portfolio", url: "https://***REMOVED***/portfolio" }
+    { name: "Home", url: "https://andrew.cloudhopper.ch" },
+    { name: "Portfolio", url: "https://andrew.cloudhopper.ch/portfolio" }
   ]
 
   return (
@@ -25,7 +25,7 @@ const Portfolio = (props) => {
         title="Professional Portfolio"
         description="View Andrew J. Hermann's professional portfolio showcasing expertise in organizational strategy, project portfolio management, AI innovation, and digital transformation. Discover successful projects and strategic initiatives."
         keywords="portfolio, projects, case studies, organizational strategy, AI innovation, project management, digital transformation, strategic planning"
-        url="https://***REMOVED***/portfolio"
+        url="https://andrew.cloudhopper.ch/portfolio"
         structuredData={portfolioStructuredData}
         breadcrumbs={portfolioBreadcrumbs}
       />

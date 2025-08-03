@@ -6,7 +6,7 @@ const SEO = ({
   description, 
   keywords = "", 
   image = "/ah-logo.png",
-  url = "https://***REMOVED***",
+  url = "https://andrew.cloudhopper.ch",
   type = "website",
   structuredData = null,
   breadcrumbs = null,
@@ -19,7 +19,7 @@ const SEO = ({
   const pageTitle = title ? `${title} - Andrew J. Hermann` : defaultTitle
   const pageDescription = description || defaultDescription
   const pageKeywords = keywords ? `${defaultKeywords}, ${keywords}` : defaultKeywords
-  const pageUrl = url || "https://***REMOVED***"
+  const pageUrl = url || "https://andrew.cloudhopper.ch"
   const canonicalUrl = canonical || pageUrl
   
   return (
@@ -40,7 +40,7 @@ const SEO = ({
       <meta property="og:type" content={type} />
       <meta property="og:url" content={pageUrl} />
       <meta property="og:site_name" content="Andrew J. Hermann" />
-      <meta property="og:image" content={`https://***REMOVED***${image}`} />
+      <meta property="og:image" content={`https://andrew.cloudhopper.ch${image}`} />
       <meta property="og:image:alt" content={title || "Andrew J. Hermann"} />
       <meta property="og:locale" content="en_US" />
       
@@ -50,7 +50,7 @@ const SEO = ({
       <meta name="twitter:creator" content="@andrewhermann" />
       <meta name="twitter:title" content={pageTitle} />
       <meta name="twitter:description" content={pageDescription} />
-      <meta name="twitter:image" content={`https://***REMOVED***${image}`} />
+      <meta name="twitter:image" content={`https://andrew.cloudhopper.ch${image}`} />
       
       {/* Structured Data */}
       {structuredData && (

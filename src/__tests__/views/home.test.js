@@ -95,7 +95,7 @@ describe('Home View', () => {
       
       expect(structuredData['@type']).toBe('WebPage');
       expect(structuredData.name).toContain('Strategic Leadership');
-      expect(structuredData.url).toBe('https://***REMOVED***');
+      expect(structuredData.url).toBe('https://andrew.cloudhopper.ch');
       expect(structuredData.mainEntity['@type']).toBe('Person');
       expect(structuredData.mainEntity.name).toBe('Andrew J. Hermann');
     });

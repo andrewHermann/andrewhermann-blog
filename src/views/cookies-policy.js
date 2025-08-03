@@ -7,8 +7,8 @@ import './cookies-policy.css'
 
 const CookiesPolicy = () => {
   const cookiesBreadcrumbs = [
-    { name: "Home", url: "https://***REMOVED***" },
-    { name: "Cookies Policy", url: "https://***REMOVED***/cookies" }
+    { name: "Home", url: "https://andrew.cloudhopper.ch" },
+    { name: "Cookies Policy", url: "https://andrew.cloudhopper.ch/cookies" }
   ]
 
   return (
@@ -17,7 +17,7 @@ const CookiesPolicy = () => {
         title="Cookies Policy"
         description="Cookies Policy for Andrew J. Hermann's professional website detailing how cookies and similar technologies are used, with GDPR compliance information."
         keywords="cookies policy, website cookies, tracking technologies, GDPR compliance, cookie consent, data privacy"
-        url="https://***REMOVED***/cookies"
+        url="https://andrew.cloudhopper.ch/cookies"
         breadcrumbs={cookiesBreadcrumbs}
       />
       <Navbar />
@@ -31,7 +31,7 @@ const CookiesPolicy = () => {
           <section className="section-card">
             <h2>1. Introduction</h2>
             <p>
-              This Cookies Policy explains how Andrew J. Hermann ("we," "our," or "us") uses cookies and similar technologies to recognize you when you visit our website ***REMOVED***. It explains what these technologies are and why we use them, as well as your rights to control their use.
+              This Cookies Policy explains how Andrew J. Hermann ("we," "our," or "us") uses cookies and similar technologies to recognize you when you visit our website andrew.cloudhopper.ch. It explains what these technologies are and why we use them, as well as your rights to control their use.
             </p>
             <p>
               In some cases we may use cookies to collect personal information, or that becomes personal information if we combine it with other information.

@@ -7,8 +7,8 @@ import './privacy-policy.css'
 
 const PrivacyPolicy = () => {
   const privacyBreadcrumbs = [
-    { name: "Home", url: "https://***REMOVED***" },
-    { name: "Privacy Policy", url: "https://***REMOVED***/privacy" }
+    { name: "Home", url: "https://andrew.cloudhopper.ch" },
+    { name: "Privacy Policy", url: "https://andrew.cloudhopper.ch/privacy" }
   ]
 
   return (
@@ -17,7 +17,7 @@ const PrivacyPolicy = () => {
         title="Privacy Policy"
         description="Privacy Policy for Andrew J. Hermann's professional website describing how we collect, use, and protect your personal information in compliance with data protection regulations."
         keywords="privacy policy, data protection, personal information, GDPR compliance, data privacy, information security"
-        url="https://***REMOVED***/privacy"
+        url="https://andrew.cloudhopper.ch/privacy"
         breadcrumbs={privacyBreadcrumbs}
       />
       <Navbar />
@@ -31,7 +31,7 @@ const PrivacyPolicy = () => {
           <section className="privacy-section">
             <h2>1. Introduction</h2>
             <p>
-              Andrew J. Hermann ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website ***REMOVED***, including any other media form, media channel, mobile website, or mobile application related or connected thereto.
+              Andrew J. Hermann ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website andrew.cloudhopper.ch, including any other media form, media channel, mobile website, or mobile application related or connected thereto.
             </p>
             <p>
               Please read this Privacy Policy carefully. If you do not agree with the terms of this Privacy Policy, please do not access the site.

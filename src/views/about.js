@@ -11,7 +11,7 @@ const About = (props) => {
     "@type": "AboutPage",
     "name": "About Andrew J. Hermann",
     "description": "Learn about Andrew J. Hermann's background, expertise, and approach to strategic leadership and AI innovation",
-    "url": "https://***REMOVED***/about",
+    "url": "https://andrew.cloudhopper.ch/about",
     "mainEntity": {
       "@type": "Person",
       "name": "Andrew J. Hermann",
@@ -38,8 +38,8 @@ const About = (props) => {
   }
 
   const aboutBreadcrumbs = [
-    { name: "Home", url: "https://***REMOVED***" },
-    { name: "About", url: "https://***REMOVED***/about" }
+    { name: "Home", url: "https://andrew.cloudhopper.ch" },
+    { name: "About", url: "https://andrew.cloudhopper.ch/about" }
   ]
 
   return (
@@ -48,7 +48,7 @@ const About = (props) => {
         title="About"
         description="Learn about Andrew J. Hermann's background, expertise in strategic leadership, AI innovation, and approach to organizational transformation. Discover his professional journey and core competencies."
         keywords="about Andrew Hermann, background, expertise, strategic leadership, AI innovation, professional experience, qualifications, organizational transformation"
-        url="https://***REMOVED***/about"
+        url="https://andrew.cloudhopper.ch/about"
         structuredData={aboutStructuredData}
         breadcrumbs={aboutBreadcrumbs}
       />
