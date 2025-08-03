@@ -1,5 +1,5 @@
 // API Configuration for different environments
-const ADMIN_SERVER_IP = process.env.REACT_APP_ADMIN_SERVER_IP || '192.168.178.44';
+const ADMIN_SERVER_IP = process.env.REACT_APP_ADMIN_SERVER_IP || 'localhost';
 
 const config = {
   development: {
