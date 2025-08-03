@@ -14,7 +14,7 @@ const NotFound = (props) => {
         title="Page Not Found (404)"
         description="The page you're looking for doesn't exist. Navigate back to explore Andrew J. Hermann's website."
         keywords="404, page not found, error"
-        url="https://***REMOVED***/404"
+        url="https://andrew.cloudhopper.ch/404"
       />
       
       <PageFloatingRobot bodyColor="#ef4444" glowColor="#f87171" />

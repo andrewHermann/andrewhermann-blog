@@ -19,7 +19,7 @@ const Home = (props) => {
     "@type": "WebPage",
     "name": "Strategic Leadership & AI Innovation Expert",
     "description": "Andrew J. Hermann specializes in organizational strategy, project portfolio management, and AI innovation",
-    "url": "https://***REMOVED***",
+    "url": "https://andrew.cloudhopper.ch",
     "mainEntity": {
       "@type": "Person",
       "name": "Andrew J. Hermann",
@@ -50,7 +50,7 @@ const Home = (props) => {
   }
 
   const homeBreadcrumbs = [
-    { name: "Home", url: "https://***REMOVED***" }
+    { name: "Home", url: "https://andrew.cloudhopper.ch" }
   ]
 
   return (
@@ -59,7 +59,7 @@ const Home = (props) => {
         title=""
         description="Andrew J. Hermann specializes in organizational strategy, project portfolio management, data-driven decision-making, and applied artificial intelligence. Transform your organization with strategic leadership expertise."
         keywords="strategic leadership, AI innovation, digital transformation, organizational strategy, project portfolio management, data-driven decisions"
-        url="https://***REMOVED***"
+        url="https://andrew.cloudhopper.ch"
         structuredData={homeStructuredData}
         breadcrumbs={homeBreadcrumbs}
       />

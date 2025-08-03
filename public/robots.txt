@@ -14,7 +14,7 @@ Allow: /
 Crawl-delay: 1
 
 # Sitemap location
-Sitemap: https://***REMOVED***/sitemap.xml
+Sitemap: https://andrew.cloudhopper.ch/sitemap.xml
 
 # Host directive
-Host: https://***REMOVED***
+Host: https://andrew.cloudhopper.ch

@@ -4,55 +4,55 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url>
-    <loc>https://***REMOVED***/</loc>
+    <loc>https://andrew.cloudhopper.ch/</loc>
     <lastmod>2025-01-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://***REMOVED***/portfolio</loc>
+    <loc>https://andrew.cloudhopper.ch/portfolio</loc>
     <lastmod>2025-01-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://***REMOVED***/about</loc>
+    <loc>https://andrew.cloudhopper.ch/about</loc>
     <lastmod>2025-01-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://***REMOVED***/blog</loc>
+    <loc>https://andrew.cloudhopper.ch/blog</loc>
     <lastmod>2025-01-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://***REMOVED***/contact</loc>
+    <loc>https://andrew.cloudhopper.ch/contact</loc>
     <lastmod>2025-01-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://***REMOVED***/markets</loc>
+    <loc>https://andrew.cloudhopper.ch/markets</loc>
     <lastmod>2025-01-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://***REMOVED***/terms</loc>
+    <loc>https://andrew.cloudhopper.ch/terms</loc>
     <lastmod>2025-01-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://***REMOVED***/privacy</loc>
+    <loc>https://andrew.cloudhopper.ch/privacy</loc>
     <lastmod>2025-01-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://***REMOVED***/cookies</loc>
+    <loc>https://andrew.cloudhopper.ch/cookies</loc>
     <lastmod>2025-01-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>

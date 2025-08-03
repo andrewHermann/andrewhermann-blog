@@ -12,7 +12,7 @@ const ContactPage = (props) => {
     "@type": "ContactPage",
     "name": "Contact Andrew J. Hermann",
     "description": "Get in touch with Andrew J. Hermann for strategic leadership consultation and AI innovation services",
-    "url": "https://***REMOVED***/contact",
+    "url": "https://andrew.cloudhopper.ch/contact",
     "mainEntity": {
       "@type": "Person",
       "name": "Andrew J. Hermann",
@@ -25,8 +25,8 @@ const ContactPage = (props) => {
   }
 
   const contactBreadcrumbs = [
-    { name: "Home", url: "https://***REMOVED***" },
-    { name: "Contact", url: "https://***REMOVED***/contact" }
+    { name: "Home", url: "https://andrew.cloudhopper.ch" },
+    { name: "Contact", url: "https://andrew.cloudhopper.ch/contact" }
   ]
 
   return (
@@ -35,7 +35,7 @@ const ContactPage = (props) => {
         title="Contact"
         description="Get in touch with Andrew J. Hermann for strategic leadership consultation, AI innovation services, and organizational transformation expertise. Professional consultation available."
         keywords="contact Andrew Hermann, consultation, strategic leadership services, AI innovation consultation, organizational transformation, professional services"
-        url="https://***REMOVED***/contact"
+        url="https://andrew.cloudhopper.ch/contact"
         structuredData={contactStructuredData}
         breadcrumbs={contactBreadcrumbs}
       />
