@@ -382,3 +382,100 @@
   gap: 8px;
   text-decoration: none;
 }
+
+/* New column4 styles for open source links */
+.footer-column4 {
+  gap: var(--dl-layout-space-unit);
+  width: auto;
+  display: flex;
+  flex-grow: 1;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.footer-column3-title {
+  text-align: left;
+}
+
+.footer-footer-links3 {
+  gap: var(--dl-layout-space-halfunit);
+  display: flex;
+  align-self: stretch;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.footer-footer-links4 {
+  gap: 24px;
+  display: flex;
+  align-items: flex-start;
+}
+
+/* Responsive adjustments for new column */
+@media(max-width: 991px) {
+  .footer-column3 {
+    align-items: center;
+  }
+  .footer-column3-title {
+    text-align: center;
+  }
+  .footer-footer-links3 {
+    align-self: center;
+  }
+  .footer-column4 {
+    align-items: center;
+  }
+}
+
+@media(max-width: 767px) {
+  .footer-column3 {
+    width: 100%;
+    max-width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  .footer-footer-links3 {
+    align-items: center;
+    justify-content: center;
+  }
+  .footer-column4 {
+    width: 100%;
+    max-width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  .footer-footer-links4 {
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+/* Footer-specific Open Source Badge styles */
+.footer-opensource-badge {
+  margin-bottom: 0.5rem;
+}
+
+.footer-license-link {
+  color: #6b7280;
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.3s ease;
+}
+
+.footer-license-link:hover {
+  color: #3b82f6;
+  text-decoration: underline;
+}
+
+/* Responsive adjustments for footer open source section */
+@media (max-width: 767px) {
+  .footer-footer-links3 {
+    align-items: center;
+    text-align: center;
+  }
+  
+  .footer-opensource-badge {
+    margin-bottom: 0.75rem;
+  }
+}
