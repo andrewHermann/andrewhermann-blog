@@ -83,14 +83,14 @@ const Features2 = (props) => {
 
 Features2.defaultProps = {
   feature2ImgSrc:
-    'https://images.unsplash.com/photo-1471666875520-c75081f42081?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MTMyMXwwfDF8cmFuZG9tfHx8fHx8fHx8MTc0NTI1OTIwN3w&ixlib=rb-4.0.3&q=80&w=1080',
+    'https://images.unsplash.com/photo-1553484771-371a605b060b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MTMyMXwwfDF8c2VhcmNofDJ8fHByb2plY3QlMjBtYW5hZ2VtZW50fGVufDB8fHx8MTY5ODc2MjY4OHw&ixlib=rb-4.0.3&q=80&w=1080',
   feature1Title: 'Organizational Strategy Expertise',
   feature2Title: 'Project Portfolio Management',
   feature3ImgSrc:
-    'https://images.unsplash.com/photo-1497366754035-f200968a6e72?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MTMyMXwwfDF8cmFuZG9tfHx8fHx8fHx8MTc0NTI1OTIwN3w&ixlib=rb-4.0.3&q=80&w=1080',
+    'https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MTMyMXwwfDF8c2VhcmNofDF8fGRhdGElMjBhbmFseXRpY3N8ZW58MHx8fHwxNjk4NzYyNjg4fA&ixlib=rb-4.0.3&q=80&w=1080',
   feature1ImgAlt: 'Image depicting organizational strategy',
   feature1ImgSrc:
-    'https://images.unsplash.com/photo-1518228684816-9135c15ab4ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MTMyMXwwfDF8cmFuZG9tfHx8fHx8fHx8MTc0NTI1OTIwNnw&ixlib=rb-4.0.3&q=80&w=1080',
+    'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MTMyMXwwfDF8c2VhcmNofDV8fGNvcnBvcmF0ZSUyMHN0cmF0ZWd5fGVufDB8fHx8MTY5ODc2MjY4OHw&ixlib=rb-4.0.3&q=80&w=1080',
   feature3Description:
     'I leverage data analytics to make informed decisions that lead to impactful results.',
   feature1Description:

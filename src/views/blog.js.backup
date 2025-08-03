@@ -5,6 +5,7 @@ import Footer from '../components/footer'
 import PageFloatingRobot from '../components/PageFloatingRobot'
 import SEO from '../components/seo'
 import { API_ENDPOINTS, apiRequest } from '../config/api'
+import './blog.css'
 
 const Blog = () => {
   const [posts, setPosts] = useState([])
@@ -89,56 +90,55 @@ const Blog = () => {
           </p>
         </div>
         
-        <div className="page-content-wrapper">
+        <div className="content-main">
           {loading ? (
-            <div className="loading-message">
+            <div className="blog-loading">
               <p>Loading posts...</p>
             </div>
           ) : error ? (
-            <div className="empty-state">
+            <div className="blog-error">
               <p>{error}</p>
             </div>
           ) : posts.length === 0 ? (
-            <div className="section-card">
+            <div className="blog-empty section-card">
               <h2>Articles Coming Soon</h2>
               <p>I'm preparing thoughtful content about strategic leadership, AI innovation, and organizational transformation. Stay tuned for expert insights and practical guidance on modern business challenges.</p>
             </div>
           ) : (
-            <div className="card-grid-compact">
+            <div className="blog-posts-grid">
               {posts.map((post) => (
-                <article key={post.id} className="section-card blog-card">
+                <article key={post.id} className="section-card blog-post-card">
                   {post.featured_image && (
                     <img 
                       src={post.featured_image} 
                       alt={post.title}
-                      className="blog-image"
+                      className="blog-post-image"
                     />
                   )}
-                  
-                  <div className="blog-content">
-                    <div className="blog-meta">
-                      <time dateTime={post.created_at} className="date-cell">
+                  <div className="blog-post-content">
+                    <div className="blog-post-meta">
+                      <time dateTime={post.created_at}>
                         {formatDate(post.created_at)}
                       </time>
                       {post.category && (
-                        <span className="status-badge">{post.category}</span>
+                        <span className="blog-post-category">{post.category}</span>
                       )}
                     </div>
-                    <h2 className="blog-title">
+                    <h2 className="blog-post-title">
                       <Link to={`/blog/${post.slug}`}>{post.title}</Link>
                     </h2>
-                    <p className="blog-excerpt">{post.excerpt}</p>
+                    <p className="blog-post-excerpt">{post.excerpt}</p>
                     {post.tags && (
-                      <div className="blog-tags">
+                      <div className="blog-post-tags">
                         {post.tags.split(',').map((tag, index) => (
-                          <span key={index} className="symbol-badge">
+                          <span key={index} className="blog-post-tag">
                             {tag.trim()}
                           </span>
                         ))}
                       </div>
                     )}
-                    <div className="blog-footer">
-                      <Link to={`/blog/${post.slug}`} className="btn btn-outline btn-sm">
+                    <div className="blog-post-footer">
+                      <Link to={`/blog/${post.slug}`} className="blog-post-link">
                         Read More →
                       </Link>
                     </div>

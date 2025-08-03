@@ -4,6 +4,7 @@ import SEO from '../components/seo'
 import PageFloatingRobot from '../components/PageFloatingRobot'
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
+import './about.css'
 
 const About = (props) => {
   const aboutStructuredData = {
@@ -65,7 +66,7 @@ const About = (props) => {
           </p>
         </div>
         
-        <div className="card-grid">
+        <div className="content-main card-grid-compact">
           <div className="section-card">
             <h2>Early Foundation</h2>
             <p>My relationship with technology began in 1984, when I was introduced to BASIC programming on an MSX machine during primary school. Within weeks, I had written a functioning game, not because it was required, but because the logic was accessible and the feedback was immediate. It was my first encounter with structured systems, and it set the tone for everything that followed.</p>
@@ -95,7 +96,7 @@ const About = (props) => {
           
           <div className="section-card">
             <h2>Core Competencies</h2>
-            <div>
+            <div className="competency-list">
               <p><strong>System Architecture & Lifecycle Management</strong> – Designing long-term viable systems across heterogeneous platforms and institutional structures.</p>
               
               <p><strong>Data Infrastructure & Reporting</strong> – Implementing multi-source analytics platforms with a focus on strategic governance and decision-making.</p>

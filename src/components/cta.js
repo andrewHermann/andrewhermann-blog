@@ -1,79 +1,72 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useNavigate } from 'react-router-dom'
 import './cta.css'
 
 const CTA = (props) => {
-  const navigate = useNavigate()
-
-  // Define informational cards about skills and experience
-  const infoCards = [
+  // Define case snapshot cards
+  const caseSnapshots = [
     {
-      title: "Strategic Leadership & Innovation",
-      description: "Experienced in developing and implementing organizational strategies that drive innovation and operational excellence across complex systems.",
-      action: "View Portfolio",
-      link: "/portfolio"
+      title: "KI@V – Institutional AI for the Swiss Armed Forces",
+      description: "Designed and led a cross-functional MVP to explore responsible use of conversational AI across defense administration. Negotiated architecture, clarified use cases, and positioned the program strategically within the VBS innovation landscape.",
+      tags: ["#AI", "#Defense", "#Innovation", "#Strategy"],
+      iconClass: "ai-icon",
+      action: "Read more",
+      link: "/portfolio#ki-v"
     },
     {
-      title: "Applied Artificial Intelligence",
-      description: "Specialized in leveraging AI technologies to solve real-world problems in public administration and organizational management.",
-      action: "See AI Projects",
-      link: "/portfolio"
+      title: "COCKPIT – Power BI Portfolio for ASTAB",
+      description: "Created and operationalised a project portfolio dashboard with live KPIs across 40+ initiatives. Unified data from legacy Excel systems, enforced governance logic, and increased update rates 3x.",
+      tags: ["#PowerBI", "#Governance", "#Analytics", "#Portfolio"],
+      iconClass: "analytics-icon",
+      action: "View Cockpit visuals",
+      link: "/portfolio#cockpit"
     },
     {
-      title: "Data-Driven Decision Making",
-      description: "Proven track record of using analytics and data science to inform strategic decisions and optimize organizational performance.",
-      action: "Read About Methods",
-      link: "/blog"
-    },
-    {
-      title: "Project Portfolio Management",
-      description: "Expert in managing complex project portfolios, resource allocation, and stakeholder coordination across multiple initiatives.",
-      action: "Learn More",
-      link: "/about"
+      title: "TTR Rail Planning (SBB / RNE)",
+      description: "Co-led coordination of 150+ stakeholders across Europe to align digital train path planning reforms. Brokered agreements and introduced structured planning models that reduced friction in negotiation.",
+      tags: ["#EU", "#Transport", "#Stakeholders", "#Reform"],
+      iconClass: "transport-icon",
+      action: "View details",
+      link: "/portfolio#ttr"
     }
   ]
 
   const handleCardClick = (link) => {
-    try {
-      // Scroll to top of the page
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-      navigate(link)
-    } catch (error) {
-      console.error('Navigation failed:', error)
+    if (link !== "#") {
+      window.location.href = link;
     }
   }
 
   return (
-    <div className="cta-steps-container thq-section-padding">
-      <div className="cta-steps-max-width thq-section-max-width">
-        <div className="cta-steps-header">
-          <h2 className="thq-heading-2">Core Competencies</h2>
-          <p className="thq-body-large">
-            My professional expertise spans four interconnected domains that form the foundation of successful organizational transformation. Each competency leverages industry-standard frameworks, advanced methodologies, and cutting-edge technologies to deliver measurable impact.
-            
-            Through strategic application of PMBOK guidelines, ITIL service management principles, and ISO 9001 quality standards, I create sustainable value propositions that align with organizational objectives. My approach integrates stakeholder theory, systems thinking, and evidence-based management practices to ensure comprehensive solution delivery across diverse operational contexts.
-            
-            These competencies are continuously refined through professional development, industry certifications, and practical application in high-stakes environments, ensuring relevance and effectiveness in today's dynamic business landscape.
-          </p>
-        </div>
-        <div className="cta-cards-container">
-          {infoCards.map((card, index) => (
-            <div key={index} className={`cta-card cta-card-${index + 1} thq-card`}>
-              <h3 className="thq-heading-2">{card.title}</h3>
-              <p className="thq-body-small">{card.description}</p>
-              <button 
-                className="cta-card-button" 
-                onClick={() => handleCardClick(card.link)}
-              >
-                {card.action}
-              </button>
-              <span className="cta-card-number thq-heading-3">{String(index + 1).padStart(2, '0')}</span>
-            </div>
-          ))}
-        </div>
+    <section className="cta">
+      <div className="case-snapshots-header">
+        <h2>Case Snapshots – "What have you actually done?"</h2>
+        <p>This is your proof of execution. Avoid long prose. Keep it punchy, like smart index cards.</p>
       </div>
-    </div>
+      
+      <div className="case-cards">
+        {caseSnapshots.map((snapshot, index) => (
+          <div key={index} className="case-card">
+            <div className="case-card-header">
+              <div className={`case-card-icon ${snapshot.iconClass}`}></div>
+              <h3 className="case-card-title">{snapshot.title}</h3>
+            </div>
+            <p className="case-card-description">{snapshot.description}</p>
+            <div className="case-card-tags">
+              {snapshot.tags.map((tag, tagIndex) => (
+                <span key={tagIndex} className="case-card-tag">{tag}</span>
+              ))}
+            </div>
+            <button 
+              className="case-card-button" 
+              onClick={() => handleCardClick(snapshot.link)}
+            >
+              → {snapshot.action}
+            </button>
+          </div>
+        ))}
+      </div>
+    </section>
   )
 }
 
