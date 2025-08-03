@@ -371,3 +371,14 @@
     justify-content: center;
   }
 }
+.footer-social-links .thq-icon-small {
+  width: 24px;
+  height: 24px;
+}
+
+.footer-social-links a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}

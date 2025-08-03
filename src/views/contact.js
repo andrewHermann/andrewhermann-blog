@@ -5,7 +5,6 @@ import PageFloatingRobot from '../components/PageFloatingRobot'
 import Navbar from '../components/navbar'
 import Contact from '../components/contact'
 import Footer from '../components/footer'
-import './contact.css'
 
 const ContactPage = (props) => {
   const contactStructuredData = {
@@ -31,7 +30,7 @@ const ContactPage = (props) => {
   ]
 
   return (
-    <div className="contact-page-container">
+    <div className="page-container">
       <SEO
         title="Contact"
         description="Get in touch with Andrew J. Hermann for strategic leadership consultation, AI innovation services, and organizational transformation expertise. Professional consultation available."
@@ -45,7 +44,20 @@ const ContactPage = (props) => {
       <PageFloatingRobot bodyColor="#e11d48" glowColor="#f43f5e" />
       
       <Navbar />
-      <Contact />
+      <div className="page-content">
+        <div className="page-header">
+          <h1 className="page-title">Contact</h1>
+          <p className="page-subtitle">
+            Get in touch for strategic leadership consultation and AI innovation services.
+          </p>
+        </div>
+        
+        <div className="content-main">
+          <div className="section-card">
+            <Contact />
+          </div>
+        </div>
+      </div>
       <Footer />
     </div>
   )

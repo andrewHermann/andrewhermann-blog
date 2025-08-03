@@ -1,0 +1,149 @@
+/* What I Do Section - Uses Base CSS Architecture */
+
+.what-i-do-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-2xl, 2rem) 0;
+}
+
+.what-i-do-header {
+  text-align: center;
+  margin-bottom: var(--space-2xl, 2rem);
+  max-width: 600px;
+}
+
+.what-i-do-header h2 {
+  color: var(--color-primary, #2563eb);
+  font-size: var(--font-size-2xl, 1.5rem);
+  font-weight: 600;
+  margin-bottom: var(--space-sm, 0.5rem);
+}
+
+.what-i-do-header p {
+  color: var(--color-text-secondary, #6b7280);
+  font-size: var(--font-size-lg, 1.125rem);
+  font-style: italic;
+  margin: 0;
+}
+
+.what-i-do-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-lg, 1.5rem);
+  width: 100%;
+  max-width: var(--layout-max-width, 1200px);
+  padding: 0 var(--space-lg, 1.5rem);
+}
+
+.what-i-do-card {
+  background-color: #f8fafc;
+  border-radius: var(--border-radius-md, 8px);
+  box-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06));
+  border: 1px solid #e2e8f0;
+  padding: var(--space-lg, 1.5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform var(--transition-base, 0.3s ease), box-shadow var(--transition-base, 0.3s ease);
+}
+
+.what-i-do-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05));
+}
+
+.what-i-do-icon {
+  width: 48px;
+  height: 48px;
+  color: var(--color-primary, #2563eb);
+  margin-bottom: var(--space-lg, 1.5rem);
+  transition: transform var(--transition-base, 0.3s ease), color var(--transition-base, 0.3s ease);
+}
+
+.what-i-do-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.what-i-do-card:hover .what-i-do-icon {
+  transform: scale(1.1);
+  color: var(--color-secondary, #1d4ed8);
+}
+
+.what-i-do-card h3 {
+  color: var(--color-primary, #2563eb);
+  font-size: var(--font-size-xl, 1.25rem);
+  font-weight: 600;
+  margin-bottom: var(--space-sm, 0.5rem);
+  transition: color var(--transition-base, 0.3s ease);
+}
+
+.what-i-do-card:hover h3 {
+  color: var(--color-secondary, #1d4ed8);
+}
+
+.what-i-do-card p {
+  color: var(--color-text-primary, #374151);
+  font-size: var(--font-size-base, 1rem);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .what-i-do-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-md, 1rem);
+    padding: 0 var(--space-md, 1rem);
+  }
+  
+  .what-i-do-card {
+    padding: var(--space-md, 1rem);
+  }
+  
+  .what-i-do-header h2 {
+    font-size: var(--font-size-xl, 1.25rem);
+  }
+  
+  .what-i-do-header p {
+    font-size: var(--font-size-base, 1rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .what-i-do-container {
+    padding: var(--space-xl, 1.5rem) 0;
+  }
+  
+  .what-i-do-header {
+    margin-bottom: var(--space-xl, 1.5rem);
+  }
+  
+  .what-i-do-card h3 {
+    font-size: var(--font-size-lg, 1.125rem);
+  }
+  
+  .what-i-do-card p {
+    font-size: var(--font-size-sm, 0.875rem);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .what-i-do-card,
+  .what-i-do-icon,
+  .what-i-do-card h3 {
+    transition: none;
+  }
+  
+  .what-i-do-card:hover {
+    transform: none;
+  }
+  
+  .what-i-do-card:hover .what-i-do-icon {
+    transform: none;
+  }
+}

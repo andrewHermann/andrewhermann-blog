@@ -1,11 +1,15 @@
 .navbar-container {
   width: 100%;
   display: flex;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   justify-content: center;
-  background-color: var(--dl-color-theme-neutral-light);
+  background-color: rgba(255, 255, 255, 0.9);
+  z-index: 100;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(12px);
 }
 
 .navbar-navbar-interactive {
@@ -95,8 +99,8 @@
   max-width: 300px;
   display: none;
   padding: var(--dl-layout-space-oneandhalfunits);
-  z-index: 100;
-  background-color: var(--dl-color-theme-neutral-light);
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.9);
   border-radius: var(--dl-layout-radius-radius8);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
   border: 1px solid rgba(0, 0, 0, 0.1);

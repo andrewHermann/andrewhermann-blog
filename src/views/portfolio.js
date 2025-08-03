@@ -4,7 +4,6 @@ import SEO from '../components/seo'
 import PageFloatingRobot from '../components/PageFloatingRobot'
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
-import './portfolio.css'
 
 const Portfolio = (props) => {
   const portfolioStructuredData = {
@@ -38,100 +37,120 @@ const Portfolio = (props) => {
       
       <div className="page-content">
         <div className="page-header">
-          <h1 className="page-title">Professional Portfolio</h1>
+          <h1 className="page-title">Portfolio</h1>
           <p className="page-subtitle">
-            Showcasing my expertise in organizational strategy, project portfolio management, 
-            data-driven decision-making, and applied artificial intelligence.
+            I work on high-stakes transformation projects at the intersection of AI, data strategy, 
+            and institutional reform—especially in the public sector.
+          </p>
+          <p className="page-subtitle">
+            Here are selected examples that reflect my approach and results:
           </p>
         </div>
         
-        <div className="content-main card-grid">
-          <div className="section-card">
-            <h2>KI@V – Conversational AI for the Swiss Armed Forces (2023–2025)</h2>
+        <div className="card-grid">
+          <div className="section-card" id="ki-v">
+            <h2>KI@V – Institutional AI for the Swiss Armed Forces</h2>
+            <h3>Goal: Enable responsible AI experimentation inside one of Switzerland's most sensitive institutional domains.</h3>
+            
+            <h3>My Role:</h3>
             <p>
-              Leading the development and implementation of conversational artificial intelligence systems 
-              for defense applications. This project involves designing AI-driven communication and 
-              decision-support tools that enhance operational effectiveness while maintaining strict 
-              security and privacy standards required for defense environments.
+              I initiated and led the KI@V innovation project across ASTAB, armasuisse, and RUAG. 
+              Designed the MVP architecture, negotiated access to sensitive datasets, and defined use case 
+              logic across 11 sub-organisations.
             </p>
-            <h3>Key Responsibilities & Achievements:</h3>
+            
+            <h3>Impact:</h3>
             <ul>
-              <li>Strategic planning and architectural design for AI systems in defense contexts</li>
-              <li>Cross-functional team leadership across technical and operational domains</li>
-              <li>Stakeholder management and requirement gathering from military leadership</li>
-              <li>Implementation of AI governance frameworks ensuring compliance with security protocols</li>
-              <li>Development of training and adoption strategies for end-user acceptance</li>
+              <li>Established the first AI governance logic for conversational systems within the Swiss defense administration</li>
+              <li>Built a federated working group across ASTAB, LBA, Kdo Cyber, and GS-VBS</li>
+              <li>Achieved 150+ active users within six months of MVP phase</li>
             </ul>
+            
+            <p>
+              <a href="/contact" className="link-primary">→ Contact me to learn more</a>
+            </p>
+          </div>
+
+          <div className="section-card" id="cockpit">
+            <h2>COCKPIT – Project Portfolio Dashboard for ASTAB</h2>
+            <h3>Goal: Bring clarity and control to 40+ strategic initiatives within the Swiss Army digital transformation program.</h3>
+            
+            <h3>My Role:</h3>
+            <p>
+              I designed and implemented a Power BI–driven reporting cockpit. Led data governance alignment 
+              across four departments, restructured source data logic, and defined KPIs for data quality and performance.
+            </p>
+            
+            <h3>Impact:</h3>
+            <ul>
+              <li>Tripled the update rate of reporting</li>
+              <li>Unified fragmented portfolio data into a single source of truth</li>
+              <li>Provided leadership with real-time insights for strategic steering</li>
+            </ul>
+            
+            <p>
+              <a href="/contact" className="link-primary">→ View dashboard overview</a>
+            </p>
+          </div>
+
+          <div className="section-card" id="ttr">
+            <h2>TTR Rail Planning – European Coordination (SBB / RNE)</h2>
+            <h3>Goal: Align 150+ European stakeholders on a unified model for international rail capacity planning.</h3>
+            
+            <h3>My Role:</h3>
+            <p>
+              As SBB delegate, I co-led digital transformation coordination with RailNetEurope. 
+              Defined planning logic for cross-border digital timetabling and brokered a historic funding 
+              agreement between FTE (Bern) and RNE (Vienna).
+            </p>
+            
+            <h3>Impact:</h3>
+            <ul>
+              <li>Reached consensus on future planning architecture</li>
+              <li>Structured cooperation between 28 national rail operators</li>
+              <li>Enabled implementation of pre-planning logic (Rolling Planning) at scale</li>
+            </ul>
+            
+            <p>
+              <a href="/contact" className="link-primary">→ Read project summary</a>
+            </p>
+          </div>
+
+          <div className="section-card" id="ai-policy">
+            <h2>🛡️ AI Policy Briefing – Swiss Public Sector</h2>
+            <h3>Goal: Prepare senior decision-makers for realistic, domain-specific AI adoption.</h3>
+            
+            <h3>My Role:</h3>
+            <p>
+              Authored and presented policy briefings on the state of large language models, with a focus on 
+              strategic risks and operational constraints in sensitive domains. Advised on internal capability 
+              building and procurement logic.
+            </p>
+            
+            <h3>Impact:</h3>
+            <ul>
+              <li>Supported AI policy alignment in key federal domains</li>
+              <li>Helped shape the discussion around national LLM infrastructure</li>
+              <li>Highlighted risks of vendor lock-in and model opacity</li>
+            </ul>
+            
+            <p>
+              <a href="/contact" className="link-primary">→ Let's talk AI strategy</a>
+            </p>
           </div>
 
           <div className="section-card">
-            <h2>Digital Transformation & Project Portfolio Management</h2>
+            <h2>🪜 What's next?</h2>
             <p>
-              Extensive experience in leading large-scale digital transformation initiatives across 
-              public sector organizations. Specialized in establishing project portfolio management 
-              frameworks that align strategic objectives with operational delivery.
+              I work best in environments where the stakes are high, the context is messy, 
+              and the end goal is institutional clarity.
             </p>
-            <h3>Core Competencies:</h3>
-            <ul>
-              <li>Strategic portfolio planning and resource allocation optimization</li>
-              <li>Agile and traditional project management methodologies</li>
-              <li>Change management and organizational development</li>
-              <li>Stakeholder engagement and communication strategies</li>
-              <li>Performance measurement and continuous improvement processes</li>
-            </ul>
-          </div>
-
-          <div className="section-card">
-            <h2>Data-Driven Decision Making & Analytics</h2>
             <p>
-              Proven track record in implementing data analytics frameworks that transform 
-              organizational decision-making processes. Expertise in developing metrics, 
-              KPIs, and dashboard solutions that provide actionable insights for leadership.
+              If that sounds like your reality:
             </p>
-            <h3>Technical & Strategic Skills:</h3>
-            <ul>
-              <li>Business intelligence and analytics platform implementation</li>
-              <li>Data governance and quality management frameworks</li>
-              <li>Predictive modeling and trend analysis for strategic planning</li>
-              <li>Dashboard and reporting solution design</li>
-              <li>Training and capability building for data-driven cultures</li>
-            </ul>
-          </div>
-
-          <div className="section-card">
-            <h2>Public Administration & Policy Implementation</h2>
             <p>
-              Deep understanding of public sector challenges with specialized expertise in 
-              policy implementation, regulatory compliance, and citizen service delivery 
-              optimization. Experience working with multiple levels of government and 
-              international organizations.
+              <a href="/contact" className="btn btn-primary">→ Get in touch</a>
             </p>
-            <h3>Areas of Impact:</h3>
-            <ul>
-              <li>Policy development and implementation strategy</li>
-              <li>Regulatory compliance and risk management</li>
-              <li>Citizen service digitalization and improvement</li>
-              <li>Inter-agency collaboration and coordination</li>
-              <li>Public-private partnership development and management</li>
-            </ul>
-          </div>
-
-          <div className="section-card">
-            <h2>AI Strategy & Innovation Leadership</h2>
-            <p>
-              Strategic leadership in artificial intelligence adoption across organizations, 
-              with focus on practical implementation, ethical considerations, and measurable 
-              business outcomes. Experience bridging technical possibilities with strategic 
-              organizational needs.
-            </p>
-            <h3>Innovation Focus Areas:</h3>
-            <ul>
-              <li>AI strategy development and roadmap planning</li>
-              <li>Ethical AI framework design and implementation</li>
-              <li>Machine learning and automation solution deployment</li>
-              <li>AI governance and risk management</li>
-              <li>Organizational capability building for AI adoption</li>
-            </ul>
           </div>
         </div>
       </div>
