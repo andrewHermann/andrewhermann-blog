@@ -224,3 +224,146 @@
     padding: 0.5rem 0.75rem;
   }
 }
+
+/* Portfolio Dropdown Styles */
+.navbar-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.navbar-dropdown-trigger {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  padding: 0.5rem 1rem;
+  border-radius: var(--dl-layout-radius-radius8);
+  transition: all 0.3s ease;
+}
+
+.navbar-dropdown-trigger:hover {
+  background-color: var(--dl-color-theme-accent2);
+  transform: translateY(-2px);
+}
+
+.navbar-dropdown-trigger.active {
+  background-color: var(--dl-color-theme-primary);
+  color: var(--dl-color-theme-neutral-light);
+}
+
+.navbar-dropdown-arrow {
+  transition: transform 0.2s ease;
+}
+
+.navbar-dropdown-arrow-open {
+  transform: rotate(180deg);
+}
+
+.navbar-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: var(--dl-layout-radius-radius8);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  min-width: 180px;
+  z-index: 1001;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s ease;
+  margin-top: 0.5rem;
+  backdrop-filter: blur(12px);
+}
+
+.navbar-dropdown-menu-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.navbar-dropdown-item {
+  display: block;
+  padding: 0.75rem 1rem;
+  color: var(--dl-color-theme-neutral-dark);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border-radius: var(--dl-layout-radius-radius4);
+  margin: 0.25rem;
+}
+
+.navbar-dropdown-item:first-child {
+  margin-top: 0.5rem;
+}
+
+.navbar-dropdown-item:last-child {
+  margin-bottom: 0.5rem;
+}
+
+.navbar-dropdown-item:hover {
+  background-color: var(--dl-color-theme-accent2);
+  transform: translateX(5px);
+}
+
+.navbar-dropdown-item.active {
+  background-color: var(--dl-color-theme-primary);
+  color: var(--dl-color-theme-neutral-light);
+}
+
+/* Mobile Menu Portfolio Section */
+.navbar-mobile-section {
+  margin: 0.5rem 0;
+  border-left: 3px solid var(--dl-color-theme-accent1);
+  padding-left: 1rem;
+}
+
+.navbar-mobile-section-header {
+  font-weight: 600;
+  color: var(--dl-color-theme-primary);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.navbar-mobile-subsection {
+  margin-left: 1rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.navbar-mobile-subsection:hover {
+  background-color: var(--dl-color-theme-accent2);
+  transform: translateX(-3px);
+  opacity: 1;
+}
+
+.navbar-mobile-subsection.active {
+  background-color: var(--dl-color-theme-primary);
+  color: var(--dl-color-theme-neutral-light);
+  opacity: 1;
+}
+
+/* Responsive adjustments */
+@media(max-width: 767px) {
+  .navbar-dropdown {
+    display: none; /* Hide desktop dropdown on mobile */
+  }
+}
+
+@media(max-width: 479px) {
+  .navbar-mobile-section {
+    margin: 0.25rem 0;
+    padding-left: 0.75rem;
+  }
+  
+  .navbar-mobile-subsection {
+    margin-left: 0.75rem;
+    padding: 0.4rem 0.6rem;
+  }
+}
