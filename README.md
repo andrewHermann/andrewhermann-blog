@@ -23,13 +23,13 @@ A modern React blog application with admin interface for content management.
    ```
 
 3. **Access the Blog**
-   - Website: `http://***REMOVED***:5000`
-   - Admin: `http://***REMOVED***:5000/admin`
+   - Website: `http://192.168.178.44:5000`
+   - Admin: `http://192.168.178.44:5000/admin`
 
 ## Admin Access
 
 - **Username**: admin
-- **Password**: ***REMOVED***
+- **Password**: vawvEr-0sigry-tatqoj
 
 ## Architecture
 
@@ -41,7 +41,7 @@ A modern React blog application with admin interface for content management.
 ## File Structure
 
 ```
-***REMOVED***/
+/path/to/your/project/
 ├── backend/
 │   ├── server.js          # Express API server
 │   └── blog.db           # SQLite database

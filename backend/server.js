@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 5001;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:5000', 'http://***REMOVED***:5000', 'https://andrew.cloudhopper.ch'],
+  origin: ['http://localhost:3000', 'http://localhost:5000', 'http://192.168.178.44:5000', 'https://andrew.cloudhopper.ch'],
   credentials: true
 }));
 
@@ -61,7 +61,7 @@ db.serialize(() => {
   `);
 
   // Create default admin user
-  const defaultPassword = bcrypt.hashSync('***REMOVED***', 10);
+  const defaultPassword = bcrypt.hashSync('vawvEr-0sigry-tatqoj', 10);
   db.run(`
     INSERT OR IGNORE INTO admin_users (username, password_hash, role) 
     VALUES ('admin', ?, 'admin')
