@@ -12,13 +12,13 @@ const PORT = process.env.PORT || 5001;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:5000', 'http://192.168.178.44:5000', 'https://andrew.cloudhopper.ch'],
+  origin: ['http://localhost:3000', 'http://localhost:5000', `http://${process.env.ADMIN_SERVER_IP || 'localhost'}:5000`, 'https://andrew.cloudhopper.ch'],
   credentials: true
 }));
 
 // Session configuration
 app.use(session({
-  secret: 'your-secret-key-change-in-production',
+  secret: process.env.SESSION_SECRET || 'fallback-dev-secret-not-for-production',
   resave: false,
   saveUninitialized: false,
   cookie: { 
