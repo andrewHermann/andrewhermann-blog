@@ -1,3 +1,4 @@
+require("dotenv").config();
 
 const SERVER_VERSION = "2.0.0";
 const express = require('express');
@@ -14,8 +15,16 @@ const PORT = process.env.PORT || 5001;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:5000', `http://${process.env.ADMIN_SERVER_IP || 'localhost'}:5000`, 'https://andrew.cloudhopper.ch'],
-  credentials: true
+  origin: [
+    'http://localhost:3000', 
+    'http://localhost:5000', 
+    'http://192.168.178.44:5000',
+    `http://${process.env.ADMIN_SERVER_IP || 'localhost'}:5000`, 
+    'https://andrew.cloudhopper.ch'
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept']
 }));
 
 // Session configuration
