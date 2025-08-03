@@ -1484,3 +1484,64 @@ body {
     font-size: var(--font-size-lg);
   }
 }
+
+/* List styling for section cards */
+.section-card ul {
+  margin: var(--space-md) 0;
+  padding-left: var(--space-lg);
+  color: var(--color-neutral-dark);
+}
+
+.section-card li {
+  margin-bottom: var(--space-sm);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-neutral-dark);
+}
+
+.section-card li:last-child {
+  margin-bottom: 0;
+}
+
+/* Tech stack styling */
+.tech-stack {
+  margin: var(--space-lg) 0;
+}
+
+.tech-stack h3 {
+  color: var(--color-text);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-md);
+}
+
+.tech-stack h3:first-of-type {
+  margin-top: 0;
+}
+
+.tech-stack ul {
+  margin: var(--space-md) 0;
+  padding-left: var(--space-lg);
+}
+
+.tech-stack li {
+  margin-bottom: var(--space-sm);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-neutral-dark);
+}
+
+/* Spacing for paragraphs in section cards */
+.section-card p + p {
+  margin-top: var(--space-md);
+}
+
+.section-card p + h3,
+.section-card p + .tech-stack {
+  margin-top: var(--space-lg);
+}
+
+.section-card .tech-stack + p {
+  margin-top: var(--space-lg);
+}
