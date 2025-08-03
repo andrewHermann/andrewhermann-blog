@@ -1,5 +1,0 @@
-
-> andrewhermann@1.0.3 serve
-> serve -s build -l 5000
-
- INFO  Accepting connections at http://localhost:41105
