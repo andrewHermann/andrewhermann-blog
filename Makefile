@@ -1,3 +1,6 @@
+# Set shell to bash explicitly for bash-specific syntax
+SHELL := /bin/bash
+
 .PHONY: help setup-hooks new-feature new-bugfix finish-feature status check-workflow
 
 help: ## Show this help message
