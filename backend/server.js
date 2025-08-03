@@ -37,8 +37,7 @@ app.use(cors({
   origin: [
     'http://localhost:3000', 
     'http://localhost:5000', 
-    'http://192.168.178.44:5000',
-    `http://${process.env.ADMIN_SERVER_IP || 'localhost'}:5000`, 
+    `http://${process.env.ADMIN_SERVER_IP || 'localhost'}:5000`,
     'https://andrew.cloudhopper.ch'
   ],
   credentials: true,
