@@ -63,7 +63,7 @@ db.serialize(() => {
   `);
 
   // Create default admin user
-  const defaultPassword = bcrypt.hashSync('vawvEr-0sigry-tatqoj', 10);
+  const defaultPassword = bcrypt.hashSync(process.env.ADMIN_PASSWORD || 'CHANGE_ME_IMMEDIATELY', 10);
   db.run(`
     INSERT OR IGNORE INTO admin_users (username, password_hash, role) 
     VALUES ('admin', ?, 'admin')

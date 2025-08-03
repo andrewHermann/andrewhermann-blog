@@ -12,6 +12,25 @@ A modern React blog application with admin interface for content management.
 
 ## Quick Start
 
+## Environment Setup
+
+**IMPORTANT**: Before running the application, you must configure your environment:
+
+1. **Copy Environment Template**
+   ```bash
+   cp .env.example .env
+   ```
+
+2. **Edit `.env` file with your settings**:
+   - Set `ADMIN_PASSWORD` to a secure password
+   - Configure `SERVER_IP` for your network
+   - Generate a secure `SESSION_SECRET`
+
+3. **Generate Session Secret** (optional):
+   ```bash
+   node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"  
+   ```
+
 1. **Install Dependencies**
    ```bash
    npm install
@@ -23,18 +42,20 @@ A modern React blog application with admin interface for content management.
    ```
 
 3. **Access the Blog**
-   - Website: `http://YOUR_SERVER_IP:5000`
-   - Admin: `http://YOUR_SERVER_IP:5000/admin`
 
 ## Admin Access
 
-- **Username**: admin
-- **Password**: vawvEr-0sigry-tatqoj
+- **Admin Panel**: `http://YOUR_SERVER_IP:5000/admin`
+- **Credentials**: Set via environment variables (`ADMIN_USERNAME` and `ADMIN_PASSWORD` in `.env`)
+- **Default Username**: `admin` (configurable in `.env`)
+   - Website: `http://YOUR_SERVER_IP:5000`
+   - Admin: `http://YOUR_SERVER_IP:5000/admin`
+
 
 ## Architecture
 
 - **Frontend**: React app served on port 5000
-- **Backend**: Express.js API server on port 3001
+- **Backend**: Express.js API server on port 5001
 - **Database**: SQLite (`backend/blog.db`)
 - **API Config**: Dynamic hostname detection for LAN access
 
