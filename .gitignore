@@ -91,3 +91,4 @@ backend.log
 .env.*
 config.local.*
 *local.config.*
+nohup.out

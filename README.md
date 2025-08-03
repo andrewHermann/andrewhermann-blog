@@ -23,8 +23,8 @@ A modern React blog application with admin interface for content management.
    ```
 
 3. **Access the Blog**
-   - Website: `http://192.168.178.44:5000`
-   - Admin: `http://192.168.178.44:5000/admin`
+   - Website: `http://YOUR_SERVER_IP:5000`
+   - Admin: `http://YOUR_SERVER_IP:5000/admin`
 
 ## Admin Access
 
