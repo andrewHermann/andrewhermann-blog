@@ -6,7 +6,7 @@
   "dependencies": {
     "@craco/craco": "^7.1.0",
     "@react-three/drei": "^9.122.0",
-    "@react-three/fiber": "^8.18.0",
+    "@react-three/fiber": "^9.3.0",
     "bcrypt": "^6.0.0",
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",
