@@ -54,7 +54,7 @@ const About = (props) => {
       />
       
       {/* Floating Robot with blue/sky body color */}
-      <PageFloatingRobot bodyColor="#06b6d4" glowColor="#67e8f9" />
+      <PageFloatingRobot bodyColor="#1e3a5f" glowColor="#2563eb" />
       
       <Navbar />
       <div className="page-content">

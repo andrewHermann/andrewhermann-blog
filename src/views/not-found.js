@@ -17,7 +17,7 @@ const NotFound = (props) => {
         url="https://andrew.cloudhopper.ch/404"
       />
       
-      <PageFloatingRobot bodyColor="#ef4444" glowColor="#f87171" />
+      <PageFloatingRobot bodyColor="#1e3a5f" glowColor="#2563eb" />
       
       <Navbar />
       

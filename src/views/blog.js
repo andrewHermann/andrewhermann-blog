@@ -78,7 +78,7 @@ const Blog = () => {
       />
       
       {/* Floating Robot with green/emerald body color */}
-      <PageFloatingRobot bodyColor="#10b981" glowColor="#34d399" />
+      <PageFloatingRobot bodyColor="#1e3a5f" glowColor="#2563eb" />
       
       <Navbar />
       <div className="page-content">

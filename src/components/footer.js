@@ -133,7 +133,7 @@ Footer.defaultProps = {
   link4: 'Contact',
   link9: 'Twitter',
   link7: 'Cookies Policy',
-  content2: '© 2025 Andrew J. Hermann. All rights reserved.',
+  content2: '© 2026 Andrew J. Hermann. All rights reserved.',
   column2Title: 'Legal',
   action1: 'Subscribe',
   link6: 'Terms of Use',

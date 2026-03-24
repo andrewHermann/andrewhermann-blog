@@ -224,7 +224,7 @@ const Markets = () => {
       </Helmet>
 
       {/* Floating Robot with orange/amber body color */}
-      <PageFloatingRobot bodyColor="#f59e0b" glowColor="#fbbf24" />
+      <PageFloatingRobot bodyColor="#1e3a5f" glowColor="#2563eb" />
 
       <Navbar />
 
@@ -325,7 +325,7 @@ const Markets = () => {
         )}
       </div>
 
-      <Footer content3="© 2025 Andrew J. Hermann. Professional portfolio website." />
+      <Footer content3="© 2026 Andrew J. Hermann. Professional portfolio website." />
     </div>
   )
 }
