@@ -81,6 +81,7 @@ const About = () => {
           </p>
         </div>
         
+        <div className="content-main">
         <div className="card-grid">
           <div className="section-card">
             <h2>Early Foundation</h2>
@@ -133,6 +134,7 @@ const About = () => {
             <h2>Final Note</h2>
             <p><em>This is not a résumé. It&apos;s a structural account of how I work, what I&apos;ve done, and what that reveals about the systems I build. I don&apos;t aim to disrupt. I aim to stabilize quietly, precisely, and at scale.</em></p>
           </div>
+        </div>
         </div>
       </div>
       <Footer />

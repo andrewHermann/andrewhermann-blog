@@ -59,6 +59,7 @@ const Portfolio = () => {
           </p>
         </div>
         
+        <div className="content-main">
         <div className="portfolio-cards">
           <div className="section-card" id="ki-v">
             <h2>KI@V – Institutional AI for the Swiss Armed Forces</h2>
@@ -149,8 +150,9 @@ const Portfolio = () => {
             </p>
           </div>
         </div>
+        </div>
       </div>
-      
+
       <Footer />
     </div>
   )

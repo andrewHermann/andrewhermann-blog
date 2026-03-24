@@ -133,6 +133,7 @@ const BehindTheSite = () => {
           </p>
         </div>
         
+        <div className="content-main">
         {/* Intro Statement - Full Width */}
         <div style={{width: '100%', marginBottom: '2rem'}}>
           <div className="section-card" style={{textAlign: 'center', padding: '3rem', background: 'var(--color-accent-2)'}}>
@@ -445,6 +446,7 @@ const BehindTheSite = () => {
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
       <Footer />

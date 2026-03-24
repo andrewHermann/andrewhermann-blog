@@ -254,6 +254,7 @@ const Markets = () => {
           </p>
         </div>
 
+        <div className="content-main">
         <div className="card-grid-wide">
           <div className="section-card">
             <h2>Cryptocurrencies</h2>
@@ -341,6 +342,7 @@ const Markets = () => {
             <em>Last updated: {lastUpdated}</em>
           </div>
         )}
+        </div>
       </div>
 
       <Footer />
