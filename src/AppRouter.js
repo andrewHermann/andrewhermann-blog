@@ -53,20 +53,13 @@ const AppRouter = () => {
 
   const checkAuthStatus = async () => {
     try {
-      const token = localStorage.getItem('adminToken')
-      if (!token) {
-        setLoading(false)
-        return
-      }
-
       const data = await apiRequest(API_ENDPOINTS.CHECK_AUTH)
-      setIsAuthenticated(true)
-      setUserRole(data.role)
-    } catch (error) {
-      console.error('Auth check failed:', error)
-      localStorage.removeItem('adminToken')
-      setIsAuthenticated(false)
-      setUserRole(null)
+      if (data.authenticated) {
+        setIsAuthenticated(true)
+        setUserRole(data.role)
+      }
+    } catch (_error) {
+      // Session invalid or network error — stay logged out
     }
     setLoading(false)
   }
@@ -79,7 +72,6 @@ const AppRouter = () => {
   const handleLogout = () => {
     setIsAuthenticated(false)
     setUserRole(null)
-    localStorage.removeItem('adminToken')
   }
 
   if (loading) {
