@@ -22,8 +22,8 @@ const Steps = (props) => {
     },
     {
       id: '03',
-      title: 'Connect with Complex Systems',
-      description: 'Understand how I leverage data-driven decision-making and applied artificial intelligence to create high-impact, scalable solutions.',
+      title: 'About Andrew',
+      description: 'Background, working philosophy, and the professional trajectory behind the work—from institutional systems to applied AI.',
       link: '/about'
     },
     {

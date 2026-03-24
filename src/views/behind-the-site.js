@@ -105,7 +105,7 @@ const BehindTheSite = (props) => {
         breadcrumbs={behindSiteBreadcrumbs}
       />
       
-      <PageFloatingRobot bodyColor="#10b981" glowColor="#34d399" />
+      <PageFloatingRobot bodyColor="#1e3a5f" glowColor="#2563eb" />
       
       <Navbar />
       <div className="page-content">
@@ -382,7 +382,7 @@ const BehindTheSite = (props) => {
                 fontWeight: '600',
                 marginBottom: '1rem'
               }}>
-                MIT Licensed
+                GPL v3 Licensed
               </div>
               <p style={{fontSize: '1.125rem', margin: '1rem 0 0 0'}}>
                 You can clone the repo, use the structure, or strip it down for your own site. Attribution is nice, but not required. Pull requests welcome.
@@ -398,7 +398,7 @@ const BehindTheSite = (props) => {
                  target="_blank" 
                  rel="noopener noreferrer" 
                  className="btn btn-primary">
-                📁 View the Repository
+                View the Repository
               </a>
             </div>
           </div>

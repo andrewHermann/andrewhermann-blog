@@ -117,7 +117,7 @@ const Portfolio = (props) => {
           </div>
 
           <div className="section-card" id="ai-policy">
-            <h2>🛡️ AI Policy Briefing – Swiss Public Sector</h2>
+            <h2>AI Policy Briefing – Swiss Public Sector</h2>
             <h3>Goal: Prepare senior decision-makers for realistic, domain-specific AI adoption.</h3>
             
             <h3>My Role:</h3>
@@ -140,7 +140,7 @@ const Portfolio = (props) => {
           </div>
 
           <div className="section-card">
-            <h2>🪜 What's next?</h2>
+            <h2>Work With Me</h2>
             <p>
               I work best in environments where the stakes are high, the context is messy, 
               and the end goal is institutional clarity.
