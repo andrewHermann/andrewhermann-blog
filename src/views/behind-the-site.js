@@ -57,7 +57,7 @@ const BehindTheSite = () => {
     },
     {
       principle: "Resilience",
-      application: "Static architecture with no backend, no database, no failpoints", 
+      application: "Minimal moving parts. The frontend is statically served; the backend is lean, self-hosted, and fully under my control — no third-party dependencies in the critical path.",
       icon: "🛡️",
       color: "#8b5cf6"
     },
@@ -371,7 +371,7 @@ const BehindTheSite = () => {
 
           {/* Fork It Section */}
           <div className="section-card">
-            <h2>Fork It. Remix It. Use It.</h2>
+            <h2>Open Source — Use It as You See Fit</h2>
             
             <div style={{
               padding: '2rem',

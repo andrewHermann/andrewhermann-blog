@@ -47,7 +47,7 @@ const Hero = () => {
           </div>
           <h1 className="hero-headline">Complexity deserves clarity.</h1>
           <p className="hero-subheadline">
-            I work at the intersection of digital transformation, institutional reform, and AI strategy—helping public organisations navigate change without losing themselves in the fog.
+            I work at the intersection of digital transformation, institutional reform, and AI strategy—leading public organisations through complexity with precision and without illusions.
           </p>
         </div>
 
@@ -62,7 +62,7 @@ const Hero = () => {
 
         <div className="hero-credentials">
           <div className="hero-cred">
-            <span className="hero-cred-number">20+</span>
+            <span className="hero-cred-number">40+</span>
             <span className="hero-cred-label">Years in IT & Systems</span>
           </div>
           <div className="hero-cred-divider"></div>

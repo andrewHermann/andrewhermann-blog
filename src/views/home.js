@@ -32,16 +32,16 @@ const Home = () => {
   const homeStructuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "Strategic Leadership & AI Innovation Expert",
-    "description": "Andrew J. Hermann specializes in organizational strategy, project portfolio management, and AI innovation",
+    "name": "Andrew J. Hermann — Senior IT Executive",
+    "description": "Andrew J. Hermann is a senior IT executive with 40+ years of continuous hands-on experience in digital transformation, AI strategy, and institutional reform in the Swiss public sector.",
     "url": "https://andrew.cloudhopper.ch",
     "mainEntity": {
       "@type": "Person",
       "name": "Andrew J. Hermann",
-      "jobTitle": "Strategic Leadership & AI Innovation Expert",
+      "jobTitle": "Senior IT Executive, Swiss Federal Administration",
       "hasOccupation": {
         "@type": "Occupation",
-        "name": "Strategic Leadership Consultant"
+        "name": "Senior IT Executive"
       }
     },
     "about": [
@@ -60,8 +60,8 @@ const Home = () => {
     <div className="page-container">
       <SEO
         title=""
-        description="Andrew J. Hermann specializes in organizational strategy, project portfolio management, data-driven decision-making, and applied artificial intelligence. Transform your organization with strategic leadership expertise."
-        keywords="strategic leadership, AI innovation, digital transformation, organizational strategy, project portfolio management, data-driven decisions"
+        description="Andrew J. Hermann — senior IT executive with 40+ years of continuous hands-on experience in digital transformation, AI strategy, and institutional reform in the Swiss public sector."
+        keywords="Andrew Hermann, senior IT executive, digital transformation, AI strategy, institutional reform, Swiss federal administration, public sector technology"
         url="https://andrew.cloudhopper.ch"
         structuredData={homeStructuredData}
         breadcrumbs={homeBreadcrumbs}

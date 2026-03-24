@@ -23,7 +23,7 @@ const WhatIDo = () => {
     <div className="what-i-do-container">
       <div className="what-i-do-header">
         <h2>What I Do</h2>
-        <p>Three ways I help organizations navigate complexity and deliver results</p>
+        <p>Three areas where decades of hands-on experience translate into institutional results</p>
       </div>
       
       <div className="what-i-do-grid">

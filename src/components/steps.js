@@ -27,7 +27,7 @@ const Steps = () => {
     {
       id: '01',
       title: 'Explore My Portfolio',
-      description: 'Browse through a collection of my past projects and initiatives to gain insights into my expertise and capabilities.',
+      description: 'A record of high-stakes projects across defense, transport, and public administration—built over four decades of continuous hands-on work.',
       link: '/portfolio'
     },
     {
@@ -45,7 +45,7 @@ const Steps = () => {
     {
       id: '04',
       title: 'Get in Touch',
-      description: 'Ready to discuss how my expertise can benefit your organization? Let\'s start a conversation about your strategic challenges.',
+      description: 'If the stakes are high and the context is complex, let\'s talk. I work best where institutional clarity is the goal.',
       link: '/contact'
     }
   ]

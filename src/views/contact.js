@@ -28,7 +28,7 @@ const ContactPage = () => {
     "@context": "https://schema.org",
     "@type": "ContactPage",
     "name": "Contact Andrew J. Hermann",
-    "description": "Get in touch with Andrew J. Hermann for strategic leadership consultation and AI innovation services",
+    "description": "Reach Andrew J. Hermann — senior IT executive with 40+ years of continuous hands-on experience in digital transformation, AI strategy, and institutional reform.",
     "url": "https://andrew.cloudhopper.ch/contact",
     "mainEntity": {
       "@type": "Person",
@@ -50,8 +50,8 @@ const ContactPage = () => {
     <div className="page-container">
       <SEO
         title="Contact"
-        description="Get in touch with Andrew J. Hermann for strategic leadership consultation, AI innovation services, and organizational transformation expertise. Professional consultation available."
-        keywords="contact Andrew Hermann, consultation, strategic leadership services, AI innovation consultation, organizational transformation, professional services"
+        description="Reach Andrew J. Hermann — senior IT executive with 40+ years of continuous hands-on experience in digital transformation, AI strategy, and institutional reform in the Swiss public sector."
+        keywords="contact Andrew Hermann, digital transformation, AI strategy, institutional reform, Swiss public sector, senior IT executive"
         url="https://andrew.cloudhopper.ch/contact"
         structuredData={contactStructuredData}
         breadcrumbs={contactBreadcrumbs}
@@ -65,7 +65,7 @@ const ContactPage = () => {
         <div className="page-header">
           <h1 className="page-title">Contact</h1>
           <p className="page-subtitle">
-            Get in touch for strategic leadership consultation and AI innovation services.
+            If the problem is real and the stakes are high, let's talk.
           </p>
         </div>
         

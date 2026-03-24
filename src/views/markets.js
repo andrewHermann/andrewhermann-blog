@@ -250,7 +250,7 @@ const Markets = () => {
         <div className="page-header">
           <h1 className="page-title">Markets</h1>
           <p className="page-subtitle">
-            Stay updated with the latest market prices for cryptocurrencies and precious metals.
+            A personal reference view — real-time prices for cryptocurrencies and precious metals.
           </p>
         </div>
 
