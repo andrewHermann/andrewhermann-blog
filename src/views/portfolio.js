@@ -59,7 +59,7 @@ const Portfolio = () => {
           </p>
         </div>
         
-        <div className="card-grid">
+        <div className="portfolio-cards">
           <div className="section-card" id="ki-v">
             <h2>KI@V – Institutional AI for the Swiss Armed Forces</h2>
             <h3>Goal: Enable responsible AI experimentation inside one of Switzerland&apos;s most sensitive institutional domains.</h3>

@@ -1321,6 +1321,43 @@ body {
   }
 }
 
+/* Portfolio single-column long-form layout */
+.portfolio-cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+  width: 100%;
+}
+
+.portfolio-cards .section-card {
+  padding: var(--space-xl);
+  margin-bottom: 0;
+}
+
+.portfolio-cards .section-card h3 {
+  margin-top: var(--space-xl);
+}
+
+.portfolio-cards .section-card h3:first-of-type {
+  margin-top: var(--space-md);
+}
+
+.portfolio-cards .section-card p,
+.portfolio-cards .section-card li {
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+  .portfolio-cards {
+    gap: var(--space-lg);
+  }
+
+  .portfolio-cards .section-card {
+    padding: var(--space-lg);
+  }
+}
+
 /* Special handling for admin dashboard cards */
 .admin-nav-links {
   display: grid;
