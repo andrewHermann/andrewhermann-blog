@@ -38,6 +38,9 @@ const app = express();
 const PORT = process.env.PORT || 5001;
 const isProduction = process.env.NODE_ENV === 'production';
 
+// Trust nginx proxy so req.secure reflects the original protocol (HTTPS via Cloudflare/nginx)
+app.set('trust proxy', 1);
+
 // Rate limiters
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -81,7 +84,7 @@ app.use(session({
   saveUninitialized: false,
   store: new SQLiteStore({ db: 'sessions.db', dir: path.join(__dirname) }),
   cookie: {
-    secure: isProduction,
+    secure: 'auto',
     httpOnly: true,
     sameSite: 'strict',
     maxAge: 24 * 60 * 60 * 1000 // 24 hours

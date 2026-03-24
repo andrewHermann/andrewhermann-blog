@@ -51,30 +51,9 @@ if (isLocalDevelopment) {
   currentConfig = config.production
 }
 
-// Override: Always use local API for admin endpoints when accessed via any hostname
-// This ensures admin functionality always connects to local backend
-const isAdminEndpoint = (endpoint) => {
-  return endpoint && (
-    endpoint.startsWith('/api/admin/') || 
-    endpoint.includes('/admin/')
-  )
-}
-
 // API request helper function
 export const apiRequest = async (endpoint, options = {}) => {
-  // Force local API for admin endpoints regardless of hostname
-  let apiBaseUrl = currentConfig.API_BASE_URL
-  
-  if (isAdminEndpoint(endpoint)) {
-    // Always use local API for admin functionality
-    if (typeof window !== 'undefined' && window.location.hostname === ADMIN_SERVER_IP) {
-      apiBaseUrl = config.local.API_BASE_URL
-    } else {
-      apiBaseUrl = config.development.API_BASE_URL
-    }
-  }
-  
-  const url = `${apiBaseUrl}${endpoint}`
+  const url = `${currentConfig.API_BASE_URL}${endpoint}`
   
   const defaultOptions = {
     headers: {
