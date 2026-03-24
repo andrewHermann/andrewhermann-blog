@@ -18,7 +18,6 @@
 
 
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
 
 import SEO from '../components/seo'
 import Navbar from '../components/navbar'
@@ -26,7 +25,6 @@ import Hero from '../components/hero'
 import WhatIDo from '../components/what-i-do'
 import Features1 from '../components/features1'
 import CTA from '../components/cta'
-import Features2 from '../components/features2'
 import Steps from '../components/steps'
 import Footer from '../components/footer'
 import PageFloatingRobot from "../components/PageFloatingRobot"
@@ -49,22 +47,10 @@ const Home = (props) => {
       }
     },
     "about": [
-      {
-        "@type": "Thing",
-        "name": "Strategic Leadership"
-      },
-      {
-        "@type": "Thing", 
-        "name": "Artificial Intelligence"
-      },
-      {
-        "@type": "Thing",
-        "name": "Project Portfolio Management"
-      },
-      {
-        "@type": "Thing",
-        "name": "Digital Transformation"
-      }
+      { "@type": "Thing", "name": "Strategic Leadership" },
+      { "@type": "Thing", "name": "Artificial Intelligence" },
+      { "@type": "Thing", "name": "Project Portfolio Management" },
+      { "@type": "Thing", "name": "Digital Transformation" }
     ]
   }
 
@@ -83,37 +69,27 @@ const Home = (props) => {
         breadcrumbs={homeBreadcrumbs}
       />
       <Navbar />
-      
+
       {/* Hero Section - Full viewport height */}
       <Hero />
-      
-      <div className="page-content">
-        <div className="card-grid">
-          {/* What I Do Section - First in grid */}
-          <div className="section-card">
-            <WhatIDo />
-          </div>
 
-          {/* Professional Portfolio section */}
-          <div className="section-card">
-            <Features1 />
-          </div>
+      {/* Full-width alternating sections */}
+      <div className="home-sections">
+        <section className="home-section">
+          <WhatIDo />
+        </section>
 
-          {/* Core Competencies section */}
-          <div className="section-card">
-            <CTA />
-          </div>
+        <section className="home-section home-section-tinted">
+          <Features1 />
+        </section>
 
-          {/* Features section */}
-          <div className="section-card">
-            <Features2 />
-          </div>
+        <section className="home-section">
+          <CTA />
+        </section>
 
-          {/* My Approach section */}
-          <div className="section-card">
-            <Steps />
-          </div>
-        </div>
+        <section className="home-section home-section-tinted">
+          <Steps />
+        </section>
       </div>
 
       <Footer />
