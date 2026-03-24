@@ -68,7 +68,6 @@ const Robot = () => {
           child.receiveShadow = true;
         }
         if (child.isMesh && child.material) {
-          console.log('Mesh:', child.name, 'Material:', child.material.name);
           
           // Clone material to avoid affecting other instances
           child.material = child.material.clone();
@@ -148,14 +147,12 @@ const Robot = () => {
         }
       });
       
-      console.log('Robot loaded with white body and enhanced lighting materials');
     }
   }, [scene, actions]);
 
   // Set up initial animation
   useEffect(() => {
     if (actions) {
-      console.log('Available animations:', Object.keys(actions));
       
       // Stop all actions first
       Object.keys(actions).forEach(actionName => {
@@ -167,7 +164,6 @@ const Robot = () => {
         actions.Idle.setLoop(THREE.LoopRepeat).play();
         actions.Idle.timeScale = 2; // 2x speed
         setCurrentAnimation('Idle');
-        console.log('Playing Idle animation on loop');
       }
     }
   }, [actions]);
@@ -179,7 +175,6 @@ const Robot = () => {
         if (event.action === actions.Pose) {
           if (isPlayingPose && !isPlayingReverse) {
             // Forward animation finished, now play it backwards
-            console.log('Pose animation finished forward, playing in reverse');
             setIsPlayingReverse(true);
             
             // Set up reverse playback
@@ -190,7 +185,6 @@ const Robot = () => {
             actions.Pose.play();
           } else if (isPlayingPose && isPlayingReverse) {
             // Reverse animation finished, return to Idle
-            console.log('Pose animation finished in reverse, returning to Idle');
             setIsPlayingPose(false);
             setIsPlayingReverse(false);
             setCurrentAnimation('Idle');
@@ -217,7 +211,6 @@ const Robot = () => {
   // Play Pose animation once (forward then reverse)
   const playPoseOnce = () => {
     if (actions && actions.Pose && !isPlayingPose) {
-      console.log('Playing Pose animation forward');
       setIsPlayingPose(true);
       setIsPlayingReverse(false);
       setCurrentAnimation('Pose');

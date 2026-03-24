@@ -10,6 +10,7 @@
     "@uiw/react-md-editor": "^4.0.11",
     "bcrypt": "^6.0.0",
     "body-parser": "^2.2.0",
+    "connect-sqlite3": "^0.9.16",
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "express-session": "^1.18.2",

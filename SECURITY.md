@@ -6,9 +6,8 @@ We currently support the following versions with security updates:
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 1.0.2   | :white_check_mark: |
-| 1.0.1   | :white_check_mark: |
-| < 1.0.0 | :x:                |
+| 2.0.x   | :white_check_mark: |
+| 1.0.x   | :x:                |
 
 ## Reporting a Vulnerability
 
@@ -32,15 +31,17 @@ This project implements the following security measures:
 
 ### Authentication & Authorization
 - Session-based authentication for admin access
-- Role-based access control (RBAC) system
+- Role-based access control (RBAC) — admin, blogger, reader
 - Password hashing using bcrypt
-- Session timeout and secure cookie handling
+- Session cookie hardened: `httpOnly`, `sameSite: strict`, `secure` in production
+- Persistent session store (SQLite) — no in-memory session data loss on restart
 
 ### API Security
-- Input validation and sanitization
-- SQL injection prevention
-- CORS configuration
-- Rate limiting (planned)
+- Input validation and sanitization on all write endpoints
+- SQL injection prevention (parameterised queries throughout)
+- CORS configured to allowed origins only
+- Rate limiting: 10 req/15min on login, 100 req/15min on admin endpoints
+- CSRF defense-in-depth: `X-Requested-With` custom header required on all state-changing requests
 
 ### Infrastructure Security
 - Nginx reverse proxy with security headers

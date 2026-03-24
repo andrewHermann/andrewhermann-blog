@@ -35,8 +35,7 @@ const UserList = () => {
       setUsers(data);
       setError('');
     } catch (err) {
-      console.log('Error loading users:', err);
-      setError('Connection error: ' + err.message);
+      setError('Failed to load users. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -49,8 +48,7 @@ const UserList = () => {
         fetchUsers(); // Reload the list
         setError('');
       } catch (err) {
-        console.log('Error deleting user:', err);
-        setError('Connection error: ' + err.message);
+        setError('Failed to delete user. Please try again.');
       }
     }
   };
