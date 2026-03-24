@@ -8,6 +8,9 @@
 
 .steps-max-width {
   width: 100%;
+}
+
+.thq-grid-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-4xl);
@@ -99,7 +102,7 @@
 }
 
 @media (max-width: 991px) {
-  .steps-max-width {
+  .thq-grid-2 {
     grid-template-columns: 1fr;
     gap: var(--space-2xl);
   }

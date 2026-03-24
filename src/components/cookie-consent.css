@@ -56,6 +56,10 @@
   color: #374151;
 }
 
+.cookie-consent-body {
+  margin-bottom: var(--space-md);
+}
+
 .cookie-consent-body p {
   margin: 0 0 20px 0;
   font-family: Inter, sans-serif;
