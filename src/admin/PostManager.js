@@ -42,7 +42,7 @@ const PostManager = () => {
         setError('Failed to load posts');
       }
     } catch (err) {
-      setError('Connection error: ' + err.message);
+      setError('Network error. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -57,7 +57,7 @@ const PostManager = () => {
         setSuccess('Post deleted successfully!');
         fetchPosts(); // Refresh the list
       } catch (err) {
-        setError('Connection error: ' + err.message);
+        setError('Network error. Please try again.');
       }
     }
   };

@@ -29,6 +29,7 @@ const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const bcrypt = require('bcrypt');
 const session = require('express-session');
+const SQLiteStore = require('connect-sqlite3')(session);
 const rateLimit = require('express-rate-limit');
 const path = require('path');
 const cors = require('cors');
@@ -73,11 +74,12 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept']
 }));
 
-// Session configuration
+// Session configuration with persistent SQLite store
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
+  store: new SQLiteStore({ db: 'sessions.db', dir: path.join(__dirname) }),
   cookie: {
     secure: isProduction,
     httpOnly: true,
@@ -85,6 +87,15 @@ app.use(session({
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
   }
 }));
+
+// CSRF defense-in-depth: require custom header on all state-changing admin requests.
+// Primary protection is sameSite=strict on the session cookie; this is an extra layer.
+const requireXRequestedWith = (req, res, next) => {
+  if (req.headers['x-requested-with'] !== 'XMLFetch') {
+    return res.status(403).json({ error: 'Forbidden' });
+  }
+  next();
+};
 
 // Database initialization
 const db = new sqlite3.Database('./blog.db');
@@ -212,7 +223,7 @@ app.get('/api/admin/users/:id', requireAdmin, (req, res) => {
   });
 });
 
-app.post('/api/admin/users', adminLimiter, requireAdmin, (req, res) => {
+app.post('/api/admin/users', adminLimiter, requireXRequestedWith, requireAdmin, (req, res) => {
   const { username, email, password, role } = req.body;
 
   if (!username || !password || !role) {
@@ -249,7 +260,7 @@ app.post('/api/admin/users', adminLimiter, requireAdmin, (req, res) => {
   );
 });
 
-app.put('/api/admin/users/:id', adminLimiter, requireAdmin, (req, res) => {
+app.put('/api/admin/users/:id', adminLimiter, requireXRequestedWith, requireAdmin, (req, res) => {
   const { id } = req.params;
   const { username, email, role } = req.body;
   
@@ -279,7 +290,7 @@ app.put('/api/admin/users/:id', adminLimiter, requireAdmin, (req, res) => {
   );
 });
 
-app.delete('/api/admin/users/:id', adminLimiter, requireAdmin, (req, res) => {
+app.delete('/api/admin/users/:id', adminLimiter, requireXRequestedWith, requireAdmin, (req, res) => {
   const { id } = req.params;
   
   db.get('SELECT COUNT(*) as count FROM admin_users WHERE role = "admin"', (err, result) => {
@@ -361,7 +372,7 @@ app.get('/api/admin/posts/:id', requireBlogger, (req, res) => {
   });
 });
 
-app.post('/api/admin/posts', requireBlogger, (req, res) => {
+app.post('/api/admin/posts', requireXRequestedWith, requireBlogger, (req, res) => {
   const { title, content, excerpt, slug, published, created_at, updated_at } = req.body;
   
   const createdAt = created_at || new Date().toISOString();
@@ -378,7 +389,7 @@ app.post('/api/admin/posts', requireBlogger, (req, res) => {
   );
 });
 
-app.put('/api/admin/posts/:id', requireBlogger, (req, res) => {
+app.put('/api/admin/posts/:id', requireXRequestedWith, requireBlogger, (req, res) => {
   const { id } = req.params;
   const { title, content, excerpt, slug, published, created_at, updated_at } = req.body;
   
@@ -395,7 +406,7 @@ app.put('/api/admin/posts/:id', requireBlogger, (req, res) => {
   );
 });
 
-app.delete('/api/admin/posts/:id', requireBlogger, (req, res) => {
+app.delete('/api/admin/posts/:id', requireXRequestedWith, requireBlogger, (req, res) => {
   const { id } = req.params;
   db.run('DELETE FROM posts WHERE id = ?', [id], function (err) {
     if (err) {
@@ -406,7 +417,7 @@ app.delete('/api/admin/posts/:id', requireBlogger, (req, res) => {
 });
 
 // Change password endpoint
-app.post('/api/admin/change-password', loginLimiter, requireAuth, (req, res) => {
+app.post('/api/admin/change-password', loginLimiter, requireXRequestedWith, requireAuth, (req, res) => {
   const { currentPassword, newPassword } = req.body;
   const userId = req.session.userId;
   
@@ -494,7 +505,7 @@ app.get('/api/sitemap', (req, res) => {
 });
 
 // Endpoint to regenerate static sitemap file
-app.post('/api/admin/regenerate-sitemap', requireBlogger, (req, res) => {
+app.post('/api/admin/regenerate-sitemap', requireXRequestedWith, requireBlogger, (req, res) => {
   const fs = require('fs');
   const path = require('path');
   
@@ -559,8 +570,7 @@ app.post('/api/admin/regenerate-sitemap', requireBlogger, (req, res) => {
         return res.status(500).json({ error: 'Error writing sitemap file' });
       }
       
-      console.log('Sitemap regenerated successfully');
-      res.json({ 
+      res.json({
         message: 'Sitemap regenerated successfully', 
         postsIncluded: posts.length,
         staticPages: staticPages.length 

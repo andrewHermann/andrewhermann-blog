@@ -52,7 +52,7 @@ const UserEditor = () => {
         setError('Failed to load user');
       }
     } catch (err) {
-      setError('Connection error: ' + err.message);
+      setError('Network error. Please try again.');
     }
   };
 
@@ -90,7 +90,7 @@ const UserEditor = () => {
         }, 1500);
       }
     } catch (err) {
-      setError('Connection error: ' + err.message);
+      setError('Network error. Please try again.');
     } finally {
       setLoading(false);
     }
