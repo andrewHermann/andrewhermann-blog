@@ -1,11 +1,9 @@
-import React from 'react'
-
 import SEO from '../components/seo'
 import PageFloatingRobot from '../components/PageFloatingRobot'
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
 
-const About = (props) => {
+const About = () => {
   const aboutStructuredData = {
     "@context": "https://schema.org",
     "@type": "AboutPage",
@@ -61,7 +59,7 @@ const About = (props) => {
         <div className="page-header">
           <h1 className="page-title">About Me</h1>
           <p className="page-subtitle">
-            A structural account of how I work, what I've done, and what that reveals about the systems I build.
+            A structural account of how I work, what I&apos;ve done, and what that reveals about the systems I build.
           </p>
         </div>
         
@@ -72,7 +70,7 @@ const About = (props) => {
             
             <p>In the years that followed, I expanded my focus far beyond programming. I built and maintained my own hardware, set up small networks, and began developing systems using Oracle Forms and relational databases. By the time I was in my teens, I had independently introduced myself to Linux, UNIX, HP-UX, and Solaris, navigating these operating systems out of pure interest in how real-world, enterprise-grade systems functioned beneath the surface.</p>
             
-            <p>I wasn't collecting certificates. I was gaining fluency in systems—how they behave under load, how they fail, and how they can be made resilient. That foundational knowledge, acquired outside any formal structure, continues to inform my approach to infrastructure, data management, and digital governance to this day.</p>
+            <p>I wasn&apos;t collecting certificates. I was gaining fluency in systems—how they behave under load, how they fail, and how they can be made resilient. That foundational knowledge, acquired outside any formal structure, continues to inform my approach to infrastructure, data management, and digital governance to this day.</p>
           </div>
           
           <div className="section-card">
@@ -86,7 +84,7 @@ const About = (props) => {
           
           <div className="section-card">
             <h2>Working Philosophy</h2>
-            <p>I approach systems with a mix of pragmatism and skepticism. I don't deploy technology for its own sake. I look for failure points, simplify where possible, and design for longevity. Many of the environments I work in lack clean interfaces, current documentation, or ideal preconditions. That doesn't obstruct the work. It defines its boundaries.</p>
+            <p>I approach systems with a mix of pragmatism and skepticism. I don&apos;t deploy technology for its own sake. I look for failure points, simplify where possible, and design for longevity. Many of the environments I work in lack clean interfaces, current documentation, or ideal preconditions. That doesn&apos;t obstruct the work. It defines its boundaries.</p>
             
             <p>I build tools and platforms that can be maintained, understood, and handed off without risk. I avoid vendor lock-in, resist premature optimization, and consider legacy not as a burden, but as a constraint to be respected and navigated. I am not interested in fashionable abstractions. I work on what matters operationally, and I build to institutional scale.</p>
             
@@ -115,7 +113,7 @@ const About = (props) => {
           
           <div className="section-card">
             <h2>Final Note</h2>
-            <p><em>This is not a résumé. It's a structural account of how I work, what I've done, and what that reveals about the systems I build. I don't aim to disrupt. I aim to stabilize quietly, precisely, and at scale.</em></p>
+            <p><em>This is not a résumé. It&apos;s a structural account of how I work, what I&apos;ve done, and what that reveals about the systems I build. I don&apos;t aim to disrupt. I aim to stabilize quietly, precisely, and at scale.</em></p>
           </div>
         </div>
       </div>

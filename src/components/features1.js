@@ -1,9 +1,7 @@
-import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import PropTypes from 'prop-types'
 import './features1.css'
 
-const Features1 = (props) => {
+const Features1 = () => {
   const navigate = useNavigate()
 
   const portfolioItems = [

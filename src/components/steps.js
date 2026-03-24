@@ -1,9 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'
 import './steps.css'
 
-const Steps = (props) => {
+const Steps = () => {
   const navigate = useNavigate()
 
   // Define the step cards with their content and links
@@ -54,7 +52,7 @@ const Steps = (props) => {
               My Approach to Organizational Transformation
             </h2>
             <p className="thq-body-large">
-              I don't solve problems by applying frameworks. I solve them by understanding what is actually at stake, who has the authority to act, and what change looks like inside a specific institution.
+              I don&apos;t solve problems by applying frameworks. I solve them by understanding what is actually at stake, who has the authority to act, and what change looks like inside a specific institution.
             </p>
             <p className="thq-body-large">
               The methodology follows the problem—not the other way around. Each engagement starts with constraints, authority structures, and the gap between strategic intent and operational reality.

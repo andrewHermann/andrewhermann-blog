@@ -17,7 +17,7 @@
  */
 
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { API_ENDPOINTS, apiRequest } from '../config/api';
 import './AdminLogin.css';

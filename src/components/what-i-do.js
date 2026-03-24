@@ -1,4 +1,3 @@
-import React from 'react'
 import './what-i-do.css'
 
 const WhatIDo = () => {

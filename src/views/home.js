@@ -17,8 +17,6 @@
  */
 
 
-import React from 'react'
-
 import SEO from '../components/seo'
 import Navbar from '../components/navbar'
 import Hero from '../components/hero'
@@ -30,7 +28,7 @@ import Footer from '../components/footer'
 import PageFloatingRobot from "../components/PageFloatingRobot"
 import './home.css'
 
-const Home = (props) => {
+const Home = () => {
   const homeStructuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
