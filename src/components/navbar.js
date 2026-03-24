@@ -20,11 +20,18 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
-import PropTypes from 'prop-types'
-
 import './navbar.css'
 
-const Navbar = (props) => {
+const Navbar = ({
+  logoAlt = 'Andrew J. Hermann Logo',
+  logoSrc = '/ah-logo.png',
+  link1 = 'Home',
+  link2 = 'Portfolio',
+  link3 = 'Blog',
+  link4 = 'Markets',
+  link5 = 'About',
+  link6 = 'Contact',
+}) => {
   const location = useLocation()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isPortfolioDropdownOpen, setIsPortfolioDropdownOpen] = useState(false)
@@ -90,15 +97,15 @@ const Navbar = (props) => {
       <header data-thq="thq-navbar" className="navbar-navbar-interactive">
         <Link to="/">
           <img
-            alt={props.logoAlt}
-            src={props.logoSrc}
+            alt={logoAlt}
+            src={logoSrc}
             className="navbar-image1"
           />
         </Link>
         <div data-thq="thq-navbar-nav" className="navbar-desktop-menu">
           <nav className="navbar-links1">
             <Link to="/" className={`thq-body-small thq-link ${location.pathname === '/' ? 'active' : ''}`}>
-              {props.link1}
+              {link1}
             </Link>
             
             {/* Portfolio dropdown */}
@@ -113,7 +120,7 @@ const Navbar = (props) => {
                   }
                 }}
               >
-                {props.link2}
+                {link2}
                 <svg 
                   className={`navbar-dropdown-arrow ${isPortfolioDropdownOpen ? 'navbar-dropdown-arrow-open' : ''}`}
                   width="12" 
@@ -143,16 +150,16 @@ const Navbar = (props) => {
             </div>
 
             <Link to="/blog" className={`thq-body-small thq-link ${location.pathname.startsWith('/blog') ? 'active' : ''}`}>
-              {props.link3}
+              {link3}
             </Link>
             <Link to="/markets" className={`thq-body-small thq-link ${location.pathname === '/markets' ? 'active' : ''}`}>
-              {props.link4}
+              {link4}
             </Link>
             <Link to="/about" className={`thq-body-small thq-link ${location.pathname === '/about' ? 'active' : ''}`}>
-              {props.link5}
+              {link5}
             </Link>
             <Link to="/contact" className={`thq-body-small thq-link ${location.pathname === '/contact' ? 'active' : ''}`}>
-              {props.link6}
+              {link6}
             </Link>
           </nav>
         </div>
@@ -180,8 +187,8 @@ const Navbar = (props) => {
             <div className="navbar-top">
               <Link to="/" onClick={handleMobileLinkClick}>
                 <img
-                  alt={props.logoAlt}
-                  src={props.logoSrc}
+                  alt={logoAlt}
+                  src={logoSrc}
                   className="navbar-logo"
                 />
               </Link>
@@ -208,7 +215,7 @@ const Navbar = (props) => {
                 className={`thq-body-small thq-link ${location.pathname === '/' ? 'active' : ''}`}
                 onClick={handleMobileLinkClick}
               >
-                {props.link1}
+                {link1}
               </Link>
               
               {/* Mobile Portfolio Section */}
@@ -235,28 +242,28 @@ const Navbar = (props) => {
                 className={`thq-body-small thq-link ${location.pathname.startsWith('/blog') ? 'active' : ''}`}
                 onClick={handleMobileLinkClick}
               >
-                {props.link3}
+                {link3}
               </Link>
               <Link 
                 to="/markets" 
                 className={`thq-body-small thq-link ${location.pathname === '/markets' ? 'active' : ''}`}
                 onClick={handleMobileLinkClick}
               >
-                {props.link4}
+                {link4}
               </Link>
               <Link 
                 to="/about" 
                 className={`thq-body-small thq-link ${location.pathname === '/about' ? 'active' : ''}`}
                 onClick={handleMobileLinkClick}
               >
-                {props.link5}
+                {link5}
               </Link>
               <Link 
                 to="/contact" 
                 className={`thq-body-small thq-link ${location.pathname === '/contact' ? 'active' : ''}`}
                 onClick={handleMobileLinkClick}
               >
-                {props.link6}
+                {link6}
               </Link>
             </nav>
           </div>
@@ -266,27 +273,5 @@ const Navbar = (props) => {
   )
 }
 
-Navbar.defaultProps = {
-  logoAlt: 'Andrew J. Hermann Logo',
-  logoSrc:
-    '/ah-logo.png',
-  link3: 'Blog',
-  link6: 'Contact',
-  link2: 'Portfolio',
-  link4: 'Markets',
-  link5: 'About',
-  link1: 'Home',
-}
-
-Navbar.propTypes = {
-  logoAlt: PropTypes.string,
-  logoSrc: PropTypes.string,
-  link3: PropTypes.string,
-  link6: PropTypes.string,
-  link2: PropTypes.string,
-  link4: PropTypes.string,
-  link5: PropTypes.string,
-  link1: PropTypes.string,
-}
 
 export default Navbar
