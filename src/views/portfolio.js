@@ -31,7 +31,7 @@ const Portfolio = (props) => {
       />
       
       {/* Floating Robot with purple/violet body color */}
-      <PageFloatingRobot bodyColor="#7c3aed" glowColor="#a78bfa" />
+      <PageFloatingRobot bodyColor="#1e3a5f" glowColor="#2563eb" />
       
       <Navbar />
       

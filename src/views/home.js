@@ -117,7 +117,7 @@ const Home = (props) => {
       </div>
 
       <Footer />
-      <PageFloatingRobot bodyColor="#1e40af" glowColor="#3b82f6" />
+      <PageFloatingRobot bodyColor="#1e3a5f" glowColor="#2563eb" />
     </div>
   )
 }
