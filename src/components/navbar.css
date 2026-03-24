@@ -29,6 +29,7 @@
 }
 
 .navbar-image1 {
+  display: block;
   height: 3rem;
   transition: transform 0.3s ease;
 }
