@@ -131,8 +131,8 @@ body {
   padding-top: var(--layout-padding-section);
   flex-direction: column;
   padding-bottom: var(--layout-padding-content);
-  padding-left: var(--layout-padding-small);
-  padding-right: var(--layout-padding-small);
+  padding-left: var(--space-2xl);
+  padding-right: var(--space-2xl);
 }
 
 /* Frame Container - Used by admin and blog pages */
@@ -245,13 +245,13 @@ body {
   border-radius: var(--border-radius-lg);
   box-shadow: var(--shadow-md);
   border: 1px solid var(--color-accent-1);
-  padding: var(--space-lg);
+  padding: var(--space-xl);
   transition: transform var(--transition-base), box-shadow var(--transition-base);
 }
 
 /* Add vertical spacing between stacked section cards */
 .section-card {
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-2xl);
 }
 
 .section-card:last-child {
@@ -288,7 +288,7 @@ body {
   font-family: Inter, sans-serif;
   font-weight: 600;
   line-height: 1.4;
-  margin-top: var(--space-lg);
+  margin-top: var(--space-xl);
   margin-bottom: var(--space-md);
 }
 
@@ -298,11 +298,11 @@ body {
 
 .section-card p {
   color: var(--color-neutral-dark);
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-style: normal;
   font-family: Inter, sans-serif;
   font-weight: 400;
-  line-height: 1.6;
+  line-height: 1.7;
   margin-bottom: 0;
 }
 
@@ -387,6 +387,8 @@ body {
 @media (max-width: 768px) {
   .page-content {
     padding-top: var(--space-5xl);
+    padding-left: var(--layout-padding-small);
+    padding-right: var(--layout-padding-small);
   }
   
   .page-title {
@@ -406,13 +408,13 @@ body {
   }
   
   .section-card {
-    padding: var(--space-md);
+    padding: var(--space-lg);
   }
-  
+
   .section-card h2 {
     font-size: var(--font-size-xl);
   }
-  
+
   .section-card h3 {
     font-size: 0.9rem;
   }
@@ -1259,7 +1261,7 @@ body {
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: var(--space-lg);
+  gap: var(--space-2xl);
   width: 100%;
 }
 
@@ -1267,7 +1269,7 @@ body {
 .card-grid-compact {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--space-lg);
+  gap: var(--space-xl);
   width: 100%;
 }
 
@@ -1275,7 +1277,7 @@ body {
 .card-grid-wide {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-lg);
+  gap: var(--space-xl);
   width: 100%;
 }
 
@@ -1330,32 +1332,7 @@ body {
 }
 
 .portfolio-cards .section-card {
-  padding: var(--space-xl);
   margin-bottom: 0;
-}
-
-.portfolio-cards .section-card h3 {
-  margin-top: var(--space-xl);
-}
-
-.portfolio-cards .section-card h3:first-of-type {
-  margin-top: var(--space-md);
-}
-
-.portfolio-cards .section-card p,
-.portfolio-cards .section-card li {
-  font-size: 1rem;
-  line-height: 1.7;
-}
-
-@media (max-width: 768px) {
-  .portfolio-cards {
-    gap: var(--space-lg);
-  }
-
-  .portfolio-cards .section-card {
-    padding: var(--space-lg);
-  }
 }
 
 /* Special handling for admin dashboard cards */
@@ -1553,8 +1530,8 @@ body {
 
 .section-card li {
   margin-bottom: var(--space-sm);
-  font-size: 0.95rem;
-  line-height: 1.6;
+  font-size: 1rem;
+  line-height: 1.7;
   color: var(--color-neutral-dark);
 }
 
