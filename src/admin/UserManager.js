@@ -45,8 +45,7 @@ const UserManager = () => {
       setUsers(data);
       setError('');
     } catch (err) {
-      console.log('Error loading users:', err);
-      setError('Connection error: ' + err.message);
+      setError('Failed to load users. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -60,8 +59,7 @@ const UserManager = () => {
         fetchUsers();
         setError('');
       } catch (err) {
-        console.log('Error deleting user:', err);
-        setError('Connection error: ' + err.message);
+        setError('Failed to delete user. Please try again.');
       }
     }
   };
@@ -107,8 +105,7 @@ const UserManager = () => {
         confirmPassword: '',
       });
     } catch (err) {
-      console.log('Error changing password:', err);
-      setError('Connection error: ' + err.message);
+      setError('Failed to change password. Please try again.');
     } finally {
       setPasswordLoading(false);
     }

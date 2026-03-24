@@ -47,7 +47,7 @@ const AdminLogin = ({ onLogin }) => {
         setError(response.error || 'Login failed');
       }
     } catch (err) {
-      setError('Connection error: ' + err.message);
+      setError('Network error. Please try again.');
     } finally {
       setLoading(false);
     }
