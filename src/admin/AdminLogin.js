@@ -41,7 +41,7 @@ const AdminLogin = ({ onLogin }) => {
 
       // apiRequest already returns the JSON data, not a Response object
       if (response.message === 'Login successful') {
-        onLogin(true);
+        onLogin(response.role);
         navigate('/admin/dashboard');
       } else {
         setError(response.error || 'Login failed');

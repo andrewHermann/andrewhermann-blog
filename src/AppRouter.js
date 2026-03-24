@@ -26,6 +26,7 @@ import AdminNavbar from './admin/AdminNavbar';
 
 const AppRouter = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [userRole, setUserRole] = useState(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -40,23 +41,26 @@ const AppRouter = () => {
         return
       }
 
-      // Use apiRequest instead of raw fetch
-      await apiRequest(API_ENDPOINTS.CHECK_AUTH)
+      const data = await apiRequest(API_ENDPOINTS.CHECK_AUTH)
       setIsAuthenticated(true)
+      setUserRole(data.role)
     } catch (error) {
       console.error('Auth check failed:', error)
       localStorage.removeItem('adminToken')
       setIsAuthenticated(false)
+      setUserRole(null)
     }
     setLoading(false)
   }
 
-  const handleLogin = () => {
+  const handleLogin = (role) => {
     setIsAuthenticated(true)
+    setUserRole(role)
   }
 
   const handleLogout = () => {
     setIsAuthenticated(false)
+    setUserRole(null)
     localStorage.removeItem('adminToken')
   }
 
@@ -88,33 +92,33 @@ const AppRouter = () => {
           element={<AdminLogin onLogin={handleLogin} />}
         />
         
-        <Route 
-          path="/admin/dashboard" 
-          element={isAuthenticated ? <AdminDashboard onLogout={handleLogout} /> : <Navigate to="/admin/login" />}
+        <Route
+          path="/admin/dashboard"
+          element={isAuthenticated ? <AdminDashboard onLogout={handleLogout} userRole={userRole} /> : <Navigate to="/admin/login" />}
         />
-        <Route 
-          path="/admin/posts" 
+        <Route
+          path="/admin/posts"
           element={isAuthenticated ? <PostManager /> : <Navigate to="/admin/login" />}
         />
         {/* Use single parameterized route for both new and edit */}
-        <Route 
-          path="/admin/posts/edit/:id" 
+        <Route
+          path="/admin/posts/edit/:id"
           element={isAuthenticated ? <PostEditor /> : <Navigate to="/admin/login" />}
         />
-        <Route 
-          path="/admin/users" 
-          element={isAuthenticated ? <UserManager /> : <Navigate to="/admin/login" />}
+        <Route
+          path="/admin/users"
+          element={isAuthenticated && userRole === 'admin' ? <UserManager /> : <Navigate to={isAuthenticated ? '/admin/dashboard' : '/admin/login'} />}
         />
-        <Route 
-          path="/admin/users/edit/:id" 
-          element={isAuthenticated ? <UserEditor /> : <Navigate to="/admin/login" />}
+        <Route
+          path="/admin/users/edit/:id"
+          element={isAuthenticated && userRole === 'admin' ? <UserEditor /> : <Navigate to={isAuthenticated ? '/admin/dashboard' : '/admin/login'} />}
         />
 
         <Route path="*" element={<Navigate to="/not-found" replace />} />
       </Routes>
       
       {/* Admin Navbar - appears on all /admin/* routes */}
-      <AdminNavbar />
+      <AdminNavbar userRole={userRole} />
 
       {/* Cookie Consent Banner - appears on all pages */}
       <CookieConsent />
