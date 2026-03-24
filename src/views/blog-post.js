@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
+import ReactMarkdown from 'react-markdown'
 
 import { API_ENDPOINTS, apiRequest } from '../config/api'
 import Navbar from '../components/navbar'
@@ -141,10 +142,9 @@ const BlogPost = () => {
           
           <div className="blog-post-main">
             <article className="blog-post-article">
-              <div 
-                className="page-content-body"
-                dangerouslySetInnerHTML={{ __html: post.content }}
-              />
+              <div className="page-content-body">
+                <ReactMarkdown>{post.content}</ReactMarkdown>
+              </div>
             </article>
           </div>
         </div>
