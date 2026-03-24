@@ -79,13 +79,8 @@ export const apiRequest = async (endpoint, options = {}) => {
   const defaultOptions = {
     headers: {
       'Content-Type': 'application/json',
+      'X-Requested-With': 'XMLFetch',
     },
-  }
-  
-  // Add authorization header if token exists
-  const token = localStorage.getItem('adminToken')
-  if (token) {
-    defaultOptions.headers['Authorization'] = `Bearer ${token}`
   }
   
   const finalOptions = {

@@ -27,12 +27,9 @@ const AdminDashboard = ({ onLogout, userRole }) => {
       await apiRequest(API_ENDPOINTS.LOGOUT, {
         method: 'POST',
       });
-      localStorage.removeItem('adminToken');
-      onLogout();
-    } catch (err) {
-      console.error('Logout failed:', err);
-      // Even if logout request fails, clear local storage and redirect
-      localStorage.removeItem('adminToken');
+    } catch (_err) {
+      // Ignore logout errors — session will expire naturally
+    } finally {
       onLogout();
     }
   };

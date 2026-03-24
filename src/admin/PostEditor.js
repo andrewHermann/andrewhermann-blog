@@ -59,7 +59,7 @@ const PostEditor = () => {
         setError('Failed to load post');
       }
     } catch (err) {
-      setError('Connection error: ' + err.message);
+      setError('Network error. Please try again.');
     }
   };
 
@@ -110,7 +110,7 @@ const PostEditor = () => {
         navigate('/admin/posts');
       }, 1500);
     } catch (err) {
-      setError('Connection error: ' + err.message);
+      setError('Network error. Please try again.');
     } finally {
       setLoading(false);
     }
