@@ -4,7 +4,7 @@
   align-items: center;
   position: fixed;
   top: 120px;
-  left: 20px;
+  right: 20px;
   z-index: 1000;
   pointer-events: none;
 }
@@ -55,7 +55,7 @@
 @media (max-width: 768px) {
   .page-floating-robot-wrapper {
     top: 110px;
-    left: 10px;
+    right: 10px;
   }
   
   .page-floating-robot-container {
@@ -67,7 +67,7 @@
 @media (max-width: 480px) {
   .page-floating-robot-wrapper {
     top: 100px;
-    left: 5px;
+    right: 5px;
   }
   
   .page-floating-robot-container {
