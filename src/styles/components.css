@@ -6,35 +6,7 @@
    Navigation Components
    ========================================================================== */
 
-.navbar-container {
-  width: 100%;
-  display: flex;
-  position: fixed;
-  top: 10px;
-  left: 0;
-  right: 0;
-  justify-content: center;
-  border-radius: 20px;
-  width: fit-content;
-  margin: 0 auto;
-  background-color: rgba(255, 255, 255, 0.5);
-  box-shadow: var(--shadow-md);
-  z-index: 100;
-  backdrop-filter: blur(12px);
-}
-
-.navbar-content {
-  width: 100%;
-  display: flex;
-  max-width: var(--layout-max-width);
-  align-items: center;
-  padding: var(--space-sm) var(--space-lg);
-  justify-content: space-between;
-  position: fixed;
-  top: 10px;
-  left: 0;
-  right: 0;
-}
+/* Navbar styling is handled entirely in components/navbar.css */
 
 /* ==========================================================================
    Footer Components
@@ -340,12 +312,3 @@
   }
 }
 
-/* Mobile responsiveness for navbar */
-@media (max-width: 768px) {
-  .navbar-container {
-    border-radius: 0 0 15px 15px;
-    left: auto;
-    right: 0;
-    max-width: unset;
-  }
-}
