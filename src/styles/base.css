@@ -525,7 +525,7 @@ body {
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--border-radius-lg);
   font-size: 0.95rem;
   font-weight: 600;
   text-decoration: none;
@@ -546,7 +546,6 @@ body {
 
 .btn-primary:hover:not(:disabled) {
   background: var(--color-accent-secondary);
-  transform: translateY(-1px);
 }
 
 .btn-secondary {
