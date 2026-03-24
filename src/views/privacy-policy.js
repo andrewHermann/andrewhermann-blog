@@ -27,7 +27,7 @@ const PrivacyPolicy = () => {
         </div>
         
         <div className="content-main">
-          <section className="privacy-section">
+          <section className="section-card">
             <h2>1. Introduction</h2>
             <p>
               Andrew J. Hermann (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website andrew.cloudhopper.ch, including any other media form, media channel, mobile website, or mobile application related or connected thereto.
@@ -37,7 +37,7 @@ const PrivacyPolicy = () => {
             </p>
           </section>
 
-          <section className="privacy-section">
+          <section className="section-card">
             <h2>2. Information We Collect</h2>
             <h3>Personal Data</h3>
             <p>
@@ -55,7 +55,7 @@ const PrivacyPolicy = () => {
             </p>
           </section>
 
-          <section className="privacy-section">
+          <section className="section-card">
             <h2>3. How We Use Your Information</h2>
             <p>
               We may use information collected about you via the site to:
@@ -79,7 +79,7 @@ const PrivacyPolicy = () => {
             </ul>
           </section>
 
-          <section className="privacy-section">
+          <section className="section-card">
             <h2>4. Disclosure of Your Information</h2>
             <p>
               We may share information we have collected about you in certain situations. Your information may be disclosed as follows:
@@ -101,7 +101,7 @@ const PrivacyPolicy = () => {
             </p>
           </section>
 
-          <section className="privacy-section">
+          <section className="section-card">
             <h2>5. Tracking Technologies</h2>
             <h3>Cookies and Web Beacons</h3>
             <p>
@@ -114,28 +114,28 @@ const PrivacyPolicy = () => {
             </p>
           </section>
 
-          <section className="privacy-section">
+          <section className="section-card">
             <h2>6. Third-Party Websites</h2>
             <p>
               The site may contain links to third-party websites and applications of interest, including advertisements and external services, that are not affiliated with us. Once you have used these links to leave the site, any information you provide to these third parties is not covered by this Privacy Policy, and we cannot guarantee the safety and privacy of your information.
             </p>
           </section>
 
-          <section className="privacy-section">
+          <section className="section-card">
             <h2>7. Security of Your Information</h2>
             <p>
               We use administrative, technical, and physical security measures to help protect your personal information. While we have taken reasonable steps to secure the personal information you provide to us, please be aware that despite our efforts, no security measures are perfect or impenetrable, and no method of data transmission can be guaranteed against any interception or other type of misuse.
             </p>
           </section>
 
-          <section className="privacy-section">
+          <section className="section-card">
             <h2>8. Policy for Children</h2>
             <p>
               We do not knowingly solicit information from or market to children under the age of 13. If we learn that we have collected personal information from a child under age 13 without verification of parental consent, we will delete that information as quickly as possible.
             </p>
           </section>
 
-          <section className="privacy-section">
+          <section className="section-card">
             <h2>9. Your Rights (GDPR)</h2>
             <p>
               If you are a resident of the European Economic Area (EEA), you have certain data protection rights. You may:
@@ -149,21 +149,21 @@ const PrivacyPolicy = () => {
             </ul>
           </section>
 
-          <section className="privacy-section">
+          <section className="section-card">
             <h2>10. Data Retention</h2>
             <p>
               We will only retain your personal information for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use your information to the extent necessary to comply with our legal obligations, resolve disputes, and enforce our policies.
             </p>
           </section>
 
-          <section className="privacy-section">
+          <section className="section-card">
             <h2>11. Changes to This Privacy Policy</h2>
             <p>
               We may update this Privacy Policy from time to time in order to reflect, for example, changes to our practices or for other operational, legal, or regulatory reasons. We will notify you of any changes by posting the new Privacy Policy on this page.
             </p>
           </section>
 
-          <section className="privacy-section">
+          <section className="section-card">
             <h2>12. Contact Us</h2>
             <p>
               If you have questions or comments about this Privacy Policy, please <Link to="/contact" className="contact-link">contact us through our contact form</Link>.
