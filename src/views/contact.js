@@ -41,7 +41,7 @@ const ContactPage = (props) => {
       />
       
       {/* Floating Robot with red/rose body color */}
-      <PageFloatingRobot bodyColor="#e11d48" glowColor="#f43f5e" />
+      <PageFloatingRobot bodyColor="#1e3a5f" glowColor="#2563eb" />
       
       <Navbar />
       <div className="page-content">
