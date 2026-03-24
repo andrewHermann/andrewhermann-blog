@@ -23,7 +23,7 @@ const CTA = () => {
   const caseSnapshots = [
     {
       title: "KI@V – Institutional AI for the Swiss Armed Forces",
-      description: "Designed and led a cross-functional MVP to explore responsible use of conversational AI across defense administration. Negotiated architecture, clarified use cases, and positioned the program strategically within the VBS innovation landscape.",
+      description: "Led end-to-end deployment of a production conversational AI system inside the Swiss Armed Forces — architecture, governance, user adoption, regulatory positioning. 150+ active users within six months. First AI governance framework in Swiss defense.",
       tags: ["#AI", "#Defense", "#Innovation", "#Strategy"],
       iconClass: "ai-icon",
       action: "Read more",

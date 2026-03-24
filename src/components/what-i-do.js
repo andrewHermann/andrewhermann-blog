@@ -49,7 +49,7 @@ const WhatIDo = () => {
             </svg>
           </div>
           <h3>AI for Institutions</h3>
-          <p>I develop responsible, domain-specific AI use cases—especially in high-trust environments like defense, mobility, and public administration.</p>
+          <p>I have taken AI from whiteboard to production inside the Swiss federal defense administration. Not pilots. Not proofs of concept. Running systems with real users and real governance.</p>
         </div>
 
         <div className="what-i-do-card">

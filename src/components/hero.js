@@ -47,7 +47,7 @@ const Hero = () => {
           </div>
           <h1 className="hero-headline">Complexity deserves clarity.</h1>
           <p className="hero-subheadline">
-            I work at the intersection of digital transformation, institutional reform, and AI strategy—leading public organisations through complexity with precision and without illusions.
+            I have deployed production-grade AI inside one of Switzerland&apos;s most constrained institutions. I know what it takes to move from concept to live system — inside a bureaucracy, under real constraints, with real accountability.
           </p>
         </div>
 
@@ -68,7 +68,7 @@ const Hero = () => {
           <div className="hero-cred-divider"></div>
           <div className="hero-cred">
             <span className="hero-cred-number">150+</span>
-            <span className="hero-cred-label">Stakeholders aligned</span>
+            <span className="hero-cred-label">Active users on production AI system</span>
           </div>
           <div className="hero-cred-divider"></div>
           <div className="hero-cred">

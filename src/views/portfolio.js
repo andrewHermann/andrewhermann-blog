@@ -55,11 +55,7 @@ const Portfolio = () => {
         <div className="page-header">
           <h1 className="page-title">Portfolio</h1>
           <p className="page-subtitle">
-            I work on high-stakes transformation projects at the intersection of AI, data strategy, 
-            and institutional reform—especially in the public sector.
-          </p>
-          <p className="page-subtitle">
-            Here are selected examples that reflect my approach and results:
+            These are not strategy decks. These are live systems, running inside real institutions, built under real constraints. If you are considering AI transformation, this is what execution looks like.
           </p>
         </div>
         
