@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom'
 import '../components/navbar.css'
 import './AdminNavbar.css'
 
-const AdminNavbar = () => {
+const AdminNavbar = ({ userRole }) => {
   const location = useLocation()
 
   if (!location.pathname.startsWith('/admin')) return null
@@ -30,15 +30,17 @@ const AdminNavbar = () => {
           >
             Posts
           </Link>
-          <Link
-            to="/admin/users"
-            className={`thq-body-small thq-link ${location.pathname.startsWith('/admin/users') ? 'active' : ''}`}
-          >
-            Users
-          </Link>
+          {userRole === 'admin' && (
+            <Link
+              to="/admin/users"
+              className={`thq-body-small thq-link ${location.pathname.startsWith('/admin/users') ? 'active' : ''}`}
+            >
+              Users
+            </Link>
+          )}
         </nav>
         <div className="admin-nav-right">
-          <span className="admin-nav-badge">Admin</span>
+          <span className="admin-nav-badge">{userRole === 'admin' ? 'Admin' : 'Blogger'}</span>
           <Link to="/" className="thq-body-small thq-link admin-nav-site-link">
             ← View Site
           </Link>

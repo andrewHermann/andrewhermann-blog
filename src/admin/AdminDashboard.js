@@ -21,7 +21,7 @@ import { Link } from 'react-router-dom';
 import { API_ENDPOINTS, apiRequest } from '../config/api';
 import './AdminDashboard.css';
 
-const AdminDashboard = ({ onLogout }) => {
+const AdminDashboard = ({ onLogout, userRole }) => {
   const handleLogout = async () => {
     try {
       await apiRequest(API_ENDPOINTS.LOGOUT, {
@@ -63,13 +63,15 @@ const AdminDashboard = ({ onLogout }) => {
                 <span className="admin-nav-arrow">→</span>
               </div>
             </Link>
-            <Link to="/admin/users" className="admin-nav-link">
-              <div className="section-card dashboard-card">
-                <h3>User Management</h3>
-                <p>Change admin password and user settings</p>
-                <span className="admin-nav-arrow">→</span>
-              </div>
-            </Link>
+            {userRole === 'admin' && (
+              <Link to="/admin/users" className="admin-nav-link">
+                <div className="section-card dashboard-card">
+                  <h3>User Management</h3>
+                  <p>Change admin password and user settings</p>
+                  <span className="admin-nav-arrow">→</span>
+                </div>
+              </Link>
+            )}
           </div>
         </div>
       </div>
