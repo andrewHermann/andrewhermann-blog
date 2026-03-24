@@ -1,10 +1,3 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 120px 0 0 0; /* Top padding for floating navbar */
-  background-color: #f0f0f0;
-}
-
 .hero-robot-canvas {
   /* Make the canvas transparent and non-selectable */
   background: transparent !important;
