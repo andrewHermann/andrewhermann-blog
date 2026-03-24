@@ -20,17 +20,22 @@ const Hero = () => {
       <div className="hero-background">
         <div className="hero-nodes"></div>
       </div>
-      
+
       <div className="hero-content">
         <div className="hero-watermark">AH</div>
-        
+
         <div className="hero-text">
+          <div className="hero-identity">
+            <span className="hero-name">Andrew J. Hermann</span>
+            <span className="hero-separator">·</span>
+            <span className="hero-role-tag">Swiss Federal Administration</span>
+          </div>
           <h1 className="hero-headline">Complexity deserves clarity.</h1>
           <p className="hero-subheadline">
             I work at the intersection of digital transformation, institutional reform, and AI strategy—helping public organisations navigate change without losing themselves in the fog.
           </p>
         </div>
-        
+
         <div className="hero-actions">
           <button className="hero-btn hero-btn-primary" onClick={handleSeeWork}>
             See My Work
@@ -38,6 +43,28 @@ const Hero = () => {
           <button className="hero-btn hero-btn-secondary" onClick={handleContact}>
             Contact Me
           </button>
+        </div>
+
+        <div className="hero-credentials">
+          <div className="hero-cred">
+            <span className="hero-cred-number">20+</span>
+            <span className="hero-cred-label">Years in IT & Systems</span>
+          </div>
+          <div className="hero-cred-divider"></div>
+          <div className="hero-cred">
+            <span className="hero-cred-number">150+</span>
+            <span className="hero-cred-label">Stakeholders aligned</span>
+          </div>
+          <div className="hero-cred-divider"></div>
+          <div className="hero-cred">
+            <span className="hero-cred-number">3</span>
+            <span className="hero-cred-label">Operating languages</span>
+          </div>
+          <div className="hero-cred-divider"></div>
+          <div className="hero-cred">
+            <span className="hero-cred-number">DE · FR · EN</span>
+            <span className="hero-cred-label">Bern, Switzerland</span>
+          </div>
         </div>
       </div>
     </div>

@@ -325,7 +325,7 @@ const Markets = () => {
         )}
       </div>
 
-      <Footer content3="© 2026 Andrew J. Hermann. Professional portfolio website." />
+      <Footer />
     </div>
   )
 }

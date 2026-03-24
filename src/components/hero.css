@@ -144,6 +144,77 @@
   transform: translateY(-2px);
 }
 
+/* Identity block */
+.hero-identity {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.hero-name {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.hero-separator {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: var(--font-size-sm);
+}
+
+.hero-role-tag {
+  font-size: var(--font-size-sm);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(191, 219, 254, 0.75);
+}
+
+/* Credential strip */
+.hero-credentials {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  flex-wrap: wrap;
+}
+
+.hero-cred {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.hero-cred-number {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.hero-cred-label {
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.45);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.hero-cred-divider {
+  width: 1px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.12);
+  flex-shrink: 0;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .hero-container {
@@ -169,6 +240,20 @@
   .hero-actions {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .hero-credentials {
+    gap: 1.25rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+  }
+
+  .hero-cred-divider {
+    display: none;
+  }
+
+  .hero-cred-number {
+    font-size: 1.2rem;
   }
 
   .hero-btn {
