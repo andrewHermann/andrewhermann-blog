@@ -1,3 +1,22 @@
+/*
+ * Andrew Hermann Blog
+ * Copyright (C) 2024 Andrew Hermann
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+
 import React, { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
@@ -8,8 +27,10 @@ import './navbar.css'
 const Navbar = (props) => {
   const location = useLocation()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isPortfolioDropdownOpen, setIsPortfolioDropdownOpen] = useState(false)
   const mobileMenuRef = useRef(null)
   const burgerMenuRef = useRef(null)
+  const portfolioDropdownRef = useRef(null)
   
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
@@ -17,6 +38,14 @@ const Navbar = (props) => {
   
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false)
+  }
+
+  const togglePortfolioDropdown = () => {
+    setIsPortfolioDropdownOpen(!isPortfolioDropdownOpen)
+  }
+
+  const closePortfolioDropdown = () => {
+    setIsPortfolioDropdownOpen(false)
   }
   
   // Close mobile menu when clicking on a link
@@ -30,9 +59,16 @@ const Navbar = (props) => {
           !burgerMenuRef.current.contains(event.target)) {
         setIsMobileMenuOpen(false)
       }
+
+      // Close portfolio dropdown when clicking outside
+      if (isPortfolioDropdownOpen && 
+          portfolioDropdownRef.current && 
+          !portfolioDropdownRef.current.contains(event.target)) {
+        setIsPortfolioDropdownOpen(false)
+      }
     }
 
-    if (isMobileMenuOpen) {
+    if (isMobileMenuOpen || isPortfolioDropdownOpen) {
       document.addEventListener('mousedown', handleClickOutside)
       document.addEventListener('touchstart', handleClickOutside)
     }
@@ -41,11 +77,13 @@ const Navbar = (props) => {
       document.removeEventListener('mousedown', handleClickOutside)
       document.removeEventListener('touchstart', handleClickOutside)
     }
-  }, [isMobileMenuOpen])
+  }, [isMobileMenuOpen, isPortfolioDropdownOpen])
 
   const handleMobileLinkClick = () => {
     setIsMobileMenuOpen(false)
   }
+
+  const isPortfolioActive = location.pathname === '/portfolio' || location.pathname === '/behind-the-site'
   
   return (
     <header className="navbar-container">
@@ -62,9 +100,48 @@ const Navbar = (props) => {
             <Link to="/" className={`thq-body-small thq-link ${location.pathname === '/' ? 'active' : ''}`}>
               {props.link1}
             </Link>
-            <Link to="/portfolio" className={`thq-body-small thq-link ${location.pathname === '/portfolio' ? 'active' : ''}`}>
-              {props.link2}
-            </Link>
+            
+            {/* Portfolio dropdown */}
+            <div className="navbar-dropdown" ref={portfolioDropdownRef}>
+              <button 
+                className={`thq-body-small thq-link navbar-dropdown-trigger ${isPortfolioActive ? 'active' : ''}`}
+                onClick={togglePortfolioDropdown}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    togglePortfolioDropdown()
+                  }
+                }}
+              >
+                {props.link2}
+                <svg 
+                  className={`navbar-dropdown-arrow ${isPortfolioDropdownOpen ? 'navbar-dropdown-arrow-open' : ''}`}
+                  width="12" 
+                  height="12" 
+                  viewBox="0 0 12 12" 
+                  fill="none"
+                >
+                  <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+              <div className={`navbar-dropdown-menu ${isPortfolioDropdownOpen ? 'navbar-dropdown-menu-open' : ''}`}>
+                <Link 
+                  to="/portfolio" 
+                  className={`navbar-dropdown-item ${location.pathname === '/portfolio' ? 'active' : ''}`}
+                  onClick={closePortfolioDropdown}
+                >
+                  Portfolio
+                </Link>
+                <Link 
+                  to="/behind-the-site" 
+                  className={`navbar-dropdown-item ${location.pathname === '/behind-the-site' ? 'active' : ''}`}
+                  onClick={closePortfolioDropdown}
+                >
+                  Behind the Site
+                </Link>
+              </div>
+            </div>
+
             <Link to="/blog" className={`thq-body-small thq-link ${location.pathname.startsWith('/blog') ? 'active' : ''}`}>
               {props.link3}
             </Link>
@@ -133,13 +210,26 @@ const Navbar = (props) => {
               >
                 {props.link1}
               </Link>
-              <Link 
-                to="/portfolio" 
-                className={`thq-body-small thq-link ${location.pathname === '/portfolio' ? 'active' : ''}`}
-                onClick={handleMobileLinkClick}
-              >
-                {props.link2}
-              </Link>
+              
+              {/* Mobile Portfolio Section */}
+              <div className="navbar-mobile-section">
+                <div className="navbar-mobile-section-header">Portfolio</div>
+                <Link 
+                  to="/portfolio" 
+                  className={`thq-body-small thq-link navbar-mobile-subsection ${location.pathname === '/portfolio' ? 'active' : ''}`}
+                  onClick={handleMobileLinkClick}
+                >
+                  Portfolio
+                </Link>
+                <Link 
+                  to="/behind-the-site" 
+                  className={`thq-body-small thq-link navbar-mobile-subsection ${location.pathname === '/behind-the-site' ? 'active' : ''}`}
+                  onClick={handleMobileLinkClick}
+                >
+                  Behind the Site
+                </Link>
+              </div>
+              
               <Link 
                 to="/blog" 
                 className={`thq-body-small thq-link ${location.pathname.startsWith('/blog') ? 'active' : ''}`}

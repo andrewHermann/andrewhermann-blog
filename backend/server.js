@@ -1,3 +1,23 @@
+/*
+ * Andrew Hermann Blog
+ * Copyright (C) 2024 Andrew Hermann
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+
+require("dotenv").config();
 
 const SERVER_VERSION = "2.0.0";
 const express = require('express');
@@ -14,8 +34,16 @@ const PORT = process.env.PORT || 5001;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:5000', `http://${process.env.ADMIN_SERVER_IP || 'localhost'}:5000`, 'https://andrew.cloudhopper.ch'],
-  credentials: true
+  origin: [
+    'http://localhost:3000', 
+    'http://localhost:5000', 
+    'http://192.168.178.44:5000',
+    `http://${process.env.ADMIN_SERVER_IP || 'localhost'}:5000`, 
+    'https://andrew.cloudhopper.ch'
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept']
 }));
 
 // Session configuration
