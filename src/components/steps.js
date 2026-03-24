@@ -15,9 +15,9 @@ const Steps = (props) => {
       link: '/portfolio'
     },
     {
-      id: '02', 
-      title: 'Discover Current Initiatives',
-      description: 'Learn about ongoing projects like KI@V and the Orion Cockpit, which showcase cutting-edge solutions in public administration.',
+      id: '02',
+      title: 'Read the Blog',
+      description: 'Insights on AI strategy, institutional change, and the systems that shape public administration—written from the inside.',
       link: '/blog'
     },
     {
@@ -54,11 +54,10 @@ const Steps = (props) => {
               My Approach to Organizational Transformation
             </h2>
             <p className="thq-body-large">
-              I employ a comprehensive, evidence-based methodology that integrates strategic frameworks, advanced analytics, and cutting-edge technology to drive sustainable organizational transformation. My approach leverages proven methodologies including Lean Six Sigma, Agile/Scrum, Design Thinking, and Change Management frameworks such as Kotter's 8-Step Process and ADKAR. 
-              
-              Utilizing tools like Microsoft Power BI, Tableau, and Python for data analytics, combined with AI/ML platforms including TensorFlow and Azure Cognitive Services, I create data-driven insights that inform strategic decisions. My project portfolio management employs methodologies such as PMI standards, SAFe (Scaled Agile Framework), and hybrid approaches tailored to organizational contexts.
-              
-              Through stakeholder mapping, risk assessment matrices, and continuous improvement cycles, I ensure alignment between strategic objectives and operational execution, delivering measurable ROI and sustainable competitive advantage across public and private sector organizations.
+              I don't solve problems by applying frameworks. I solve them by understanding what is actually at stake, who has the authority to act, and what change looks like inside a specific institution.
+            </p>
+            <p className="thq-body-large">
+              The methodology follows the problem—not the other way around. Each engagement starts with constraints, authority structures, and the gap between strategic intent and operational reality.
             </p>
           </div>
           <div className="steps-container3">

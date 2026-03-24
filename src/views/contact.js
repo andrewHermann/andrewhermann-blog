@@ -53,9 +53,7 @@ const ContactPage = (props) => {
         </div>
         
         <div className="content-main">
-          <div className="section-card">
-            <Contact />
-          </div>
+          <Contact />
         </div>
       </div>
       <Footer />
