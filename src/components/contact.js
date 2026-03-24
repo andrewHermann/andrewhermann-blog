@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import PropTypes from 'prop-types'
 
 const Contact = (props) => {
@@ -89,13 +89,13 @@ const Contact = (props) => {
           Send me a message
         </h3>
         <p style={{ color: 'var(--color-text-secondary)', marginBottom: 'var(--space-xl)', fontSize: 'var(--font-size-base)' }}>
-          I'm always open to discussing new opportunities, sharing insights, or exploring potential collaborations.
+          I&apos;m always open to discussing new opportunities, sharing insights, or exploring potential collaborations.
         </p>
 
         {showConfirmation && (
           <div className="info-card" style={{ background: 'rgba(34, 197, 94, 0.08)', borderColor: 'rgba(34, 197, 94, 0.25)', marginBottom: 'var(--space-lg)' }}>
             <h3 style={{ color: '#16a34a' }}>Message Sent!</h3>
-            <p>Thank you. I'll get back to you as soon as possible.</p>
+            <p>Thank you. I&apos;ll get back to you as soon as possible.</p>
           </div>
         )}
 

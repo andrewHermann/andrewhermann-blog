@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { API_ENDPOINTS, apiRequest } from '../config/api';
 import './PostManager.css';
@@ -100,7 +100,7 @@ const PostManager = () => {
                 <div className="empty-state">
                   <h3>No Posts Found</h3>
                   <p>
-                    You haven't created any posts yet. <Link to="/admin/posts/edit/new" className="link-primary">Create your first post</Link> to get started.
+                    You haven&apos;t created any posts yet. <Link to="/admin/posts/edit/new" className="link-primary">Create your first post</Link> to get started.
                   </p>
                 </div>
               ) : (
