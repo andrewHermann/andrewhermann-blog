@@ -142,7 +142,7 @@ const BlogPost = () => {
           
           <div className="blog-post-main">
             <article className="blog-post-article">
-              <div className="page-content-body">
+              <div className="blog-post-body">
                 <ReactMarkdown>{post.content}</ReactMarkdown>
               </div>
             </article>
