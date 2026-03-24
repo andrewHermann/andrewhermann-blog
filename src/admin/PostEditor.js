@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import MDEditor from '@uiw/react-md-editor';
 import { API_ENDPOINTS, apiRequest } from '../config/api';
 import './PostEditor.css';
 
@@ -176,19 +177,15 @@ const PostEditor = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="content" className="form-label">
-                  Content *
-                </label>
-                <textarea
-                  id="content"
-                  name="content"
-                  value={post.content}
-                  onChange={handleChange}
-                  rows="15"
-                  required
-                  placeholder="Write your post content here..."
-                  className="form-textarea"
-                />
+                <label className="form-label">Content *</label>
+                <div data-color-mode="light">
+                  <MDEditor
+                    value={post.content}
+                    onChange={(value) => setPost((prev) => ({ ...prev, content: value || '' }))}
+                    height={500}
+                    preview="live"
+                  />
+                </div>
               </div>
 
               <div className="form-row">
