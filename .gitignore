@@ -49,6 +49,9 @@ coverage/
 tmp/
 temp/
 
+# Plugin/skill archives
+*.zip
+
 # Optional npm cache directory
 .npm
 

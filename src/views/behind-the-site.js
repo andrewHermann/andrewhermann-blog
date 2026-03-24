@@ -1,11 +1,9 @@
-import React from 'react'
-
 import SEO from '../components/seo'
 import PageFloatingRobot from '../components/PageFloatingRobot'
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
 
-const BehindTheSite = (props) => {
+const BehindTheSite = () => {
   // Architecture points data for dynamic rendering
   const architecturePoints = [
     {
@@ -121,7 +119,7 @@ const BehindTheSite = (props) => {
         <div style={{width: '100%', marginBottom: '2rem'}}>
           <div className="section-card" style={{textAlign: 'center', padding: '3rem', background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(52, 211, 153, 0.02))'}}>
             <p style={{fontSize: '1.25rem', lineHeight: '1.6', marginBottom: '1.5rem', maxWidth: '800px', margin: '0 auto 1.5rem auto'}}>
-              This website is more than just a personal portfolio. It's a quiet statement about how digital systems should be built—especially in the public sector.
+              This website is more than just a personal portfolio. It&apos;s a quiet statement about how digital systems should be built—especially in the public sector.
             </p>
             
             <p style={{fontSize: '1.125rem', maxWidth: '700px', margin: '0 auto'}}>
@@ -135,7 +133,7 @@ const BehindTheSite = (props) => {
           <div className="section-card">
             <h2>My Digital Philosophy</h2>
             <p>
-              I don't believe in black-box platforms or overengineered stacks that serve more to impress than to deliver. The modern web has become bloated with dependencies, scripts, and surveillance-by-default. I chose the opposite path:
+              I don&apos;t believe in black-box platforms or overengineered stacks that serve more to impress than to deliver. The modern web has become bloated with dependencies, scripts, and surveillance-by-default. I chose the opposite path:
             </p>
             
             <div style={{margin: '2rem 0'}}>
@@ -214,7 +212,7 @@ const BehindTheSite = (props) => {
             }}>
               <p style={{fontSize: '1.125rem', fontWeight: '600', margin: 0}}>
                 <strong>But the most unusual part?</strong><br />
-                It's physically hosted—yes, really—from my home network.
+                It&apos;s physically hosted—yes, really—from my home network.
               </p>
             </div>
           </div>
@@ -255,13 +253,13 @@ const BehindTheSite = (props) => {
                   <h3 style={{fontSize: '1.25rem', fontWeight: '600', marginBottom: '1rem', color: '#10b981'}}>Why?</h3>
                   <div style={{display: 'grid', gap: '0.5rem'}}>
                     <p style={{margin: 0}}>Because it works.</p>
-                    <p style={{margin: 0}}>Because it's elegant in its simplicity.</p>
-                    <p style={{margin: 0}}>And because I believe the idea of "modern" is too often confused with "new."</p>
+                    <p style={{margin: 0}}>Because it&apos;s elegant in its simplicity.</p>
+                    <p style={{margin: 0}}>And because I believe the idea of &quot;modern&quot; is too often confused with &quot;new.&quot;</p>
                   </div>
                 </div>
                 
                 <p style={{fontStyle: 'italic', fontSize: '1.125rem', lineHeight: '1.6'}}>
-                  This old workstation has outlived trends, toolchains, and fads. It's never failed me. It quietly proves that with intentional design, robust systems don't need hyperscale hardware or cloud dependency. They just need clarity.
+                  This old workstation has outlived trends, toolchains, and fads. It&apos;s never failed me. It quietly proves that with intentional design, robust systems don&apos;t need hyperscale hardware or cloud dependency. They just need clarity.
                 </p>
               </div>
               
@@ -346,7 +344,7 @@ const BehindTheSite = (props) => {
             <div style={{display: 'grid', gap: '1.5rem', margin: '2rem 0'}}>
               <div style={{padding: '1.5rem', backgroundColor: '#fef2f2', borderRadius: '8px', borderLeft: '4px solid #ef4444'}}>
                 <h3 style={{margin: '0 0 0.75rem 0', color: '#dc2626', fontSize: '1.125rem'}}>The Reality</h3>
-                <p style={{margin: 0}}>Like any real system, this one didn't start perfectly. The first version was messy—fragmented stylesheets, inconsistent page logic, and duplicated patterns.</p>
+                <p style={{margin: 0}}>Like any real system, this one didn&apos;t start perfectly. The first version was messy—fragmented stylesheets, inconsistent page logic, and duplicated patterns.</p>
               </div>
               
               <div style={{padding: '1.5rem', backgroundColor: '#f0f9ff', borderRadius: '8px', borderLeft: '4px solid #0284c7'}}>
@@ -356,7 +354,7 @@ const BehindTheSite = (props) => {
               
               <div style={{padding: '1.5rem', backgroundColor: '#f0fdf4', borderRadius: '8px', borderLeft: '4px solid #10b981'}}>
                 <h3 style={{margin: '0 0 0.75rem 0', color: '#10b981', fontSize: '1.125rem'}}>The Principle</h3>
-                <p style={{margin: 0, fontStyle: 'italic', fontSize: '1.125rem'}}>Don't fall for complexity when clarity will do.</p>
+                <p style={{margin: 0, fontStyle: 'italic', fontSize: '1.125rem'}}>Don&apos;t fall for complexity when clarity will do.</p>
               </div>
             </div>
           </div>
@@ -409,7 +407,7 @@ const BehindTheSite = (props) => {
           <div className="section-card" style={{textAlign: 'center', padding: '3rem'}}>
             <h2 style={{marginBottom: '1rem'}}>Want to Talk?</h2>
             <p style={{fontSize: '1.125rem', marginBottom: '2rem', maxWidth: '600px', margin: '0 auto 2rem auto'}}>
-              Whether you're interested in reuse, want to critique the approach, or just like talking infrastructure—get in touch.
+              Whether you&apos;re interested in reuse, want to critique the approach, or just like talking infrastructure—get in touch.
             </p>
             
             <div style={{marginBottom: '3rem'}}>
@@ -431,9 +429,9 @@ const BehindTheSite = (props) => {
                 maxWidth: '500px',
                 margin: '0 auto'
               }}>
-                <p style={{margin: 0}}>Good systems don't brag.</p>
+                <p style={{margin: 0}}>Good systems don&apos;t brag.</p>
                 <p style={{margin: 0}}>They run quietly, do their job, and get better through iteration.</p>
-                <p style={{margin: 0}}><strong>That's what this site is. That's what I build.</strong></p>
+                <p style={{margin: 0}}><strong>That&apos;s what this site is. That&apos;s what I build.</strong></p>
               </div>
             </div>
           </div>

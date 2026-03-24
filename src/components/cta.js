@@ -1,8 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import './cta.css'
 
-const CTA = (props) => {
+const CTA = () => {
   // Define case snapshot cards
   const caseSnapshots = [
     {

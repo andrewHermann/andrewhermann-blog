@@ -1,4 +1,3 @@
-import React from 'react'
 import SEO from '../components/seo'
 import { Link } from 'react-router-dom'
 import Navbar from '../components/navbar'
@@ -31,7 +30,7 @@ const PrivacyPolicy = () => {
           <section className="privacy-section">
             <h2>1. Introduction</h2>
             <p>
-              Andrew J. Hermann ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website andrew.cloudhopper.ch, including any other media form, media channel, mobile website, or mobile application related or connected thereto.
+              Andrew J. Hermann (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website andrew.cloudhopper.ch, including any other media form, media channel, mobile website, or mobile application related or connected thereto.
             </p>
             <p>
               Please read this Privacy Policy carefully. If you do not agree with the terms of this Privacy Policy, please do not access the site.
@@ -111,7 +110,7 @@ const PrivacyPolicy = () => {
             
             <h3>Website Analytics</h3>
             <p>
-              We may also partner with selected third-party vendors, such as Google Analytics, to allow tracking technologies and remarketing services on the site through the use of first party cookies and third-party cookies, to, among other things, analyze and track users' use of the site, determine the popularity of certain content, and better understand online activity.
+              We may also partner with selected third-party vendors, such as Google Analytics, to allow tracking technologies and remarketing services on the site through the use of first party cookies and third-party cookies, to, among other things, analyze and track users&apos; use of the site, determine the popularity of certain content, and better understand online activity.
             </p>
           </section>
 

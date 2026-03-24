@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 
 import { API_ENDPOINTS, apiRequest } from './config/api'
@@ -21,7 +21,6 @@ import AdminDashboard from './admin/AdminDashboard'
 import PostManager from './admin/PostManager'
 import PostEditor from './admin/PostEditor'
 import UserManager from './admin/UserManager'
-import UserList from "./admin/UserList";
 import UserEditor from "./admin/UserEditor";
 import AdminNavbar from './admin/AdminNavbar';
 

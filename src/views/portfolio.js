@@ -1,11 +1,9 @@
-import React from 'react'
-
 import SEO from '../components/seo'
 import PageFloatingRobot from '../components/PageFloatingRobot'
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
 
-const Portfolio = (props) => {
+const Portfolio = () => {
   const portfolioStructuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -50,7 +48,7 @@ const Portfolio = (props) => {
         <div className="card-grid">
           <div className="section-card" id="ki-v">
             <h2>KI@V – Institutional AI for the Swiss Armed Forces</h2>
-            <h3>Goal: Enable responsible AI experimentation inside one of Switzerland's most sensitive institutional domains.</h3>
+            <h3>Goal: Enable responsible AI experimentation inside one of Switzerland&apos;s most sensitive institutional domains.</h3>
             
             <h3>My Role:</h3>
             <p>
@@ -135,7 +133,7 @@ const Portfolio = (props) => {
             </ul>
             
             <p>
-              <a href="/contact" className="link-primary">→ Let's talk AI strategy</a>
+              <a href="/contact" className="link-primary">→ Let&apos;s talk AI strategy</a>
             </p>
           </div>
 

@@ -32,17 +32,11 @@ const config = {
   }
 }
 
-// Determine current environment
-const environment = process.env.NODE_ENV || 'development'
-
 // Enhanced hostname detection logic
 const isLocalDevelopment = typeof window !== 'undefined' && 
   (window.location.hostname === 'localhost' || 
    window.location.hostname === '127.0.0.1' ||
    window.location.hostname === ADMIN_SERVER_IP)
-
-const isProduction = typeof window !== 'undefined' && 
-  !isLocalDevelopment
 
 // Determine config based on access method
 let currentConfig
