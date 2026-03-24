@@ -28,6 +28,12 @@
   position: relative;
 }
 
+.navbar-navbar-interactive > a {
+  display: flex;
+  align-items: center;
+  line-height: 0;
+}
+
 .navbar-image1 {
   display: block;
   height: 3rem;
@@ -59,6 +65,7 @@
   padding: 0.5rem 1rem;
   border-radius: var(--dl-layout-radius-radius8);
   transition: all 0.3s ease;
+  margin-bottom: 0;
 }
 
 .navbar-links1 .thq-link:hover {
@@ -257,6 +264,7 @@
   padding: 0.5rem 1rem;
   border-radius: var(--dl-layout-radius-radius8);
   transition: all 0.3s ease;
+  margin-bottom: 0;
 }
 
 .navbar-dropdown-trigger:hover {
