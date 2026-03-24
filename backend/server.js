@@ -19,28 +19,55 @@
 
 require("dotenv").config();
 
+if (!process.env.SESSION_SECRET) {
+  console.error('FATAL: SESSION_SECRET environment variable is not set.');
+  process.exit(1);
+}
+
 const SERVER_VERSION = "2.0.0";
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const bcrypt = require('bcrypt');
 const session = require('express-session');
+const rateLimit = require('express-rate-limit');
 const path = require('path');
 const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 5001;
+const isProduction = process.env.NODE_ENV === 'production';
+
+// Rate limiters
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 10,
+  message: { error: 'Too many login attempts. Please try again in 15 minutes.' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+const adminLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  message: { error: 'Too many requests. Please try again later.' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:5000',
+  ...(process.env.ADMIN_SERVER_IP
+    ? [`http://${process.env.ADMIN_SERVER_IP}:5000`]
+    : []),
+  'https://andrew.cloudhopper.ch',
+];
 app.use(cors({
-  origin: [
-    'http://localhost:3000', 
-    'http://localhost:5000', 
-    'http://192.168.178.44:5000',
-    `http://${process.env.ADMIN_SERVER_IP || 'localhost'}:5000`, 
-    'https://andrew.cloudhopper.ch'
-  ],
+  origin: allowedOrigins,
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept']
@@ -48,12 +75,13 @@ app.use(cors({
 
 // Session configuration
 app.use(session({
-  secret: process.env.SESSION_SECRET || 'fallback-dev-secret-not-for-production',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: { 
-    secure: false,
+  cookie: {
+    secure: isProduction,
     httpOnly: true,
+    sameSite: 'strict',
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
   }
 }));
@@ -124,7 +152,7 @@ const requireBlogger = (req, res, next) => {
 };
 
 // Authentication endpoints
-app.post('/api/admin/login', (req, res) => {
+app.post('/api/admin/login', loginLimiter, (req, res) => {
   const { username, password } = req.body;
   
   db.get('SELECT * FROM admin_users WHERE username = ?', [username], (err, user) => {
@@ -162,7 +190,7 @@ app.get('/api/admin/check-auth', (req, res) => {
 });
 
 // User management endpoints
-app.get('/api/admin/users', requireAdmin, (req, res) => {
+app.get('/api/admin/users', adminLimiter, requireAdmin, (req, res) => {
   db.all('SELECT id, username, email, role, created_at, updated_at FROM admin_users ORDER BY created_at DESC', (err, users) => {
     if (err) {
       return res.status(500).json({ error: 'Database error' });
@@ -184,13 +212,22 @@ app.get('/api/admin/users/:id', requireAdmin, (req, res) => {
   });
 });
 
-app.post('/api/admin/users', requireAdmin, (req, res) => {
+app.post('/api/admin/users', adminLimiter, requireAdmin, (req, res) => {
   const { username, email, password, role } = req.body;
-  
+
   if (!username || !password || !role) {
     return res.status(400).json({ error: 'Username, password, and role are required' });
   }
-  
+  if (typeof username !== 'string' || username.length < 3 || username.length > 32 || !/^[a-zA-Z0-9_-]+$/.test(username)) {
+    return res.status(400).json({ error: 'Username must be 3–32 alphanumeric characters' });
+  }
+  if (password.length < 8) {
+    return res.status(400).json({ error: 'Password must be at least 8 characters' });
+  }
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return res.status(400).json({ error: 'Invalid email address' });
+  }
+
   const validRoles = ['admin', 'blogger', 'reader'];
   if (!validRoles.includes(role)) {
     return res.status(400).json({ error: 'Invalid role' });
@@ -212,7 +249,7 @@ app.post('/api/admin/users', requireAdmin, (req, res) => {
   );
 });
 
-app.put('/api/admin/users/:id', requireAdmin, (req, res) => {
+app.put('/api/admin/users/:id', adminLimiter, requireAdmin, (req, res) => {
   const { id } = req.params;
   const { username, email, role } = req.body;
   
@@ -242,7 +279,7 @@ app.put('/api/admin/users/:id', requireAdmin, (req, res) => {
   );
 });
 
-app.delete('/api/admin/users/:id', requireAdmin, (req, res) => {
+app.delete('/api/admin/users/:id', adminLimiter, requireAdmin, (req, res) => {
   const { id } = req.params;
   
   db.get('SELECT COUNT(*) as count FROM admin_users WHERE role = "admin"', (err, result) => {
@@ -369,7 +406,7 @@ app.delete('/api/admin/posts/:id', requireBlogger, (req, res) => {
 });
 
 // Change password endpoint
-app.post('/api/admin/change-password', requireAuth, (req, res) => {
+app.post('/api/admin/change-password', loginLimiter, requireAuth, (req, res) => {
   const { currentPassword, newPassword } = req.body;
   const userId = req.session.userId;
   
