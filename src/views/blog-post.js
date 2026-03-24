@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 
@@ -82,7 +82,7 @@ const BlogPost = () => {
               <Link to="/blog" className="blog-back-link">← Back to Blog</Link>
               <h1 className="blog-post-title">Post Not Found</h1>
               <p className="blog-post-subtitle">
-                The blog post you're looking for doesn't exist or has been removed.
+                The blog post you&apos;re looking for doesn&apos;t exist or has been removed.
               </p>
             </div>
             

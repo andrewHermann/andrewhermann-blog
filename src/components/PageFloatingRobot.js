@@ -1,4 +1,3 @@
-import React from 'react';
 import ThreeSceneCustom from './ThreeSceneCustom';
 import OpenSourceBadge from './OpenSourceBadge';
 import './PageFloatingRobot.css';

@@ -22,13 +22,13 @@ const LoadingPlaceholder = ({ bodyColor = "blue" }) => {
 };
 
 // CustomRobotCore component that loads the GLB model with built-in animations
-const CustomRobotCore = ({ bodyColor = "#4a90e2", glowColor = "#ffffff" }) => {
+const CustomRobotCore = ({ bodyColor = "#4a90e2" }) => {
   const group = useRef();
   const { scene, animations } = useGLTF('/ai-3d-robot.glb');
   const { actions, mixer } = useAnimations(animations, group);
   
   // State for interactive controls
-  const [currentAnimation, setCurrentAnimation] = useState('Idle');
+  const [, setCurrentAnimation] = useState('Idle');
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [rotation, setRotation] = useState({ x: 0, y: Math.PI }); // Face forward
@@ -396,17 +396,10 @@ const CustomRobotCore = ({ bodyColor = "#4a90e2", glowColor = "#ffffff" }) => {
   );
 };
 
-const SafeCustomRobotCore = ({ bodyColor, glowColor }) => {
-  return (
-    <Suspense fallback={<LoadingPlaceholder />}>
-      <CustomRobotCore />
-    </Suspense>
-  );
-};
 
 // Main component with error boundary
 const CustomRobot = ({ bodyColor, glowColor }) => {
-  const [hasError, setHasError] = useState(false);
+  const [hasError] = useState(false);
 
   if (hasError) {
     return <LoadingPlaceholder bodyColor={bodyColor} />;

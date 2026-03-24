@@ -1,4 +1,3 @@
-import React from 'react'
 import SEO from '../components/seo'
 import { Link } from 'react-router-dom'
 import Navbar from '../components/navbar'
@@ -31,7 +30,7 @@ const CookiesPolicy = () => {
           <section className="section-card">
             <h2>1. Introduction</h2>
             <p>
-              This Cookies Policy explains how Andrew J. Hermann ("we," "our," or "us") uses cookies and similar technologies to recognize you when you visit our website andrew.cloudhopper.ch. It explains what these technologies are and why we use them, as well as your rights to control their use.
+              This Cookies Policy explains how Andrew J. Hermann (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) uses cookies and similar technologies to recognize you when you visit our website andrew.cloudhopper.ch. It explains what these technologies are and why we use them, as well as your rights to control their use.
             </p>
             <p>
               In some cases we may use cookies to collect personal information, or that becomes personal information if we combine it with other information.
@@ -44,14 +43,14 @@ const CookiesPolicy = () => {
               Cookies are small data files that are placed on your computer or mobile device when you visit a website. Cookies are widely used by website owners in order to make their websites work, or to work more efficiently, as well as to provide reporting information.
             </p>
             <p>
-              Cookies set by the website owner (in this case, Andrew J. Hermann) are called "first party cookies". Cookies set by parties other than the website owner are called "third party cookies". Third party cookies enable third party features or functionality to be provided on or through the website (e.g. like advertising, interactive content and analytics). The parties that set these third party cookies can recognize your computer both when it visits the website in question and also when it visits certain other websites.
+              Cookies set by the website owner (in this case, Andrew J. Hermann) are called &quot;first party cookies&quot;. Cookies set by parties other than the website owner are called &quot;third party cookies&quot;. Third party cookies enable third party features or functionality to be provided on or through the website (e.g. like advertising, interactive content and analytics). The parties that set these third party cookies can recognize your computer both when it visits the website in question and also when it visits certain other websites.
             </p>
           </section>
 
           <section className="section-card">
             <h2>3. Why We Use Cookies</h2>
             <p>
-              We use first and third-party cookies for several reasons. Some cookies are required for technical reasons in order for our Website to operate, and we refer to these as "essential" or "strictly necessary" cookies. Other cookies also enable us to track and target the interests of our users to enhance the experience on our Website. Third parties serve cookies through our Website for advertising, analytics and other purposes.
+              We use first and third-party cookies for several reasons. Some cookies are required for technical reasons in order for our Website to operate, and we refer to these as &quot;essential&quot; or &quot;strictly necessary&quot; cookies. Other cookies also enable us to track and target the interests of our users to enhance the experience on our Website. Third parties serve cookies through our Website for advertising, analytics and other purposes.
             </p>
             
             <h3>Essential Cookies</h3>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import './cookie-consent.css'
 
@@ -66,7 +66,7 @@ const CookieConsent = () => {
           <div className="cookie-consent-body">
             <p>
               We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. 
-              By clicking "Accept All", you consent to our use of cookies.
+              By clicking &quot;Accept All&quot;, you consent to our use of cookies.
             </p>
             
             {showDetails && (

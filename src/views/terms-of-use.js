@@ -1,4 +1,3 @@
-import React from 'react'
 import SEO from '../components/seo'
 import { Link } from 'react-router-dom'
 import Navbar from '../components/navbar'
@@ -38,7 +37,7 @@ const TermsOfUse = () => {
           <section className="section-card">
             <h2>2. Use License</h2>
             <p>
-              Permission is granted to temporarily download one copy of the materials on Andrew J. Hermann's website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
+              Permission is granted to temporarily download one copy of the materials on Andrew J. Hermann&apos;s website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
             </p>
             <ul>
               <li>modify or copy the materials</li>
@@ -61,7 +60,7 @@ const TermsOfUse = () => {
           <section className="section-card">
             <h2>4. Disclaimer</h2>
             <p>
-              The materials on Andrew J. Hermann's website are provided on an 'as is' basis. Andrew J. Hermann makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
+              The materials on Andrew J. Hermann&apos;s website are provided on an &apos;as is&apos; basis. Andrew J. Hermann makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
             </p>
             <p>
               Further, Andrew J. Hermann does not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on its website or otherwise relating to such materials or on any sites linked to this site.
@@ -71,7 +70,7 @@ const TermsOfUse = () => {
           <section className="section-card">
             <h2>5. Limitations</h2>
             <p>
-              In no event shall Andrew J. Hermann or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Andrew J. Hermann's website, even if Andrew J. Hermann or an authorized representative has been notified orally or in writing of the possibility of such damage. Because some jurisdictions do not allow limitations on implied warranties, or limitations of liability for consequential or incidental damages, these limitations may not apply to you.
+              In no event shall Andrew J. Hermann or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Andrew J. Hermann&apos;s website, even if Andrew J. Hermann or an authorized representative has been notified orally or in writing of the possibility of such damage. Because some jurisdictions do not allow limitations on implied warranties, or limitations of liability for consequential or incidental damages, these limitations may not apply to you.
             </p>
           </section>
 

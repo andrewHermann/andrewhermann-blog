@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
@@ -101,7 +101,7 @@ const Blog = () => {
           ) : posts.length === 0 ? (
             <div className="section-card">
               <h2>Articles Coming Soon</h2>
-              <p>I'm preparing thoughtful content about strategic leadership, AI innovation, and organizational transformation. Stay tuned for expert insights and practical guidance on modern business challenges.</p>
+              <p>I&apos;m preparing thoughtful content about strategic leadership, AI innovation, and organizational transformation. Stay tuned for expert insights and practical guidance on modern business challenges.</p>
             </div>
           ) : (
             <div className="card-grid-compact">

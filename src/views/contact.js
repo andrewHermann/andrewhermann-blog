@@ -1,4 +1,3 @@
-import React from 'react'
 import SEO from '../components/seo'
 import PageFloatingRobot from '../components/PageFloatingRobot'
 
@@ -6,7 +5,7 @@ import Navbar from '../components/navbar'
 import Contact from '../components/contact'
 import Footer from '../components/footer'
 
-const ContactPage = (props) => {
+const ContactPage = () => {
   const contactStructuredData = {
     "@context": "https://schema.org",
     "@type": "ContactPage",

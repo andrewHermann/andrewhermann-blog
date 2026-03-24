@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 
 import SEO from '../components/seo'
@@ -7,7 +6,7 @@ import Footer from '../components/footer'
 import PageFloatingRobot from '../components/PageFloatingRobot'
 import './not-found.css'
 
-const NotFound = (props) => {
+const NotFound = () => {
   return (
     <div className="page-container">
       <SEO
@@ -27,7 +26,7 @@ const NotFound = (props) => {
             <div className="error-code">404</div>
             <h1 className="page-title">Page Not Found</h1>
             <p className="page-subtitle">
-              Sorry, the page you're looking for doesn't exist or has been moved.
+              Sorry, the page you&apos;re looking for doesn&apos;t exist or has been moved.
             </p>
             
             <div className="error-actions">

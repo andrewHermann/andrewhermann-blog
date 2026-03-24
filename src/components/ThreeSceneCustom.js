@@ -49,7 +49,7 @@ const InteractiveCameraController = () => {
 };
 
 const ThreeSceneCustom = ({ bodyColor = '#4a90e2', glowColor = '#ffffff' }) => {
-  const [useRobot, setUseRobot] = useState(true);
+  const [useRobot] = useState(true);
   
   return (
     <Canvas
