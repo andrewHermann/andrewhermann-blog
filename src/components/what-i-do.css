@@ -4,14 +4,13 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   padding: var(--space-2xl, 2rem) 0;
 }
 
 .what-i-do-header {
-  text-align: center;
+  text-align: left;
   margin-bottom: var(--space-2xl, 2rem);
-  max-width: 600px;
 }
 
 .what-i-do-header h2 {
@@ -40,19 +39,17 @@
 .what-i-do-card {
   background-color: var(--color-accent-2, #eff6ff);
   border-radius: var(--border-radius-md, 8px);
-  box-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06));
   border: 1px solid var(--color-accent-1, #dbeafe);
   padding: var(--space-lg, 1.5rem);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  transition: transform var(--transition-base, 0.3s ease), box-shadow var(--transition-base, 0.3s ease);
+  align-items: flex-start;
+  text-align: left;
+  transition: border-color var(--transition-base, 0.3s ease);
 }
 
 .what-i-do-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05));
+  border-color: var(--color-primary);
 }
 
 .what-i-do-icon {
@@ -69,8 +66,7 @@
 }
 
 .what-i-do-card:hover .what-i-do-icon {
-  transform: scale(1.1);
-  color: var(--color-secondary, #1d4ed8);
+  color: var(--color-secondary);
 }
 
 .what-i-do-card h3 {
@@ -79,10 +75,6 @@
   font-weight: 600;
   margin-bottom: var(--space-sm, 0.5rem);
   transition: color var(--transition-base, 0.3s ease);
-}
-
-.what-i-do-card:hover h3 {
-  color: var(--color-secondary, #1d4ed8);
 }
 
 .what-i-do-card p {
@@ -138,11 +130,7 @@
   .what-i-do-card h3 {
     transition: none;
   }
-  
-  .what-i-do-card:hover {
-    transform: none;
-  }
-  
+
   .what-i-do-card:hover .what-i-do-icon {
     transform: none;
   }

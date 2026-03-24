@@ -117,13 +117,13 @@ const BehindTheSite = () => {
         
         {/* Intro Statement - Full Width */}
         <div style={{width: '100%', marginBottom: '2rem'}}>
-          <div className="section-card" style={{textAlign: 'center', padding: '3rem', background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(52, 211, 153, 0.02))'}}>
+          <div className="section-card" style={{textAlign: 'center', padding: '3rem', background: 'var(--color-accent-2)'}}>
             <p style={{fontSize: '1.25rem', lineHeight: '1.6', marginBottom: '1.5rem', maxWidth: '800px', margin: '0 auto 1.5rem auto'}}>
               This website is more than just a personal portfolio. It&apos;s a quiet statement about how digital systems should be built—especially in the public sector.
             </p>
             
             <p style={{fontSize: '1.125rem', maxWidth: '700px', margin: '0 auto'}}>
-              Every decision reflects my core working principles: <strong style={{color: '#10b981'}}>build small</strong>, <strong style={{color: '#10b981'}}>build openly</strong>, and <strong style={{color: '#10b981'}}>make it reusable</strong>.
+              Every decision reflects my core working principles: <strong style={{color: 'var(--color-secondary)'}}>build small</strong>, <strong style={{color: 'var(--color-secondary)'}}>build openly</strong>, and <strong style={{color: 'var(--color-secondary)'}}>make it reusable</strong>.
             </p>
           </div>
         </div>
@@ -145,7 +145,7 @@ const BehindTheSite = () => {
                   borderBottom: index < philosophyPoints.length - 1 ? '1px solid rgba(74, 78, 105, 0.1)' : 'none'
                 }}>
                   <div style={{
-                    backgroundColor: '#10b981',
+                    backgroundColor: 'var(--color-primary)',
                     color: 'white',
                     borderRadius: '50%',
                     width: '24px',
@@ -166,7 +166,7 @@ const BehindTheSite = () => {
               ))}
             </div>
             
-            <p style={{marginTop: '2rem', fontStyle: 'italic', textAlign: 'center', fontSize: '1.125rem', color: '#4A4E69'}}>
+            <p style={{marginTop: '2rem', fontStyle: 'italic', textAlign: 'center', fontSize: '1.125rem', color: 'var(--color-text-secondary)'}}>
               Just clean, versioned, open code—because <strong>transparency is infrastructure.</strong>
             </p>
           </div>
@@ -184,9 +184,9 @@ const BehindTheSite = () => {
                   display: 'flex',
                   alignItems: 'flex-start',
                   padding: '1rem',
-                  backgroundColor: '#f8fafc',
-                  borderRadius: '8px',
-                  border: '1px solid #e2e8f0'
+                  backgroundColor: 'var(--color-accent-2)',
+                  borderRadius: '2px',
+                  border: '1px solid var(--color-accent-1)'
                 }}>
                   <div style={{
                     fontSize: '1.5rem',
@@ -196,7 +196,7 @@ const BehindTheSite = () => {
                     {point.icon}
                   </div>
                   <div>
-                    <h4 style={{margin: '0 0 0.5rem 0', color: '#4A4E69'}}>{point.title}</h4>
+                    <h4 style={{margin: '0 0 0.5rem 0', color: 'var(--color-text-secondary)'}}>{point.title}</h4>
                     <p style={{margin: 0, fontSize: '0.95rem', lineHeight: '1.5'}}>{point.description}</p>
                   </div>
                 </div>
@@ -206,9 +206,9 @@ const BehindTheSite = () => {
             <div style={{
               textAlign: 'center',
               padding: '1.5rem',
-              backgroundColor: '#fef3c7',
-              borderRadius: '8px',
-              border: '1px solid #fbbf24'
+              backgroundColor: 'var(--color-accent-2)',
+              borderRadius: '2px',
+              border: '1px solid var(--color-accent-1)'
             }}>
               <p style={{fontSize: '1.125rem', fontWeight: '600', margin: 0}}>
                 <strong>But the most unusual part?</strong><br />
@@ -221,8 +221,8 @@ const BehindTheSite = () => {
         {/* The IBM Workstation - Full Width Highlight */}
         <div style={{width: '100%', margin: '3rem 0'}}>
           <div className="section-card" style={{
-            background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(52, 211, 153, 0.05))',
-            borderLeft: '4px solid #10b981',
+            background: 'var(--color-accent-2)',
+            borderLeft: '3px solid var(--color-primary)',
             padding: '3rem'
           }}>
             <div style={{display: 'grid', gridTemplateColumns: '1fr auto', gap: '2rem', alignItems: 'start'}}>
@@ -235,22 +235,22 @@ const BehindTheSite = () => {
                   gap: '1rem',
                   marginBottom: '2rem'
                 }}>
-                  <div style={{padding: '1rem', backgroundColor: 'rgba(255, 255, 255, 0.7)', borderRadius: '8px'}}>
-                    <div style={{fontSize: '0.875rem', color: '#6B7280', marginBottom: '0.25rem'}}>Hardware</div>
+                  <div style={{padding: '1rem', backgroundColor: 'rgba(255, 255, 255, 0.7)', borderRadius: '2px'}}>
+                    <div style={{fontSize: '0.875rem', color: 'var(--color-text-secondary)', marginBottom: '0.25rem'}}>Hardware</div>
                     <div style={{fontWeight: '600'}}>2005 IBM IntelliStation Z Pro</div>
                   </div>
-                  <div style={{padding: '1rem', backgroundColor: 'rgba(255, 255, 255, 0.7)', borderRadius: '8px'}}>
-                    <div style={{fontSize: '0.875rem', color: '#6B7280', marginBottom: '0.25rem'}}>Processor</div>
+                  <div style={{padding: '1rem', backgroundColor: 'rgba(255, 255, 255, 0.7)', borderRadius: '2px'}}>
+                    <div style={{fontSize: '0.875rem', color: 'var(--color-text-secondary)', marginBottom: '0.25rem'}}>Processor</div>
                     <div style={{fontWeight: '600'}}>Intel Core 2 Quad @ 2.66GHz</div>
                   </div>
-                  <div style={{padding: '1rem', backgroundColor: 'rgba(255, 255, 255, 0.7)', borderRadius: '8px'}}>
-                    <div style={{fontSize: '0.875rem', color: '#6B7280', marginBottom: '0.25rem'}}>Age</div>
+                  <div style={{padding: '1rem', backgroundColor: 'rgba(255, 255, 255, 0.7)', borderRadius: '2px'}}>
+                    <div style={{fontSize: '0.875rem', color: 'var(--color-text-secondary)', marginBottom: '0.25rem'}}>Age</div>
                     <div style={{fontWeight: '600'}}>Older than the iPhone</div>
                   </div>
                 </div>
                 
                 <div style={{marginBottom: '2rem'}}>
-                  <h3 style={{fontSize: '1.25rem', fontWeight: '600', marginBottom: '1rem', color: '#10b981'}}>Why?</h3>
+                  <h3 style={{fontSize: '1.25rem', fontWeight: '600', marginBottom: '1rem', color: 'var(--color-secondary)'}}>Why?</h3>
                   <div style={{display: 'grid', gap: '0.5rem'}}>
                     <p style={{margin: 0}}>Because it works.</p>
                     <p style={{margin: 0}}>Because it&apos;s elegant in its simplicity.</p>
@@ -263,14 +263,6 @@ const BehindTheSite = () => {
                 </p>
               </div>
               
-              <div style={{
-                fontSize: '4rem',
-                color: '#10b981',
-                opacity: 0.7,
-                textAlign: 'center'
-              }}>
-                🖥️
-              </div>
             </div>
           </div>
         </div>
@@ -293,9 +285,9 @@ const BehindTheSite = () => {
               {designPrinciples.map((item, index) => (
                 <div key={index} style={{
                   padding: '2rem',
-                  backgroundColor: '#f8fafc',
-                  borderRadius: '12px',
-                  border: '1px solid #e2e8f0',
+                  backgroundColor: 'var(--color-accent-2)',
+                  borderRadius: '2px',
+                  border: '1px solid var(--color-accent-1)',
                   textAlign: 'center',
                   transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
                   cursor: 'default'
@@ -326,7 +318,7 @@ const BehindTheSite = () => {
                     margin: 0,
                     fontSize: '0.95rem',
                     lineHeight: '1.6',
-                    color: '#4B5563'
+                    color: 'var(--color-text-secondary)'
                   }}>
                     {item.application}
                   </p>
@@ -342,18 +334,18 @@ const BehindTheSite = () => {
             <h2>Lessons From the Build</h2>
             
             <div style={{display: 'grid', gap: '1.5rem', margin: '2rem 0'}}>
-              <div style={{padding: '1.5rem', backgroundColor: '#fef2f2', borderRadius: '8px', borderLeft: '4px solid #ef4444'}}>
-                <h3 style={{margin: '0 0 0.75rem 0', color: '#dc2626', fontSize: '1.125rem'}}>The Reality</h3>
+              <div style={{padding: '1.5rem', backgroundColor: 'var(--color-accent-2)', borderRadius: '2px', borderLeft: '3px solid var(--color-primary)'}}>
+                <h3 style={{margin: '0 0 0.75rem 0', color: 'var(--color-primary)', fontSize: '1.125rem'}}>The Reality</h3>
                 <p style={{margin: 0}}>Like any real system, this one didn&apos;t start perfectly. The first version was messy—fragmented stylesheets, inconsistent page logic, and duplicated patterns.</p>
               </div>
               
-              <div style={{padding: '1.5rem', backgroundColor: '#f0f9ff', borderRadius: '8px', borderLeft: '4px solid #0284c7'}}>
-                <h3 style={{margin: '0 0 0.75rem 0', color: '#0284c7', fontSize: '1.125rem'}}>The Process</h3>
+              <div style={{padding: '1.5rem', backgroundColor: 'var(--color-accent-2)', borderRadius: '2px', borderLeft: '3px solid var(--color-secondary)'}}>
+                <h3 style={{margin: '0 0 0.75rem 0', color: 'var(--color-secondary)', fontSize: '1.125rem'}}>The Process</h3>
                 <p style={{margin: 0}}>Cleaning it up meant applying the same rigor I use in enterprise architecture: <strong>refactor, simplify, consolidate.</strong></p>
               </div>
               
-              <div style={{padding: '1.5rem', backgroundColor: '#f0fdf4', borderRadius: '8px', borderLeft: '4px solid #10b981'}}>
-                <h3 style={{margin: '0 0 0.75rem 0', color: '#10b981', fontSize: '1.125rem'}}>The Principle</h3>
+              <div style={{padding: '1.5rem', backgroundColor: 'var(--color-accent-2)', borderRadius: '2px', borderLeft: '3px solid var(--color-primary)'}}>
+                <h3 style={{margin: '0 0 0.75rem 0', color: 'var(--color-secondary)', fontSize: '1.125rem'}}>The Principle</h3>
                 <p style={{margin: 0, fontStyle: 'italic', fontSize: '1.125rem'}}>Don&apos;t fall for complexity when clarity will do.</p>
               </div>
             </div>
@@ -365,17 +357,17 @@ const BehindTheSite = () => {
             
             <div style={{
               padding: '2rem',
-              backgroundColor: '#f8fafc',
-              borderRadius: '12px',
+              backgroundColor: 'var(--color-accent-2)',
+              borderRadius: '2px',
               textAlign: 'center',
               margin: '2rem 0'
             }}>
               <div style={{
                 display: 'inline-block',
                 padding: '0.5rem 1rem',
-                backgroundColor: '#10b981',
+                backgroundColor: 'var(--color-primary)',
                 color: 'white',
-                borderRadius: '20px',
+                borderRadius: '2px',
                 fontSize: '0.875rem',
                 fontWeight: '600',
                 marginBottom: '1rem'
@@ -418,12 +410,12 @@ const BehindTheSite = () => {
               paddingTop: '2rem',
               borderTop: '1px solid rgba(74, 78, 105, 0.1)'
             }}>
-              <h3 style={{marginBottom: '1.5rem', color: '#4A4E69'}}>Final Note</h3>
+              <h3 style={{marginBottom: '1.5rem', color: 'var(--color-text-secondary)'}}>Final Note</h3>
               <div style={{
                 display: 'grid',
                 gap: '0.75rem',
                 fontStyle: 'italic',
-                color: '#6B7280',
+                color: 'var(--color-text-secondary)',
                 fontSize: '1.125rem',
                 lineHeight: '1.6',
                 maxWidth: '500px',
