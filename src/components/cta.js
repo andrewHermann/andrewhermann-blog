@@ -40,8 +40,8 @@ const CTA = (props) => {
   return (
     <section className="cta">
       <div className="case-snapshots-header">
-        <h2>Case Snapshots – "What have you actually done?"</h2>
-        <p>This is your proof of execution. Avoid long prose. Keep it punchy, like smart index cards.</p>
+        <h2>Selected Work</h2>
+        <p>High-stakes transformation projects at the intersection of AI, data strategy, and institutional reform.</p>
       </div>
       
       <div className="case-cards">
