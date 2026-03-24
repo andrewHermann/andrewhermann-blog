@@ -84,74 +84,58 @@ const Portfolio = () => {
           </div>
 
           <div className="section-card" id="cockpit">
-            <h2>COCKPIT – Project Portfolio Dashboard for ASTAB</h2>
-            <h3>Goal: Bring clarity and control to 40+ strategic initiatives within the Swiss Army digital transformation program.</h3>
-            
+            <h2>COCKPIT – Project Portfolio Intelligence for ASTAB</h2>
+            <h3>Goal: Replace a fragmented, manually compiled reporting system with automated portfolio intelligence — across forcefully siloed departments that had never shared data.</h3>
+
             <h3>My Role:</h3>
             <p>
-              I designed and implemented a Power BI–driven reporting cockpit. Led data governance alignment 
-              across four departments, restructured source data logic, and defined KPIs for data quality and performance.
+              I led the full delivery within the Digital Factory Verteidigung (Value Stream Militärverwaltung),
+              executed across 5 Program Increments within a 200 kCHF budget for the first epic.
+              Automated the import of siloed system exports from across departments, built a custom application
+              to replace the manual Excel-based data entry that PMO relied on, and delivered 11 Power BI dashboards
+              providing historical visibility into the full project portfolio for the first time.
             </p>
-            
+
             <h3>Impact:</h3>
             <ul>
-              <li>Tripled the update rate of reporting</li>
-              <li>Unified fragmented portfolio data into a single source of truth</li>
-              <li>Provided leadership with real-time insights for strategic steering</li>
+              <li>Eliminated the manual PMO reporting cycle — previously compiled from system exports and department-level Excel sheets</li>
+              <li>Unified data from siloed departments into a single, automated pipeline</li>
+              <li>11 dashboards gave leadership historical portfolio data that had never existed in one place</li>
+              <li>Delivered on scope, on budget (200 kCHF), within 5 PIs</li>
             </ul>
-            
+
             <p>
-              <a href="/contact" className="link-primary">→ View dashboard overview</a>
+              <a href="/contact" className="link-primary">→ Contact me to learn more</a>
             </p>
           </div>
 
           <div className="section-card" id="ttr">
-            <h2>TTR Rail Planning – European Coordination (SBB / RNE)</h2>
-            <h3>Goal: Align 150+ European stakeholders on a unified model for international rail capacity planning.</h3>
-            
+            <h2>TTR Rail Planning – European Coordination (SBB / FTE / RNE)</h2>
+            <h3>Goal: Give Europe's train operators a direct role in shaping the digital planning systems that govern them — breaking a structural deadlock between two bodies that had never formally cooperated.</h3>
+
             <h3>My Role:</h3>
             <p>
-              As SBB delegate, I co-led digital transformation coordination with RailNetEurope. 
-              Defined planning logic for cross-border digital timetabling and brokered a historic funding 
-              agreement between FTE (Bern) and RNE (Vienna).
+              As SBB delegate, I led the FTE side of negotiations with RailNetEurope (RNE) across 150+
+              stakeholders representing 28 national rail operators. Defined the technical scope for
+              Railway Undertaking interface development within RNE&apos;s Path Coordination System (PCS),
+              structured the EU Horizon funding application, and brokered the agreement between
+              Forum Train Europe (Bern) and RailNetEurope (Vienna).
             </p>
-            
+
             <h3>Impact:</h3>
             <ul>
-              <li>Reached consensus on future planning architecture</li>
-              <li>Structured cooperation between 28 national rail operators</li>
-              <li>Enabled implementation of pre-planning logic (Rolling Planning) at scale</li>
+              <li>First-ever formal agreement between Forum Train Europe (FTE) and RailNetEurope (RNE) — two bodies that had been structurally opposed by design</li>
+              <li>Railway Undertakings gained the right to develop their own interfaces in RNE&apos;s Path Coordination System — changing the governance model for European rail capacity planning</li>
+              <li>Secured a €2M EU Horizon grant (FTE share: €500K) — the first EU grant ever awarded to FTE — to fund that development</li>
+              <li>Enabled Rolling Planning to be extended and adapted by the operators who depend on it</li>
             </ul>
-            
+
             <p>
-              <a href="/contact" className="link-primary">→ Read project summary</a>
+              <a href="/contact" className="link-primary">→ Contact me to learn more</a>
             </p>
           </div>
 
-          <div className="section-card" id="ai-policy">
-            <h2>AI Policy Briefing – Swiss Public Sector</h2>
-            <h3>Goal: Prepare senior decision-makers for realistic, domain-specific AI adoption.</h3>
-            
-            <h3>My Role:</h3>
-            <p>
-              Authored and presented policy briefings on the state of large language models, with a focus on 
-              strategic risks and operational constraints in sensitive domains. Advised on internal capability 
-              building and procurement logic.
-            </p>
-            
-            <h3>Impact:</h3>
-            <ul>
-              <li>Supported AI policy alignment in key federal domains</li>
-              <li>Helped shape the discussion around national LLM infrastructure</li>
-              <li>Highlighted risks of vendor lock-in and model opacity</li>
-            </ul>
-            
-            <p>
-              <a href="/contact" className="link-primary">→ Let&apos;s talk AI strategy</a>
-            </p>
-          </div>
-
-          <div className="section-card">
+<div className="section-card">
             <h2>Work With Me</h2>
             <p>
               I work best in environments where the stakes are high, the context is messy, 
