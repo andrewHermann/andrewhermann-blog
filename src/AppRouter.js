@@ -82,8 +82,9 @@ const AppRouter = () => {
         <Route path="/not-found" element={<NotFound1 />} />
 
         {/* Admin Routes */}
-        <Route 
-          path="/admin/login" 
+        <Route path="/admin" element={<Navigate to="/admin/login" />} />
+        <Route
+          path="/admin/login"
           element={<AdminLogin onLogin={handleLogin} />}
         />
         
