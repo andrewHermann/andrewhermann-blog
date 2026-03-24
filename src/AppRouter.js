@@ -23,6 +23,7 @@ import PostEditor from './admin/PostEditor'
 import UserManager from './admin/UserManager'
 import UserList from "./admin/UserList";
 import UserEditor from "./admin/UserEditor";
+import AdminNavbar from './admin/AdminNavbar';
 
 const AppRouter = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -112,6 +113,9 @@ const AppRouter = () => {
         <Route path="*" element={<Navigate to="/not-found" replace />} />
       </Routes>
       
+      {/* Admin Navbar - appears on all /admin/* routes */}
+      <AdminNavbar />
+
       {/* Cookie Consent Banner - appears on all pages */}
       <CookieConsent />
     </Router>
