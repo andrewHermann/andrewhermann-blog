@@ -8,7 +8,7 @@
 }
 
 .case-snapshots-header {
-  text-align: center;
+  text-align: left;
   margin-bottom: 3rem;
 }
 
@@ -24,7 +24,6 @@
   font-size: var(--font-size-lg);
   color: var(--color-text-secondary);
   max-width: 600px;
-  margin: 0 auto;
   line-height: 1.6;
 }
 
@@ -40,17 +39,14 @@
   background: var(--color-accent-2);
   border-radius: var(--border-radius-lg);
   padding: var(--space-xl);
-  box-shadow: var(--shadow-md);
   border: 1px solid var(--color-accent-1);
-  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  transition: border-color var(--transition-base);
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
 .case-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-xl);
   border-color: var(--color-primary);
 }
 
@@ -132,7 +128,7 @@
   background: var(--color-accent-2);
   color: var(--color-primary);
   padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
+  border-radius: 2px;
   font-size: 0.875rem;
   font-weight: 500;
 }
@@ -151,7 +147,6 @@
 
 .case-card-button:hover:not(:disabled) {
   background: var(--color-neutral-dark);
-  transform: translateY(-1px);
 }
 
 .case-card-button:disabled {

@@ -39,8 +39,6 @@ const Hero = () => {
       </div>
 
       <div className="hero-content">
-        <div className="hero-watermark">AH</div>
-
         <div className="hero-text">
           <div className="hero-identity">
             <span className="hero-name">Andrew J. Hermann</span>

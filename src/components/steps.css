@@ -1,209 +1,128 @@
+/* ==========================================================================
+   Steps — Swiss Modernism 2.0
+   ========================================================================== */
+
 .steps-container1 {
   width: 100%;
-  display: flex;
-  position: relative;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
 }
- 
+
 .steps-max-width {
-  gap: var(--dl-layout-space-fourunits);
   width: 100%;
-  display: flex;
-  align-items: flex-start;
-  flex-direction: row;
-}
- 
-.steps-container2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4xl);
   align-items: start;
 }
- 
+
 .steps-section-header {
-  gap: var(--dl-layout-space-oneandhalfunits);
-  
   display: flex;
-  
-  align-items: flex-start;
   flex-direction: column;
+  gap: var(--space-lg);
+  position: sticky;
+  top: var(--space-4xl);
 }
- 
-.steps-actions {
-  gap: var(--dl-layout-space-unit);
-  display: flex;
-  align-items: flex-start;
+
+.steps-section-header .thq-heading-2 {
+  color: var(--color-primary);
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
 }
- 
+
+.steps-section-header .thq-body-large {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-base);
+  line-height: 1.7;
+  margin: 0;
+}
+
 .steps-container3 {
-  grid-area: span 1/span 1/span 1/span 1;
-}
- 
-.steps-container4 {
-  
-  
-  transform: rotate(-2deg);
-  margin-bottom: var(--dl-layout-space-twounits);
-  background-color: var(--dl-color-theme-accent1);
-}
- 
-.steps-text14 {
-  text-align: center;
-}
- 
-.steps-text15 {
-  top: var(--dl-layout-space-unit);
-  right: var(--dl-layout-space-unit);
-  position: absolute;
-  font-size: 40px;
-  font-style: normal;
-  font-weight: 700;
-}
- 
-.steps-container5 {
-  
-  
-  transform: rotate(2deg);
-  margin-bottom: var(--dl-layout-space-twounits);
-  background-color: var(--dl-color-theme-accent2);
-}
- 
-.steps-text17 {
-  text-align: center;
-}
- 
-.steps-text18 {
-  top: var(--dl-layout-space-unit);
-  right: var(--dl-layout-space-unit);
-  position: absolute;
-  font-size: 40px;
-  font-style: normal;
-  font-weight: 700;
-}
- 
-.steps-container6 {
-  
-  
-  transform: rotate(-2deg);
-  margin-bottom: var(--dl-layout-space-twounits);
-  background-color: var(--dl-color-theme-accent1);
-}
- 
-.steps-text20 {
-  text-align: center;
-}
- 
-.steps-text21 {
-  top: var(--dl-layout-space-unit);
-  right: var(--dl-layout-space-unit);
-  position: absolute;
-  font-size: 40px;
-  font-style: normal;
-  font-weight: 700;
-}
- 
-.steps-container7 {
-  
-  
-  transform: rotate(2deg);
-  background-color: var(--dl-color-theme-accent2);
-}
- 
-.steps-text23 {
-  text-align: center;
-}
- 
-.steps-text24 {
-  top: var(--dl-layout-space-unit);
-  right: var(--dl-layout-space-unit);
-  position: absolute;
-  font-size: 40px;
-  font-style: normal;
-  font-weight: 700;
-}
- 
-@media(max-width: 991px) {
-  .steps-max-width {
-    flex-direction: column;
-  }
-}
- 
-@media(max-width: 767px) {
-  .steps-section-header {
-    position: static;
-    margin-bottom: var(--dl-layout-space-twounits);
-  }
-  .steps-actions {
-    width: 100%;
-    align-self: flex-start;
-  }
-  .steps-container4 {
-    width: 100%;
-  }
-  .steps-container5 {
-    width: 100%;
-  }
-  .steps-container6 {
-    width: 100%;
-  }
-  .steps-container7 {
-    width: 100%;
-  }
-}
- 
-@media(max-width: 479px) {
-  .steps-button {
-    width: 100%;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
 }
 
-/* Enhanced hover effects for Steps cards */
-.steps-container4:hover,
-.steps-container5:hover,
-.steps-container6:hover,
-.steps-container7:hover {
-  transform: scale(1.05) translateY(-8px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
-  z-index: 10;
-  cursor: pointer;
-}
-
-.steps-container4:hover {
-  transform: rotate(-2deg) scale(1.05) translateY(-8px);
-}
-
-.steps-container6:hover {
-  transform: rotate(-2deg) scale(1.05) translateY(-8px);
-}
-
-.steps-container5:hover {
-  transform: rotate(2deg) scale(1.05) translateY(-8px);
-}
-
-.steps-container7:hover {
-  transform: rotate(2deg) scale(1.05) translateY(-8px);
-}
-
-/* Smooth transitions for all step containers */
+/* Individual step cards */
 .steps-container4,
 .steps-container5,
 .steps-container6,
 .steps-container7 {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  background-color: var(--color-neutral-light);
+  border: 1px solid var(--color-accent-1);
+  border-left: 3px solid var(--color-primary);
+  padding: var(--space-xl);
   cursor: pointer;
+  transition: border-color var(--transition-fast);
 }
 
-/* Card content hover effects */
-.steps-container4:hover .steps-text15,
-.steps-container5:hover .steps-text18,
-.steps-container6:hover .steps-text21,
-.steps-container7:hover .steps-text24 {
-  transform: scale(1.1);
-  color: var(--dl-color-theme-primary);
+.steps-container4:hover,
+.steps-container5:hover,
+.steps-container6:hover,
+.steps-container7:hover {
+  border-color: var(--color-primary);
+  border-left-color: var(--color-secondary);
+}
+
+.steps-container4 .thq-heading-2,
+.steps-container5 .thq-heading-2,
+.steps-container6 .thq-heading-2,
+.steps-container7 .thq-heading-2 {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-primary);
+  margin: 0 0 var(--space-sm) 0;
+  padding-right: var(--space-4xl);
+}
+
+.steps-text14 {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  display: block;
+  text-align: left;
 }
 
 .steps-text15,
 .steps-text18,
 .steps-text21,
 .steps-text24 {
-  transition: all 0.3s ease;
+  position: absolute;
+  top: var(--space-lg);
+  right: var(--space-lg);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-accent-1);
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+@media (max-width: 991px) {
+  .steps-max-width {
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+
+  .steps-section-header {
+    position: static;
+  }
+}
+
+@media (max-width: 767px) {
+  .steps-container4,
+  .steps-container5,
+  .steps-container6,
+  .steps-container7 {
+    padding: var(--space-lg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .steps-container4,
+  .steps-container5,
+  .steps-container6,
+  .steps-container7 {
+    transition: none;
+  }
 }
