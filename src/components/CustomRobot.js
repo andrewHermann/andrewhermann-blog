@@ -228,21 +228,21 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
           if (!mat) return;
           switch (mat.name) {
             case 'Body':
-              // Polished chrome hull — slight blue tint catches the scene lights
-              mat.color.setHex(0xd0dae4);
-              mat.emissive.setHex(0x607080);
-              mat.emissiveIntensity = 0.15;
-              mat.roughness = 0.12;
-              mat.metalness = 0.90;
+              // Bright cobalt-blue metallic — shiny vivid blue hull
+              mat.color.setHex(0x4a9fd8);
+              mat.emissive.setHex(0x1a4a70);
+              mat.emissiveIntensity = 0.2;
+              mat.roughness = 0.08;
+              mat.metalness = 0.92;
               mat.needsUpdate = true;
               break;
             case 'ArmorOut':
-              // Light steel plates — bright near-silver over the chrome hull
-              mat.color.setHex(0xc8d6e2);
-              mat.emissive.setHex(0x6a7e90);
+              // Gunmetal steel plates — matte-ish, darker than chrome hull
+              mat.color.setHex(0x8c9aaa);
+              mat.emissive.setHex(0x3a4858);
               mat.emissiveIntensity = 0.15;
-              mat.roughness = 0.2;
-              mat.metalness = 0.80;
+              mat.roughness = 0.25;
+              mat.metalness = 0.75;
               mat.needsUpdate = true;
               break;
             case 'ArmorIn':
