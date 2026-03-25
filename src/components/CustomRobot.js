@@ -18,7 +18,7 @@
 
 import { useRef, useLayoutEffect, Suspense, useState, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { useGLTF, useAnimations, Environment } from '@react-three/drei';
+import { useGLTF, useAnimations } from '@react-three/drei';
 import * as THREE from 'three';
 
 // Clear GLTF cache on every module load so materials are always fresh.
@@ -305,11 +305,11 @@ const CustomRobotCore = () => {
 
   return (
     <>
-      <Environment preset="city" background={false} />
-      <ambientLight intensity={0.8} color="#e8f0ff" />
-      <directionalLight position={[2, 8, 12]} intensity={1.6} color="#ffffff" castShadow={false} />
-      <directionalLight position={[-8, 4, 4]} intensity={0.8} color="#aabbff" castShadow={false} />
-      <directionalLight position={[0, 10, -8]} intensity={0.5} color="#4466cc" castShadow={false} />
+      <ambientLight intensity={1.2} color="#e8f0ff" />
+      <directionalLight position={[2, 8, 12]} intensity={2.0} color="#ffffff" castShadow={false} />
+      <directionalLight position={[-8, 4, 4]} intensity={1.2} color="#aabbff" castShadow={false} />
+      <directionalLight position={[0, 10, -8]} intensity={0.7} color="#4466cc" castShadow={false} />
+      <directionalLight position={[0, -6, 6]} intensity={0.4} color="#ffffff" castShadow={false} />
 
       <group ref={group} onClick={handleClick}>
         <primitive object={scene} />
