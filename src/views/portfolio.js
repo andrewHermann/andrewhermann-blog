@@ -47,7 +47,7 @@ const Portfolio = () => {
       />
       
       {/* Floating Robot with purple/violet body color */}
-      <PageFloatingRobot bodyColor="#1e3a5f" glowColor="#2563eb" />
+      <PageFloatingRobot bodyColor="#93c5fd" glowColor="#2563eb" />
       
       <Navbar />
       

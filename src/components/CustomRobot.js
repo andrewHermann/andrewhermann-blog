@@ -75,70 +75,7 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
         if (headBone) headBoneRef.current = headBone;
       }
     });
-
-    // drei v10 useGLTF returns raw GLTFLoader result — no buildGraph, so the
-    // destructured `materials` dict is undefined. Traverse the scene directly
-    // and match by child.material.name. Emissive makes materials self-illuminate
-    // at their target color regardless of scene lighting or canvas opacity.
-    scene.traverse((child) => {
-      if (!child.isMesh) return;
-      const mats = Array.isArray(child.material) ? child.material : [child.material];
-      mats.forEach((mat) => {
-        if (!mat) return;
-        // Diffuse carries the site brand colors for 3-D depth.
-        // Emissive provides a minimum-visibility floor at 50% canvas opacity.
-        switch (mat.name) {
-          case 'Body':
-            // Site primary — deep navy
-            mat.color.set(bodyColor);
-            mat.emissive.set(bodyColor);
-            mat.emissiveIntensity = 0.4;
-            mat.roughness = 0.65;
-            mat.metalness = 0.1;
-            mat.needsUpdate = true;
-            break;
-          case 'ArmorOut':
-            // Medium steel-blue — visually distinct lighter value above body
-            mat.color.setHex(0x2a4878);
-            mat.emissive.setHex(0x1a2d4a);
-            mat.emissiveIntensity = 0.35;
-            mat.roughness = 0.4;
-            mat.metalness = 0.25;
-            mat.needsUpdate = true;
-            break;
-          case 'ArmorIn':
-            // Site secondary — vivid blue accent panels
-            mat.color.set(glowColor);
-            mat.emissive.set(glowColor);
-            mat.emissiveIntensity = 0.5;
-            mat.roughness = 0.3;
-            mat.metalness = 0.0;
-            mat.needsUpdate = true;
-            break;
-          case 'Lights':
-            // Bright sky-blue glow strips — the robot's "alive" accent
-            mat.color.setHex(0x60a5fa);
-            mat.emissive.setHex(0x60a5fa);
-            mat.emissiveIntensity = 2.2;
-            mat.roughness = 0.0;
-            mat.metalness = 0.0;
-            mat.needsUpdate = true;
-            break;
-          case 'Decor':
-            // DEBUG: pure white at max intensity to verify traversal fires
-            mat.color.setHex(0xffffff);
-            mat.emissive.setHex(0xffffff);
-            mat.emissiveIntensity = 3.0;
-            mat.roughness = 0.0;
-            mat.metalness = 0.0;
-            mat.needsUpdate = true;
-            break;
-          default:
-            break;
-        }
-      });
-    });
-  }, [scene, bodyColor, glowColor]);
+  }, [scene]);
 
   useEffect(() => {
     if (actions) {
@@ -284,15 +221,11 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
     // initializes the WebGL material state, so changes made there get wiped.
     // Applying here (at render time) guarantees they stick.
     if (!colorsAppliedRef.current && scene) {
-      console.log('[Robot] useFrame color pass — scene:', !!scene);
-      let meshesFound = 0;
       scene.traverse((child) => {
         if (!child.isMesh) return;
-        meshesFound++;
         const mats = Array.isArray(child.material) ? child.material : [child.material];
         mats.forEach((mat) => {
           if (!mat) return;
-          console.log('[Robot] mesh:', child.name, 'mat.name:', mat.name, 'color before:', mat.color?.getHexString());
           switch (mat.name) {
             case 'Body':
               mat.color.set(bodyColor);
@@ -327,22 +260,20 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
               mat.needsUpdate = true;
               break;
             case 'Decor':
-              // DEBUG: replace with MeshBasicMaterial to bypass all lighting/skinning
+              // MeshStandardMaterial doesn't render on pure-black GLTF base-color
+              // meshes in THREE.js 0.178 — MeshBasicMaterial bypasses the PBR shader.
               child.material = new THREE.MeshBasicMaterial({
                 color: 0x00ff00,
                 side: THREE.DoubleSide,
                 depthTest: false,
               });
               child.renderOrder = 999;
-              console.log('[Robot] Decor replaced with MeshBasicMaterial green, renderOrder 999');
               break;
             default:
-              console.log('[Robot] UNMATCHED mat name:', JSON.stringify(mat.name));
               break;
           }
         });
       });
-      console.log('[Robot] total isMesh nodes found:', meshesFound);
       colorsAppliedRef.current = true;
     }
 

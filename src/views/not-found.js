@@ -34,7 +34,7 @@ const NotFound = () => {
         url="https://andrew.cloudhopper.ch/404"
       />
       
-      <PageFloatingRobot bodyColor="#1e3a5f" glowColor="#2563eb" />
+      <PageFloatingRobot bodyColor="#93c5fd" glowColor="#2563eb" />
       
       <Navbar />
       
