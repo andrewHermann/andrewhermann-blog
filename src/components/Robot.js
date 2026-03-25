@@ -42,7 +42,7 @@ const LoadingPlaceholder = () => {
 // Robot component that loads the GLB model with built-in animations
 const Robot = () => {
   const group = useRef();
-  const { scene, animations } = useGLTF('/ai-3d-robot.glb');
+  const { scene, materials, animations } = useGLTF('/ai-3d-robot.glb');
   const { actions, mixer } = useAnimations(animations, group);
   
   // State for interactive controls
@@ -56,48 +56,45 @@ const Robot = () => {
   const [isPlayingReverse, setIsPlayingReverse] = useState(false);
 
   useLayoutEffect(() => {
-    if (scene) {
-      scene.scale.set(16.875, 16.875, 16.875); // Further reduced scale (25% smaller than previous)
-      scene.position.set(0, 10, 0); // Adjusted position - moved up another 10 units
-      scene.rotation.y = Math.PI; // Face forward
-      
-      // Color by exact GLB material name
-      scene.traverse((child) => {
-        if (child.isMesh) {
-          child.castShadow = true;
-          child.receiveShadow = true;
-        }
-        if (child.isMesh && child.material) {
-          child.material = child.material.clone();
-          const matName = (child.material.name || '').toLowerCase();
+    if (!scene || !materials) return;
 
-          if (matName === 'body') {
-            child.material.color.setHex(0x2a4a7a);
-            child.material.roughness = 0.6;
-            child.material.metalness = 0.0;
-          } else if (matName === 'armorout') {
-            child.material.color.setHex(0xb8c8e0);
-            child.material.roughness = 0.3;
-            child.material.metalness = 0.1;
-          } else if (matName === 'armorin') {
-            child.material.color.setHex(0x2563eb);
-            child.material.roughness = 0.3;
-            child.material.metalness = 0.0;
-          } else if (matName === 'lights') {
-            child.material.color.setHex(0x2563eb);
-            child.material.emissive = new THREE.Color(0x2563eb).multiplyScalar(0.9);
-            child.material.roughness = 0.05;
-            child.material.metalness = 0.0;
-          } else if (matName === 'decor') {
-            child.material.color.setHex(0x1a2540);
-            child.material.roughness = 0.8;
-            child.material.metalness = 0.0;
-          }
-        }
-      });
-      
+    scene.scale.set(16.875, 16.875, 16.875);
+    scene.position.set(0, 10, 0);
+    scene.rotation.y = Math.PI;
+
+    if (materials.Body) {
+      materials.Body.color.setHex(0x2a4a7a);
+      materials.Body.roughness = 0.6;
+      materials.Body.metalness = 0.0;
+      materials.Body.needsUpdate = true;
     }
-  }, [scene, actions]);
+    if (materials.ArmorOut) {
+      materials.ArmorOut.color.setHex(0xb8c8e0);
+      materials.ArmorOut.roughness = 0.3;
+      materials.ArmorOut.metalness = 0.0;
+      materials.ArmorOut.needsUpdate = true;
+    }
+    if (materials.ArmorIn) {
+      materials.ArmorIn.color.setHex(0x2563eb);
+      materials.ArmorIn.roughness = 0.3;
+      materials.ArmorIn.metalness = 0.0;
+      materials.ArmorIn.needsUpdate = true;
+    }
+    if (materials.Lights) {
+      materials.Lights.color.setHex(0x2563eb);
+      materials.Lights.emissive.setHex(0x2563eb);
+      materials.Lights.emissiveIntensity = 0.9;
+      materials.Lights.roughness = 0.05;
+      materials.Lights.metalness = 0.0;
+      materials.Lights.needsUpdate = true;
+    }
+    if (materials.Decor) {
+      materials.Decor.color.setHex(0x1a2540);
+      materials.Decor.roughness = 0.8;
+      materials.Decor.metalness = 0.0;
+      materials.Decor.needsUpdate = true;
+    }
+  }, [scene, materials]);
 
   // Set up initial animation
   useEffect(() => {

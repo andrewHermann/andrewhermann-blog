@@ -42,7 +42,7 @@ const LoadingPlaceholder = ({ bodyColor = "blue" }) => {
 // CustomRobotCore component that loads the GLB model with built-in animations
 const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
   const group = useRef();
-  const { scene, animations } = useGLTF('/ai-3d-robot.glb');
+  const { scene, materials, animations } = useGLTF('/ai-3d-robot.glb');
   const { actions, mixer } = useAnimations(animations, group);
 
   // State for interactive controls
@@ -62,54 +62,53 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
   const headRotRef = useRef({ x: 0, y: 0 });
 
   useLayoutEffect(() => {
-    if (scene) {
-      scene.scale.set(16.875, 16.875, 16.875);
-      scene.position.set(0, 10, 0);
-      scene.rotation.y = Math.PI; // Face forward
+    if (!scene || !materials) return;
 
-      // Color by exact GLB material name — the mesh has 5 primitives:
-      // Body (dark base), ArmorOut (outer shell), ArmorIn (inner accent),
-      // Lights (emissive elements), Decor (black details)
-      scene.traverse((child) => {
-        if (child.isMesh) {
-          child.castShadow = true;
-          child.receiveShadow = true;
-        }
-        if (child.isMesh && child.material) {
-          child.material = child.material.clone();
-          const matName = (child.material.name || '').toLowerCase();
+    scene.scale.set(16.875, 16.875, 16.875);
+    scene.position.set(0, 10, 0);
+    scene.rotation.y = Math.PI;
 
-          if (matName === 'body') {
-            child.material.color.setHex(0x2a4a7a);
-            child.material.roughness = 0.6;
-            child.material.metalness = 0.0;
-          } else if (matName === 'armorout') {
-            child.material.color.setHex(0xb8c8e0);
-            child.material.roughness = 0.3;
-            child.material.metalness = 0.1;
-          } else if (matName === 'armorin') {
-            child.material.color.set(glowColor);
-            child.material.roughness = 0.3;
-            child.material.metalness = 0.0;
-          } else if (matName === 'lights') {
-            child.material.color.set(glowColor);
-            child.material.emissive = new THREE.Color(glowColor).multiplyScalar(0.9);
-            child.material.roughness = 0.05;
-            child.material.metalness = 0.0;
-          } else if (matName === 'decor') {
-            child.material.color.setHex(0x1a2540);
-            child.material.roughness = 0.8;
-            child.material.metalness = 0.0;
-          }
-        }
-
-        // Find the head bone for look-at tracking
-        if (child.name === 'head') {
-          headBoneRef.current = child;
-        }
-      });
+    // Apply colors directly to the material objects returned by useGLTF.
+    // These are the exact same instances referenced by the mesh primitives,
+    // so modifying them here is guaranteed to affect the rendered result.
+    if (materials.Body) {
+      materials.Body.color.setHex(0x2a4a7a);
+      materials.Body.roughness = 0.6;
+      materials.Body.metalness = 0.0;
+      materials.Body.needsUpdate = true;
     }
-  }, [scene, bodyColor, glowColor]);
+    if (materials.ArmorOut) {
+      materials.ArmorOut.color.setHex(0xb8c8e0);
+      materials.ArmorOut.roughness = 0.3;
+      materials.ArmorOut.metalness = 0.0;
+      materials.ArmorOut.needsUpdate = true;
+    }
+    if (materials.ArmorIn) {
+      materials.ArmorIn.color.set(glowColor);
+      materials.ArmorIn.roughness = 0.3;
+      materials.ArmorIn.metalness = 0.0;
+      materials.ArmorIn.needsUpdate = true;
+    }
+    if (materials.Lights) {
+      materials.Lights.color.set(glowColor);
+      materials.Lights.emissive.set(glowColor);
+      materials.Lights.emissiveIntensity = 0.9;
+      materials.Lights.roughness = 0.05;
+      materials.Lights.metalness = 0.0;
+      materials.Lights.needsUpdate = true;
+    }
+    if (materials.Decor) {
+      materials.Decor.color.setHex(0x1a2540);
+      materials.Decor.roughness = 0.8;
+      materials.Decor.metalness = 0.0;
+      materials.Decor.needsUpdate = true;
+    }
+
+    // Find the head bone for look-at tracking
+    scene.traverse((child) => {
+      if (child.name === 'head') headBoneRef.current = child;
+    });
+  }, [scene, materials, bodyColor, glowColor]);
 
   // Set up initial animation
   useEffect(() => {

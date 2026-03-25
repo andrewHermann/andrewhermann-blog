@@ -22,13 +22,13 @@ const ADMIN_SERVER_IP = process.env.REACT_APP_ADMIN_SERVER_IP || 'localhost';
 
 const config = {
   development: {
-    API_BASE_URL: 'http://localhost:5001',
+    API_BASE_URL: 'http://localhost:3001',
   },
   production: {
     API_BASE_URL: 'https://andrew.cloudhopper.ch',
   },
   local: {
-    API_BASE_URL: `http://${ADMIN_SERVER_IP}:5001`,
+    API_BASE_URL: `http://${ADMIN_SERVER_IP}:3001`,
   }
 }
 
