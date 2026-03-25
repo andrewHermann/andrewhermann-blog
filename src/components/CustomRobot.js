@@ -327,33 +327,14 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
               mat.needsUpdate = true;
               break;
             case 'Decor':
-              console.log('[Robot] Decor mesh props — visible:', child.visible,
-                'scale:', child.scale.toArray(),
-                'matrixWorldNeedsUpdate:', child.matrixWorldNeedsUpdate,
-                'mat.type:', mat.type,
-                'mat.uuid:', mat.uuid,
-                'mat.transparent:', mat.transparent,
-                'mat.depthTest:', mat.depthTest,
-                'mat.visible:', mat.visible,
-                'mat.colorWrite:', mat.colorWrite,
-                'parent:', child.parent?.name ?? 'none');
-              mat.color.setHex(0x93c5fd);
-              mat.emissive.setHex(0x93c5fd);
-              mat.emissiveIntensity = 1.2;
-              mat.roughness = 0.3;
-              mat.metalness = 0.0;
-              mat.depthTest = false;
-              mat.transparent = true;
-              mat.opacity = 1.0;
+              // DEBUG: replace with MeshBasicMaterial to bypass all lighting/skinning
+              child.material = new THREE.MeshBasicMaterial({
+                color: 0x00ff00,
+                side: THREE.DoubleSide,
+                depthTest: false,
+              });
               child.renderOrder = 999;
-              child.visible = true;
-              mat.needsUpdate = true;
-              console.log('[Robot] Decor SET — color:', mat.color.getHexString(),
-                'emissive:', mat.emissive.getHexString(),
-                'emissiveIntensity:', mat.emissiveIntensity,
-                'depthTest:', mat.depthTest,
-                'transparent:', mat.transparent,
-                'renderOrder:', child.renderOrder);
+              console.log('[Robot] Decor replaced with MeshBasicMaterial green, renderOrder 999');
               break;
             default:
               console.log('[Robot] UNMATCHED mat name:', JSON.stringify(mat.name));
