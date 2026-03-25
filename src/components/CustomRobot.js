@@ -76,53 +76,63 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
     scene.traverse((child) => {
       if (child.name === 'head') headBoneRef.current = child;
 
-      if (!child.isMesh || !child.material) return;
-      const mat = child.material;
+      if (!child.isMesh) return;
 
-      switch (mat.name) {
-        case 'Body':
-          mat.color.set('#000510');
-          mat.emissive.set(bodyColor);
-          mat.emissiveIntensity = 0.8;
-          mat.roughness = 0.7;
-          mat.metalness = 0.0;
-          mat.needsUpdate = true;
-          break;
-        case 'ArmorOut':
-          mat.color.set('#000810');
-          mat.emissive.setHex(0x1e2d42);
-          mat.emissiveIntensity = 0.7;
-          mat.roughness = 0.5;
-          mat.metalness = 0.0;
-          mat.needsUpdate = true;
-          break;
-        case 'ArmorIn':
-          mat.color.set('#000510');
-          mat.emissive.set(glowColor);
-          mat.emissiveIntensity = 0.9;
-          mat.roughness = 0.4;
-          mat.metalness = 0.0;
-          mat.needsUpdate = true;
-          break;
-        case 'Lights':
-          mat.color.set(glowColor);
-          mat.emissive.set(glowColor);
-          mat.emissiveIntensity = 1.5;
-          mat.roughness = 0.05;
-          mat.metalness = 0.0;
-          mat.needsUpdate = true;
-          break;
-        case 'Decor':
-          mat.color.set('#000000');
-          mat.emissive.setHex(0x050810);
-          mat.emissiveIntensity = 0.3;
-          mat.roughness = 0.9;
-          mat.metalness = 0.0;
-          mat.needsUpdate = true;
-          break;
-        default:
-          break;
-      }
+      // Handle both single material and material arrays
+      const mats = Array.isArray(child.material) ? child.material : [child.material];
+      mats.forEach((mat) => {
+        if (!mat) return;
+        // Log all material names so we can verify what the GLB exposes
+        console.log('[Robot] mesh:', child.name, 'material:', mat.name, mat.type);
+
+        // Brute-force: make every mesh glow so we can confirm the robot is in frame
+        mat.emissive = mat.emissive || new THREE.Color();
+        mat.emissive.set(glowColor);
+        mat.emissiveIntensity = 2.0;
+        mat.needsUpdate = true;
+
+        // Named overrides applied on top
+        switch (mat.name) {
+          case 'Body':
+            mat.color.set('#000510');
+            mat.emissive.set(bodyColor);
+            mat.emissiveIntensity = 0.8;
+            mat.roughness = 0.7;
+            mat.metalness = 0.0;
+            break;
+          case 'ArmorOut':
+            mat.color.set('#000810');
+            mat.emissive.setHex(0x1e2d42);
+            mat.emissiveIntensity = 0.7;
+            mat.roughness = 0.5;
+            mat.metalness = 0.0;
+            break;
+          case 'ArmorIn':
+            mat.color.set('#000510');
+            mat.emissive.set(glowColor);
+            mat.emissiveIntensity = 0.9;
+            mat.roughness = 0.4;
+            mat.metalness = 0.0;
+            break;
+          case 'Lights':
+            mat.color.set(glowColor);
+            mat.emissive.set(glowColor);
+            mat.emissiveIntensity = 1.5;
+            mat.roughness = 0.05;
+            mat.metalness = 0.0;
+            break;
+          case 'Decor':
+            mat.color.set('#000000');
+            mat.emissive.setHex(0x050810);
+            mat.emissiveIntensity = 0.3;
+            mat.roughness = 0.9;
+            mat.metalness = 0.0;
+            break;
+          default:
+            break;
+        }
+        mat.needsUpdate = true;
+      });
     });
   }, [scene, bodyColor, glowColor]);
 
