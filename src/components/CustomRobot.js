@@ -71,35 +71,37 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
     // Apply colors directly to the material objects returned by useGLTF.
     // These are the exact same instances referenced by the mesh primitives,
     // so modifying them here is guaranteed to affect the rendered result.
+    // Colors must be DARK to remain visible at 50% canvas opacity over a white page.
+    // After lighting + opacity blending, light colors dissolve into white.
     if (materials.Body) {
-      materials.Body.color.setHex(0x2a4a7a);
-      materials.Body.roughness = 0.6;
+      materials.Body.color.set(bodyColor);   // dark navy #1e3a5f passed from pages
+      materials.Body.roughness = 0.7;
       materials.Body.metalness = 0.0;
       materials.Body.needsUpdate = true;
     }
     if (materials.ArmorOut) {
-      materials.ArmorOut.color.setHex(0xb8c8e0);
-      materials.ArmorOut.roughness = 0.3;
+      materials.ArmorOut.color.setHex(0x2a3a52); // dark steel — stays dark under dim light
+      materials.ArmorOut.roughness = 0.5;
       materials.ArmorOut.metalness = 0.0;
       materials.ArmorOut.needsUpdate = true;
     }
     if (materials.ArmorIn) {
-      materials.ArmorIn.color.set(glowColor);
-      materials.ArmorIn.roughness = 0.3;
+      materials.ArmorIn.color.set(glowColor);    // #2563eb — blue accent
+      materials.ArmorIn.roughness = 0.4;
       materials.ArmorIn.metalness = 0.0;
       materials.ArmorIn.needsUpdate = true;
     }
     if (materials.Lights) {
       materials.Lights.color.set(glowColor);
       materials.Lights.emissive.set(glowColor);
-      materials.Lights.emissiveIntensity = 0.9;
+      materials.Lights.emissiveIntensity = 1.2;  // glow regardless of scene lighting
       materials.Lights.roughness = 0.05;
       materials.Lights.metalness = 0.0;
       materials.Lights.needsUpdate = true;
     }
     if (materials.Decor) {
-      materials.Decor.color.setHex(0x1a2540);
-      materials.Decor.roughness = 0.8;
+      materials.Decor.color.setHex(0x080c12);    // near-black
+      materials.Decor.roughness = 0.9;
       materials.Decor.metalness = 0.0;
       materials.Decor.needsUpdate = true;
     }
@@ -315,10 +317,10 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
 
   return (
     <>
-      <ambientLight intensity={0.6} color="#dde8ff" />
-      <directionalLight position={[2, 8, 12]} intensity={1.8} color="#ffffff" castShadow={false} />
-      <directionalLight position={[-8, 4, 4]} intensity={1.0} color="#88aaff" castShadow={false} />
-      <directionalLight position={[0, 10, -8]} intensity={0.6} color="#4466cc" castShadow={false} />
+      <ambientLight intensity={0.15} color="#dde8ff" />
+      <directionalLight position={[2, 8, 12]} intensity={0.5} color="#ffffff" castShadow={false} />
+      <directionalLight position={[-8, 4, 4]} intensity={0.3} color="#88aaff" castShadow={false} />
+      <directionalLight position={[0, 10, -8]} intensity={0.2} color="#4466cc" castShadow={false} />
       
       {/* Rotating group - only contains the robot model */}
       <group 

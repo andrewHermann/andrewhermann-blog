@@ -78,8 +78,7 @@ const ThreeSceneCustom = ({ bodyColor = '#4a90e2', glowColor = '#ffffff' }) => {
     >
       <InteractiveCameraController />
       
-      {/* Minimal ambient light - main lighting comes from Robot component */}
-      <ambientLight intensity={0.6} color="#ffffff" />
+      {/* No extra ambient — all lighting is controlled inside CustomRobot */}
       
       {/* Robot in its own container with custom colors */}
       {useRobot ? (
