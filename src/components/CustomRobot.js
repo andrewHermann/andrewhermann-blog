@@ -84,7 +84,7 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
             child.material.roughness = 0.6;
             child.material.metalness = 0.4;
           } else if (matName === 'armorout') {
-            child.material.color.setHex(0xd8dde8); // cool silver outer shell
+            child.material.color.setHex(0x4a6080); // medium steel-blue armor
             child.material.roughness = 0.3;
             child.material.metalness = 0.6;
           } else if (matName === 'armorin') {
@@ -316,44 +316,14 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
 
   return (
     <>
-      {/* Stationary lights - do not rotate with the model */}
-      {/* Bright blue directional light from top left */}
-      <directionalLight
-        position={[-10, 10, 5]}
-        intensity={3.0}
-        color="#0088ff"
-        castShadow={false}
-      />
-      {/* Bright blue directional light from top right */}
-      <directionalLight
-        position={[10, 10, 5]}
-        intensity={3.0}
-        color="#0088ff"
-        castShadow={false}
-      />
-      {/* Ambient light for base illumination */}
-      <ambientLight intensity={0.9} color="#ffffff" />
-      {/* Front directional white light for front visibility */}
-      <directionalLight
-        position={[0, 12, 15]}
-        intensity={2.7}
-        color="#ffffff"
-        castShadow={false}
-      />
-      {/* Red directional light from top front */}
-      <directionalLight
-        position={[0, 15, 10]}
-        intensity={2.25}
-        color="#ff4444"
-        castShadow={false}
-      />
-      {/* Red directional light from top back */}
-      <directionalLight
-        position={[0, 15, -10]}
-        intensity={2.25}
-        color="#ff4444"
-        castShadow={false}
-      />
+      {/* Soft ambient base */}
+      <ambientLight intensity={0.35} color="#c8d4e8" />
+      {/* Key light: front-slightly-above, warm white */}
+      <directionalLight position={[2, 8, 12]} intensity={1.2} color="#e8eeff" castShadow={false} />
+      {/* Fill light: left side, cool blue */}
+      <directionalLight position={[-10, 4, 4]} intensity={0.7} color="#4488cc" castShadow={false} />
+      {/* Rim light: top-back for edge separation */}
+      <directionalLight position={[0, 12, -10]} intensity={0.5} color="#2255aa" castShadow={false} />
       
       {/* Rotating group - only contains the robot model */}
       <group 
