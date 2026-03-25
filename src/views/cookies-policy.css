@@ -40,7 +40,7 @@
 .cookies-section-title {
   color: var(--color-primary);
   font-size: var(--font-size-xl);
-  font-family: Inter, sans-serif;
+  font-family: var(--font-heading);
   font-weight: 600;
   line-height: 1.3;
   margin-bottom: var(--space-lg);

@@ -135,8 +135,7 @@ const BehindTheSite = () => {
         
         <div className="content-main">
         {/* Intro Statement - Full Width */}
-        <div style={{width: '100%', marginBottom: '2rem'}}>
-          <div className="section-card" style={{textAlign: 'center', padding: '3rem', background: 'var(--color-accent-2)'}}>
+        <div className="section-card" style={{textAlign: 'center', padding: '3rem', background: 'var(--color-accent-2)'}}>
             <p style={{fontSize: '1.25rem', lineHeight: '1.6', marginBottom: '1.5rem', maxWidth: '800px', margin: '0 auto 1.5rem auto'}}>
               This website is more than just a personal portfolio. It&apos;s a quiet statement about how digital systems should be built—especially in the public sector.
             </p>
@@ -144,12 +143,11 @@ const BehindTheSite = () => {
             <p style={{fontSize: '1.125rem', maxWidth: '700px', margin: '0 auto'}}>
               Every decision reflects my core working principles: <strong style={{color: 'var(--color-secondary)'}}>build small</strong>, <strong style={{color: 'var(--color-secondary)'}}>build openly</strong>, and <strong style={{color: 'var(--color-secondary)'}}>make it reusable</strong>.
             </p>
-          </div>
         </div>
 
-        <div className="card-grid">
+        <div style={{display: 'flex', gap: 'var(--space-2xl)', flexWrap: 'wrap', width: '100%'}}>
           {/* Digital Philosophy - Left side */}
-          <div className="section-card">
+          <div className="section-card" style={{flex: '1 1 400px', minWidth: '0'}}>
             <h2>My Digital Philosophy</h2>
             <p>
               I don&apos;t believe in black-box platforms or overengineered stacks that serve more to impress than to deliver. The modern web has become bloated with dependencies, scripts, and surveillance-by-default. I chose the opposite path:
@@ -191,7 +189,7 @@ const BehindTheSite = () => {
           </div>
 
           {/* Architecture & Hosting - Right side */}
-          <div className="section-card">
+          <div className="section-card" style={{flex: '1 1 400px', minWidth: '0'}}>
             <h2>Architecture & Hosting</h2>
             <p style={{marginBottom: '2rem'}}>
               This site is static by design, and intentionally minimalist in both structure and function.
@@ -238,8 +236,7 @@ const BehindTheSite = () => {
         </div>
 
         {/* The IBM Workstation - Full Width Highlight */}
-        <div style={{width: '100%', margin: '3rem 0'}}>
-          <div className="section-card" style={{
+        <div className="section-card" style={{
             background: 'var(--color-accent-2)',
             borderLeft: '3px solid var(--color-primary)',
             padding: '3rem'
@@ -283,12 +280,10 @@ const BehindTheSite = () => {
               </div>
               
             </div>
-          </div>
         </div>
 
         {/* Design Principles - Cards Grid */}
-        <div style={{width: '100%', marginBottom: '3rem'}}>
-          <div className="section-card" style={{padding: '3rem'}}>
+        <div className="section-card" style={{padding: '3rem'}}>
             <div style={{textAlign: 'center', marginBottom: '3rem'}}>
               <h2 style={{marginBottom: '1rem'}}>Design Principles</h2>
               <p style={{fontSize: '1.125rem', maxWidth: '600px', margin: '0 auto'}}>
@@ -344,12 +339,11 @@ const BehindTheSite = () => {
                 </div>
               ))}
             </div>
-          </div>
         </div>
 
-        <div className="card-grid">
+        <div style={{display: 'flex', gap: 'var(--space-2xl)', flexWrap: 'wrap', width: '100%'}}>
           {/* Lessons Learned */}
-          <div className="section-card">
+          <div className="section-card" style={{flex: '1 1 400px', minWidth: '0'}}>
             <h2>Lessons From the Build</h2>
             
             <div style={{display: 'grid', gap: '1.5rem', margin: '2rem 0'}}>
@@ -371,7 +365,7 @@ const BehindTheSite = () => {
           </div>
 
           {/* Fork It Section */}
-          <div className="section-card">
+          <div className="section-card" style={{flex: '1 1 400px', minWidth: '0'}}>
             <h2>Open Source — Use It as You See Fit</h2>
             
             <div style={{
@@ -414,8 +408,7 @@ const BehindTheSite = () => {
         </div>
 
         {/* Contact & Closing - Full Width */}
-        <div style={{width: '100%', marginTop: '3rem'}}>
-          <div className="section-card" style={{textAlign: 'center', padding: '3rem'}}>
+        <div className="section-card" style={{textAlign: 'center', padding: '3rem'}}>
             <h2 style={{marginBottom: '1rem'}}>Want to Talk?</h2>
             <p style={{fontSize: '1.125rem', marginBottom: '2rem', maxWidth: '600px', margin: '0 auto 2rem auto'}}>
               Whether you&apos;re interested in reuse, want to critique the approach, or just like talking infrastructure—get in touch.
@@ -445,7 +438,6 @@ const BehindTheSite = () => {
                 <p style={{margin: 0}}><strong>That&apos;s what this site is. That&apos;s what I build.</strong></p>
               </div>
             </div>
-          </div>
         </div>
         </div>
       </div>

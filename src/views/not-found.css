@@ -25,7 +25,7 @@
 .not-found-code {
   color: var(--color-primary);
   font-size: 15rem;
-  font-family: Inter, sans-serif;
+  font-family: var(--font-heading);
   font-weight: 900;
   line-height: 1;
   margin-bottom: var(--space-md);
@@ -44,7 +44,7 @@
 .not-found-title {
   color: var(--color-neutral-dark);
   font-size: var(--font-size-2xl);
-  font-family: Inter, sans-serif;
+  font-family: var(--font-heading);
   font-weight: 600;
   margin-bottom: var(--space-md);
 }

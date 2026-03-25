@@ -24,7 +24,7 @@
 .blog-post-title {
   color: var(--color-primary);
   font-size: var(--font-size-4xl);
-  font-family: Inter, sans-serif;
+  font-family: var(--font-heading);
   font-weight: 600;
   line-height: 1.2;
   margin-bottom: var(--space-lg);
@@ -74,8 +74,8 @@
 .blog-post-body h5,
 .blog-post-body h6 {
   color: var(--color-primary);
-  font-family: Inter, sans-serif;
-  font-weight: 700;
+  font-family: var(--font-heading);
+  font-weight: 600;
   line-height: 1.25;
   margin-top: var(--space-2xl);
   margin-bottom: var(--space-md);

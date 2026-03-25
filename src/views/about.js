@@ -82,7 +82,6 @@ const About = () => {
         </div>
         
         <div className="content-main">
-        <div className="portfolio-cards">
           <div className="section-card">
             <h2>Early Foundation</h2>
             <p>My relationship with technology began in 1984, when I was introduced to BASIC programming on an MSX machine during primary school. Within weeks, I had written a functioning game, not because it was required, but because the logic was accessible and the feedback was immediate. It was my first encounter with structured systems, and it set the tone for everything that followed.</p>
@@ -134,7 +133,6 @@ const About = () => {
             <h2>Final Note</h2>
             <p><em>This is not a résumé. It&apos;s a structural account of how I work, what I&apos;ve done, and what that reveals about the systems I build. I don&apos;t aim to disrupt. I aim to stabilize quietly, precisely, and at scale.</em></p>
           </div>
-        </div>
         </div>
       </div>
       <Footer />

@@ -40,6 +40,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   color: var(--color-primary);
+  font-family: var(--font-heading);
   margin-bottom: var(--space-sm);
 }
 
@@ -91,6 +92,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* THQ typography classes */
 .thq-heading-1 {
+  font-family: var(--font-heading);
   font-size: var(--font-size-4xl);
   font-weight: 600;
   line-height: var(--line-height-tight);
@@ -99,6 +101,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .thq-heading-2 {
+  font-family: var(--font-heading);
   font-size: var(--font-size-3xl);
   font-weight: 600;
   line-height: var(--line-height-tight);
@@ -107,6 +110,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .thq-heading-3 {
+  font-family: var(--font-heading);
   font-size: var(--font-size-2xl);
   font-weight: 600;
   line-height: var(--line-height-tight);

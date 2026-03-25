@@ -71,6 +71,10 @@
   --line-height-normal: 1.5;
   --line-height-relaxed: 1.75;
   
+  /* Font Families */
+  --font-heading: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
   /* Transitions */
   --transition-fast: 0.15s ease-in-out;
   --transition-base: 0.3s ease-in-out;
@@ -97,7 +101,7 @@ html {
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--font-body);
   margin: 0;
   padding: 0;
   background-color: var(--color-neutral-light);
@@ -206,8 +210,8 @@ body {
   color: var(--color-primary);
   font-size: var(--font-size-4xl);
   font-style: normal;
-  font-family: Inter, sans-serif;
-  font-weight: 700;
+  font-family: var(--font-heading);
+  font-weight: 600;
   line-height: 1.2;
   margin-bottom: var(--space-lg);
 }
@@ -229,6 +233,7 @@ body {
   max-width: var(--layout-content-width);
   display: flex;
   flex-direction: column;
+  gap: var(--space-2xl);
   background-color: var(--color-neutral-light);
   border-radius: var(--border-radius-xl);
   box-shadow: var(--shadow-xl);
@@ -249,19 +254,8 @@ body {
   transition: transform var(--transition-base), box-shadow var(--transition-base);
 }
 
-/* Add vertical spacing between stacked section cards */
+/* Spacing between section cards is handled by gap on .content-main */
 .section-card {
-  margin-bottom: var(--space-2xl);
-}
-
-.section-card:last-child {
-  margin-bottom: 0;
-}
-
-/* Reset margin when section cards are in grid containers */
-.card-grid .section-card,
-.card-grid-compact .section-card,
-.card-grid-wide .section-card {
   margin-bottom: 0;
 }
 
@@ -274,7 +268,7 @@ body {
   color: var(--color-primary);
   font-size: var(--font-size-2xl);
   font-style: normal;
-  font-family: Inter, sans-serif;
+  font-family: var(--font-heading);
   font-weight: 600;
   line-height: 1.3;
   margin-bottom: var(--space-sm);
@@ -285,7 +279,7 @@ body {
   color: var(--color-text);
   font-size: var(--font-size-lg);
   font-style: normal;
-  font-family: Inter, sans-serif;
+  font-family: var(--font-heading);
   font-weight: 600;
   line-height: 1.4;
   margin-top: var(--space-xl);
@@ -1307,11 +1301,11 @@ body {
   .card-grid-compact,
   .card-grid-wide {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: var(--space-xl);
   }
-  
+
   .content-main {
-    gap: 1rem;
+    gap: var(--space-xl);
   }
 }
 
@@ -1319,7 +1313,11 @@ body {
   .card-grid,
   .card-grid-compact,
   .card-grid-wide {
-    gap: 0.75rem;
+    gap: var(--space-lg);
+  }
+
+  .content-main {
+    gap: var(--space-lg);
   }
 }
 

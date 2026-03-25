@@ -122,9 +122,9 @@ const Blog = () => {
               <p>I&apos;m preparing thoughtful content about strategic leadership, AI innovation, and organizational transformation. Stay tuned for expert insights and practical guidance on modern business challenges.</p>
             </div>
           ) : (
-            <div className="card-grid-compact">
+            <div style={{display: 'flex', gap: 'var(--space-xl)', flexWrap: 'wrap', width: '100%'}}>
               {posts.map((post) => (
-                <article key={post.id} className="section-card blog-card">
+                <article key={post.id} className="section-card blog-card" style={{flex: '1 1 300px', minWidth: '0'}}>
                   {post.featured_image && (
                     <img 
                       src={post.featured_image} 

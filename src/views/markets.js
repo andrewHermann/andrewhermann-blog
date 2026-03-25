@@ -255,8 +255,7 @@ const Markets = () => {
         </div>
 
         <div className="content-main">
-        <div className="card-grid-wide">
-          <div className="section-card">
+        <div className="section-card">
             <h2>Cryptocurrencies</h2>
             {cryptoLoading ? (
               <div className="loading-message">Loading cryptocurrency prices...</div>
@@ -296,7 +295,7 @@ const Markets = () => {
             )}
           </div>
 
-          <div className="section-card">
+        <div className="section-card">
             <h2>Precious Metals</h2>
             {metalLoading ? (
               <div className="loading-message">Loading precious metals prices...</div>
@@ -335,7 +334,6 @@ const Markets = () => {
               </div>
             )}
           </div>
-        </div>
 
         {lastUpdated && (
           <div className="last-updated">
