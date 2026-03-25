@@ -3,9 +3,10 @@
 ## Workflow Rules
 
 - **Never deploy to production without an explicit instruction to do so.**
-- The standard sequence is: make changes → commit → push → wait for instruction to deploy.
+- The standard sequence is: open a feature branch → make changes → commit → push → wait for instruction to deploy.
+- Before starting any work, check if a feature branch is already open for the current task. If not, create one from `main`.
 - "Push to git" and "deploy" are two separate steps. Do not combine them unless explicitly asked.
-- When asked to deploy, use the exact commands in the Deploy section below.
+- When asked to deploy, merge the feature branch to `main` first, then use the exact commands in the Deploy section below.
 
 ---
 
