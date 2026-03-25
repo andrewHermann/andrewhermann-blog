@@ -35,7 +35,7 @@ const path = require('path');
 const cors = require('cors');
 
 const app = express();
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || process.env.BACKEND_PORT || 5001;
 const isProduction = process.env.NODE_ENV === 'production';
 
 // Trust nginx proxy so req.secure reflects the original protocol (HTTPS via Cloudflare/nginx)
@@ -582,16 +582,16 @@ app.post('/api/admin/regenerate-sitemap', requireXRequestedWith, requireBlogger,
   });
 });
 
-// Precious metals spot prices proxy
-// Fetches from metals.live (free, no API key) with a 5-minute server-side cache
+// Precious metals prices proxy
+// Fetches futures data from Yahoo Finance with a 5-minute server-side cache
 const metalsCache = { data: null, fetchedAt: 0 };
 const METALS_CACHE_TTL_MS = 5 * 60 * 1000;
 
 const METALS_MAP = [
-  { key: 'gold',      name: 'Gold',      symbol: 'XAU' },
-  { key: 'silver',    name: 'Silver',    symbol: 'XAG' },
-  { key: 'platinum',  name: 'Platinum',  symbol: 'XPT' },
-  { key: 'palladium', name: 'Palladium', symbol: 'XPD' },
+  { ticker: 'GC%3DF', name: 'Gold',      symbol: 'XAU' },
+  { ticker: 'SI%3DF', name: 'Silver',    symbol: 'XAG' },
+  { ticker: 'PL%3DF', name: 'Platinum',  symbol: 'XPT' },
+  { ticker: 'PA%3DF', name: 'Palladium', symbol: 'XPD' },
 ];
 
 app.get('/api/markets/metals', async (req, res) => {
@@ -602,36 +602,30 @@ app.get('/api/markets/metals', async (req, res) => {
   }
 
   try {
-    const response = await fetch('https://api.metals.live/v1/spot', {
-      headers: { 'Accept': 'application/json' },
-      signal: AbortSignal.timeout(8000),
-    });
+    const results = await Promise.all(METALS_MAP.map(async (m) => {
+      const url = `https://query1.finance.yahoo.com/v8/finance/chart/${m.ticker}?interval=1d&range=2d`;
+      const response = await fetch(url, {
+        headers: { 'User-Agent': 'Mozilla/5.0', 'Accept': 'application/json' },
+        signal: AbortSignal.timeout(8000),
+      });
 
-    if (!response.ok) {
-      throw new Error(`metals.live responded with ${response.status}`);
-    }
+      if (!response.ok) throw new Error(`Yahoo Finance ${m.name}: ${response.status}`);
 
-    const raw = await response.json();
+      const data = await response.json();
+      const meta = data.chart.result[0].meta;
+      const price = meta.regularMarketPrice;
+      const prevClose = meta.chartPreviousClose;
+      const changePercent = prevClose ? ((price - prevClose) / prevClose) * 100 : null;
 
-    // raw is an array of single-key objects: [{ gold: 3011 }, { silver: 33.9 }, ...]
-    const priceMap = {};
-    raw.forEach(entry => {
-      const [key, value] = Object.entries(entry)[0];
-      priceMap[key] = value;
-    });
-
-    const metals = METALS_MAP.map(m => ({
-      name: m.name,
-      symbol: m.symbol,
-      price: priceMap[m.key] ?? null,
+      return { name: m.name, symbol: m.symbol, price, changePercent };
     }));
 
-    metalsCache.data = { metals, fetchedAt: now };
+    metalsCache.data = { metals: results, fetchedAt: now };
     metalsCache.fetchedAt = now;
 
     res.json(metalsCache.data);
   } catch (err) {
-    console.error('metals.live fetch error:', err.message);
+    console.error('Metals fetch error:', err.message);
     res.status(502).json({ error: 'Failed to fetch metals prices' });
   }
 });

@@ -143,8 +143,8 @@ const Markets = () => {
         name: m.name,
         symbol: m.symbol,
         price: m.price,
-        change: null,
-        changeClass: ''
+        change: m.changePercent,
+        changeClass: m.changePercent === null ? '' : m.changePercent >= 0 ? 'positive' : 'negative'
       }))
 
       setMetalPrices(metals)
@@ -304,7 +304,7 @@ const Markets = () => {
                         <td>
                           {metal.change !== null ? (
                             <span className={`change-badge ${metal.changeClass}`}>
-                              {metal.change}
+                              {formatChange(metal.change)}
                             </span>
                           ) : (
                             <span className="change-badge">—</span>
