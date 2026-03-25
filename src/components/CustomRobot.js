@@ -34,7 +34,7 @@ const LoadingPlaceholder = ({ bodyColor = "blue" }) => {
   return (
     <mesh ref={meshRef}>
       <boxGeometry args={[1, 2, 0.5]} />
-      <meshStandardMaterial color="#ff4400" emissive="#ff4400" emissiveIntensity={2} />
+      <meshStandardMaterial color={bodyColor} emissive={bodyColor} emissiveIntensity={1.5} />
     </mesh>
   );
 };
@@ -62,7 +62,6 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
   const headRotRef = useRef({ x: 0, y: 0 });
 
   useLayoutEffect(() => {
-    console.log('[Robot] useLayoutEffect fired — scene:', !!scene);
     if (!scene) return;
 
     scene.scale.set(16.875, 16.875, 16.875);
@@ -79,53 +78,46 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
 
       if (!child.isMesh) return;
 
-      // Handle both single material and material arrays
       const mats = Array.isArray(child.material) ? child.material : [child.material];
       mats.forEach((mat) => {
         if (!mat) return;
-        // Log all material names so we can verify what the GLB exposes
-        console.log('[Robot] mesh:', child.name, 'material:', mat.name, mat.type);
 
-        // Brute-force: make every mesh glow so we can confirm the robot is in frame
-        mat.emissive = mat.emissive || new THREE.Color();
-        mat.emissive.set(glowColor);
-        mat.emissiveIntensity = 2.0;
-        mat.needsUpdate = true;
-
-        // Named overrides applied on top
+        // All materials are emissive-driven so they self-illuminate regardless of
+        // scene lighting. The canvas sits at 50% CSS opacity over a white page;
+        // Body and ArmorOut need high emissiveIntensity to remain visible.
         switch (mat.name) {
           case 'Body':
             mat.color.set('#000510');
-            mat.emissive.set(bodyColor);
-            mat.emissiveIntensity = 0.8;
+            mat.emissive.set(bodyColor);   // #1e3a5f navy
+            mat.emissiveIntensity = 1.8;
             mat.roughness = 0.7;
             mat.metalness = 0.0;
             break;
           case 'ArmorOut':
             mat.color.set('#000810');
-            mat.emissive.setHex(0x1e2d42);
-            mat.emissiveIntensity = 0.7;
+            mat.emissive.setHex(0x2a4878); // medium steel blue — brighter than body
+            mat.emissiveIntensity = 1.4;
             mat.roughness = 0.5;
             mat.metalness = 0.0;
             break;
           case 'ArmorIn':
             mat.color.set('#000510');
-            mat.emissive.set(glowColor);
-            mat.emissiveIntensity = 0.9;
+            mat.emissive.set(glowColor);   // #2563eb vivid blue
+            mat.emissiveIntensity = 1.2;
             mat.roughness = 0.4;
             mat.metalness = 0.0;
             break;
           case 'Lights':
             mat.color.set(glowColor);
             mat.emissive.set(glowColor);
-            mat.emissiveIntensity = 1.5;
+            mat.emissiveIntensity = 2.5;   // bright glow accent
             mat.roughness = 0.05;
             mat.metalness = 0.0;
             break;
           case 'Decor':
             mat.color.set('#000000');
-            mat.emissive.setHex(0x050810);
-            mat.emissiveIntensity = 0.3;
+            mat.emissive.set(bodyColor);
+            mat.emissiveIntensity = 0.6;
             mat.roughness = 0.9;
             mat.metalness = 0.0;
             break;

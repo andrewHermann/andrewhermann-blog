@@ -79,9 +79,6 @@ const ThreeSceneCustom = ({ bodyColor = '#4a90e2', glowColor = '#ffffff' }) => {
     >
       <InteractiveCameraController />
 
-      {/* DEBUG: dark background confirms canvas is rendering */}
-      <color attach="background" args={['#001030']} />
-
       {/* Robot in its own container with custom colors */}
       {useRobot ? (
         <CustomRobot bodyColor={bodyColor} glowColor={glowColor} />
