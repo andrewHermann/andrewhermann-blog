@@ -284,11 +284,15 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
     // initializes the WebGL material state, so changes made there get wiped.
     // Applying here (at render time) guarantees they stick.
     if (!colorsAppliedRef.current && scene) {
+      console.log('[Robot] useFrame color pass — scene:', !!scene);
+      let meshesFound = 0;
       scene.traverse((child) => {
         if (!child.isMesh) return;
+        meshesFound++;
         const mats = Array.isArray(child.material) ? child.material : [child.material];
         mats.forEach((mat) => {
           if (!mat) return;
+          console.log('[Robot] mesh:', child.name, 'mat.name:', mat.name, 'color before:', mat.color?.getHexString());
           switch (mat.name) {
             case 'Body':
               mat.color.set(bodyColor);
@@ -329,12 +333,15 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
               mat.roughness = 0.3;
               mat.metalness = 0.0;
               mat.needsUpdate = true;
+              console.log('[Robot] Decor SET — color after:', mat.color.getHexString(), 'emissive:', mat.emissive.getHexString(), 'emissiveIntensity:', mat.emissiveIntensity);
               break;
             default:
+              console.log('[Robot] UNMATCHED mat name:', JSON.stringify(mat.name));
               break;
           }
         });
       });
+      console.log('[Robot] total isMesh nodes found:', meshesFound);
       colorsAppliedRef.current = true;
     }
 
