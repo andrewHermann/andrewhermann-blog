@@ -60,7 +60,6 @@ const Portfolio = () => {
         </div>
         
         <div className="content-main">
-        <div className="portfolio-cards">
           <div className="section-card" id="ki-v">
             <h2>KI@V – Institutional AI for the Swiss Armed Forces</h2>
             <h3>Goal: Enable responsible AI experimentation inside one of Switzerland&apos;s most sensitive institutional domains.</h3>
@@ -149,7 +148,6 @@ const Portfolio = () => {
               <a href="/contact" className="btn btn-primary">→ Get in touch</a>
             </p>
           </div>
-        </div>
         </div>
       </div>
 
