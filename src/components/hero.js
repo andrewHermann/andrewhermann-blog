@@ -47,7 +47,7 @@ const Hero = () => {
           </div>
           <h1 className="hero-headline">Complexity deserves clarity.</h1>
           <p className="hero-subheadline">
-            I have deployed production-grade AI inside one of Switzerland&apos;s most constrained institutions. I know what it takes to move from concept to live system — inside a bureaucracy, under real constraints, with real accountability.
+            I have led the institutional adoption of AI inside one of Switzerland&apos;s most constrained environments — from governance design to stakeholder alignment to live deployment. I know what it takes to make transformation stick inside a bureaucracy.
           </p>
         </div>
 
@@ -69,11 +69,6 @@ const Hero = () => {
           <div className="hero-cred">
             <span className="hero-cred-number">150+</span>
             <span className="hero-cred-label">Active users on production AI system</span>
-          </div>
-          <div className="hero-cred-divider"></div>
-          <div className="hero-cred">
-            <span className="hero-cred-number">3</span>
-            <span className="hero-cred-label">Operating languages</span>
           </div>
           <div className="hero-cred-divider"></div>
           <div className="hero-cred">

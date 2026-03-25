@@ -23,24 +23,24 @@ const CTA = () => {
   const caseSnapshots = [
     {
       title: "KI@V – Institutional AI for the Swiss Armed Forces",
-      description: "Led end-to-end deployment of a production conversational AI system inside the Swiss Armed Forces — architecture, governance, user adoption, regulatory positioning. 150+ active users within six months. First AI governance framework in Swiss defense.",
-      tags: ["#AI", "#Defense", "#Innovation", "#Strategy"],
+      description: "Led the institutional adoption of conversational AI inside the Swiss Armed Forces — governance design, stakeholder alignment, regulatory positioning, and user adoption. 150+ active users within six months. First AI governance framework in Swiss defense.",
+      tags: ["#AI", "#Defense", "#Governance", "#Strategy"],
       iconClass: "ai-icon",
       action: "Read more",
       link: "/portfolio#ki-v"
     },
     {
-      title: "COCKPIT – Power BI Portfolio for ASTAB",
-      description: "Created and operationalised a project portfolio dashboard with live KPIs across 40+ initiatives. Unified data from legacy Excel systems, enforced governance logic, and increased update rates 3x.",
-      tags: ["#PowerBI", "#Governance", "#Analytics", "#Portfolio"],
+      title: "COCKPIT – Portfolio Intelligence for ASTAB",
+      description: "Designed and led the delivery of a federated portfolio intelligence system across ASTAB — replacing a manual, fragmented reporting cycle with a single accountable pipeline. 11 dashboards. Delivered on scope and budget.",
+      tags: ["#Governance", "#Analytics", "#Portfolio", "#Leadership"],
       iconClass: "analytics-icon",
-      action: "View Cockpit visuals",
+      action: "View details",
       link: "/portfolio#cockpit"
     },
     {
       title: "TTR Rail Planning (SBB / RNE)",
-      description: "Co-led coordination of 150+ stakeholders across Europe to align digital train path planning reforms. Brokered agreements and introduced structured planning models that reduced friction in negotiation.",
-      tags: ["#EU", "#Transport", "#Stakeholders", "#Reform"],
+      description: "Led multi-stakeholder reform across 150+ organisations and 28 national rail operators. Brokered the first formal agreement between Forum Train Europe and RailNetEurope, and secured a €2M EU Horizon grant.",
+      tags: ["#EU", "#Transport", "#Reform", "#Stakeholders"],
       iconClass: "transport-icon",
       action: "View details",
       link: "/portfolio#ttr"

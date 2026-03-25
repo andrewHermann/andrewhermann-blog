@@ -23,24 +23,10 @@ const WhatIDo = () => {
     <div className="what-i-do-container">
       <div className="what-i-do-header">
         <h2>What I Do</h2>
-        <p>Three areas where decades of hands-on experience translate into institutional results</p>
+        <p>Three domains where senior leadership experience translates into institutional results.</p>
       </div>
-      
-      <div className="what-i-do-grid">
-        <div className="what-i-do-card">
-          <div className="what-i-do-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-              <polyline points="14,2 14,8 20,8"/>
-              <line x1="16" y1="13" x2="8" y2="13"/>
-              <line x1="16" y1="17" x2="8" y2="17"/>
-              <polyline points="10,9 9,9 8,9"/>
-            </svg>
-          </div>
-          <h3>System Navigation</h3>
-          <p>I guide public sector organisations through the noise of overlapping mandates, legacy processes, and digital transformation agendas—without romanticism, but with clarity.</p>
-        </div>
 
+      <div className="what-i-do-grid">
         <div className="what-i-do-card">
           <div className="what-i-do-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -48,8 +34,8 @@ const WhatIDo = () => {
               <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
             </svg>
           </div>
-          <h3>AI for Institutions</h3>
-          <p>I have taken AI from whiteboard to production inside the Swiss federal defense administration. Not pilots. Not proofs of concept. Running systems with real users and real governance.</p>
+          <h3>AI Governance & Institutional Adoption</h3>
+          <p>Adopting AI is a governance challenge before it is a technology one. I lead the harder work — defining what responsible adoption looks like inside a specific institution, building the structures to sustain it, and managing the stakeholder risk that comes with being first.</p>
         </div>
 
         <div className="what-i-do-card">
@@ -63,8 +49,21 @@ const WhatIDo = () => {
               <circle cx="7" cy="14.3" r="2"/>
             </svg>
           </div>
-          <h3>Data Strategy</h3>
-          <p>I translate raw data into decision architectures. Dashboards are not enough—governance, relevance, and accountability must be built in.</p>
+          <h3>Portfolio Governance & Strategic Visibility</h3>
+          <p>Strategic decisions fail when leaders lack reliable intelligence. I design the governance architecture that gives leadership real visibility across a complex portfolio — and the accountability structures to act on it. Not dashboards. Decision infrastructure.</p>
+        </div>
+
+        <div className="what-i-do-card">
+          <div className="what-i-do-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <h3>Multi-Stakeholder Reform</h3>
+          <p>I lead change at the boundaries where institutions cannot agree and mandates conflict. Whether brokering between European rail bodies or aligning fragmented federal departments, I build the formal agreements and governance frameworks that move organisations from structural deadlock to funded delivery.</p>
         </div>
       </div>
     </div>

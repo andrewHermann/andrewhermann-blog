@@ -34,10 +34,6 @@ const Features1 = () => {
     {
       title: 'TTR Rail Planning – European Coordination (SBB / RNE)',
       id: 'ttr'
-    },
-    {
-      title: 'AI Policy Briefing – Swiss Public Sector',
-      id: 'ai-policy'
     }
   ]
 
@@ -64,7 +60,7 @@ const Features1 = () => {
       <div className="features1-header">
         <h2 className="features1-title">Professional Portfolio</h2>
         <p className="features1-subtitle">
-          Explore my key projects and initiatives in organizational strategy, AI innovation, and digital transformation.
+          Led inside real institutions. Delivered under real constraints.
         </p>
       </div>
       
