@@ -124,11 +124,11 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
             mat.needsUpdate = true;
             break;
           case 'Decor':
-            // Light powder-blue detail trim
-            mat.color.setHex(0x93c5fd);
-            mat.emissive.setHex(0x93c5fd);
-            mat.emissiveIntensity = 1.2;
-            mat.roughness = 0.3;
+            // DEBUG: pure white at max intensity to verify traversal fires
+            mat.color.setHex(0xffffff);
+            mat.emissive.setHex(0xffffff);
+            mat.emissiveIntensity = 3.0;
+            mat.roughness = 0.0;
             mat.metalness = 0.0;
             mat.needsUpdate = true;
             break;
