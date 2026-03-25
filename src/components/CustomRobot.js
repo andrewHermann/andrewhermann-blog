@@ -34,7 +34,7 @@ const LoadingPlaceholder = ({ bodyColor = "blue" }) => {
   return (
     <mesh ref={meshRef}>
       <boxGeometry args={[1, 2, 0.5]} />
-      <meshStandardMaterial color={bodyColor} />
+      <meshStandardMaterial color="#ff4400" emissive="#ff4400" emissiveIntensity={2} />
     </mesh>
   );
 };
@@ -62,6 +62,7 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
   const headRotRef = useRef({ x: 0, y: 0 });
 
   useLayoutEffect(() => {
+    console.log('[Robot] useLayoutEffect fired — scene:', !!scene);
     if (!scene) return;
 
     scene.scale.set(16.875, 16.875, 16.875);
