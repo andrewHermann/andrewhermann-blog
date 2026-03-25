@@ -131,47 +131,26 @@ const Markets = () => {
     try {
       setMetalLoading(true)
 
-      const currentMetalData = [
-        {
-          name: 'Gold',
-          symbol: 'XAU',
-          price: 2653.20,
-          change: '+0.85%',
-          changeClass: 'positive'
-        },
-        {
-          name: 'Silver',
-          symbol: 'XAG',
-          price: 30.42,
-          change: '+1.23%',
-          changeClass: 'positive'
-        },
-        {
-          name: 'Platinum',
-          symbol: 'XPT',
-          price: 965.80,
-          change: '-0.45%',
-          changeClass: 'negative'
-        },
-        {
-          name: 'Palladium',
-          symbol: 'XPD',
-          price: 945.60,
-          change: '+0.67%',
-          changeClass: 'positive'
-        },
-        {
-          name: 'Copper',
-          symbol: 'HG',
-          price: 4.12,
-          change: '+0.28%',
-          changeClass: 'positive'
-        }
-      ]
+      const response = await fetch('/api/markets/metals')
 
-      setMetalPrices(currentMetalData)
+      if (!response.ok) {
+        throw new Error(`Metals API error: ${response.status}`)
+      }
+
+      const data = await response.json()
+
+      const metals = data.metals.map(m => ({
+        name: m.name,
+        symbol: m.symbol,
+        price: m.price,
+        change: null,
+        changeClass: ''
+      }))
+
+      setMetalPrices(metals)
     } catch (error) {
       console.error('Metals API error:', error)
+      setMetalPrices([])
     } finally {
       setMetalLoading(false)
     }
@@ -323,9 +302,13 @@ const Markets = () => {
                           <div className="item-title">{formatPrice(metal.price)}</div>
                         </td>
                         <td>
-                          <span className={`change-badge ${metal.changeClass}`}>
-                            {metal.change}
-                          </span>
+                          {metal.change !== null ? (
+                            <span className={`change-badge ${metal.changeClass}`}>
+                              {metal.change}
+                            </span>
+                          ) : (
+                            <span className="change-badge">—</span>
+                          )}
                         </td>
                       </tr>
                     ))}

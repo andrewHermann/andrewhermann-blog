@@ -582,6 +582,60 @@ app.post('/api/admin/regenerate-sitemap', requireXRequestedWith, requireBlogger,
   });
 });
 
+// Precious metals spot prices proxy
+// Fetches from metals.live (free, no API key) with a 5-minute server-side cache
+const metalsCache = { data: null, fetchedAt: 0 };
+const METALS_CACHE_TTL_MS = 5 * 60 * 1000;
+
+const METALS_MAP = [
+  { key: 'gold',      name: 'Gold',      symbol: 'XAU' },
+  { key: 'silver',    name: 'Silver',    symbol: 'XAG' },
+  { key: 'platinum',  name: 'Platinum',  symbol: 'XPT' },
+  { key: 'palladium', name: 'Palladium', symbol: 'XPD' },
+];
+
+app.get('/api/markets/metals', async (req, res) => {
+  const now = Date.now();
+
+  if (metalsCache.data && (now - metalsCache.fetchedAt) < METALS_CACHE_TTL_MS) {
+    return res.json(metalsCache.data);
+  }
+
+  try {
+    const response = await fetch('https://api.metals.live/v1/spot', {
+      headers: { 'Accept': 'application/json' },
+      signal: AbortSignal.timeout(8000),
+    });
+
+    if (!response.ok) {
+      throw new Error(`metals.live responded with ${response.status}`);
+    }
+
+    const raw = await response.json();
+
+    // raw is an array of single-key objects: [{ gold: 3011 }, { silver: 33.9 }, ...]
+    const priceMap = {};
+    raw.forEach(entry => {
+      const [key, value] = Object.entries(entry)[0];
+      priceMap[key] = value;
+    });
+
+    const metals = METALS_MAP.map(m => ({
+      name: m.name,
+      symbol: m.symbol,
+      price: priceMap[m.key] ?? null,
+    }));
+
+    metalsCache.data = { metals, fetchedAt: now };
+    metalsCache.fetchedAt = now;
+
+    res.json(metalsCache.data);
+  } catch (err) {
+    console.error('metals.live fetch error:', err.message);
+    res.status(502).json({ error: 'Failed to fetch metals prices' });
+  }
+});
+
 // Start server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
