@@ -40,11 +40,11 @@ const LoadingPlaceholder = ({ bodyColor = "blue" }) => {
 };
 
 // CustomRobotCore component that loads the GLB model with built-in animations
-const CustomRobotCore = ({ bodyColor = "#4a90e2" }) => {
+const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
   const group = useRef();
   const { scene, animations } = useGLTF('/ai-3d-robot.glb');
   const { actions, mixer } = useAnimations(animations, group);
-  
+
   // State for interactive controls
   const [, setCurrentAnimation] = useState('Idle');
   const [isDragging, setIsDragging] = useState(false);
@@ -56,100 +56,60 @@ const CustomRobotCore = ({ bodyColor = "#4a90e2" }) => {
   const [isPlayingReverse, setIsPlayingReverse] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
+  // Ref to the head bone for mouse-tracking look-at
+  const headBoneRef = useRef(null);
+  // Smoothed head rotation offset (added on top of animation each frame)
+  const headRotRef = useRef({ x: 0, y: 0 });
+
   useLayoutEffect(() => {
     if (scene) {
-      scene.scale.set(16.875, 16.875, 16.875); // Further reduced scale (25% smaller than previous)
-      scene.position.set(0, 10, 0); // Adjusted position - moved up another 10 units
+      scene.scale.set(16.875, 16.875, 16.875);
+      scene.position.set(0, 10, 0);
       scene.rotation.y = Math.PI; // Face forward
-      
-      // Apply strategic coloring with white body
+
+      // Color by exact GLB material name — the mesh has 5 primitives:
+      // Body (dark base), ArmorOut (outer shell), ArmorIn (inner accent),
+      // Lights (emissive elements), Decor (black details)
       scene.traverse((child) => {
         if (child.isMesh) {
           child.castShadow = true;
           child.receiveShadow = true;
         }
         if (child.isMesh && child.material) {
-          
-          // Clone material to avoid affecting other instances
           child.material = child.material.clone();
-          
-          const name = (child.name || '').toLowerCase();
-          const materialName = (child.material.name || '').toLowerCase();
-          const combinedName = `${name} ${materialName}`;
-          
-          // Body parts - BRIGHT WHITE
-          if (combinedName.includes('body') || combinedName.includes('armorout') || 
-              combinedName.includes('armorin') || combinedName.includes('torso') ||
-              combinedName.includes('chest') || combinedName.includes('main')) {
-            child.material.color.setHex(0xffffff); // Bright white
+          const matName = (child.material.name || '').toLowerCase();
+
+          if (matName === 'body') {
+            child.material.color.set(bodyColor);
+            child.material.roughness = 0.6;
+            child.material.metalness = 0.4;
+          } else if (matName === 'armorout') {
+            child.material.color.setHex(0xd8dde8); // cool silver outer shell
             child.material.roughness = 0.3;
-            child.material.metalness = 0.1;
-          }
-          
-          // Head/Face - light skin tone for contrast
-          else if (combinedName.includes('head') || combinedName.includes('face') ||
-                   combinedName.includes('neck') || combinedName.includes('skin')) {
-            child.material.color.setHex(0xfdbcb4); // Fair skin
-            child.material.roughness = 0.7;
-            child.material.metalness = 0.1;
-          }
-          
-          // Eyes - blue
-          else if (combinedName.includes('eye') || combinedName.includes('pupil') ||
-                   combinedName.includes('iris')) {
-            child.material.color = new THREE.Color(bodyColor); // Custom color eyes
-            child.material.roughness = 0.2;
-            child.material.metalness = 0.0;
-          }
-          
-          // Hair - brown
-          else if (combinedName.includes('hair') || combinedName.includes('scalp')) {
-            child.material.color.setHex(0x8b7355); // Light brown hair
-            child.material.roughness = 0.8;
-            child.material.metalness = 0.0;
-          }
-          
-          // Lights/Technology parts - bright blue/cyan for tech feel
-          else if (combinedName.includes('light') || combinedName.includes('tech') ||
-                   combinedName.includes('glow') || combinedName.includes('led')) {
-            child.material.color = new THREE.Color(bodyColor); // Custom color lights
-            child.material.emissive = new THREE.Color(bodyColor).multiplyScalar(0.3); // Custom glow
+            child.material.metalness = 0.6;
+          } else if (matName === 'armorin') {
+            child.material.color.set(glowColor); // accent matches glow color
+            child.material.roughness = 0.3;
+            child.material.metalness = 0.5;
+          } else if (matName === 'lights') {
+            child.material.color.set(glowColor);
+            child.material.emissive = new THREE.Color(glowColor).multiplyScalar(0.6);
             child.material.roughness = 0.1;
-            child.material.metalness = 0.8;
-          }
-          
-          // Arms and legs - white to match body
-          else if (combinedName.includes('arm') || combinedName.includes('hand') || 
-                   combinedName.includes('leg') || combinedName.includes('foot')) {
-            child.material.color.setHex(0xf8f8f8); // Slightly off-white
-            child.material.roughness = 0.4;
-            child.material.metalness = 0.2;
-          }
-          
-          // Decorative elements - subtle gray
-          else if (combinedName.includes('decor') || combinedName.includes('detail') ||
-                   combinedName.includes('trim')) {
-            child.material.color.setHex(0xe0e0e0); // Light gray
-            child.material.roughness = 0.5;
-            child.material.metalness = 0.3;
-          }
-          
-          // Default enhancement - make sure nothing is too dark
-          else {
-            const currentColor = child.material.color;
-            if (currentColor.r < 0.3 && currentColor.g < 0.3 && currentColor.b < 0.3) {
-              // Brighten dark parts
-              child.material.color.setHex(0xcccccc);
-            }
-            // Ensure proper material properties for good lighting
-            child.material.roughness = child.material.roughness || 0.5;
-            child.material.metalness = child.material.metalness || 0.2;
+            child.material.metalness = 0.9;
+          } else if (matName === 'decor') {
+            child.material.color.setHex(0x0a0a14);
+            child.material.roughness = 0.9;
+            child.material.metalness = 0.1;
           }
         }
+
+        // Find the head bone for look-at tracking
+        if (child.name === 'head') {
+          headBoneRef.current = child;
+        }
       });
-      
     }
-  }, [scene, actions]);
+  }, [scene, bodyColor, glowColor]);
 
   // Set up initial animation
   useEffect(() => {
@@ -326,30 +286,33 @@ const CustomRobotCore = ({ bodyColor = "#4a90e2" }) => {
     };
   }, [isDragging, lastTouch, dragStart, dragDistance]);
 
-  // Apply rotation from user interaction
+  // Apply rotation from user interaction and hover effects
   useFrame((state) => {
     if (group.current) {
-      // Apply user rotation
       group.current.rotation.x = rotation.x;
-      group.current.rotation.y = rotation.y;
-      
-      // Add subtle mouse hover effect when not dragging
-      if (!isDragging) {
-        const { mouse } = state;
-        group.current.rotation.y = rotation.y + Math.sin(mouse.x * 0.1) * 0.05;
-      }
-      
+      group.current.rotation.y = isDragging
+        ? rotation.y
+        : rotation.y + Math.sin(state.mouse.x * 0.1) * 0.05;
+
       // Smooth zoom effect on hover
-      const targetZ = isHovered ? 15 : 0; // Move closer to camera on hover
-      const targetScale = isHovered ? 1.15 : 1.0; // Slightly larger on hover
+      const targetZ = isHovered ? 15 : 0;
+      const targetScale = isHovered ? 1.15 : 1.0;
       group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, targetZ, 0.08);
-      
-      // Apply hover scale effect
-      const currentScale = group.current.scale.x;
-      const newScale = THREE.MathUtils.lerp(currentScale, targetScale, 0.08);
+      const newScale = THREE.MathUtils.lerp(group.current.scale.x, targetScale, 0.08);
       group.current.scale.set(newScale, newScale, newScale);
     }
   });
+
+  // Head look-at: runs after the animation mixer (priority 1) so the offset
+  // is added on top of the animated pose rather than being overwritten by it.
+  useFrame((state) => {
+    if (!headBoneRef.current) return;
+    const { mouse } = state;
+    headRotRef.current.x = THREE.MathUtils.lerp(headRotRef.current.x, -mouse.y * 0.25, 0.06);
+    headRotRef.current.y = THREE.MathUtils.lerp(headRotRef.current.y, mouse.x * 0.35, 0.06);
+    headBoneRef.current.rotation.x += headRotRef.current.x;
+    headBoneRef.current.rotation.y += headRotRef.current.y;
+  }, 1);
 
   return (
     <>

@@ -61,88 +61,37 @@ const Robot = () => {
       scene.position.set(0, 10, 0); // Adjusted position - moved up another 10 units
       scene.rotation.y = Math.PI; // Face forward
       
-      // Apply strategic coloring with white body
+      // Color by exact GLB material name
       scene.traverse((child) => {
         if (child.isMesh) {
           child.castShadow = true;
           child.receiveShadow = true;
         }
         if (child.isMesh && child.material) {
-          
-          // Clone material to avoid affecting other instances
           child.material = child.material.clone();
-          
-          const name = (child.name || '').toLowerCase();
-          const materialName = (child.material.name || '').toLowerCase();
-          const combinedName = `${name} ${materialName}`;
-          
-          // Body parts - BRIGHT WHITE
-          if (combinedName.includes('body') || combinedName.includes('armorout') || 
-              combinedName.includes('armorin') || combinedName.includes('torso') ||
-              combinedName.includes('chest') || combinedName.includes('main')) {
-            child.material.color.setHex(0xffffff); // Bright white
+          const matName = (child.material.name || '').toLowerCase();
+
+          if (matName === 'body') {
+            child.material.color.setHex(0x1e3a5f);
+            child.material.roughness = 0.6;
+            child.material.metalness = 0.4;
+          } else if (matName === 'armorout') {
+            child.material.color.setHex(0xd8dde8);
             child.material.roughness = 0.3;
-            child.material.metalness = 0.1;
-          }
-          
-          // Head/Face - light skin tone for contrast
-          else if (combinedName.includes('head') || combinedName.includes('face') ||
-                   combinedName.includes('neck') || combinedName.includes('skin')) {
-            child.material.color.setHex(0xfdbcb4); // Fair skin
-            child.material.roughness = 0.7;
-            child.material.metalness = 0.1;
-          }
-          
-          // Eyes - blue
-          else if (combinedName.includes('eye') || combinedName.includes('pupil') ||
-                   combinedName.includes('iris')) {
-            child.material.color.setHex(0x4a90e2); // Blue eyes
-            child.material.roughness = 0.2;
-            child.material.metalness = 0.0;
-          }
-          
-          // Hair - brown
-          else if (combinedName.includes('hair') || combinedName.includes('scalp')) {
-            child.material.color.setHex(0x8b7355); // Light brown hair
-            child.material.roughness = 0.8;
-            child.material.metalness = 0.0;
-          }
-          
-          // Lights/Technology parts - bright blue/cyan for tech feel
-          else if (combinedName.includes('light') || combinedName.includes('tech') ||
-                   combinedName.includes('glow') || combinedName.includes('led')) {
-            child.material.color.setHex(0x00ffff); // Cyan lights
-            child.material.emissive.setHex(0x004444); // Slight glow
+            child.material.metalness = 0.6;
+          } else if (matName === 'armorin') {
+            child.material.color.setHex(0x2563eb);
+            child.material.roughness = 0.3;
+            child.material.metalness = 0.5;
+          } else if (matName === 'lights') {
+            child.material.color.setHex(0x2563eb);
+            child.material.emissive = new THREE.Color(0x2563eb).multiplyScalar(0.6);
             child.material.roughness = 0.1;
-            child.material.metalness = 0.8;
-          }
-          
-          // Arms and legs - white to match body
-          else if (combinedName.includes('arm') || combinedName.includes('hand') || 
-                   combinedName.includes('leg') || combinedName.includes('foot')) {
-            child.material.color.setHex(0xf8f8f8); // Slightly off-white
-            child.material.roughness = 0.4;
-            child.material.metalness = 0.2;
-          }
-          
-          // Decorative elements - subtle gray
-          else if (combinedName.includes('decor') || combinedName.includes('detail') ||
-                   combinedName.includes('trim')) {
-            child.material.color.setHex(0xe0e0e0); // Light gray
-            child.material.roughness = 0.5;
-            child.material.metalness = 0.3;
-          }
-          
-          // Default enhancement - make sure nothing is too dark
-          else {
-            const currentColor = child.material.color;
-            if (currentColor.r < 0.3 && currentColor.g < 0.3 && currentColor.b < 0.3) {
-              // Brighten dark parts
-              child.material.color.setHex(0xcccccc);
-            }
-            // Ensure proper material properties for good lighting
-            child.material.roughness = child.material.roughness || 0.5;
-            child.material.metalness = child.material.metalness || 0.2;
+            child.material.metalness = 0.9;
+          } else if (matName === 'decor') {
+            child.material.color.setHex(0x0a0a14);
+            child.material.roughness = 0.9;
+            child.material.metalness = 0.1;
           }
         }
       });
