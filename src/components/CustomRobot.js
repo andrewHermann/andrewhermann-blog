@@ -236,11 +236,11 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
               mat.needsUpdate = true;
               break;
             case 'ArmorOut':
-              mat.color.setHex(0x2a4878);
-              mat.emissive.setHex(0x1a2d4a);
-              mat.emissiveIntensity = 0.35;
-              mat.roughness = 0.4;
-              mat.metalness = 0.25;
+              mat.color.setHex(0x7b8fa1);
+              mat.emissive.setHex(0x4a5a6a);
+              mat.emissiveIntensity = 0.3;
+              mat.roughness = 0.5;
+              mat.metalness = 0.3;
               mat.needsUpdate = true;
               break;
             case 'ArmorIn':
