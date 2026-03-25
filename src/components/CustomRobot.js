@@ -42,7 +42,7 @@ const LoadingPlaceholder = ({ bodyColor = "blue" }) => {
 // CustomRobotCore component that loads the GLB model with built-in animations
 const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
   const group = useRef();
-  const { scene, materials, animations } = useGLTF('/ai-3d-robot.glb');
+  const { scene, animations } = useGLTF('/ai-3d-robot.glb');
   const { actions, mixer } = useAnimations(animations, group);
 
   // State for interactive controls
@@ -62,63 +62,69 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
   const headRotRef = useRef({ x: 0, y: 0 });
 
   useLayoutEffect(() => {
-    if (!scene || !materials) return;
+    if (!scene) return;
 
     scene.scale.set(16.875, 16.875, 16.875);
     scene.position.set(0, 10, 0);
     scene.rotation.y = Math.PI;
 
-    // All materials use emissive so they self-illuminate at the correct color
-    // regardless of scene lighting. The canvas sits at 50% CSS opacity over a
-    // white page; without emissive, PBR diffuse + ACES tone mapping lifts dark
-    // colors to near-white. Emissive is additive and scene-lighting independent.
-    // A low-intensity directional light is kept only for 3-D shading contrast.
-    if (materials.Body) {
-      materials.Body.color.set('#000510');        // near-black diffuse base
-      materials.Body.emissive.set(bodyColor);     // #1e3a5f self-illuminated navy
-      materials.Body.emissiveIntensity = 0.8;
-      materials.Body.roughness = 0.7;
-      materials.Body.metalness = 0.0;
-      materials.Body.needsUpdate = true;
-    }
-    if (materials.ArmorOut) {
-      materials.ArmorOut.color.set('#000810');
-      materials.ArmorOut.emissive.setHex(0x1e2d42); // slightly lighter steel
-      materials.ArmorOut.emissiveIntensity = 0.7;
-      materials.ArmorOut.roughness = 0.5;
-      materials.ArmorOut.metalness = 0.0;
-      materials.ArmorOut.needsUpdate = true;
-    }
-    if (materials.ArmorIn) {
-      materials.ArmorIn.color.set('#000510');
-      materials.ArmorIn.emissive.set(glowColor);  // #2563eb blue accent
-      materials.ArmorIn.emissiveIntensity = 0.9;
-      materials.ArmorIn.roughness = 0.4;
-      materials.ArmorIn.metalness = 0.0;
-      materials.ArmorIn.needsUpdate = true;
-    }
-    if (materials.Lights) {
-      materials.Lights.color.set(glowColor);
-      materials.Lights.emissive.set(glowColor);
-      materials.Lights.emissiveIntensity = 1.5;   // strong glow — main accent
-      materials.Lights.roughness = 0.05;
-      materials.Lights.metalness = 0.0;
-      materials.Lights.needsUpdate = true;
-    }
-    if (materials.Decor) {
-      materials.Decor.color.set('#000000');
-      materials.Decor.emissive.setHex(0x050810);
-      materials.Decor.emissiveIntensity = 0.3;
-      materials.Decor.roughness = 0.9;
-      materials.Decor.metalness = 0.0;
-      materials.Decor.needsUpdate = true;
-    }
-
-    // Find the head bone for look-at tracking
+    // drei v10 useGLTF does NOT call buildGraph — the `materials` dict is undefined.
+    // Traverse the scene directly and match by child.material.name instead.
+    // All materials use emissive so they self-illuminate regardless of scene lighting.
+    // The canvas sits at 50% CSS opacity over a white page; without emissive, PBR
+    // diffuse lifts dark colors to near-white. Emissive is lighting-independent.
     scene.traverse((child) => {
       if (child.name === 'head') headBoneRef.current = child;
+
+      if (!child.isMesh || !child.material) return;
+      const mat = child.material;
+
+      switch (mat.name) {
+        case 'Body':
+          mat.color.set('#000510');
+          mat.emissive.set(bodyColor);
+          mat.emissiveIntensity = 0.8;
+          mat.roughness = 0.7;
+          mat.metalness = 0.0;
+          mat.needsUpdate = true;
+          break;
+        case 'ArmorOut':
+          mat.color.set('#000810');
+          mat.emissive.setHex(0x1e2d42);
+          mat.emissiveIntensity = 0.7;
+          mat.roughness = 0.5;
+          mat.metalness = 0.0;
+          mat.needsUpdate = true;
+          break;
+        case 'ArmorIn':
+          mat.color.set('#000510');
+          mat.emissive.set(glowColor);
+          mat.emissiveIntensity = 0.9;
+          mat.roughness = 0.4;
+          mat.metalness = 0.0;
+          mat.needsUpdate = true;
+          break;
+        case 'Lights':
+          mat.color.set(glowColor);
+          mat.emissive.set(glowColor);
+          mat.emissiveIntensity = 1.5;
+          mat.roughness = 0.05;
+          mat.metalness = 0.0;
+          mat.needsUpdate = true;
+          break;
+        case 'Decor':
+          mat.color.set('#000000');
+          mat.emissive.setHex(0x050810);
+          mat.emissiveIntensity = 0.3;
+          mat.roughness = 0.9;
+          mat.metalness = 0.0;
+          mat.needsUpdate = true;
+          break;
+        default:
+          break;
+      }
     });
-  }, [scene, materials, bodyColor, glowColor]);
+  }, [scene, bodyColor, glowColor]);
 
   // Set up initial animation
   useEffect(() => {
