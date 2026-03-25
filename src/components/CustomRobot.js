@@ -42,6 +42,14 @@ const LoadingPlaceholder = ({ bodyColor = "#1e3a5f" }) => {
 // CustomRobotCore — mirrors Robot.js structure exactly, adds emissive material fix
 const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
   const group = useRef();
+  const headBoneRef = useRef(null);
+  const windowMouseRef = useRef({ x: 0, y: 0 });
+  const headOffsetRef = useRef({ x: 0, y: 0 });
+  const bodyOffsetRef = useRef({ x: 0, y: 0 });
+  const restQuatRef = useRef(new THREE.Quaternion());
+  const restCapturedRef = useRef(false);
+  const _offsetQuat = useRef(new THREE.Quaternion());
+  const _offsetEuler = useRef(new THREE.Euler(0, 0, 0, 'YXZ'));
   const { scene, animations } = useGLTF('/ai-3d-robot.glb');
   const { actions, mixer } = useAnimations(animations, group);
 
@@ -60,6 +68,13 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
     scene.position.set(0, 10, 0);
     scene.rotation.y = Math.PI;
 
+    scene.traverse((child) => {
+      if (child.isSkinnedMesh && child.skeleton) {
+        const headBone = child.skeleton.bones.find(b => b.name === 'DEF-spine006');
+        if (headBone) headBoneRef.current = headBone;
+      }
+    });
+
     // drei v10 useGLTF returns raw GLTFLoader result — no buildGraph, so the
     // destructured `materials` dict is undefined. Traverse the scene directly
     // and match by child.material.name. Emissive makes materials self-illuminate
@@ -69,44 +84,51 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
       const mats = Array.isArray(child.material) ? child.material : [child.material];
       mats.forEach((mat) => {
         if (!mat) return;
+        // Diffuse carries the site brand colors for 3-D depth.
+        // Emissive provides a minimum-visibility floor at 50% canvas opacity.
         switch (mat.name) {
           case 'Body':
-            mat.color.set('#000510');
+            // Site primary — deep navy
+            mat.color.set(bodyColor);
             mat.emissive.set(bodyColor);
-            mat.emissiveIntensity = 1.8;
-            mat.roughness = 0.7;
-            mat.metalness = 0.0;
+            mat.emissiveIntensity = 0.4;
+            mat.roughness = 0.65;
+            mat.metalness = 0.1;
             mat.needsUpdate = true;
             break;
           case 'ArmorOut':
-            mat.color.set('#000810');
-            mat.emissive.setHex(0x2a4878);
-            mat.emissiveIntensity = 1.4;
-            mat.roughness = 0.5;
-            mat.metalness = 0.0;
+            // Medium steel-blue — visually distinct lighter value above body
+            mat.color.setHex(0x2a4878);
+            mat.emissive.setHex(0x1a2d4a);
+            mat.emissiveIntensity = 0.35;
+            mat.roughness = 0.4;
+            mat.metalness = 0.25;
             mat.needsUpdate = true;
             break;
           case 'ArmorIn':
-            mat.color.set('#000510');
+            // Site secondary — vivid blue accent panels
+            mat.color.set(glowColor);
             mat.emissive.set(glowColor);
-            mat.emissiveIntensity = 1.2;
-            mat.roughness = 0.4;
+            mat.emissiveIntensity = 0.5;
+            mat.roughness = 0.3;
             mat.metalness = 0.0;
             mat.needsUpdate = true;
             break;
           case 'Lights':
-            mat.color.set(glowColor);
-            mat.emissive.set(glowColor);
-            mat.emissiveIntensity = 2.5;
-            mat.roughness = 0.05;
+            // Bright sky-blue glow strips — the robot's "alive" accent
+            mat.color.setHex(0x60a5fa);
+            mat.emissive.setHex(0x60a5fa);
+            mat.emissiveIntensity = 2.2;
+            mat.roughness = 0.0;
             mat.metalness = 0.0;
             mat.needsUpdate = true;
             break;
           case 'Decor':
-            mat.color.set('#000000');
-            mat.emissive.set(bodyColor);
-            mat.emissiveIntensity = 0.6;
-            mat.roughness = 0.9;
+            // Light powder-blue detail trim
+            mat.color.setHex(0x93c5fd);
+            mat.emissive.setHex(0x93c5fd);
+            mat.emissiveIntensity = 1.2;
+            mat.roughness = 0.3;
             mat.metalness = 0.0;
             mat.needsUpdate = true;
             break;
@@ -175,6 +197,26 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
   };
 
   useEffect(() => {
+    const handleWindowMouse = (e) => {
+      const canvas = document.querySelector('.floating-robot-canvas');
+      if (canvas) {
+        const rect = canvas.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const pixelDistX = e.clientX - centerX;
+        const pixelDistY = e.clientY - centerY;
+        // atan mapping: fast near center, slow far away. K=400 = half-max at ~400px.
+        // Yaw max 50° (0.873 rad), pitch max 25° (0.436 rad — less range up/down).
+        const angleX = Math.atan(pixelDistX / 400) * (2 / Math.PI) * 0.873;
+        const angleY = Math.atan(pixelDistY / 400) * (2 / Math.PI) * 0.436;
+        windowMouseRef.current = { x: angleX, y: angleY };
+      }
+    };
+    window.addEventListener('mousemove', handleWindowMouse);
+    return () => window.removeEventListener('mousemove', handleWindowMouse);
+  }, []);
+
+  useEffect(() => {
     const handleMouseDown = (event) => {
       setIsDragging(true);
       setDragStart({ x: event.clientX, y: event.clientY });
@@ -212,7 +254,7 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
     };
     const handleTouchEnd = () => { setIsDragging(false); };
 
-    const robotContainer = document.querySelector('.hero-robot-canvas');
+    const robotContainer = document.querySelector('.floating-robot-canvas');
     if (robotContainer) {
       robotContainer.addEventListener('mousedown', handleMouseDown);
       window.addEventListener('mousemove', handleMouseMove);
@@ -233,14 +275,40 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
     };
   }, [isDragging, lastTouch, dragStart, dragDistance]);
 
-  useFrame((state) => {
+  // Single priority-1 frame: body lean + head bone + render in one shot.
+  // Group rotation and gl.render() must be in the same frame so scene.updateMatrixWorld()
+  // inside render() picks up the rotation change — proved by the diagnostic oscillation test.
+  useFrame(({ gl, scene: s, camera }) => {
+    const m = windowMouseRef.current;
+
+    // Whole-body lean via group rotation (carries arms + torso together)
     if (group.current) {
-      group.current.rotation.x = rotation.x;
+      if (!isDragging) {
+        bodyOffsetRef.current.x = THREE.MathUtils.lerp(bodyOffsetRef.current.x, m.y * 0.5, 0.06);
+        bodyOffsetRef.current.y = THREE.MathUtils.lerp(bodyOffsetRef.current.y, m.x * 0.6, 0.06);
+      }
+      group.current.rotation.x = rotation.x + (isDragging ? 0 : bodyOffsetRef.current.x);
       group.current.rotation.y = isDragging
         ? rotation.y
-        : rotation.y + Math.sin(state.mouse.x * 0.1) * 0.05;
+        : rotation.y + bodyOffsetRef.current.y;
     }
-  });
+
+    // Head bone — full yaw + pitch, snappy lerp
+    const headBone = headBoneRef.current;
+    if (headBone) {
+      if (!restCapturedRef.current) {
+        restQuatRef.current.copy(headBone.quaternion);
+        restCapturedRef.current = true;
+      }
+      headOffsetRef.current.x = THREE.MathUtils.lerp(headOffsetRef.current.x, m.y, 0.08);
+      headOffsetRef.current.y = THREE.MathUtils.lerp(headOffsetRef.current.y, m.x, 0.08);
+      _offsetEuler.current.set(headOffsetRef.current.x, headOffsetRef.current.y, 0, 'YXZ');
+      _offsetQuat.current.setFromEuler(_offsetEuler.current);
+      headBone.quaternion.copy(restQuatRef.current).multiply(_offsetQuat.current);
+    }
+
+    gl.render(s, camera);
+  }, 1);
 
   return (
     <>
