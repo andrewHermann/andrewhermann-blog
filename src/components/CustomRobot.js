@@ -48,6 +48,7 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
   const bodyOffsetRef = useRef({ x: 0, y: 0 });
   const restQuatRef = useRef(new THREE.Quaternion());
   const restCapturedRef = useRef(false);
+  const colorsAppliedRef = useRef(false);
   const _offsetQuat = useRef(new THREE.Quaternion());
   const _offsetEuler = useRef(new THREE.Euler(0, 0, 0, 'YXZ'));
   const { scene, animations } = useGLTF('/ai-3d-robot.glb');
@@ -279,6 +280,64 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
   // Group rotation and gl.render() must be in the same frame so scene.updateMatrixWorld()
   // inside render() picks up the rotation change — proved by the diagnostic oscillation test.
   useFrame(({ gl, scene: s, camera }) => {
+    // Apply material colors on first frame — useLayoutEffect runs before R3F
+    // initializes the WebGL material state, so changes made there get wiped.
+    // Applying here (at render time) guarantees they stick.
+    if (!colorsAppliedRef.current && scene) {
+      scene.traverse((child) => {
+        if (!child.isMesh) return;
+        const mats = Array.isArray(child.material) ? child.material : [child.material];
+        mats.forEach((mat) => {
+          if (!mat) return;
+          switch (mat.name) {
+            case 'Body':
+              mat.color.set(bodyColor);
+              mat.emissive.set(bodyColor);
+              mat.emissiveIntensity = 0.4;
+              mat.roughness = 0.65;
+              mat.metalness = 0.1;
+              mat.needsUpdate = true;
+              break;
+            case 'ArmorOut':
+              mat.color.setHex(0x2a4878);
+              mat.emissive.setHex(0x1a2d4a);
+              mat.emissiveIntensity = 0.35;
+              mat.roughness = 0.4;
+              mat.metalness = 0.25;
+              mat.needsUpdate = true;
+              break;
+            case 'ArmorIn':
+              mat.color.set(glowColor);
+              mat.emissive.set(glowColor);
+              mat.emissiveIntensity = 0.5;
+              mat.roughness = 0.3;
+              mat.metalness = 0.0;
+              mat.needsUpdate = true;
+              break;
+            case 'Lights':
+              mat.color.setHex(0x60a5fa);
+              mat.emissive.setHex(0x60a5fa);
+              mat.emissiveIntensity = 2.2;
+              mat.roughness = 0.0;
+              mat.metalness = 0.0;
+              mat.needsUpdate = true;
+              break;
+            case 'Decor':
+              mat.color.setHex(0x93c5fd);
+              mat.emissive.setHex(0x93c5fd);
+              mat.emissiveIntensity = 1.2;
+              mat.roughness = 0.3;
+              mat.metalness = 0.0;
+              mat.needsUpdate = true;
+              break;
+            default:
+              break;
+          }
+        });
+      });
+      colorsAppliedRef.current = true;
+    }
+
     const m = windowMouseRef.current;
 
     // Whole-body lean via group rotation (carries arms + torso together)
