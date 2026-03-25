@@ -78,9 +78,10 @@ const ThreeSceneCustom = ({ bodyColor = '#4a90e2', glowColor = '#ffffff' }) => {
       gl={{ toneMapping: THREE.NoToneMapping, alpha: true }}
     >
       <InteractiveCameraController />
-      
-      {/* No extra ambient — all lighting is controlled inside CustomRobot */}
-      
+
+      {/* DEBUG: dark background confirms canvas is rendering */}
+      <color attach="background" args={['#001030']} />
+
       {/* Robot in its own container with custom colors */}
       {useRobot ? (
         <CustomRobot bodyColor={bodyColor} glowColor={glowColor} />
