@@ -68,25 +68,31 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
     scene.position.set(0, 10, 0);
     scene.rotation.y = Math.PI;
 
-    // Apply colors directly to the material objects returned by useGLTF.
-    // These are the exact same instances referenced by the mesh primitives,
-    // so modifying them here is guaranteed to affect the rendered result.
-    // Colors must be DARK to remain visible at 50% canvas opacity over a white page.
-    // After lighting + opacity blending, light colors dissolve into white.
+    // All materials use emissive so they self-illuminate at the correct color
+    // regardless of scene lighting. The canvas sits at 50% CSS opacity over a
+    // white page; without emissive, PBR diffuse + ACES tone mapping lifts dark
+    // colors to near-white. Emissive is additive and scene-lighting independent.
+    // A low-intensity directional light is kept only for 3-D shading contrast.
     if (materials.Body) {
-      materials.Body.color.set(bodyColor);   // dark navy #1e3a5f passed from pages
+      materials.Body.color.set('#000510');        // near-black diffuse base
+      materials.Body.emissive.set(bodyColor);     // #1e3a5f self-illuminated navy
+      materials.Body.emissiveIntensity = 0.8;
       materials.Body.roughness = 0.7;
       materials.Body.metalness = 0.0;
       materials.Body.needsUpdate = true;
     }
     if (materials.ArmorOut) {
-      materials.ArmorOut.color.setHex(0x2a3a52); // dark steel — stays dark under dim light
+      materials.ArmorOut.color.set('#000810');
+      materials.ArmorOut.emissive.setHex(0x1e2d42); // slightly lighter steel
+      materials.ArmorOut.emissiveIntensity = 0.7;
       materials.ArmorOut.roughness = 0.5;
       materials.ArmorOut.metalness = 0.0;
       materials.ArmorOut.needsUpdate = true;
     }
     if (materials.ArmorIn) {
-      materials.ArmorIn.color.set(glowColor);    // #2563eb — blue accent
+      materials.ArmorIn.color.set('#000510');
+      materials.ArmorIn.emissive.set(glowColor);  // #2563eb blue accent
+      materials.ArmorIn.emissiveIntensity = 0.9;
       materials.ArmorIn.roughness = 0.4;
       materials.ArmorIn.metalness = 0.0;
       materials.ArmorIn.needsUpdate = true;
@@ -94,13 +100,15 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
     if (materials.Lights) {
       materials.Lights.color.set(glowColor);
       materials.Lights.emissive.set(glowColor);
-      materials.Lights.emissiveIntensity = 1.2;  // glow regardless of scene lighting
+      materials.Lights.emissiveIntensity = 1.5;   // strong glow — main accent
       materials.Lights.roughness = 0.05;
       materials.Lights.metalness = 0.0;
       materials.Lights.needsUpdate = true;
     }
     if (materials.Decor) {
-      materials.Decor.color.setHex(0x080c12);    // near-black
+      materials.Decor.color.set('#000000');
+      materials.Decor.emissive.setHex(0x050810);
+      materials.Decor.emissiveIntensity = 0.3;
       materials.Decor.roughness = 0.9;
       materials.Decor.metalness = 0.0;
       materials.Decor.needsUpdate = true;
@@ -317,10 +325,9 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
 
   return (
     <>
-      <ambientLight intensity={0.15} color="#dde8ff" />
-      <directionalLight position={[2, 8, 12]} intensity={0.5} color="#ffffff" castShadow={false} />
-      <directionalLight position={[-8, 4, 4]} intensity={0.3} color="#88aaff" castShadow={false} />
-      <directionalLight position={[0, 10, -8]} intensity={0.2} color="#4466cc" castShadow={false} />
+      {/* Materials are emissive-driven; lighting only provides subtle 3-D shading contrast */}
+      <ambientLight intensity={0.05} color="#dde8ff" />
+      <directionalLight position={[2, 8, 12]} intensity={0.25} color="#ffffff" castShadow={false} />
       
       {/* Rotating group - only contains the robot model */}
       <group 
