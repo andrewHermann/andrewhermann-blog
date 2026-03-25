@@ -75,7 +75,6 @@ const ThreeSceneCustom = ({ bodyColor = '#4a90e2', glowColor = '#ffffff' }) => {
       className="hero-robot-canvas"
       camera={{ position: [0, 0, 100], fov: 75 }}
       style={{ width: '100%', height: '100%' }}
-      gl={{ toneMapping: THREE.NoToneMapping, alpha: true }}
     >
       <InteractiveCameraController />
 
