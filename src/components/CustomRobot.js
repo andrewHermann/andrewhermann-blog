@@ -80,26 +80,31 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
           const matName = (child.material.name || '').toLowerCase();
 
           if (matName === 'body') {
-            child.material.color.set(bodyColor);
-            child.material.roughness = 0.6;
-            child.material.metalness = 0.4;
+            // Mid-tone navy — dark enough to read against white, light enough to see at 50% opacity
+            child.material.color.setHex(0x2a4a7a);
+            child.material.roughness = 0.5;
+            child.material.metalness = 0.5;
           } else if (matName === 'armorout') {
-            child.material.color.setHex(0x4a6080); // medium steel-blue armor
-            child.material.roughness = 0.3;
-            child.material.metalness = 0.6;
+            // Light silver-blue outer shell — the brightest surface, gives the robot shape
+            child.material.color.setHex(0xb8c8e0);
+            child.material.roughness = 0.25;
+            child.material.metalness = 0.65;
           } else if (matName === 'armorin') {
-            child.material.color.set(glowColor); // accent matches glow color
-            child.material.roughness = 0.3;
+            // Vivid blue accent from glowColor
+            child.material.color.set(glowColor);
+            child.material.roughness = 0.25;
             child.material.metalness = 0.5;
           } else if (matName === 'lights') {
+            // Glowing elements — strong emissive so they're always visible
             child.material.color.set(glowColor);
-            child.material.emissive = new THREE.Color(glowColor).multiplyScalar(0.6);
-            child.material.roughness = 0.1;
-            child.material.metalness = 0.9;
+            child.material.emissive = new THREE.Color(glowColor).multiplyScalar(0.9);
+            child.material.roughness = 0.05;
+            child.material.metalness = 0.8;
           } else if (matName === 'decor') {
-            child.material.color.setHex(0x0a0a14);
-            child.material.roughness = 0.9;
-            child.material.metalness = 0.1;
+            // Dark detail lines — readable but not pure black
+            child.material.color.setHex(0x1a2540);
+            child.material.roughness = 0.8;
+            child.material.metalness = 0.2;
           }
         }
 
@@ -316,14 +321,10 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
 
   return (
     <>
-      {/* Soft ambient base */}
-      <ambientLight intensity={0.35} color="#c8d4e8" />
-      {/* Key light: front-slightly-above, warm white */}
-      <directionalLight position={[2, 8, 12]} intensity={1.2} color="#e8eeff" castShadow={false} />
-      {/* Fill light: left side, cool blue */}
-      <directionalLight position={[-10, 4, 4]} intensity={0.7} color="#4488cc" castShadow={false} />
-      {/* Rim light: top-back for edge separation */}
-      <directionalLight position={[0, 12, -10]} intensity={0.5} color="#2255aa" castShadow={false} />
+      <ambientLight intensity={0.6} color="#dde8ff" />
+      <directionalLight position={[2, 8, 12]} intensity={1.8} color="#ffffff" castShadow={false} />
+      <directionalLight position={[-8, 4, 4]} intensity={1.0} color="#88aaff" castShadow={false} />
+      <directionalLight position={[0, 10, -8]} intensity={0.6} color="#4466cc" castShadow={false} />
       
       {/* Rotating group - only contains the robot model */}
       <group 

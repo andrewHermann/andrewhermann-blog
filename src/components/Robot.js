@@ -72,13 +72,13 @@ const Robot = () => {
           const matName = (child.material.name || '').toLowerCase();
 
           if (matName === 'body') {
-            child.material.color.setHex(0x1e3a5f);
-            child.material.roughness = 0.6;
-            child.material.metalness = 0.4;
+            child.material.color.setHex(0x2a4a7a);
+            child.material.roughness = 0.5;
+            child.material.metalness = 0.5;
           } else if (matName === 'armorout') {
-            child.material.color.setHex(0x4a6080);
-            child.material.roughness = 0.3;
-            child.material.metalness = 0.6;
+            child.material.color.setHex(0xb8c8e0);
+            child.material.roughness = 0.25;
+            child.material.metalness = 0.65;
           } else if (matName === 'armorin') {
             child.material.color.setHex(0x2563eb);
             child.material.roughness = 0.3;
@@ -292,10 +292,10 @@ const Robot = () => {
   return (
     <>
       {/* Stationary lights - do not rotate with the model */}
-      <ambientLight intensity={0.35} color="#c8d4e8" />
-      <directionalLight position={[2, 8, 12]} intensity={1.2} color="#e8eeff" castShadow={false} />
-      <directionalLight position={[-10, 4, 4]} intensity={0.7} color="#4488cc" castShadow={false} />
-      <directionalLight position={[0, 12, -10]} intensity={0.5} color="#2255aa" castShadow={false} />
+      <ambientLight intensity={0.6} color="#dde8ff" />
+      <directionalLight position={[2, 8, 12]} intensity={1.8} color="#ffffff" castShadow={false} />
+      <directionalLight position={[-8, 4, 4]} intensity={1.0} color="#88aaff" castShadow={false} />
+      <directionalLight position={[0, 10, -8]} intensity={0.6} color="#4466cc" castShadow={false} />
       
       {/* Rotating group - only contains the robot model */}
       <group ref={group} onClick={handleClick}>
