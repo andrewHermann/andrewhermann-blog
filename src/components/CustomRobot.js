@@ -80,31 +80,26 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
           const matName = (child.material.name || '').toLowerCase();
 
           if (matName === 'body') {
-            // Mid-tone navy — dark enough to read against white, light enough to see at 50% opacity
             child.material.color.setHex(0x2a4a7a);
-            child.material.roughness = 0.5;
-            child.material.metalness = 0.5;
+            child.material.roughness = 0.6;
+            child.material.metalness = 0.0;
           } else if (matName === 'armorout') {
-            // Light silver-blue outer shell — the brightest surface, gives the robot shape
             child.material.color.setHex(0xb8c8e0);
-            child.material.roughness = 0.25;
-            child.material.metalness = 0.65;
+            child.material.roughness = 0.3;
+            child.material.metalness = 0.1;
           } else if (matName === 'armorin') {
-            // Vivid blue accent from glowColor
             child.material.color.set(glowColor);
-            child.material.roughness = 0.25;
-            child.material.metalness = 0.5;
+            child.material.roughness = 0.3;
+            child.material.metalness = 0.0;
           } else if (matName === 'lights') {
-            // Glowing elements — strong emissive so they're always visible
             child.material.color.set(glowColor);
             child.material.emissive = new THREE.Color(glowColor).multiplyScalar(0.9);
             child.material.roughness = 0.05;
-            child.material.metalness = 0.8;
+            child.material.metalness = 0.0;
           } else if (matName === 'decor') {
-            // Dark detail lines — readable but not pure black
             child.material.color.setHex(0x1a2540);
             child.material.roughness = 0.8;
-            child.material.metalness = 0.2;
+            child.material.metalness = 0.0;
           }
         }
 

@@ -73,25 +73,25 @@ const Robot = () => {
 
           if (matName === 'body') {
             child.material.color.setHex(0x2a4a7a);
-            child.material.roughness = 0.5;
-            child.material.metalness = 0.5;
+            child.material.roughness = 0.6;
+            child.material.metalness = 0.0;
           } else if (matName === 'armorout') {
             child.material.color.setHex(0xb8c8e0);
-            child.material.roughness = 0.25;
-            child.material.metalness = 0.65;
+            child.material.roughness = 0.3;
+            child.material.metalness = 0.1;
           } else if (matName === 'armorin') {
             child.material.color.setHex(0x2563eb);
             child.material.roughness = 0.3;
-            child.material.metalness = 0.5;
+            child.material.metalness = 0.0;
           } else if (matName === 'lights') {
             child.material.color.setHex(0x2563eb);
-            child.material.emissive = new THREE.Color(0x2563eb).multiplyScalar(0.6);
-            child.material.roughness = 0.1;
-            child.material.metalness = 0.9;
+            child.material.emissive = new THREE.Color(0x2563eb).multiplyScalar(0.9);
+            child.material.roughness = 0.05;
+            child.material.metalness = 0.0;
           } else if (matName === 'decor') {
-            child.material.color.setHex(0x0a0a14);
-            child.material.roughness = 0.9;
-            child.material.metalness = 0.1;
+            child.material.color.setHex(0x1a2540);
+            child.material.roughness = 0.8;
+            child.material.metalness = 0.0;
           }
         }
       });
