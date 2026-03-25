@@ -91,7 +91,7 @@ const Home = () => {
       </div>
 
       <Footer />
-      <PageFloatingRobot bodyColor="#93c5fd" glowColor="#2563eb" />
+      <PageFloatingRobot bodyColor="#d0dae4" glowColor="#2563eb" />
     </div>
   )
 }

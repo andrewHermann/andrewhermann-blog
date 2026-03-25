@@ -228,33 +228,37 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
           if (!mat) return;
           switch (mat.name) {
             case 'Body':
-              mat.color.set(bodyColor);
-              mat.emissive.set(bodyColor);
+              // Polished chrome hull — slight blue tint catches the scene lights
+              mat.color.setHex(0xd0dae4);
+              mat.emissive.setHex(0x607080);
+              mat.emissiveIntensity = 0.15;
+              mat.roughness = 0.12;
+              mat.metalness = 0.90;
+              mat.needsUpdate = true;
+              break;
+            case 'ArmorOut':
+              // Gunmetal steel plates — matte-ish, darker than chrome hull
+              mat.color.setHex(0x8c9aaa);
+              mat.emissive.setHex(0x3a4858);
+              mat.emissiveIntensity = 0.15;
+              mat.roughness = 0.25;
+              mat.metalness = 0.75;
+              mat.needsUpdate = true;
+              break;
+            case 'ArmorIn':
+              // Site dark navy — recessed panels as the dark accent colour
+              mat.color.setHex(0x1e3a5f);
+              mat.emissive.setHex(0x0f1e30);
               mat.emissiveIntensity = 0.4;
               mat.roughness = 0.65;
               mat.metalness = 0.1;
               mat.needsUpdate = true;
               break;
-            case 'ArmorOut':
-              mat.color.setHex(0x7b8fa1);
-              mat.emissive.setHex(0x4a5a6a);
-              mat.emissiveIntensity = 0.3;
-              mat.roughness = 0.5;
-              mat.metalness = 0.3;
-              mat.needsUpdate = true;
-              break;
-            case 'ArmorIn':
-              mat.color.set(glowColor);
-              mat.emissive.set(glowColor);
-              mat.emissiveIntensity = 0.5;
-              mat.roughness = 0.3;
-              mat.metalness = 0.0;
-              mat.needsUpdate = true;
-              break;
             case 'Lights':
+              // Electric blue glow strips — the robot's signature alive accent
               mat.color.setHex(0x60a5fa);
               mat.emissive.setHex(0x60a5fa);
-              mat.emissiveIntensity = 2.2;
+              mat.emissiveIntensity = 2.5;
               mat.roughness = 0.0;
               mat.metalness = 0.0;
               mat.needsUpdate = true;
