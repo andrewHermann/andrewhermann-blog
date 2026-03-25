@@ -332,6 +332,7 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
               mat.emissiveIntensity = 1.2;
               mat.roughness = 0.3;
               mat.metalness = 0.0;
+              mat.depthTest = false;  // DEBUG: render on top of everything to confirm occlusion
               mat.needsUpdate = true;
               console.log('[Robot] Decor SET — color after:', mat.color.getHexString(), 'emissive:', mat.emissive.getHexString(), 'emissiveIntensity:', mat.emissiveIntensity);
               break;
