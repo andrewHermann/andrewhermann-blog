@@ -16,20 +16,33 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import { useState } from 'react';
 import ThreeSceneCustom from './ThreeSceneCustom';
 import OpenSourceBadge from './OpenSourceBadge';
 import './PageFloatingRobot.css';
 
 const PageFloatingRobot = ({ bodyColor = '#4a90e2', glowColor = '#ffffff' }) => {
+  const [dismissed, setDismissed] = useState(false);
+
+  if (dismissed) return null;
+
   return (
     <div className="page-floating-robot-wrapper">
+      <button
+        className="robot-close-btn"
+        onClick={() => setDismissed(true)}
+        aria-label="Close robot"
+      >
+        ×
+      </button>
       <div className="page-floating-robot-container">
         <ThreeSceneCustom bodyColor={bodyColor} glowColor={glowColor} />
       </div>
+      <div className="robot-hint">Drag to rotate · Click to animate</div>
       <div className="opensource-badge-container">
-        <OpenSourceBadge 
-          variant="default" 
-          position="static" 
+        <OpenSourceBadge
+          variant="default"
+          position="static"
           size="medium"
           className="floating-robot-badge"
         />

@@ -72,7 +72,7 @@ const ThreeSceneCustom = ({ bodyColor = '#4a90e2', glowColor = '#ffffff' }) => {
   return (
     <Canvas
       shadows={false}
-      className="hero-robot-canvas"
+      className="floating-robot-canvas"
       camera={{ position: [0, 0, 100], fov: 75 }}
       style={{ width: '100%', height: '100%' }}
     >

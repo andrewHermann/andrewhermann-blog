@@ -10,7 +10,7 @@
 }
 
 .page-floating-robot-container {
-  opacity: 0.5;
+  opacity: 1;
   transition: opacity 0.3s ease;
   width: 320px;
   height: 320px;
@@ -28,6 +28,28 @@
   background: transparent !important;
   border: none !important;
   outline: none !important;
+  cursor: grab;
+}
+
+.page-floating-robot-container canvas:active {
+  cursor: grabbing;
+}
+
+.robot-hint {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  margin-top: -4px;
+  margin-bottom: 4px;
+}
+
+.page-floating-robot-wrapper:hover .robot-hint {
+  opacity: 1;
 }
 
 .opensource-badge-container {
@@ -36,10 +58,55 @@
 }
 
 .floating-robot-badge {
-  opacity: 0.5;
+  opacity: 1;
   transition: opacity 0.3s ease;
   box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(12px);
+}
+
+.robot-close-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.85rem;
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 0.25s ease, transform 0.25s ease, background 0.2s ease, border-color 0.2s ease;
+  pointer-events: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+.page-floating-robot-wrapper:hover .robot-close-btn {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.robot-close-btn:hover {
+  background: rgba(37, 99, 235, 0.7);
+  border-color: rgba(96, 165, 250, 0.5);
+  color: #ffffff;
+  transform: scale(1.1);
+}
+
+.robot-close-btn:active {
+  transform: scale(0.95);
 }
 
 /* Hover effects for the entire wrapper */

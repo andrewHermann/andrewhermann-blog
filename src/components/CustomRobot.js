@@ -18,29 +18,28 @@
 
 import { useRef, useLayoutEffect, Suspense, useState, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { useGLTF, useAnimations } from '@react-three/drei';
+import { useGLTF, useAnimations, Environment } from '@react-three/drei';
 import * as THREE from 'three';
 
+// Clear GLTF cache on every module load so materials are always fresh.
+// Without this, HMR preserves corrupted material state (e.g. transparent=true) indefinitely.
+useGLTF.clear('/ai-3d-robot.glb');
+
 // Fallback component while loading
-const LoadingPlaceholder = ({ bodyColor = "#1e3a5f" }) => {
+const LoadingPlaceholder = () => {
   const meshRef = useRef();
-
   useFrame((state) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.y = state.clock.elapsedTime * 0.5;
-    }
+    if (meshRef.current) meshRef.current.rotation.y = state.clock.elapsedTime * 0.5;
   });
-
   return (
     <mesh ref={meshRef}>
       <boxGeometry args={[1, 2, 0.5]} />
-      <meshStandardMaterial color={bodyColor} />
+      <meshStandardMaterial color="#1e3a5f" />
     </mesh>
   );
 };
 
-// CustomRobotCore — mirrors Robot.js structure exactly, adds emissive material fix
-const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
+const CustomRobotCore = () => {
   const group = useRef();
   const headBoneRef = useRef(null);
   const windowMouseRef = useRef({ x: 0, y: 0 });
@@ -48,9 +47,9 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
   const bodyOffsetRef = useRef({ x: 0, y: 0 });
   const restQuatRef = useRef(new THREE.Quaternion());
   const restCapturedRef = useRef(false);
-  const colorsAppliedRef = useRef(false);
   const _offsetQuat = useRef(new THREE.Quaternion());
   const _offsetEuler = useRef(new THREE.Euler(0, 0, 0, 'YXZ'));
+
   const { scene, animations } = useGLTF('/ai-3d-robot.glb');
   const { actions, mixer } = useAnimations(animations, group);
 
@@ -62,6 +61,8 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
   const [isPlayingPose, setIsPlayingPose] = useState(false);
   const [isPlayingReverse, setIsPlayingReverse] = useState(false);
 
+  // Apply transform, find head bone, and set material colors.
+  // Fresh clone = no stale transparent/depthWrite state to fight.
   useLayoutEffect(() => {
     if (!scene) return;
 
@@ -70,18 +71,83 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
     scene.rotation.y = Math.PI;
 
     scene.traverse((child) => {
+      // Find head bone
       if (child.isSkinnedMesh && child.skeleton) {
         const headBone = child.skeleton.bones.find(b => b.name === 'DEF-spine006');
         if (headBone) headBoneRef.current = headBone;
       }
+
+      // Apply materials
+      if (!child.isMesh) return;
+      const mats = Array.isArray(child.material) ? child.material : [child.material];
+      mats.forEach((mat) => {
+        if (!mat) return;
+        switch (mat.name) {
+          case 'Body':
+            // Cobalt blue hull — moderate metalness so it reads as blue, not black mirror
+            mat.color.setHex(0x4a9fd8);
+            mat.emissive.setHex(0x1a3a55);
+            mat.emissiveIntensity = 0.3;
+            mat.roughness = 0.35;
+            mat.metalness = 0.55;
+            mat.transparent = false;
+            mat.depthWrite = true;
+            mat.needsUpdate = true;
+            break;
+          case 'ArmorOut':
+            // Silver-grey plates
+            mat.color.setHex(0xa8b8c8);
+            mat.emissive.setHex(0x2a3a48);
+            mat.emissiveIntensity = 0.1;
+            mat.roughness = 0.3;
+            mat.metalness = 0.6;
+            mat.transparent = false;
+            mat.depthWrite = true;
+            mat.needsUpdate = true;
+            break;
+          case 'ArmorIn':
+            // Site secondary blue (#2563eb) as the dark accent — readable against white
+            mat.color.setHex(0x2563eb);
+            mat.emissive.setHex(0x1040a0);
+            mat.emissiveIntensity = 0.25;
+            mat.roughness = 0.5;
+            mat.metalness = 0.2;
+            mat.transparent = false;
+            mat.depthWrite = true;
+            mat.needsUpdate = true;
+            break;
+          case 'Lights':
+            // Site secondary blue glow strips
+            mat.color.setHex(0x081f52);
+            mat.emissive.setHex(0x081f52);
+            mat.emissiveIntensity = 2.5;
+            mat.roughness = 0.0;
+            mat.metalness = 0.0;
+            mat.transparent = false;
+            mat.depthWrite = true;
+            mat.needsUpdate = true;
+            break;
+          case 'Decor':
+            // Pure-black GLTF base-color meshes don't respond to MeshStandardMaterial
+            // color changes in THREE.js 0.178 — MeshBasicMaterial bypasses the PBR shader.
+            child.material = new THREE.MeshBasicMaterial({
+              color: 0x00ff00,
+              side: THREE.DoubleSide,
+              depthTest: false,
+            });
+            child.renderOrder = 999;
+            break;
+          default:
+            break;
+        }
+      });
     });
   }, [scene]);
 
+  // Idle animation
   useEffect(() => {
     if (actions) {
-      Object.keys(actions).forEach(actionName => {
-        actions[actionName]?.stop();
-      });
+      Object.keys(actions).forEach(name => actions[name]?.stop());
       if (actions.Idle) {
         actions.Idle.setLoop(THREE.LoopRepeat).play();
         actions.Idle.timeScale = 2;
@@ -89,31 +155,31 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
     }
   }, [actions]);
 
+  // Pose animation: play forward then reverse back to idle
   useEffect(() => {
     if (mixer && actions && actions.Pose) {
       const onFinished = (event) => {
-        if (event.action === actions.Pose) {
-          if (isPlayingPose && !isPlayingReverse) {
-            setIsPlayingReverse(true);
-            actions.Pose.reset();
-            actions.Pose.setLoop(THREE.LoopOnce);
-            actions.Pose.timeScale = -2;
-            actions.Pose.time = actions.Pose.getClip().duration;
-            actions.Pose.play();
-          } else if (isPlayingPose && isPlayingReverse) {
-            setIsPlayingPose(false);
-            setIsPlayingReverse(false);
-            actions.Pose.timeScale = 2;
-            actions.Pose.fadeOut(0.3);
-            if (actions.Idle) {
-              actions.Idle.reset().fadeIn(0.3).play();
-              actions.Idle.timeScale = 2;
-            }
+        if (event.action !== actions.Pose) return;
+        if (isPlayingPose && !isPlayingReverse) {
+          setIsPlayingReverse(true);
+          actions.Pose.reset();
+          actions.Pose.setLoop(THREE.LoopOnce);
+          actions.Pose.timeScale = -2;
+          actions.Pose.time = actions.Pose.getClip().duration;
+          actions.Pose.play();
+        } else if (isPlayingPose && isPlayingReverse) {
+          setIsPlayingPose(false);
+          setIsPlayingReverse(false);
+          actions.Pose.timeScale = 2;
+          actions.Pose.fadeOut(0.3);
+          if (actions.Idle) {
+            actions.Idle.reset().fadeIn(0.3).play();
+            actions.Idle.timeScale = 2;
           }
         }
       };
       mixer.addEventListener('finished', onFinished);
-      return () => { mixer.removeEventListener('finished', onFinished); };
+      return () => mixer.removeEventListener('finished', onFinished);
     }
   }, [mixer, actions, isPlayingPose, isPlayingReverse]);
 
@@ -134,77 +200,72 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
     }
   };
 
+  // Mouse tracking for head/body follow
   useEffect(() => {
     const handleWindowMouse = (e) => {
       const canvas = document.querySelector('.floating-robot-canvas');
       if (canvas) {
         const rect = canvas.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        const pixelDistX = e.clientX - centerX;
-        const pixelDistY = e.clientY - centerY;
-        // atan mapping: fast near center, slow far away. K=400 = half-max at ~400px.
-        // Yaw max 50° (0.873 rad), pitch max 25° (0.436 rad — less range up/down).
-        const angleX = Math.atan(pixelDistX / 400) * (2 / Math.PI) * 0.873;
-        const angleY = Math.atan(pixelDistY / 400) * (2 / Math.PI) * 0.436;
-        windowMouseRef.current = { x: angleX, y: angleY };
+        const px = e.clientX - (rect.left + rect.width / 2);
+        const py = e.clientY - (rect.top + rect.height / 2);
+        windowMouseRef.current = {
+          x: Math.atan(px / 400) * (2 / Math.PI) * 0.873,
+          y: Math.atan(py / 400) * (2 / Math.PI) * 0.436,
+        };
       }
     };
     window.addEventListener('mousemove', handleWindowMouse);
     return () => window.removeEventListener('mousemove', handleWindowMouse);
   }, []);
 
+  // Drag-to-rotate
   useEffect(() => {
-    const handleMouseDown = (event) => {
+    const handleMouseDown = (e) => {
       setIsDragging(true);
-      setDragStart({ x: event.clientX, y: event.clientY });
-      setLastTouch({ x: event.clientX, y: event.clientY });
+      setDragStart({ x: e.clientX, y: e.clientY });
+      setLastTouch({ x: e.clientX, y: e.clientY });
       setDragDistance(0);
     };
-    const handleMouseMove = (event) => {
+    const handleMouseMove = (e) => {
       if (!isDragging) return;
-      const deltaX = event.clientX - lastTouch.x;
-      const deltaY = event.clientY - lastTouch.y;
-      const totalDeltaX = event.clientX - dragStart.x;
-      const totalDeltaY = event.clientY - dragStart.y;
-      setDragDistance(Math.sqrt(totalDeltaX ** 2 + totalDeltaY ** 2));
-      setRotation(prev => ({ x: prev.x + deltaY * 0.01, y: prev.y + deltaX * 0.01 }));
-      setLastTouch({ x: event.clientX, y: event.clientY });
+      const dx = e.clientX - lastTouch.x;
+      const dy = e.clientY - lastTouch.y;
+      setDragDistance(Math.sqrt((e.clientX - dragStart.x) ** 2 + (e.clientY - dragStart.y) ** 2));
+      setRotation(prev => ({ x: prev.x + dy * 0.01, y: prev.y + dx * 0.01 }));
+      setLastTouch({ x: e.clientX, y: e.clientY });
     };
-    const handleMouseUp = () => { setIsDragging(false); };
-    const handleTouchStart = (event) => {
-      const touch = event.touches[0];
+    const handleMouseUp = () => setIsDragging(false);
+    const handleTouchStart = (e) => {
+      const t = e.touches[0];
       setIsDragging(true);
-      setDragStart({ x: touch.clientX, y: touch.clientY });
-      setLastTouch({ x: touch.clientX, y: touch.clientY });
+      setDragStart({ x: t.clientX, y: t.clientY });
+      setLastTouch({ x: t.clientX, y: t.clientY });
       setDragDistance(0);
     };
-    const handleTouchMove = (event) => {
+    const handleTouchMove = (e) => {
       if (!isDragging) return;
-      const touch = event.touches[0];
-      const deltaX = touch.clientX - lastTouch.x;
-      const deltaY = touch.clientY - lastTouch.y;
-      const totalDeltaX = touch.clientX - dragStart.x;
-      const totalDeltaY = touch.clientY - dragStart.y;
-      setDragDistance(Math.sqrt(totalDeltaX ** 2 + totalDeltaY ** 2));
-      setRotation(prev => ({ x: prev.x + deltaY * 0.01, y: prev.y + deltaX * 0.01 }));
-      setLastTouch({ x: touch.clientX, y: touch.clientY });
+      const t = e.touches[0];
+      const dx = t.clientX - lastTouch.x;
+      const dy = t.clientY - lastTouch.y;
+      setDragDistance(Math.sqrt((t.clientX - dragStart.x) ** 2 + (t.clientY - dragStart.y) ** 2));
+      setRotation(prev => ({ x: prev.x + dy * 0.01, y: prev.y + dx * 0.01 }));
+      setLastTouch({ x: t.clientX, y: t.clientY });
     };
-    const handleTouchEnd = () => { setIsDragging(false); };
+    const handleTouchEnd = () => setIsDragging(false);
 
-    const robotContainer = document.querySelector('.floating-robot-canvas');
-    if (robotContainer) {
-      robotContainer.addEventListener('mousedown', handleMouseDown);
-      window.addEventListener('mousemove', handleMouseMove);
-      window.addEventListener('mouseup', handleMouseUp);
-      robotContainer.addEventListener('touchstart', handleTouchStart);
-      window.addEventListener('touchmove', handleTouchMove);
-      window.addEventListener('touchend', handleTouchEnd);
+    const el = document.querySelector('.floating-robot-canvas');
+    if (el) {
+      el.addEventListener('mousedown', handleMouseDown);
+      el.addEventListener('touchstart', handleTouchStart);
     }
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
+    window.addEventListener('touchmove', handleTouchMove);
+    window.addEventListener('touchend', handleTouchEnd);
     return () => {
-      if (robotContainer) {
-        robotContainer.removeEventListener('mousedown', handleMouseDown);
-        robotContainer.removeEventListener('touchstart', handleTouchStart);
+      if (el) {
+        el.removeEventListener('mousedown', handleMouseDown);
+        el.removeEventListener('touchstart', handleTouchStart);
       }
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
@@ -213,89 +274,19 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
     };
   }, [isDragging, lastTouch, dragStart, dragDistance]);
 
-  // Single priority-1 frame: body lean + head bone + render in one shot.
-  // Group rotation and gl.render() must be in the same frame so scene.updateMatrixWorld()
-  // inside render() picks up the rotation change — proved by the diagnostic oscillation test.
+  // Priority-1 frame: body lean + head bone + manual render (required since priority > 0 disables auto-render)
   useFrame(({ gl, scene: s, camera }) => {
-    // Apply material colors on first frame — useLayoutEffect runs before R3F
-    // initializes the WebGL material state, so changes made there get wiped.
-    // Applying here (at render time) guarantees they stick.
-    if (!colorsAppliedRef.current && scene) {
-      scene.traverse((child) => {
-        if (!child.isMesh) return;
-        const mats = Array.isArray(child.material) ? child.material : [child.material];
-        mats.forEach((mat) => {
-          if (!mat) return;
-          switch (mat.name) {
-            case 'Body':
-              // Bright cobalt-blue metallic — shiny vivid blue hull
-              mat.color.setHex(0x4a9fd8);
-              mat.emissive.setHex(0x1a4a70);
-              mat.emissiveIntensity = 0.2;
-              mat.roughness = 0.08;
-              mat.metalness = 0.92;
-              mat.needsUpdate = true;
-              break;
-            case 'ArmorOut':
-              // Gunmetal steel plates — matte-ish, darker than chrome hull
-              mat.color.setHex(0x8c9aaa);
-              mat.emissive.setHex(0x3a4858);
-              mat.emissiveIntensity = 0.15;
-              mat.roughness = 0.25;
-              mat.metalness = 0.75;
-              mat.needsUpdate = true;
-              break;
-            case 'ArmorIn':
-              // Site dark navy — recessed panels as the dark accent colour
-              mat.color.setHex(0x1e3a5f);
-              mat.emissive.setHex(0x0f1e30);
-              mat.emissiveIntensity = 0.4;
-              mat.roughness = 0.65;
-              mat.metalness = 0.1;
-              mat.needsUpdate = true;
-              break;
-            case 'Lights':
-              // Electric blue glow strips — the robot's signature alive accent
-              mat.color.setHex(0x60a5fa);
-              mat.emissive.setHex(0x60a5fa);
-              mat.emissiveIntensity = 2.5;
-              mat.roughness = 0.0;
-              mat.metalness = 0.0;
-              mat.needsUpdate = true;
-              break;
-            case 'Decor':
-              // MeshStandardMaterial doesn't render on pure-black GLTF base-color
-              // meshes in THREE.js 0.178 — MeshBasicMaterial bypasses the PBR shader.
-              child.material = new THREE.MeshBasicMaterial({
-                color: 0x00ff00,
-                side: THREE.DoubleSide,
-                depthTest: false,
-              });
-              child.renderOrder = 999;
-              break;
-            default:
-              break;
-          }
-        });
-      });
-      colorsAppliedRef.current = true;
-    }
-
     const m = windowMouseRef.current;
 
-    // Whole-body lean via group rotation (carries arms + torso together)
     if (group.current) {
       if (!isDragging) {
         bodyOffsetRef.current.x = THREE.MathUtils.lerp(bodyOffsetRef.current.x, m.y * 0.5, 0.06);
         bodyOffsetRef.current.y = THREE.MathUtils.lerp(bodyOffsetRef.current.y, m.x * 0.6, 0.06);
       }
       group.current.rotation.x = rotation.x + (isDragging ? 0 : bodyOffsetRef.current.x);
-      group.current.rotation.y = isDragging
-        ? rotation.y
-        : rotation.y + bodyOffsetRef.current.y;
+      group.current.rotation.y = isDragging ? rotation.y : rotation.y + bodyOffsetRef.current.y;
     }
 
-    // Head bone — full yaw + pitch, snappy lerp
     const headBone = headBoneRef.current;
     if (headBone) {
       if (!restCapturedRef.current) {
@@ -314,10 +305,11 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
 
   return (
     <>
-      <ambientLight intensity={0.6} color="#dde8ff" />
-      <directionalLight position={[2, 8, 12]} intensity={1.8} color="#ffffff" castShadow={false} />
-      <directionalLight position={[-8, 4, 4]} intensity={1.0} color="#88aaff" castShadow={false} />
-      <directionalLight position={[0, 10, -8]} intensity={0.6} color="#4466cc" castShadow={false} />
+      <Environment preset="city" background={false} />
+      <ambientLight intensity={0.8} color="#e8f0ff" />
+      <directionalLight position={[2, 8, 12]} intensity={1.6} color="#ffffff" castShadow={false} />
+      <directionalLight position={[-8, 4, 4]} intensity={0.8} color="#aabbff" castShadow={false} />
+      <directionalLight position={[0, 10, -8]} intensity={0.5} color="#4466cc" castShadow={false} />
 
       <group ref={group} onClick={handleClick}>
         <primitive object={scene} />
@@ -326,10 +318,10 @@ const CustomRobotCore = ({ bodyColor = "#1e3a5f", glowColor = "#2563eb" }) => {
   );
 };
 
-const CustomRobot = ({ bodyColor, glowColor }) => {
+const CustomRobot = () => {
   return (
-    <Suspense fallback={<LoadingPlaceholder bodyColor={bodyColor} />}>
-      <CustomRobotCore bodyColor={bodyColor} glowColor={glowColor} />
+    <Suspense fallback={<LoadingPlaceholder />}>
+      <CustomRobotCore />
     </Suspense>
   );
 };
