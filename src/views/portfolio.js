@@ -135,10 +135,93 @@ const Portfolio = () => {
             </p>
           </div>
 
-<div className="section-card">
+<div className="section-card" id="foundations">
+            <h2>Before the Terminology Existed</h2>
+            <p>
+              These early engagements provided hands-on exposure to the practical realities of industrial
+              digitalisation and regulated consumer health technology — unreliable data streams, immature
+              analytics tooling, public-use device governance, and organisational resistance to algorithmic
+              decision support.
+            </p>
+            <p>
+              The experience shaped a later focus on institutional AI capability building and
+              enterprise-scale transformation governance. The problems were the same. The vocabulary arrived later.
+            </p>
+          </div>
+
+          <div className="section-card" id="pain-corner">
+            <h2>Digital Patient Engagement Platform — Pain Corner</h2>
+            <h3>Novartis Consumer Health Switzerland · Multi-partner initiative · 2013</h3>
+
+            <h3>Context:</h3>
+            <p>
+              Swiss OTC healthcare providers were seeking new ways to improve patient education and
+              strengthen pharmacy partnerships through in-store digital engagement. This initiative introduced
+              one of the early digitally mediated customer-experience platforms in regulated retail
+              healthcare — before the category had a name.
+            </p>
+
+            <h3>My Role:</h3>
+            <p>
+              Designed and delivered a scalable kiosk platform enabling nationwide deployment across partner
+              pharmacies. Led the technical architecture, interaction design, and operational infrastructure
+              for a system operating under uncontrolled public-use conditions.
+            </p>
+
+            <h3>Key Outcomes:</h3>
+            <ul>
+              <li>Designed the touchscreen patient education experience supporting guided information flows on pain management and Voltaren Dolo treatment options</li>
+              <li>Implemented a hardened kiosk-mode operating environment ensuring content integrity across high-traffic retail environments</li>
+              <li>Designed a custom SMS-based backend recovery capability — enabling remote restoration of system availability without on-site intervention across a nationally distributed installation network</li>
+              <li>Established an early model for digitally enabled joint business planning between pharmaceutical manufacturer and pharmacy channel partners</li>
+            </ul>
+
+            <h3>Recognition:</h3>
+            <ul>
+              <li><strong>POPAI Award Paris (2013)</strong> — POS Brand Activation category, for innovative in-store digital engagement</li>
+              <li><strong>OTC Europe Excellence Recognition (2013)</strong> — for science-driven consumer health innovation through cross-industry collaboration</li>
+            </ul>
+          </div>
+
+          <div className="section-card" id="iot-maximo">
+            <h2>Industrial IoT Transformation Programme</h2>
+            <h3>Axino Solutions AG · DACH Region · 2013–2016</h3>
+
+            <h3>Context:</h3>
+            <p>
+              At a time when industrial IoT architectures were still emerging, asset-intensive organisations
+              across the DACH region initiated programmes to transition from reactive maintenance toward
+              data-driven asset management. The tooling was immature, the data environments were unreliable,
+              and the organisational shift required was significant.
+            </p>
+
+            <h3>My Role:</h3>
+            <p>
+              Designed solution patterns and integration architectures enabling real-time equipment telemetry
+              to flow into enterprise asset management workflows — translating industrial sensor environments
+              into structured, actionable operational data.
+            </p>
+
+            <h3>Key Outcomes:</h3>
+            <ul>
+              <li>Designed condition-based maintenance patterns capturing live telemetry from heterogeneous sensor environments into IBM Maximo 7.5 / 7.6 — replacing calendar-based maintenance scheduling</li>
+              <li>Applied the Maximo Integration Framework (MIF) to ingest non-standard sensor payloads, establishing early middleware patterns to stabilise unreliable industrial network environments</li>
+              <li>Contributed to pilot architectures linking Maximo asset data with IBM Watson IoT (2015–2016) — early exploratory work connecting operational data to predictive decision support</li>
+              <li>Supported the cultural shift within client organisations from alert-based response toward data-supported operational planning</li>
+            </ul>
+
+            <h3>Impact Themes:</h3>
+            <ul>
+              <li>Reduction of unplanned downtime risk across asset-intensive operations</li>
+              <li>Foundations for later enterprise analytics and AI transformation programmes</li>
+              <li>Practical experience with the realities of industrial data quality before cloud-native tooling existed</li>
+            </ul>
+          </div>
+
+          <div className="section-card">
             <h2>Work With Me</h2>
             <p>
-              I work best in environments where the stakes are high, the context is messy, 
+              I work best in environments where the stakes are high, the context is messy,
               and the end goal is institutional clarity.
             </p>
             <p>
