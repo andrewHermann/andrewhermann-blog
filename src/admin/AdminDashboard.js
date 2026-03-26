@@ -69,6 +69,24 @@ const AdminDashboard = ({ onLogout, userRole }) => {
                 </div>
               </Link>
             )}
+            {userRole === 'admin' && (
+              <Link to="/admin/analytics/pages" className="admin-nav-link">
+                <div className="section-card dashboard-card">
+                  <h3>Page Analytics</h3>
+                  <p>Views over time, top pages, and referrer sources</p>
+                  <span className="admin-nav-arrow">→</span>
+                </div>
+              </Link>
+            )}
+            {userRole === 'admin' && (
+              <Link to="/admin/analytics/visitors" className="admin-nav-link">
+                <div className="section-card dashboard-card">
+                  <h3>Visitor Analytics</h3>
+                  <p>Unique visitors, browsers, devices, and geographic data</p>
+                  <span className="admin-nav-arrow">→</span>
+                </div>
+              </Link>
+            )}
           </div>
         </div>
       </div>

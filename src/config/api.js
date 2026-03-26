@@ -120,4 +120,8 @@ export const API_ENDPOINTS = {
   // Users endpoints (admin)
   ADMIN_USERS: '/api/admin/users',
   ADMIN_USERS_BY_ID: '/api/admin/users', // append /:id
+
+  // Analytics endpoints (admin)
+  ANALYTICS_PAGES: '/api/admin/analytics/pages',
+  ANALYTICS_VISITORS: '/api/admin/analytics/visitors',
 }

@@ -16,8 +16,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { useState, useEffect, useRef } from 'react'
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 
 import { API_ENDPOINTS, apiRequest } from './config/api'
 import Home from './views/home'
@@ -41,6 +41,25 @@ import PostEditor from './admin/PostEditor'
 import UserManager from './admin/UserManager'
 import UserEditor from "./admin/UserEditor";
 import AdminNavbar from './admin/AdminNavbar';
+import AnalyticsPages from './admin/AnalyticsPages';
+import AnalyticsVisitors from './admin/AnalyticsVisitors';
+import { trackPageView } from './services/analytics';
+
+const AnalyticsTracker = () => {
+  const location = useLocation();
+  const prevPathRef = useRef(null);
+
+  useEffect(() => {
+    if (location.pathname.startsWith('/admin')) return;
+    const referrer = prevPathRef.current
+      ? `${window.location.origin}${prevPathRef.current}`
+      : document.referrer;
+    trackPageView(location.pathname, referrer);
+    prevPathRef.current = location.pathname;
+  }, [location.pathname]);
+
+  return null;
+};
 
 const AppRouter = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -80,6 +99,7 @@ const AppRouter = () => {
 
   return (
     <Router>
+      <AnalyticsTracker />
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
@@ -122,6 +142,14 @@ const AppRouter = () => {
         <Route
           path="/admin/users/edit/:id"
           element={isAuthenticated && userRole === 'admin' ? <UserEditor /> : <Navigate to={isAuthenticated ? '/admin/dashboard' : '/admin/login'} />}
+        />
+        <Route
+          path="/admin/analytics/pages"
+          element={isAuthenticated && userRole === 'admin' ? <AnalyticsPages /> : <Navigate to={isAuthenticated ? '/admin/dashboard' : '/admin/login'} />}
+        />
+        <Route
+          path="/admin/analytics/visitors"
+          element={isAuthenticated && userRole === 'admin' ? <AnalyticsVisitors /> : <Navigate to={isAuthenticated ? '/admin/dashboard' : '/admin/login'} />}
         />
 
         <Route path="*" element={<Navigate to="/not-found" replace />} />

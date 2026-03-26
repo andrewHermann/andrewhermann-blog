@@ -33,6 +33,7 @@ const SQLiteStore = require('connect-sqlite3')(session);
 const rateLimit = require('express-rate-limit');
 const path = require('path');
 const cors = require('cors');
+const UAParser = require('ua-parser-js');
 
 const app = express();
 const PORT = process.env.PORT || process.env.BACKEND_PORT || 5001;
@@ -129,6 +130,29 @@ db.serialize(() => {
       role TEXT NOT NULL DEFAULT 'reader',
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
       updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+
+  // Page views analytics table
+  db.run(`
+    CREATE TABLE IF NOT EXISTS page_views (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      page TEXT NOT NULL,
+      referrer TEXT,
+      visitor_id TEXT,
+      session_id TEXT,
+      timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+      country TEXT,
+      region TEXT,
+      city TEXT,
+      org TEXT,
+      browser TEXT,
+      browser_version TEXT,
+      os TEXT,
+      device_type TEXT,
+      language TEXT,
+      screen_width INTEGER,
+      screen_height INTEGER
     )
   `);
 
@@ -628,6 +652,218 @@ app.get('/api/markets/metals', async (req, res) => {
     console.error('Metals fetch error:', err.message);
     res.status(502).json({ error: 'Failed to fetch metals prices' });
   }
+});
+
+// ─── Analytics ────────────────────────────────────────────────────────────────
+
+const geoCache = new Map();
+const GEO_CACHE_TTL = 24 * 60 * 60 * 1000;
+
+const trackingLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 120,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+const LOCAL_IPS = new Set(['::1', '127.0.0.1', '::ffff:127.0.0.1']);
+const isLocalIp = (ip) => LOCAL_IPS.has(ip) || ip.startsWith('192.168.') || ip.startsWith('10.') || ip.startsWith('172.');
+
+async function getGeoData(ip) {
+  if (!ip || isLocalIp(ip)) return { country: null, region: null, city: null, org: null };
+  const cached = geoCache.get(ip);
+  if (cached && Date.now() - cached.ts < GEO_CACHE_TTL) return cached.data;
+  try {
+    const res = await fetch(`http://ip-api.com/json/${ip}?fields=country,regionName,city,org`, {
+      signal: AbortSignal.timeout(3000),
+    });
+    const geo = await res.json();
+    const data = {
+      country: geo.country || null,
+      region: geo.regionName || null,
+      city: geo.city || null,
+      org: geo.org || null,
+    };
+    geoCache.set(ip, { data, ts: Date.now() });
+    return data;
+  } catch {
+    return { country: null, region: null, city: null, org: null };
+  }
+}
+
+// Public tracking endpoint — fire and forget from frontend
+app.post('/api/track', trackingLimiter, (req, res) => {
+  res.status(204).end();
+
+  const { page, referrer, visitor_id, session_id, language, screen_width, screen_height } = req.body;
+  if (!page) return;
+
+  const ip = (req.headers['cf-connecting-ip'] || req.headers['x-forwarded-for']?.split(',')[0] || req.ip || '').trim();
+  const ua = new UAParser(req.headers['user-agent']).getResult();
+  const browser = ua.browser.name || 'Unknown';
+  const browser_version = ua.browser.major || null;
+  const os = ua.os.name || 'Unknown';
+  const device_type = ua.device.type || 'desktop';
+
+  getGeoData(ip).then((geo) => {
+    db.run(
+      `INSERT INTO page_views
+        (page, referrer, visitor_id, session_id, country, region, city, org,
+         browser, browser_version, os, device_type, language, screen_width, screen_height)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [page, referrer || null, visitor_id || null, session_id || null,
+       geo.country, geo.region, geo.city, geo.org,
+       browser, browser_version, os, device_type,
+       language || null, screen_width || null, screen_height || null]
+    );
+  });
+});
+
+// Admin analytics — pages dashboard
+app.get('/api/admin/analytics/pages', requireAdmin, (req, res) => {
+  const days = parseInt(req.query.days) || 30;
+
+  const since = `datetime('now', '-${days} days')`;
+
+  const summary = new Promise((resolve, reject) => {
+    db.get(
+      `SELECT COUNT(*) as total_views,
+              COUNT(CASE WHEN date(timestamp) = date('now') THEN 1 END) as today_views
+       FROM page_views WHERE timestamp >= ${since}`,
+      (err, row) => err ? reject(err) : resolve(row)
+    );
+  });
+
+  const topPage = new Promise((resolve, reject) => {
+    db.get(
+      `SELECT page FROM page_views WHERE timestamp >= ${since}
+       GROUP BY page ORDER BY COUNT(*) DESC LIMIT 1`,
+      (err, row) => err ? reject(err) : resolve(row?.page || null)
+    );
+  });
+
+  const viewsOverTime = new Promise((resolve, reject) => {
+    db.all(
+      `SELECT date(timestamp) as date, COUNT(*) as views
+       FROM page_views WHERE timestamp >= ${since}
+       GROUP BY date(timestamp) ORDER BY date`,
+      (err, rows) => err ? reject(err) : resolve(rows)
+    );
+  });
+
+  const topPages = new Promise((resolve, reject) => {
+    db.all(
+      `SELECT page, COUNT(*) as views, COUNT(DISTINCT visitor_id) as unique_visitors
+       FROM page_views WHERE timestamp >= ${since}
+       GROUP BY page ORDER BY views DESC LIMIT 20`,
+      (err, rows) => err ? reject(err) : resolve(rows)
+    );
+  });
+
+  const referrers = new Promise((resolve, reject) => {
+    db.all(
+      `SELECT referrer, COUNT(*) as count
+       FROM page_views WHERE referrer IS NOT NULL AND referrer != '' AND timestamp >= ${since}
+       GROUP BY referrer ORDER BY count DESC LIMIT 20`,
+      (err, rows) => err ? reject(err) : resolve(rows)
+    );
+  });
+
+  Promise.all([summary, topPage, viewsOverTime, topPages, referrers])
+    .then(([s, top, chart, pages, refs]) => {
+      res.json({
+        summary: { total_views: s.total_views, today_views: s.today_views, top_page: top },
+        views_over_time: chart,
+        top_pages: pages,
+        referrers: refs,
+      });
+    })
+    .catch(() => res.status(500).json({ error: 'Database error' }));
+});
+
+// Admin analytics — visitors dashboard
+app.get('/api/admin/analytics/visitors', requireAdmin, (req, res) => {
+  const days = parseInt(req.query.days) || 30;
+  const since = `datetime('now', '-${days} days')`;
+
+  const summary = new Promise((resolve, reject) => {
+    db.get(
+      `SELECT COUNT(DISTINCT visitor_id) as unique_visitors,
+              COUNT(DISTINCT session_id) as total_sessions,
+              COUNT(DISTINCT CASE WHEN date(timestamp) = date('now') THEN visitor_id END) as today_visitors
+       FROM page_views WHERE timestamp >= ${since}`,
+      (err, row) => err ? reject(err) : resolve(row)
+    );
+  });
+
+  const visitorsOverTime = new Promise((resolve, reject) => {
+    db.all(
+      `SELECT date(timestamp) as date, COUNT(DISTINCT visitor_id) as unique_visitors
+       FROM page_views WHERE timestamp >= ${since}
+       GROUP BY date(timestamp) ORDER BY date`,
+      (err, rows) => err ? reject(err) : resolve(rows)
+    );
+  });
+
+  const browsers = new Promise((resolve, reject) => {
+    db.all(
+      `SELECT browser as name, COUNT(*) as count FROM page_views
+       WHERE timestamp >= ${since} GROUP BY browser ORDER BY count DESC`,
+      (err, rows) => err ? reject(err) : resolve(rows)
+    );
+  });
+
+  const operatingSystems = new Promise((resolve, reject) => {
+    db.all(
+      `SELECT os as name, COUNT(*) as count FROM page_views
+       WHERE timestamp >= ${since} GROUP BY os ORDER BY count DESC`,
+      (err, rows) => err ? reject(err) : resolve(rows)
+    );
+  });
+
+  const devices = new Promise((resolve, reject) => {
+    db.all(
+      `SELECT device_type as name, COUNT(*) as count FROM page_views
+       WHERE timestamp >= ${since} GROUP BY device_type ORDER BY count DESC`,
+      (err, rows) => err ? reject(err) : resolve(rows)
+    );
+  });
+
+  const locations = new Promise((resolve, reject) => {
+    db.all(
+      `SELECT country, region, city, COUNT(*) as count FROM page_views
+       WHERE country IS NOT NULL AND timestamp >= ${since}
+       GROUP BY country, region, city ORDER BY count DESC LIMIT 25`,
+      (err, rows) => err ? reject(err) : resolve(rows)
+    );
+  });
+
+  const orgs = new Promise((resolve, reject) => {
+    db.all(
+      `SELECT org as name, COUNT(*) as count FROM page_views
+       WHERE org IS NOT NULL AND timestamp >= ${since}
+       GROUP BY org ORDER BY count DESC LIMIT 20`,
+      (err, rows) => err ? reject(err) : resolve(rows)
+    );
+  });
+
+  Promise.all([summary, visitorsOverTime, browsers, operatingSystems, devices, locations, orgs])
+    .then(([s, chart, brows, oses, devs, locs, orgsData]) => {
+      res.json({
+        summary: {
+          unique_visitors: s.unique_visitors,
+          total_sessions: s.total_sessions,
+          today_visitors: s.today_visitors,
+        },
+        visitors_over_time: chart,
+        browsers: brows,
+        os: oses,
+        devices: devs,
+        locations: locs,
+        orgs: orgsData,
+      });
+    })
+    .catch(() => res.status(500).json({ error: 'Database error' }));
 });
 
 // Start server

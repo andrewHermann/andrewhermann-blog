@@ -56,6 +56,14 @@ const AdminNavbar = ({ userRole }) => {
               Users
             </Link>
           )}
+          {userRole === 'admin' && (
+            <Link
+              to="/admin/analytics/pages"
+              className={`thq-body-small thq-link ${location.pathname.startsWith('/admin/analytics') ? 'active' : ''}`}
+            >
+              Analytics
+            </Link>
+          )}
         </nav>
         <div className="admin-nav-right">
           <span className="admin-nav-badge">{userRole === 'admin' ? 'Admin' : 'Blogger'}</span>

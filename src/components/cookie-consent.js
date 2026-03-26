@@ -19,6 +19,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import './cookie-consent.css'
+import { trackPageView } from '../services/analytics'
 
 const CookieConsent = () => {
   const [isVisible, setIsVisible] = useState(false)
@@ -55,13 +56,8 @@ const CookieConsent = () => {
   }
 
   const initializeAnalytics = () => {
-    // Initialize Google Analytics or other tracking
-    if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('consent', 'update', {
-        'analytics_storage': 'granted',
-        'ad_storage': 'granted'
-      })
-    }
+    // Track the current page now that consent has been granted
+    trackPageView(window.location.pathname, document.referrer)
   }
 
   if (!isVisible) return null
