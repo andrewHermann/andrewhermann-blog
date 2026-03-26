@@ -161,7 +161,44 @@ db.serialize(() => {
       device_type TEXT,
       language TEXT,
       screen_width INTEGER,
-      screen_height INTEGER
+      screen_height INTEGER,
+      asn TEXT,
+      isp TEXT,
+      is_proxy INTEGER DEFAULT 0,
+      is_hosting INTEGER DEFAULT 0,
+      traffic_type TEXT DEFAULT 'unknown',
+      sec_fetch_site TEXT,
+      sec_fetch_mode TEXT,
+      sec_fetch_dest TEXT,
+      timezone TEXT
+    )
+  `);
+
+  // Schema migrations for existing production DB (silently ignored if columns already exist)
+  const migrations = [
+    `ALTER TABLE page_views ADD COLUMN asn TEXT`,
+    `ALTER TABLE page_views ADD COLUMN isp TEXT`,
+    `ALTER TABLE page_views ADD COLUMN is_proxy INTEGER DEFAULT 0`,
+    `ALTER TABLE page_views ADD COLUMN is_hosting INTEGER DEFAULT 0`,
+    `ALTER TABLE page_views ADD COLUMN traffic_type TEXT DEFAULT 'unknown'`,
+    `ALTER TABLE page_views ADD COLUMN sec_fetch_site TEXT`,
+    `ALTER TABLE page_views ADD COLUMN sec_fetch_mode TEXT`,
+    `ALTER TABLE page_views ADD COLUMN sec_fetch_dest TEXT`,
+    `ALTER TABLE page_views ADD COLUMN timezone TEXT`,
+  ];
+  migrations.forEach(sql => db.run(sql, () => {}));
+
+  // Scan attempts — path probing by scanners and crawlers
+  db.run(`
+    CREATE TABLE IF NOT EXISTS scan_attempts (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      path TEXT NOT NULL,
+      method TEXT,
+      user_agent TEXT,
+      timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+      country TEXT,
+      asn TEXT,
+      org TEXT
     )
   `);
 
@@ -679,11 +716,11 @@ const LOCAL_IPS = new Set(['::1', '127.0.0.1', '::ffff:127.0.0.1']);
 const isLocalIp = (ip) => LOCAL_IPS.has(ip) || ip.startsWith('192.168.') || ip.startsWith('10.') || ip.startsWith('172.');
 
 async function getGeoData(ip) {
-  if (!ip || isLocalIp(ip)) return { country: null, region: null, city: null, org: null };
+  if (!ip || isLocalIp(ip)) return { country: null, region: null, city: null, org: null, asn: null, isp: null, is_proxy: 0, is_hosting: 0 };
   const cached = geoCache.get(ip);
   if (cached && Date.now() - cached.ts < GEO_CACHE_TTL) return cached.data;
   try {
-    const res = await fetch(`http://ip-api.com/json/${ip}?fields=country,regionName,city,org`, {
+    const res = await fetch(`http://ip-api.com/json/${ip}?fields=status,country,regionName,city,org,as,isp,proxy,hosting`, {
       signal: AbortSignal.timeout(3000),
     });
     const geo = await res.json();
@@ -692,38 +729,116 @@ async function getGeoData(ip) {
       region: geo.regionName || null,
       city: geo.city || null,
       org: geo.org || null,
+      asn: geo.as || null,
+      isp: geo.isp || null,
+      is_proxy: geo.proxy ? 1 : 0,
+      is_hosting: geo.hosting ? 1 : 0,
     };
     geoCache.set(ip, { data, ts: Date.now() });
     return data;
   } catch {
-    return { country: null, region: null, city: null, org: null };
+    return { country: null, region: null, city: null, org: null, asn: null, isp: null, is_proxy: 0, is_hosting: 0 };
   }
 }
+
+// Traffic classification based on UA + Sec-Fetch headers + geo signals
+const CRAWLER_PATTERNS = [
+  'googlebot', 'bingbot', 'slurp', 'duckduckbot', 'baiduspider', 'yandexbot',
+  'facebookexternalhit', 'twitterbot', 'linkedinbot', 'whatsapp', 'telegrambot',
+  'ahrefsbot', 'semrushbot', 'mj12bot', 'dotbot', 'rogerbot', 'screaming frog',
+  'sitebulb', 'petalbot', 'applebot', 'ia_archiver',
+];
+const SCANNER_PATTERNS = [
+  'nikto', 'sqlmap', 'nuclei', 'nmap', 'masscan', 'zgrab', 'gobuster', 'dirbuster',
+  'wfuzz', 'hydra', 'metasploit', 'sqlninja', 'acunetix', 'nessus', 'openvas',
+  'python-requests', 'go-http-client', 'libwww-perl', 'curl/', 'wget/',
+  'java/', 'okhttp/', 'axios/', 'got/', 'node-fetch',
+];
+const HEADLESS_PATTERNS = [
+  'headlesschrome', 'phantomjs', 'selenium', 'webdriver', 'puppeteer', 'playwright',
+];
+
+function classifyTraffic(ua, secFetchSite, secFetchMode, isHosting) {
+  if (!ua) return 'suspicious';
+  const uaLower = ua.toLowerCase();
+
+  if (HEADLESS_PATTERNS.some(p => uaLower.includes(p))) return 'headless';
+  if (SCANNER_PATTERNS.some(p => uaLower.includes(p))) return 'scanner';
+  if (CRAWLER_PATTERNS.some(p => uaLower.includes(p))) return 'crawler';
+
+  // Modern browsers always send Sec-Fetch headers on fetch() calls; absence is suspicious
+  if (!secFetchSite && !secFetchMode) return 'suspicious';
+
+  // Datacenter/hosting IP with a real-looking UA — likely automated
+  if (isHosting) return 'suspicious';
+
+  return 'human';
+}
+
+// Scan path detection — common paths probed by scanners and exploit frameworks
+const SCAN_PATH_PATTERNS = [
+  '/wp-', '/wordpress', '/xmlrpc.php', '/wp-json/',
+  '/.env', '/.git', '/.htaccess', '/.htpasswd', '/.aws',
+  '/phpmyadmin', '/pma', '/mysqladmin',
+  '/admin.php', '/config.php', '/shell.php', '/cmd.php', '/eval.php',
+  '/etc/passwd', '/etc/shadow', '/proc/',
+  '/cgi-bin/', '/manager/html', '/console',
+  '/actuator', '/solr/', '/jenkins',
+  '/config/database', '/database.yml',
+  '/backup', '/dump.sql', '/db.sql',
+  '/login.cgi', '/setup.cgi',
+];
+
+app.use((req, res, next) => {
+  const lpath = req.path.toLowerCase();
+  const isScanPath = SCAN_PATH_PATTERNS.some(p => lpath.includes(p));
+  if (isScanPath) {
+    const ip = (req.headers['cf-connecting-ip'] || req.headers['x-forwarded-for']?.split(',')[0] || req.ip || '').trim();
+    getGeoData(ip).then((geo) => {
+      db.run(
+        `INSERT INTO scan_attempts (path, method, user_agent, country, asn, org) VALUES (?, ?, ?, ?, ?, ?)`,
+        [req.path, req.method, req.headers['user-agent'] || null, geo.country, geo.asn, geo.org]
+      );
+    });
+    return res.status(404).end();
+  }
+  next();
+});
 
 // Public tracking endpoint — fire and forget from frontend
 app.post('/api/track', trackingLimiter, (req, res) => {
   res.status(204).end();
 
-  const { page, referrer, visitor_id, session_id, language, screen_width, screen_height } = req.body;
+  const { page, referrer, visitor_id, session_id, language, screen_width, screen_height, timezone } = req.body;
   if (!page) return;
 
   const ip = (req.headers['cf-connecting-ip'] || req.headers['x-forwarded-for']?.split(',')[0] || req.ip || '').trim();
-  const ua = new UAParser(req.headers['user-agent']).getResult();
+  const rawUa = req.headers['user-agent'] || '';
+  const ua = new UAParser(rawUa).getResult();
   const browser = ua.browser.name || 'Unknown';
   const browser_version = ua.browser.major || null;
   const os = ua.os.name || 'Unknown';
   const device_type = ua.device.type || 'desktop';
 
+  const secFetchSite = req.headers['sec-fetch-site'] || null;
+  const secFetchMode = req.headers['sec-fetch-mode'] || null;
+  const secFetchDest = req.headers['sec-fetch-dest'] || null;
+
   getGeoData(ip).then((geo) => {
+    const traffic_type = classifyTraffic(rawUa, secFetchSite, secFetchMode, geo.is_hosting);
     db.run(
       `INSERT INTO page_views
         (page, referrer, visitor_id, session_id, country, region, city, org,
-         browser, browser_version, os, device_type, language, screen_width, screen_height)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+         browser, browser_version, os, device_type, language, screen_width, screen_height,
+         asn, isp, is_proxy, is_hosting, traffic_type,
+         sec_fetch_site, sec_fetch_mode, sec_fetch_dest, timezone)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [page, referrer || null, visitor_id || null, session_id || null,
        geo.country, geo.region, geo.city, geo.org,
        browser, browser_version, os, device_type,
-       language || null, screen_width || null, screen_height || null]
+       language || null, screen_width || null, screen_height || null,
+       geo.asn, geo.isp, geo.is_proxy, geo.is_hosting, traffic_type,
+       secFetchSite, secFetchMode, secFetchDest, timezone || null]
     );
   });
 });
@@ -930,6 +1045,73 @@ app.get('/api/admin/analytics/visitors', requireAdmin, (req, res) => {
         devices: devs,
         locations: locs,
         orgs: orgsData,
+      });
+    })
+    .catch(() => res.status(500).json({ error: 'Database error' }));
+});
+
+// Admin analytics — threats dashboard
+app.get('/api/admin/analytics/threats', requireAdmin, (req, res) => {
+  const days = parseInt(req.query.days) || 30;
+  const since = `datetime('now', '-${days} days')`;
+
+  const trafficTypes = new Promise((resolve, reject) => {
+    db.all(
+      `SELECT traffic_type as name, COUNT(*) as count FROM page_views
+       WHERE timestamp >= ${since}
+       GROUP BY traffic_type ORDER BY count DESC`,
+      (err, rows) => err ? reject(err) : resolve(rows)
+    );
+  });
+
+  const scanSummary = new Promise((resolve, reject) => {
+    db.all(
+      `SELECT path, COUNT(*) as count, MAX(timestamp) as last_seen
+       FROM scan_attempts
+       WHERE timestamp >= ${since}
+       GROUP BY path ORDER BY count DESC LIMIT 25`,
+      (err, rows) => err ? reject(err) : resolve(rows)
+    );
+  });
+
+  const scanRecent = new Promise((resolve, reject) => {
+    db.all(
+      `SELECT path, method, user_agent, country, asn, org, timestamp
+       FROM scan_attempts
+       WHERE timestamp >= ${since}
+       ORDER BY timestamp DESC LIMIT 100`,
+      (err, rows) => err ? reject(err) : resolve(rows)
+    );
+  });
+
+  const scanOrigins = new Promise((resolve, reject) => {
+    db.all(
+      `SELECT asn, org, country, COUNT(*) as count
+       FROM scan_attempts
+       WHERE timestamp >= ${since} AND asn IS NOT NULL
+       GROUP BY asn ORDER BY count DESC LIMIT 20`,
+      (err, rows) => err ? reject(err) : resolve(rows)
+    );
+  });
+
+  const suspiciousOrgs = new Promise((resolve, reject) => {
+    db.all(
+      `SELECT asn, isp, org, country, COUNT(*) as count FROM page_views
+       WHERE timestamp >= ${since}
+         AND (traffic_type IN ('scanner', 'headless', 'suspicious') OR is_hosting = 1 OR is_proxy = 1)
+       GROUP BY asn ORDER BY count DESC LIMIT 20`,
+      (err, rows) => err ? reject(err) : resolve(rows)
+    );
+  });
+
+  Promise.all([trafficTypes, scanSummary, scanRecent, scanOrigins, suspiciousOrgs])
+    .then(([types, scanPaths, recentScans, origins, suspicious]) => {
+      res.json({
+        traffic_types: types,
+        scan_paths: scanPaths,
+        recent_scans: recentScans,
+        scan_origins: origins,
+        suspicious_orgs: suspicious,
       });
     })
     .catch(() => res.status(500).json({ error: 'Database error' }));

@@ -124,6 +124,7 @@ export const API_ENDPOINTS = {
   // Analytics endpoints (admin)
   ANALYTICS_PAGES: '/api/admin/analytics/pages',
   ANALYTICS_VISITORS: '/api/admin/analytics/visitors',
+  ANALYTICS_THREATS: '/api/admin/analytics/threats',
   ANALYTICS_EXCLUDED: '/api/admin/analytics/excluded',
 
   // Dashboard stats

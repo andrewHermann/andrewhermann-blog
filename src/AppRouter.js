@@ -43,6 +43,7 @@ import UserEditor from "./admin/UserEditor";
 import AdminNavbar from './admin/AdminNavbar';
 import AnalyticsPages from './admin/AnalyticsPages';
 import AnalyticsVisitors from './admin/AnalyticsVisitors';
+import AnalyticsThreats from './admin/AnalyticsThreats';
 import { trackPageView } from './services/analytics';
 
 const AnalyticsTracker = () => {
@@ -150,6 +151,10 @@ const AppRouter = () => {
         <Route
           path="/admin/analytics/visitors"
           element={isAuthenticated && userRole === 'admin' ? <AnalyticsVisitors /> : <Navigate to={isAuthenticated ? '/admin/dashboard' : '/admin/login'} />}
+        />
+        <Route
+          path="/admin/analytics/threats"
+          element={isAuthenticated && userRole === 'admin' ? <AnalyticsThreats /> : <Navigate to={isAuthenticated ? '/admin/dashboard' : '/admin/login'} />}
         />
 
         <Route path="*" element={<Navigate to="/not-found" replace />} />

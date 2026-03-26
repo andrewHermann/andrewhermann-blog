@@ -17,7 +17,7 @@ function generateId() {
   return Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
 }
 
-function getVisitorId() {
+export function getVisitorId() {
   let vid = localStorage.getItem(VISITOR_KEY);
   if (!vid) {
     vid = generateId();
@@ -50,6 +50,7 @@ export function trackPageView(page, referrer = '') {
     language: navigator.language || '',
     screen_width: window.screen.width,
     screen_height: window.screen.height,
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
   };
 
   const url = `${currentConfig.API_BASE_URL}/api/track`;

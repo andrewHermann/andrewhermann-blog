@@ -14,6 +14,7 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from 'recharts';
 import { API_ENDPOINTS, apiRequest } from '../config/api';
+import { getVisitorId } from '../services/analytics';
 import './Analytics.css';
 
 const COLORS = { primary: '#1e3a5f', secondary: '#2563eb' };
@@ -21,7 +22,7 @@ const COLORS = { primary: '#1e3a5f', secondary: '#2563eb' };
 const DeviceExclusions = () => {
   const [excluded, setExcluded] = useState([]);
   const [saving, setSaving] = useState(false);
-  const currentId = localStorage.getItem('ah_vid');
+  const currentId = getVisitorId();
   const isExcluded = excluded.some((e) => e.visitor_id === currentId);
 
   const load = () => {
@@ -115,6 +116,7 @@ const AnalyticsPages = () => {
             <div className="analytics-tabs">
               <span className="analytics-tab active">Pages</span>
               <Link to="/admin/analytics/visitors" className="analytics-tab">Visitors</Link>
+              <Link to="/admin/analytics/threats" className="analytics-tab">Threats</Link>
             </div>
             <div className="analytics-range">
               <label htmlFor="days-select">Period:</label>
