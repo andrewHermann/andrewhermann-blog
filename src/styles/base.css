@@ -242,6 +242,42 @@ body {
   margin: 0 auto;
 }
 
+/* Section Label - Visual separator between major page sections */
+.section-label {
+  padding: var(--space-lg) 0 var(--space-sm) 0;
+  border-top: 2px solid var(--color-primary);
+  margin-top: var(--space-xl);
+}
+
+.section-label h2 {
+  color: var(--color-primary);
+  font-size: var(--font-size-3xl);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 var(--space-sm) 0;
+  letter-spacing: -0.02em;
+}
+
+.section-label p {
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  font-family: var(--font-body);
+  line-height: 1.7;
+  margin: 0;
+  max-width: 680px;
+}
+
+.section-label p + p {
+  margin-top: var(--space-sm);
+}
+
+@media (max-width: 768px) {
+  .section-label h2 {
+    font-size: var(--font-size-2xl);
+  }
+}
+
 /* Section Card Pattern - Light background inside main frame */
 .section-card {
   display: flex;

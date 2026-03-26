@@ -60,6 +60,13 @@ const Portfolio = () => {
         </div>
         
         <div className="content-main">
+          <div className="section-label">
+            <h2>Active Initiatives</h2>
+            <p>
+              Live systems, operating inside real institutions, built under real constraints.
+            </p>
+          </div>
+
           <div className="section-card" id="ki-v">
             <h2>KI@V – Institutional AI for the Swiss Armed Forces</h2>
             <h3>Goal: Enable responsible AI experimentation inside one of Switzerland&apos;s most sensitive institutional domains.</h3>
@@ -135,7 +142,7 @@ const Portfolio = () => {
             </p>
           </div>
 
-          <div className="section-card" id="foundations">
+          <div className="section-label" id="foundations">
             <h2>Before the Terminology Existed</h2>
             <p>
               The problems that define current AI and digital transformation agendas — unreliable operational
@@ -211,10 +218,20 @@ const Portfolio = () => {
               <li>Led pilot architectures linking Maximo asset data with IBM Watson IoT (2015–2016) — establishing early organisational foundations for predictive maintenance governance</li>
               <li>Reduced unplanned downtime risk and improved maintenance resource allocation across multiple DACH client operations</li>
             </ul>
+
+            <h3>Certifications:</h3>
+            <ul>
+              <li><strong>IBM Certified Deployment Professional</strong> — Tivoli Process Automation Engine V7.5 · IBM · Feb 2015</li>
+              <li><strong>IBM Certified Infrastructure Deployment Professional</strong> — Maximo Asset Management V7.5 · IBM · Feb 2015</li>
+              <li><strong>IBM Certified Support Associate</strong> — Cloud &amp; Smarter Infrastructure Support Provider Tools and Processes · IBM · Feb 2015</li>
+            </ul>
+          </div>
+
+          <div className="section-label">
+            <h2>Work With Me</h2>
           </div>
 
           <div className="section-card">
-            <h2>Work With Me</h2>
             <p>
               I work best in environments where the stakes are high, the context is messy,
               and the end goal is institutional clarity.
