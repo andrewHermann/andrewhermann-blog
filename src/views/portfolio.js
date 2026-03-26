@@ -219,12 +219,6 @@ const Portfolio = () => {
               <li>Reduced unplanned downtime risk and improved maintenance resource allocation across multiple DACH client operations</li>
             </ul>
 
-            <h3>Certifications:</h3>
-            <ul>
-              <li><strong>IBM Certified Deployment Professional</strong> — Tivoli Process Automation Engine V7.5 · IBM · Feb 2015</li>
-              <li><strong>IBM Certified Infrastructure Deployment Professional</strong> — Maximo Asset Management V7.5 · IBM · Feb 2015</li>
-              <li><strong>IBM Certified Support Associate</strong> — Cloud &amp; Smarter Infrastructure Support Provider Tools and Processes · IBM · Feb 2015</li>
-            </ul>
           </div>
 
           <div className="section-label">
