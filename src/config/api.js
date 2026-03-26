@@ -125,6 +125,7 @@ export const API_ENDPOINTS = {
   ANALYTICS_PAGES: '/api/admin/analytics/pages',
   ANALYTICS_VISITORS: '/api/admin/analytics/visitors',
   ANALYTICS_THREATS: '/api/admin/analytics/threats',
+  ANALYTICS_VISITOR_PROFILES: '/api/admin/analytics/visitor-profiles',
   ANALYTICS_EXCLUDED: '/api/admin/analytics/excluded',
 
   // Dashboard stats

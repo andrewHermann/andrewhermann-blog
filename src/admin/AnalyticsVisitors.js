@@ -72,6 +72,7 @@ const AnalyticsVisitors = () => {
             <div className="analytics-tabs">
               <Link to="/admin/analytics/pages" className="analytics-tab">Pages</Link>
               <span className="analytics-tab active">Visitors</span>
+              <Link to="/admin/analytics/profiles" className="analytics-tab">Profiles</Link>
               <Link to="/admin/analytics/threats" className="analytics-tab">Threats</Link>
             </div>
             <div className="analytics-range">

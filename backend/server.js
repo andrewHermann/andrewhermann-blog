@@ -1085,6 +1085,62 @@ app.get('/api/admin/analytics/visitors', requireAdmin, (req, res) => {
     .catch(() => res.status(500).json({ error: 'Database error' }));
 });
 
+// Admin analytics — visitor profiles (per-visitor drill-down)
+app.get('/api/admin/analytics/visitor-profiles', requireAdmin, (req, res) => {
+  const days = parseInt(req.query.days) || 30;
+  const since = `datetime('now', '-${days} days')`;
+
+  db.all(
+    `SELECT
+       pv.visitor_id,
+       COUNT(*)                        AS visit_count,
+       COUNT(DISTINCT pv.page)         AS unique_pages,
+       MIN(pv.timestamp)               AS first_seen,
+       MAX(pv.timestamp)               AS last_seen,
+       MAX(pv.country)                 AS country,
+       MAX(pv.region)                  AS region,
+       MAX(pv.city)                    AS city,
+       MAX(pv.asn)                     AS asn,
+       MAX(pv.isp)                     AS isp,
+       MAX(pv.org)                     AS org,
+       MAX(pv.browser)                 AS browser,
+       MAX(pv.os)                      AS os,
+       MAX(pv.device_type)             AS device_type,
+       MAX(pv.timezone)                AS timezone,
+       MAX(pv.traffic_type)            AS traffic_type,
+       CASE WHEN ev.visitor_id IS NOT NULL THEN 1 ELSE 0 END AS is_excluded,
+       ev.label                        AS exclusion_label
+     FROM page_views pv
+     LEFT JOIN excluded_visitors ev ON pv.visitor_id = ev.visitor_id
+     WHERE pv.visitor_id IS NOT NULL
+       AND pv.timestamp >= ${since}
+     GROUP BY pv.visitor_id
+     ORDER BY last_seen DESC
+     LIMIT 200`,
+    (err, rows) => {
+      if (err) return res.status(500).json({ error: 'Database error' });
+      res.json(rows);
+    }
+  );
+});
+
+app.get('/api/admin/analytics/visitor-profiles/:id', requireAdmin, (req, res) => {
+  const days = parseInt(req.query.days) || 30;
+  const since = `datetime('now', '-${days} days')`;
+
+  db.all(
+    `SELECT page, COUNT(*) as views, MAX(timestamp) as last_seen
+     FROM page_views
+     WHERE visitor_id = ? AND timestamp >= ${since}
+     GROUP BY page ORDER BY views DESC`,
+    [req.params.id],
+    (err, rows) => {
+      if (err) return res.status(500).json({ error: 'Database error' });
+      res.json(rows);
+    }
+  );
+});
+
 // Admin analytics — threats dashboard
 app.get('/api/admin/analytics/threats', requireAdmin, (req, res) => {
   const days = parseInt(req.query.days) || 30;

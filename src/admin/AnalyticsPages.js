@@ -116,6 +116,7 @@ const AnalyticsPages = () => {
             <div className="analytics-tabs">
               <span className="analytics-tab active">Pages</span>
               <Link to="/admin/analytics/visitors" className="analytics-tab">Visitors</Link>
+              <Link to="/admin/analytics/profiles" className="analytics-tab">Profiles</Link>
               <Link to="/admin/analytics/threats" className="analytics-tab">Threats</Link>
             </div>
             <div className="analytics-range">
