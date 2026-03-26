@@ -75,9 +75,9 @@ const About = () => {
       <Navbar />
       <div className="page-content">
         <div className="page-header">
-          <h1 className="page-title">About Me</h1>
+          <h1 className="page-title">About</h1>
           <p className="page-subtitle">
-            A structural account of how I work, what I&apos;ve done, and what that reveals about the systems I build.
+            Two decades of institutional systems work. The background, the approach, and the context.
           </p>
         </div>
         
@@ -93,11 +93,11 @@ const About = () => {
           
           <div className="section-card">
             <h2>Professional Trajectory</h2>
-            <p>Today, I work within the Swiss federal administration, currently in the Armed Forces, where I manage cross-functional digital projects under institutional and security constraints. I lead initiatives involving AI deployment, enterprise reporting, and system lifecycle governance. All designed to function in real-world, non-ideal conditions.</p>
-            
-            <p>I created and led the Cockpit platform, a federated Power BI system now used across several divisions for project portfolio oversight. I also initiated and currently manage KI@V, a secure conversational AI tool tailored for administrative workflows in classified domains. Both projects required not just technical execution, but strategic alignment across fragmented institutions with differing mandates and priorities.</p>
-            
-            <p>Earlier in my career, I co-led the implementation of the TTR (Timetable Redesign) initiative in the European rail sector, coordinating 150+ stakeholders and establishing cross-border governance and funding structures between Forum Train Europe and RailNetEurope. I operated in politically sensitive contexts, often without formal mandate but with measurable outcomes.</p>
+            <p>Today, I operate within the Swiss federal administration — currently within the Armed Forces — leading cross-functional digital initiatives under institutional and security constraints. The work spans AI governance, portfolio intelligence, and system lifecycle decisions. All of it designed to function under real-world, non-ideal conditions.</p>
+
+            <p>I established COCKPIT, a project portfolio intelligence platform now used across multiple divisions of ASTAB — giving leadership historical visibility into the full portfolio for the first time. I initiated and lead KI@V, a secure conversational AI platform for administrative workflows in classified domains, and the first AI governance framework of its kind within the Swiss defense administration.</p>
+
+            <p>Earlier in my career, I led the Forum Train Europe side of a structural negotiation with RailNetEurope — coordinating across 150+ stakeholders from 28 national rail operators, brokering the first formal agreement between the two bodies, and securing the first EU Horizon grant ever awarded to FTE. I operated in politically sensitive contexts, often without formal mandate but with measurable outcomes.</p>
           </div>
           
           <div className="section-card">
@@ -110,17 +110,17 @@ const About = () => {
           </div>
           
           <div className="section-card">
-            <h2>Core Competencies</h2>
+            <h2>Domains of Practice</h2>
             <div>
-              <p><strong>System Architecture & Lifecycle Management</strong> – Designing long-term viable systems across heterogeneous platforms and institutional structures.</p>
-              
-              <p><strong>Data Infrastructure & Reporting</strong> – Implementing multi-source analytics platforms with a focus on strategic governance and decision-making.</p>
-              
-              <p><strong>Secure AI Integration</strong> – Leading low-risk, high-value AI applications tailored to real administrative workflows in regulated domains.</p>
-              
-              <p><strong>Cross-Domain Leadership</strong> – Bridging technical, legal, and organizational silos across defense, transportation, and public administration.</p>
-              
-              <p><strong>Legacy System Integration</strong> – Working with what exists—databases, platforms, and processes—to extract value without disruption.</p>
+              <p><strong>Governance of Digital Initiatives</strong> — Establishing the mandates, accountability structures, and decision logic that make cross-institutional programmes function. Not just the technology — the governance that makes it defensible.</p>
+
+              <p><strong>Portfolio Intelligence</strong> — Building the data infrastructure that gives institutional leadership an accurate, current picture of the full portfolio — replacing manual compilation with governed, automated pipelines.</p>
+
+              <p><strong>AI Deployment in Constrained Environments</strong> — Defining the governance model, access logic, and use-case scope that make AI viable in regulated, classified, or legally sensitive institutional contexts.</p>
+
+              <p><strong>Multi-Institutional Coordination</strong> — Structuring and sustaining working relationships across legal, organisational, and political boundaries — at the intersection of defence, transport, and public administration.</p>
+
+              <p><strong>Institutional Modernisation</strong> — Designing change that works within what exists: legacy infrastructure, incomplete documentation, constrained procurement. Extracting value without forcing disruption.</p>
             </div>
           </div>
           
@@ -131,7 +131,7 @@ const About = () => {
           
           <div className="section-card">
             <h2>Final Note</h2>
-            <p><em>This is not a résumé. It&apos;s a structural account of how I work, what I&apos;ve done, and what that reveals about the systems I build. I don&apos;t aim to disrupt. I aim to stabilize quietly, precisely, and at scale.</em></p>
+            <p><em>I don&apos;t aim to disrupt. I aim to stabilize — quietly, precisely, and at scale.</em></p>
           </div>
         </div>
       </div>
