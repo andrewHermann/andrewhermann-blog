@@ -85,9 +85,6 @@ const Portfolio = () => {
               <li>Achieved 150+ active users within six months of MVP phase</li>
             </ul>
             
-            <p>
-              <a href="/contact" className="link-primary">→ Contact me to learn more</a>
-            </p>
           </div>
 
           <div className="section-card" id="cockpit">
@@ -111,9 +108,6 @@ const Portfolio = () => {
               <li>Delivered on scope, on budget (200 kCHF), within 5 PIs</li>
             </ul>
 
-            <p>
-              <a href="/contact" className="link-primary">→ Contact me to learn more</a>
-            </p>
           </div>
 
           <div className="section-card" id="ttr">
@@ -137,9 +131,6 @@ const Portfolio = () => {
               <li>Enabled Rolling Planning to be extended and adapted by the operators who depend on it</li>
             </ul>
 
-            <p>
-              <a href="/contact" className="link-primary">→ Contact me to learn more</a>
-            </p>
           </div>
 
           <div className="section-label" id="foundations">
