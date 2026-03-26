@@ -135,17 +135,17 @@ const Portfolio = () => {
             </p>
           </div>
 
-<div className="section-card" id="foundations">
+          <div className="section-card" id="foundations">
             <h2>Before the Terminology Existed</h2>
             <p>
-              These early engagements provided hands-on exposure to the practical realities of industrial
-              digitalisation and regulated consumer health technology — unreliable data streams, immature
-              analytics tooling, public-use device governance, and organisational resistance to algorithmic
-              decision support.
+              The problems that define current AI and digital transformation agendas — unreliable operational
+              data, immature analytics tooling, distributed device governance, organisational resistance to
+              algorithmic decision support — were present a decade earlier. These projects addressed them
+              directly, without the frameworks, the cloud platforms, or the consulting vocabulary that
+              followed.
             </p>
             <p>
-              The experience shaped a later focus on institutional AI capability building and
-              enterprise-scale transformation governance. The problems were the same. The vocabulary arrived later.
+              The problems were the same. The vocabulary arrived later.
             </p>
           </div>
 
@@ -155,31 +155,32 @@ const Portfolio = () => {
 
             <h3>Context:</h3>
             <p>
-              Swiss OTC healthcare providers were seeking new ways to improve patient education and
-              strengthen pharmacy partnerships through in-store digital engagement. This initiative introduced
-              one of the early digitally mediated customer-experience platforms in regulated retail
-              healthcare — before the category had a name.
+              Swiss OTC healthcare providers needed a new model for patient education and pharmacy
+              partnership — one that operated at scale, in public retail environments, without
+              on-site oversight. This initiative established one of the early digitally mediated
+              patient-experience platforms in regulated retail healthcare, before the category had a name.
             </p>
 
             <h3>My Role:</h3>
             <p>
-              Designed and delivered a scalable kiosk platform enabling nationwide deployment across partner
-              pharmacies. Led the technical architecture, interaction design, and operational infrastructure
-              for a system operating under uncontrolled public-use conditions.
+              I led the technical design and nationwide rollout of a pharmacy kiosk platform for
+              Novartis Consumer Health. I defined the interaction architecture, designed the secure
+              public-use operating environment, and engineered the remote operations model — ensuring
+              high availability across a distributed national network without requiring on-site intervention.
             </p>
 
-            <h3>Key Outcomes:</h3>
+            <h3>Impact:</h3>
             <ul>
-              <li>Designed the touchscreen patient education experience supporting guided information flows on pain management and Voltaren Dolo treatment options</li>
-              <li>Implemented a hardened kiosk-mode operating environment ensuring content integrity across high-traffic retail environments</li>
-              <li>Designed a custom SMS-based backend recovery capability — enabling remote restoration of system availability without on-site intervention across a nationally distributed installation network</li>
-              <li>Established an early model for digitally enabled joint business planning between pharmaceutical manufacturer and pharmacy channel partners</li>
+              <li>Designed the patient-facing touchscreen experience for guided information flows on pain management and Voltaren Dolo treatment options — enabling pharmacists to extend advisory services through digital self-service</li>
+              <li>Established a hardened kiosk operating environment maintaining content integrity under uncontrolled high-traffic retail conditions</li>
+              <li>Designed a custom SMS-based remote recovery mechanism — restoring system availability across the national installation network without dispatch</li>
+              <li>Established an early operational model for digitally enabled joint business planning between a pharmaceutical manufacturer and its pharmacy channel partners</li>
             </ul>
 
             <h3>Recognition:</h3>
             <ul>
-              <li><strong>POPAI Award Paris (2013)</strong> — POS Brand Activation category, for innovative in-store digital engagement</li>
-              <li><strong>OTC Europe Excellence Recognition (2013)</strong> — for science-driven consumer health innovation through cross-industry collaboration</li>
+              <li><strong>POPAI Award Paris (2013)</strong> — POS Brand Activation category</li>
+              <li><strong>OTC Europe Excellence Recognition (2013)</strong> — cross-industry innovation in consumer health</li>
             </ul>
           </div>
 
@@ -189,32 +190,26 @@ const Portfolio = () => {
 
             <h3>Context:</h3>
             <p>
-              At a time when industrial IoT architectures were still emerging, asset-intensive organisations
-              across the DACH region initiated programmes to transition from reactive maintenance toward
-              data-driven asset management. The tooling was immature, the data environments were unreliable,
-              and the organisational shift required was significant.
+              Before cloud-native IoT platforms existed, asset-intensive organisations across the DACH
+              region were attempting to move from reactive maintenance to data-driven asset management.
+              The data environments were unreliable, the tooling was immature, and the path from sensor
+              signal to operational decision required significant architectural groundwork.
             </p>
 
             <h3>My Role:</h3>
             <p>
-              Designed solution patterns and integration architectures enabling real-time equipment telemetry
-              to flow into enterprise asset management workflows — translating industrial sensor environments
-              into structured, actionable operational data.
+              I designed the integration architectures and solution patterns that made real-time equipment
+              telemetry operational inside enterprise asset management workflows. I led client engagements
+              across the transition from alert-based response to condition-driven maintenance — and, from
+              2015, toward early predictive decision support.
             </p>
 
-            <h3>Key Outcomes:</h3>
+            <h3>Impact:</h3>
             <ul>
-              <li>Designed condition-based maintenance patterns capturing live telemetry from heterogeneous sensor environments into IBM Maximo 7.5 / 7.6 — replacing calendar-based maintenance scheduling</li>
-              <li>Applied the Maximo Integration Framework (MIF) to ingest non-standard sensor payloads, establishing early middleware patterns to stabilise unreliable industrial network environments</li>
-              <li>Contributed to pilot architectures linking Maximo asset data with IBM Watson IoT (2015–2016) — early exploratory work connecting operational data to predictive decision support</li>
-              <li>Supported the cultural shift within client organisations from alert-based response toward data-supported operational planning</li>
-            </ul>
-
-            <h3>Impact Themes:</h3>
-            <ul>
-              <li>Reduction of unplanned downtime risk across asset-intensive operations</li>
-              <li>Foundations for later enterprise analytics and AI transformation programmes</li>
-              <li>Practical experience with the realities of industrial data quality before cloud-native tooling existed</li>
+              <li>Designed condition-based maintenance patterns that replaced calendar-based scheduling — capturing live telemetry from heterogeneous sensor environments into IBM Maximo 7.5 / 7.6</li>
+              <li>Established integration patterns via the Maximo Integration Framework to ingest non-standard sensor payloads and stabilise unreliable industrial network environments</li>
+              <li>Led pilot architectures linking Maximo asset data with IBM Watson IoT (2015–2016) — establishing early organisational foundations for predictive maintenance governance</li>
+              <li>Reduced unplanned downtime risk and improved maintenance resource allocation across multiple DACH client operations</li>
             </ul>
           </div>
 
