@@ -228,7 +228,7 @@ const Portfolio = () => {
           </div>
 
           <div className="section-label">
-            <h2>Work With Me</h2>
+            <h2>When the Stakes Are High</h2>
           </div>
 
           <div className="section-card">
