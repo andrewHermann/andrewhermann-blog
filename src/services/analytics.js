@@ -26,7 +26,7 @@ export function getVisitorId() {
   return vid;
 }
 
-function getSessionId() {
+export function getSessionId() {
   let sid = sessionStorage.getItem(SESSION_KEY);
   if (!sid) {
     sid = generateId();
@@ -37,6 +37,26 @@ function getSessionId() {
 
 export function hasAnalyticsConsent() {
   return localStorage.getItem('cookieConsent') === 'all';
+}
+
+const MAX_DURATION_SECONDS = 900; // 15-minute stale threshold
+
+export function trackPageLeave(page, durationSeconds) {
+  if (!hasAnalyticsConsent()) return;
+  const capped = Math.min(Math.round(durationSeconds), MAX_DURATION_SECONDS);
+  if (capped < 2) return;
+
+  fetch(`${currentConfig.API_BASE_URL}/api/track-leave`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      page,
+      visitor_id: getVisitorId(),
+      session_id: getSessionId(),
+      duration_seconds: capped,
+    }),
+    keepalive: true,
+  }).catch(() => {});
 }
 
 export function trackPageView(page, referrer = '') {

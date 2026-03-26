@@ -45,20 +45,42 @@ import AnalyticsPages from './admin/AnalyticsPages';
 import AnalyticsVisitors from './admin/AnalyticsVisitors';
 import AnalyticsThreats from './admin/AnalyticsThreats';
 import AnalyticsProfiles from './admin/AnalyticsProfiles';
-import { trackPageView } from './services/analytics';
+import { trackPageView, trackPageLeave } from './services/analytics';
 
 const AnalyticsTracker = () => {
   const location = useLocation();
   const prevPathRef = useRef(null);
+  const entryTimeRef = useRef(null);
 
   useEffect(() => {
     if (location.pathname.startsWith('/admin')) return;
+
+    // Fire leave event for the page we're navigating away from
+    if (prevPathRef.current && entryTimeRef.current) {
+      const duration = (Date.now() - entryTimeRef.current) / 1000;
+      trackPageLeave(prevPathRef.current, duration);
+    }
+
+    entryTimeRef.current = Date.now();
+
     const referrer = prevPathRef.current
       ? `${window.location.origin}${prevPathRef.current}`
       : document.referrer;
     trackPageView(location.pathname, referrer);
     prevPathRef.current = location.pathname;
   }, [location.pathname]);
+
+  // Fire leave event when the tab closes or user navigates externally
+  useEffect(() => {
+    const handleUnload = () => {
+      if (prevPathRef.current && entryTimeRef.current) {
+        const duration = (Date.now() - entryTimeRef.current) / 1000;
+        trackPageLeave(prevPathRef.current, duration);
+      }
+    };
+    window.addEventListener('beforeunload', handleUnload);
+    return () => window.removeEventListener('beforeunload', handleUnload);
+  }, []);
 
   return null;
 };

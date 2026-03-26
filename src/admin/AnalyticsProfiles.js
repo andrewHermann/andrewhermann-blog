@@ -32,6 +32,14 @@ function shortDate(ts) {
   return ts.replace('T', ' ').split('.')[0].slice(0, 16);
 }
 
+function formatDuration(seconds) {
+  if (!seconds || seconds < 2) return null;
+  if (seconds < 60) return `${seconds}s`;
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  return s > 0 ? `${m}m ${s}s` : `${m}m`;
+}
+
 const VisitorRow = ({ v, days, onExclude, onUnexclude }) => {
   const [expanded, setExpanded] = useState(false);
   const [pages, setPages] = useState(null);
@@ -154,6 +162,7 @@ const VisitorRow = ({ v, days, onExclude, onUnexclude }) => {
                   <tr>
                     <th style={{ textAlign: 'left', padding: '3px 0', color: 'var(--color-text-secondary)', fontWeight: 600, borderBottom: '1px solid var(--color-accent-1)' }}>Page</th>
                     <th style={{ textAlign: 'right', padding: '3px 0', color: 'var(--color-text-secondary)', fontWeight: 600, borderBottom: '1px solid var(--color-accent-1)' }}>Views</th>
+                    <th style={{ textAlign: 'right', padding: '3px 0', color: 'var(--color-text-secondary)', fontWeight: 600, borderBottom: '1px solid var(--color-accent-1)' }}>Avg time</th>
                     <th style={{ textAlign: 'right', padding: '3px 0', color: 'var(--color-text-secondary)', fontWeight: 600, borderBottom: '1px solid var(--color-accent-1)' }}>Last seen</th>
                   </tr>
                 </thead>
@@ -162,6 +171,9 @@ const VisitorRow = ({ v, days, onExclude, onUnexclude }) => {
                     <tr key={p.page}>
                       <td style={{ padding: '3px 0', fontFamily: 'monospace', fontSize: '0.78rem' }}>{p.page}</td>
                       <td style={{ padding: '3px 0', textAlign: 'right', fontWeight: 700, color: 'var(--color-primary)' }}>{p.views}</td>
+                      <td style={{ padding: '3px 0', textAlign: 'right', color: 'var(--color-text-secondary)' }}>
+                        {formatDuration(p.avg_duration_seconds) ?? <span style={{ opacity: 0.4 }}>—</span>}
+                      </td>
                       <td style={{ padding: '3px 0', textAlign: 'right', color: 'var(--color-text-secondary)' }}>{shortDate(p.last_seen)}</td>
                     </tr>
                   ))}

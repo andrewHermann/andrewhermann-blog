@@ -202,6 +202,18 @@ db.serialize(() => {
     )
   `);
 
+  // Page duration records — one row per page leave event, capped at 15 min
+  db.run(`
+    CREATE TABLE IF NOT EXISTS page_durations (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      visitor_id TEXT,
+      session_id TEXT,
+      page TEXT NOT NULL,
+      duration_seconds INTEGER NOT NULL,
+      timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+
   // Create default admin user
   const defaultPassword = bcrypt.hashSync(process.env.ADMIN_PASSWORD || 'CHANGE_ME_IMMEDIATELY', 10);
   db.run(`
@@ -847,6 +859,25 @@ app.post('/api/track', trackingLimiter, (req, res) => {
   });
 });
 
+// Page leave — records time spent, capped server-side at 15 minutes
+const MAX_DURATION_SECONDS = 900;
+
+app.post('/api/track-leave', trackingLimiter, (req, res) => {
+  res.status(204).end();
+
+  const { page, visitor_id, session_id, duration_seconds } = req.body;
+  if (!page || !duration_seconds) return;
+
+  const capped = Math.min(Math.max(Math.round(Number(duration_seconds)), 0), MAX_DURATION_SECONDS);
+  if (capped < 2) return;
+
+  db.run(
+    `INSERT INTO page_durations (visitor_id, session_id, page, duration_seconds) VALUES (?, ?, ?, ?)`,
+    [visitor_id || null, session_id || null, page, capped],
+    (err) => { if (err) console.error('[track-leave] INSERT error:', err.message); }
+  );
+});
+
 // Exclusion management
 app.get('/api/admin/analytics/excluded', requireAdmin, (req, res) => {
   db.all('SELECT visitor_id, label, created_at FROM excluded_visitors ORDER BY created_at DESC', (err, rows) => {
@@ -1129,10 +1160,17 @@ app.get('/api/admin/analytics/visitor-profiles/:id', requireAdmin, (req, res) =>
   const since = `datetime('now', '-${days} days')`;
 
   db.all(
-    `SELECT page, COUNT(*) as views, MAX(timestamp) as last_seen
-     FROM page_views
-     WHERE visitor_id = ? AND timestamp >= ${since}
-     GROUP BY page ORDER BY views DESC`,
+    `SELECT
+       pv.page,
+       COUNT(*) as views,
+       MAX(pv.timestamp) as last_seen,
+       (SELECT ROUND(AVG(duration_seconds))
+        FROM page_durations
+        WHERE visitor_id = pv.visitor_id AND page = pv.page AND timestamp >= ${since}
+       ) as avg_duration_seconds
+     FROM page_views pv
+     WHERE pv.visitor_id = ? AND pv.timestamp >= ${since}
+     GROUP BY pv.page ORDER BY views DESC`,
     [req.params.id],
     (err, rows) => {
       if (err) return res.status(500).json({ error: 'Database error' });
