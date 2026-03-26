@@ -18,6 +18,80 @@ import './Analytics.css';
 
 const COLORS = { primary: '#1e3a5f', secondary: '#2563eb' };
 
+const DeviceExclusions = () => {
+  const [excluded, setExcluded] = useState([]);
+  const [saving, setSaving] = useState(false);
+  const currentId = localStorage.getItem('ah_vid');
+  const isExcluded = excluded.some((e) => e.visitor_id === currentId);
+
+  const load = () => {
+    apiRequest(API_ENDPOINTS.ANALYTICS_EXCLUDED).then(setExcluded).catch(() => {});
+  };
+
+  useEffect(() => { load(); }, []);
+
+  const exclude = () => {
+    if (!currentId) return;
+    setSaving(true);
+    apiRequest(API_ENDPOINTS.ANALYTICS_EXCLUDED, {
+      method: 'POST',
+      body: JSON.stringify({ visitor_id: currentId, label: 'Owner device' }),
+    }).then(() => { load(); setSaving(false); }).catch(() => setSaving(false));
+  };
+
+  const remove = (id) => {
+    apiRequest(`${API_ENDPOINTS.ANALYTICS_EXCLUDED}/${encodeURIComponent(id)}`, {
+      method: 'DELETE',
+    }).then(load).catch(() => {});
+  };
+
+  return (
+    <div className="section-card">
+      <div className="analytics-chart-title">Device Exclusions</div>
+      <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-secondary)', marginBottom: 'var(--space-md)', fontFamily: 'var(--font-body)' }}>
+        Excluded visitor IDs are removed from page view counts only. They still appear in visitor analytics.
+      </p>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-md)', marginBottom: 'var(--space-lg)', flexWrap: 'wrap' }}>
+        <code style={{ fontSize: 'var(--font-size-sm)', background: 'var(--color-accent-1)', padding: '2px 8px', fontFamily: 'monospace' }}>
+          {currentId || 'No visitor ID on this device yet'}
+        </code>
+        {currentId && !isExcluded && (
+          <button className="btn btn-secondary" onClick={exclude} disabled={saving} style={{ fontSize: 'var(--font-size-sm)', padding: '4px 12px' }}>
+            {saving ? 'Excluding…' : 'Exclude this device'}
+          </button>
+        )}
+        {currentId && isExcluded && (
+          <span style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-secondary)', fontFamily: 'var(--font-body)' }}>This device is excluded</span>
+        )}
+      </div>
+      {excluded.length > 0 && (
+        <table className="analytics-table">
+          <thead>
+            <tr><th>Visitor ID</th><th>Label</th><th>Added</th><th></th></tr>
+          </thead>
+          <tbody>
+            {excluded.map((e) => (
+              <tr key={e.visitor_id}>
+                <td><code style={{ fontSize: '0.75rem', fontFamily: 'monospace' }}>{e.visitor_id}</code></td>
+                <td>{e.label || '—'}</td>
+                <td>{e.created_at?.split('T')[0] || '—'}</td>
+                <td>
+                  <button
+                    onClick={() => remove(e.visitor_id)}
+                    style={{ background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer', fontSize: 'var(--font-size-sm)', fontFamily: 'var(--font-body)' }}
+                  >
+                    Remove
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  );
+};
+
 const AnalyticsPages = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -148,6 +222,8 @@ const AnalyticsPages = () => {
                   </table>
                 )}
               </div>
+
+          <DeviceExclusions />
             </>
           )}
 

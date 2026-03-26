@@ -133,6 +133,15 @@ db.serialize(() => {
     )
   `);
 
+  // Excluded visitor IDs (owner's own devices)
+  db.run(`
+    CREATE TABLE IF NOT EXISTS excluded_visitors (
+      visitor_id TEXT PRIMARY KEY,
+      label TEXT,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+
   // Page views analytics table
   db.run(`
     CREATE TABLE IF NOT EXISTS page_views (
@@ -719,24 +728,84 @@ app.post('/api/track', trackingLimiter, (req, res) => {
   });
 });
 
+// Exclusion management
+app.get('/api/admin/analytics/excluded', requireAdmin, (req, res) => {
+  db.all('SELECT visitor_id, label, created_at FROM excluded_visitors ORDER BY created_at DESC', (err, rows) => {
+    if (err) return res.status(500).json({ error: 'Database error' });
+    res.json(rows);
+  });
+});
+
+app.post('/api/admin/analytics/excluded', requireAdmin, requireXRequestedWith, (req, res) => {
+  const { visitor_id, label } = req.body;
+  if (!visitor_id) return res.status(400).json({ error: 'visitor_id required' });
+  db.run(
+    'INSERT OR IGNORE INTO excluded_visitors (visitor_id, label) VALUES (?, ?)',
+    [visitor_id, label || null],
+    (err) => {
+      if (err) return res.status(500).json({ error: 'Database error' });
+      res.json({ ok: true });
+    }
+  );
+});
+
+app.delete('/api/admin/analytics/excluded/:id', requireAdmin, requireXRequestedWith, (req, res) => {
+  db.run('DELETE FROM excluded_visitors WHERE visitor_id = ?', [req.params.id], (err) => {
+    if (err) return res.status(500).json({ error: 'Database error' });
+    res.json({ ok: true });
+  });
+});
+
+// Admin dashboard stats — top pages and top blog posts (excludes owner devices)
+app.get('/api/admin/dashboard/stats', requireAdmin, (req, res) => {
+  const topPages = new Promise((resolve, reject) => {
+    db.all(
+      `SELECT page, COUNT(*) as views FROM page_views
+       WHERE visitor_id NOT IN (SELECT visitor_id FROM excluded_visitors)
+         AND timestamp >= datetime('now', '-30 days')
+       GROUP BY page ORDER BY views DESC LIMIT 5`,
+      (err, rows) => err ? reject(err) : resolve(rows)
+    );
+  });
+
+  const topPosts = new Promise((resolve, reject) => {
+    db.all(
+      `SELECT pv.page, p.title, COUNT(*) as views
+       FROM page_views pv
+       LEFT JOIN posts p ON p.slug = REPLACE(pv.page, '/blog/', '')
+       WHERE pv.page LIKE '/blog/%'
+         AND pv.visitor_id NOT IN (SELECT visitor_id FROM excluded_visitors)
+         AND pv.timestamp >= datetime('now', '-30 days')
+       GROUP BY pv.page ORDER BY views DESC LIMIT 5`,
+      (err, rows) => err ? reject(err) : resolve(rows)
+    );
+  });
+
+  Promise.all([topPages, topPosts])
+    .then(([pages, posts]) => res.json({ top_pages: pages, top_posts: posts }))
+    .catch(() => res.status(500).json({ error: 'Database error' }));
+});
+
 // Admin analytics — pages dashboard
 app.get('/api/admin/analytics/pages', requireAdmin, (req, res) => {
   const days = parseInt(req.query.days) || 30;
 
   const since = `datetime('now', '-${days} days')`;
 
+  const excl = `visitor_id NOT IN (SELECT visitor_id FROM excluded_visitors)`;
+
   const summary = new Promise((resolve, reject) => {
     db.get(
       `SELECT COUNT(*) as total_views,
               COUNT(CASE WHEN date(timestamp) = date('now') THEN 1 END) as today_views
-       FROM page_views WHERE timestamp >= ${since}`,
+       FROM page_views WHERE ${excl} AND timestamp >= ${since}`,
       (err, row) => err ? reject(err) : resolve(row)
     );
   });
 
   const topPage = new Promise((resolve, reject) => {
     db.get(
-      `SELECT page FROM page_views WHERE timestamp >= ${since}
+      `SELECT page FROM page_views WHERE ${excl} AND timestamp >= ${since}
        GROUP BY page ORDER BY COUNT(*) DESC LIMIT 1`,
       (err, row) => err ? reject(err) : resolve(row?.page || null)
     );
@@ -745,7 +814,7 @@ app.get('/api/admin/analytics/pages', requireAdmin, (req, res) => {
   const viewsOverTime = new Promise((resolve, reject) => {
     db.all(
       `SELECT date(timestamp) as date, COUNT(*) as views
-       FROM page_views WHERE timestamp >= ${since}
+       FROM page_views WHERE ${excl} AND timestamp >= ${since}
        GROUP BY date(timestamp) ORDER BY date`,
       (err, rows) => err ? reject(err) : resolve(rows)
     );
@@ -754,7 +823,7 @@ app.get('/api/admin/analytics/pages', requireAdmin, (req, res) => {
   const topPages = new Promise((resolve, reject) => {
     db.all(
       `SELECT page, COUNT(*) as views, COUNT(DISTINCT visitor_id) as unique_visitors
-       FROM page_views WHERE timestamp >= ${since}
+       FROM page_views WHERE ${excl} AND timestamp >= ${since}
        GROUP BY page ORDER BY views DESC LIMIT 20`,
       (err, rows) => err ? reject(err) : resolve(rows)
     );
@@ -763,7 +832,7 @@ app.get('/api/admin/analytics/pages', requireAdmin, (req, res) => {
   const referrers = new Promise((resolve, reject) => {
     db.all(
       `SELECT referrer, COUNT(*) as count
-       FROM page_views WHERE referrer IS NOT NULL AND referrer != '' AND timestamp >= ${since}
+       FROM page_views WHERE referrer IS NOT NULL AND referrer != '' AND ${excl} AND timestamp >= ${since}
        GROUP BY referrer ORDER BY count DESC LIMIT 20`,
       (err, rows) => err ? reject(err) : resolve(rows)
     );

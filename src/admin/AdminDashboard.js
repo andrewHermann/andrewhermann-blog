@@ -17,11 +17,20 @@
  */
 
 
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { API_ENDPOINTS, apiRequest } from '../config/api';
 import './AdminDashboard.css';
 
 const AdminDashboard = ({ onLogout, userRole }) => {
+  const [stats, setStats] = useState(null);
+
+  useEffect(() => {
+    if (userRole === 'admin') {
+      apiRequest(API_ENDPOINTS.DASHBOARD_STATS).then(setStats).catch(() => {});
+    }
+  }, [userRole]);
+
   const handleLogout = async () => {
     try {
       await apiRequest(API_ENDPOINTS.LOGOUT, {
@@ -88,6 +97,49 @@ const AdminDashboard = ({ onLogout, userRole }) => {
               </Link>
             )}
           </div>
+        {userRole === 'admin' && stats && (
+          <div style={{ display: 'flex', gap: 'var(--space-lg)', flexWrap: 'wrap' }}>
+            <div className="section-card" style={{ flex: '1 1 340px' }}>
+              <h3 style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)', marginBottom: 'var(--space-md)', fontSize: 'var(--font-size-lg)' }}>
+                Top Pages <span style={{ fontWeight: 400, fontSize: 'var(--font-size-sm)', color: 'var(--color-text-secondary)' }}>— last 30 days</span>
+              </h3>
+              {stats.top_pages.length === 0 ? (
+                <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--font-size-sm)', fontFamily: 'var(--font-body)' }}>No data yet.</p>
+              ) : (
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'var(--font-body)', fontSize: 'var(--font-size-sm)' }}>
+                  <tbody>
+                    {stats.top_pages.map((p) => (
+                      <tr key={p.page} style={{ borderBottom: '1px solid var(--color-accent-1)' }}>
+                        <td style={{ padding: '6px 0', color: 'var(--color-text)' }}>{p.page}</td>
+                        <td style={{ padding: '6px 0', textAlign: 'right', color: 'var(--color-primary)', fontWeight: 600 }}>{p.views}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
+
+            <div className="section-card" style={{ flex: '1 1 340px' }}>
+              <h3 style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)', marginBottom: 'var(--space-md)', fontSize: 'var(--font-size-lg)' }}>
+                Top Blog Posts <span style={{ fontWeight: 400, fontSize: 'var(--font-size-sm)', color: 'var(--color-text-secondary)' }}>— last 30 days</span>
+              </h3>
+              {stats.top_posts.length === 0 ? (
+                <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--font-size-sm)', fontFamily: 'var(--font-body)' }}>No blog post views yet.</p>
+              ) : (
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'var(--font-body)', fontSize: 'var(--font-size-sm)' }}>
+                  <tbody>
+                    {stats.top_posts.map((p) => (
+                      <tr key={p.page} style={{ borderBottom: '1px solid var(--color-accent-1)' }}>
+                        <td style={{ padding: '6px 0', color: 'var(--color-text)' }}>{p.title || p.page}</td>
+                        <td style={{ padding: '6px 0', textAlign: 'right', color: 'var(--color-primary)', fontWeight: 600 }}>{p.views}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
+          </div>
+        )}
         </div>
       </div>
     </div>
