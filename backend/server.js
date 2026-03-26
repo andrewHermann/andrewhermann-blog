@@ -871,7 +871,7 @@ app.delete('/api/admin/analytics/excluded/:id', requireAdmin, requireXRequestedW
   });
 });
 
-// Admin dashboard stats — top pages and top blog posts (excludes owner devices)
+// Admin dashboard stats — top pages, top blog posts, threat type breakdown
 app.get('/api/admin/dashboard/stats', requireAdmin, (req, res) => {
   const topPages = new Promise((resolve, reject) => {
     db.all(
@@ -896,8 +896,17 @@ app.get('/api/admin/dashboard/stats', requireAdmin, (req, res) => {
     );
   });
 
-  Promise.all([topPages, topPosts])
-    .then(([pages, posts]) => res.json({ top_pages: pages, top_posts: posts }))
+  const threatTypes = new Promise((resolve, reject) => {
+    db.all(
+      `SELECT traffic_type as name, COUNT(*) as count FROM page_views
+       WHERE timestamp >= datetime('now', '-30 days')
+       GROUP BY traffic_type ORDER BY count DESC`,
+      (err, rows) => err ? reject(err) : resolve(rows)
+    );
+  });
+
+  Promise.all([topPages, topPosts, threatTypes])
+    .then(([pages, posts, threats]) => res.json({ top_pages: pages, top_posts: posts, threat_types: threats }))
     .catch(() => res.status(500).json({ error: 'Database error' }));
 });
 

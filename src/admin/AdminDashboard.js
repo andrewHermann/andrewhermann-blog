@@ -22,6 +22,70 @@ import { Link } from 'react-router-dom';
 import { API_ENDPOINTS, apiRequest } from '../config/api';
 import './AdminDashboard.css';
 
+const THREAT_COLORS = {
+  human:      '#2563eb',
+  crawler:    '#4a9fd8',
+  suspicious: '#f59e0b',
+  headless:   '#ef4444',
+  scanner:    '#dc2626',
+  unknown:    '#94a3b8',
+};
+const PAGE_COLORS  = ['#1e3a5f', '#2a5298', '#2563eb', '#4a9fd8', '#64748b'];
+const POST_COLORS  = ['#1e3a5f', '#2a5298', '#2563eb', '#4a9fd8', '#64748b'];
+
+function bubbleLabel(raw, radius) {
+  if (!raw) return '—';
+  const s = String(raw).replace(/^\/blog\//, '').replace(/^\//, '') || '/';
+  const maxChars = Math.max(4, Math.floor(radius / 5));
+  return s.length > maxChars ? s.slice(0, maxChars) + '…' : s;
+}
+
+const BubbleChart = ({ items, nameKey, valueKey, colorFn, emptyMsg }) => {
+  if (!items || items.length === 0) {
+    return (
+      <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--font-size-sm)', fontFamily: 'var(--font-body)' }}>
+        {emptyMsg || 'No data yet.'}
+      </p>
+    );
+  }
+  const max = Math.max(...items.map(d => d[valueKey]));
+  const MAX_R = 54;
+  const MIN_R = 22;
+
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'center', paddingTop: 4 }}>
+      {items.map((item, idx) => {
+        const ratio = max > 0 ? item[valueKey] / max : 0;
+        const r = MIN_R + (MAX_R - MIN_R) * Math.sqrt(ratio);
+        const diam = Math.round(r * 2);
+        const color = colorFn ? colorFn(item, idx) : PAGE_COLORS[idx % PAGE_COLORS.length];
+        const fontSize = Math.max(8, Math.round(r / 4.5));
+        return (
+          <div
+            key={idx}
+            title={`${item[nameKey]}: ${item[valueKey]}`}
+            style={{
+              width: diam, height: diam, borderRadius: '50%',
+              background: color,
+              display: 'flex', flexDirection: 'column',
+              alignItems: 'center', justifyContent: 'center',
+              textAlign: 'center', padding: 4, cursor: 'default',
+              flexShrink: 0,
+            }}
+          >
+            <div style={{ color: '#fff', fontWeight: 700, fontSize: fontSize + 1, fontFamily: 'var(--font-body)', lineHeight: 1 }}>
+              {item[valueKey]}
+            </div>
+            <div style={{ color: 'rgba(255,255,255,0.82)', fontSize, fontFamily: 'var(--font-body)', lineHeight: 1.1, wordBreak: 'break-all' }}>
+              {bubbleLabel(item[nameKey], r)}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
 const AdminDashboard = ({ onLogout, userRole }) => {
   const [stats, setStats] = useState(null);
 
@@ -99,44 +163,43 @@ const AdminDashboard = ({ onLogout, userRole }) => {
           </div>
         {userRole === 'admin' && stats && (
           <div style={{ display: 'flex', gap: 'var(--space-lg)', flexWrap: 'wrap' }}>
-            <div className="section-card" style={{ flex: '1 1 340px' }}>
+            <div className="section-card" style={{ flex: '1 1 280px' }}>
               <h3 style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)', marginBottom: 'var(--space-md)', fontSize: 'var(--font-size-lg)' }}>
                 Top Pages <span style={{ fontWeight: 400, fontSize: 'var(--font-size-sm)', color: 'var(--color-text-secondary)' }}>— last 30 days</span>
               </h3>
-              {stats.top_pages.length === 0 ? (
-                <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--font-size-sm)', fontFamily: 'var(--font-body)' }}>No data yet.</p>
-              ) : (
-                <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'var(--font-body)', fontSize: 'var(--font-size-sm)' }}>
-                  <tbody>
-                    {stats.top_pages.map((p) => (
-                      <tr key={p.page} style={{ borderBottom: '1px solid var(--color-accent-1)' }}>
-                        <td style={{ padding: '6px 0', color: 'var(--color-text)' }}>{p.page}</td>
-                        <td style={{ padding: '6px 0', textAlign: 'right', color: 'var(--color-primary)', fontWeight: 600 }}>{p.views}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              )}
+              <BubbleChart
+                items={stats.top_pages}
+                nameKey="page"
+                valueKey="views"
+                colorFn={(_, idx) => PAGE_COLORS[idx % PAGE_COLORS.length]}
+                emptyMsg="No page views yet."
+              />
             </div>
 
-            <div className="section-card" style={{ flex: '1 1 340px' }}>
+            <div className="section-card" style={{ flex: '1 1 280px' }}>
               <h3 style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)', marginBottom: 'var(--space-md)', fontSize: 'var(--font-size-lg)' }}>
                 Top Blog Posts <span style={{ fontWeight: 400, fontSize: 'var(--font-size-sm)', color: 'var(--color-text-secondary)' }}>— last 30 days</span>
               </h3>
-              {stats.top_posts.length === 0 ? (
-                <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--font-size-sm)', fontFamily: 'var(--font-body)' }}>No blog post views yet.</p>
-              ) : (
-                <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'var(--font-body)', fontSize: 'var(--font-size-sm)' }}>
-                  <tbody>
-                    {stats.top_posts.map((p) => (
-                      <tr key={p.page} style={{ borderBottom: '1px solid var(--color-accent-1)' }}>
-                        <td style={{ padding: '6px 0', color: 'var(--color-text)' }}>{p.title || p.page}</td>
-                        <td style={{ padding: '6px 0', textAlign: 'right', color: 'var(--color-primary)', fontWeight: 600 }}>{p.views}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              )}
+              <BubbleChart
+                items={stats.top_posts.map(p => ({ ...p, label: p.title || p.page }))}
+                nameKey="label"
+                valueKey="views"
+                colorFn={(_, idx) => POST_COLORS[idx % POST_COLORS.length]}
+                emptyMsg="No blog post views yet."
+              />
+            </div>
+
+            <div className="section-card" style={{ flex: '1 1 280px' }}>
+              <h3 style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)', marginBottom: 'var(--space-md)', fontSize: 'var(--font-size-lg)' }}>
+                Traffic Types <span style={{ fontWeight: 400, fontSize: 'var(--font-size-sm)', color: 'var(--color-text-secondary)' }}>— last 30 days</span>
+              </h3>
+              <BubbleChart
+                items={stats.threat_types || []}
+                nameKey="name"
+                valueKey="count"
+                colorFn={(item) => THREAT_COLORS[item.name] || THREAT_COLORS.unknown}
+                emptyMsg="No traffic data yet."
+              />
             </div>
           </div>
         )}
