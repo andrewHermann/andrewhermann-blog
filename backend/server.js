@@ -758,7 +758,7 @@ const HEADLESS_PATTERNS = [
   'headlesschrome', 'phantomjs', 'selenium', 'webdriver', 'puppeteer', 'playwright',
 ];
 
-function classifyTraffic(ua, secFetchSite, secFetchMode, isHosting) {
+function classifyTraffic(ua, secFetchSite, secFetchMode, isHosting, viaCdn) {
   if (!ua) return 'suspicious';
   const uaLower = ua.toLowerCase();
 
@@ -766,8 +766,9 @@ function classifyTraffic(ua, secFetchSite, secFetchMode, isHosting) {
   if (SCANNER_PATTERNS.some(p => uaLower.includes(p))) return 'scanner';
   if (CRAWLER_PATTERNS.some(p => uaLower.includes(p))) return 'crawler';
 
-  // Modern browsers always send Sec-Fetch headers on fetch() calls; absence is suspicious
-  if (!secFetchSite && !secFetchMode) return 'suspicious';
+  // Sec-Fetch headers are stripped by Cloudflare before reaching the origin.
+  // Only use their absence as a suspicious signal on direct (non-CDN) connections.
+  if (!viaCdn && !secFetchSite && !secFetchMode) return 'suspicious';
 
   // Datacenter/hosting IP with a real-looking UA — likely automated
   if (isHosting) return 'suspicious';
@@ -824,8 +825,10 @@ app.post('/api/track', trackingLimiter, (req, res) => {
   const secFetchMode = req.headers['sec-fetch-mode'] || null;
   const secFetchDest = req.headers['sec-fetch-dest'] || null;
 
+  const viaCdn = !!req.headers['cf-connecting-ip'];
+
   getGeoData(ip).then((geo) => {
-    const traffic_type = classifyTraffic(rawUa, secFetchSite, secFetchMode, geo.is_hosting);
+    const traffic_type = classifyTraffic(rawUa, secFetchSite, secFetchMode, geo.is_hosting, viaCdn);
     db.run(
       `INSERT INTO page_views
         (page, referrer, visitor_id, session_id, country, region, city, org,
@@ -838,7 +841,8 @@ app.post('/api/track', trackingLimiter, (req, res) => {
        browser, browser_version, os, device_type,
        language || null, screen_width || null, screen_height || null,
        geo.asn, geo.isp, geo.is_proxy, geo.is_hosting, traffic_type,
-       secFetchSite, secFetchMode, secFetchDest, timezone || null]
+       secFetchSite, secFetchMode, secFetchDest, timezone || null],
+      (err) => { if (err) console.error('[track] INSERT error:', err.message); }
     );
   });
 });
@@ -1031,29 +1035,51 @@ app.get('/api/admin/analytics/visitors', requireAdmin, (req, res) => {
     );
   });
 
-  const orgs = new Promise((resolve, reject) => {
+  const networks = new Promise((resolve, reject) => {
     db.all(
-      `SELECT org as name, COUNT(*) as count FROM page_views
-       WHERE org IS NOT NULL AND timestamp >= ${since}
-       GROUP BY org ORDER BY count DESC LIMIT 20`,
+      `SELECT asn, isp, org, COUNT(*) as count FROM page_views
+       WHERE (org IS NOT NULL OR asn IS NOT NULL) AND timestamp >= ${since}
+       GROUP BY COALESCE(asn, org) ORDER BY count DESC LIMIT 25`,
       (err, rows) => err ? reject(err) : resolve(rows)
     );
   });
 
-  Promise.all([summary, visitorsOverTime, browsers, operatingSystems, devices, locations, orgs])
-    .then(([s, chart, brows, oses, devs, locs, orgsData]) => {
+  const proxyStats = new Promise((resolve, reject) => {
+    db.get(
+      `SELECT
+         SUM(CASE WHEN is_proxy = 1 THEN 1 ELSE 0 END) as proxy_count,
+         SUM(CASE WHEN is_hosting = 1 THEN 1 ELSE 0 END) as hosting_count
+       FROM page_views WHERE timestamp >= ${since}`,
+      (err, row) => err ? reject(err) : resolve(row)
+    );
+  });
+
+  const timezones = new Promise((resolve, reject) => {
+    db.all(
+      `SELECT timezone as name, COUNT(*) as count FROM page_views
+       WHERE timezone IS NOT NULL AND timezone != '' AND timestamp >= ${since}
+       GROUP BY timezone ORDER BY count DESC LIMIT 20`,
+      (err, rows) => err ? reject(err) : resolve(rows)
+    );
+  });
+
+  Promise.all([summary, visitorsOverTime, browsers, operatingSystems, devices, locations, networks, proxyStats, timezones])
+    .then(([s, chart, brows, oses, devs, locs, nets, proxy, tzs]) => {
       res.json({
         summary: {
           unique_visitors: s.unique_visitors,
           total_sessions: s.total_sessions,
           today_visitors: s.today_visitors,
+          proxy_count: proxy?.proxy_count ?? 0,
+          hosting_count: proxy?.hosting_count ?? 0,
         },
         visitors_over_time: chart,
         browsers: brows,
         os: oses,
         devices: devs,
         locations: locs,
-        orgs: orgsData,
+        networks: nets,
+        timezones: tzs,
       });
     })
     .catch(() => res.status(500).json({ error: 'Database error' }));

@@ -109,6 +109,14 @@ const AnalyticsVisitors = () => {
                   <div className="analytics-stat-value">{data.summary.today_visitors ?? 0}</div>
                   <div className="analytics-stat-label">Today</div>
                 </div>
+                {(data.summary.proxy_count > 0 || data.summary.hosting_count > 0) && (
+                  <div className="analytics-stat">
+                    <div className="analytics-stat-value" style={{ color: '#f59e0b' }}>
+                      {(data.summary.proxy_count ?? 0) + (data.summary.hosting_count ?? 0)}
+                    </div>
+                    <div className="analytics-stat-label">Proxy / Hosting</div>
+                  </div>
+                )}
               </div>
 
               <div className="analytics-chart-card">
@@ -166,28 +174,51 @@ const AnalyticsVisitors = () => {
               </div>
 
               <div className="section-card">
-                <div className="analytics-chart-title">Networks &amp; Organisations</div>
-                {data.orgs.length === 0 ? (
+                <div className="analytics-chart-title">Networks &amp; ASNs</div>
+                {(!data.networks || data.networks.length === 0) ? (
                   <div className="analytics-empty">No network data yet.</div>
                 ) : (
                   <table className="analytics-table">
                     <thead>
                       <tr>
-                        <th>Organisation / ISP</th>
+                        <th>ASN</th>
+                        <th>ISP</th>
+                        <th>Organisation</th>
                         <th>Visits</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {data.orgs.map((o) => (
-                        <tr key={o.name}>
-                          <td>{o.name}</td>
-                          <td>{o.count}</td>
+                      {data.networks.map((n, i) => (
+                        <tr key={i}>
+                          <td><code style={{ fontSize: '0.75rem', fontFamily: 'monospace' }}>{n.asn || '—'}</code></td>
+                          <td>{n.isp || '—'}</td>
+                          <td style={{ color: 'var(--color-text-secondary)' }}>{n.org || '—'}</td>
+                          <td>{n.count}</td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
                 )}
               </div>
+
+              {data.timezones && data.timezones.length > 0 && (
+                <div className="section-card">
+                  <div className="analytics-chart-title">Timezones</div>
+                  <table className="analytics-table">
+                    <thead>
+                      <tr><th>Timezone</th><th>Visits</th></tr>
+                    </thead>
+                    <tbody>
+                      {data.timezones.map((t) => (
+                        <tr key={t.name}>
+                          <td>{t.name}</td>
+                          <td>{t.count}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </>
           )}
 
