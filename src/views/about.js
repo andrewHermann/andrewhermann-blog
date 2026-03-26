@@ -84,7 +84,7 @@ const About = () => {
         <div className="content-main">
           <div className="section-card">
             <h2>Early Foundation</h2>
-            <p>My relationship with technology began in 1984, when I was introduced to BASIC programming on an MSX machine during primary school. Within weeks, I had written a functioning game, not because it was required, but because the logic was accessible and the feedback was immediate. It was my first encounter with structured systems, and it set the tone for everything that followed.</p>
+            <p>My relationship with technology began in 1984, when I was introduced to BASIC programming on an MSX machine during primary school. Within three days I had written my first working program. By the end of that school year, I had built a functioning game — not because it was required, but because the logic was accessible and the feedback was immediate. It was my first encounter with structured systems, and it set the tone for everything that followed.</p>
             
             <p>In the years that followed, I expanded my focus far beyond programming. I built and maintained my own hardware, set up small networks, and began developing systems using Oracle Forms and relational databases. By the time I was in my teens, I had independently introduced myself to Linux, UNIX, HP-UX, and Solaris, navigating these operating systems out of pure interest in how real-world, enterprise-grade systems functioned beneath the surface.</p>
             
@@ -95,7 +95,7 @@ const About = () => {
             <h2>Professional Trajectory</h2>
             <p>Today, I operate within the Swiss federal administration — currently within the Armed Forces — leading cross-functional digital initiatives under institutional and security constraints. The work spans AI governance, portfolio intelligence, and system lifecycle decisions. All of it designed to function under real-world, non-ideal conditions.</p>
 
-            <p>I established COCKPIT, a project portfolio intelligence platform now used across multiple divisions of ASTAB — giving leadership historical visibility into the full portfolio for the first time. I initiated and lead KI@V, a secure conversational AI platform for administrative workflows in classified domains, and the first AI governance framework of its kind within the Swiss defense administration.</p>
+            <p>I established COCKPIT, a project portfolio intelligence platform now used across multiple divisions of Army Staff — giving leadership historical visibility into the full portfolio for the first time. I initiated and lead KI@V (AI@Defence), a secure conversational AI platform for administrative workflows in classified domains, and the first AI governance framework of its kind within the Swiss defense administration.</p>
 
             <p>Earlier in my career, I led the Forum Train Europe side of a structural negotiation with RailNetEurope — coordinating across 150+ stakeholders from 28 national rail operators, brokering the first formal agreement between the two bodies, and securing the first EU Horizon grant ever awarded to FTE. I operated in politically sensitive contexts, often without formal mandate but with measurable outcomes.</p>
           </div>
@@ -126,7 +126,7 @@ const About = () => {
           
           <div className="section-card">
             <h2>Languages & Context</h2>
-            <p>I live and work in Bern, Switzerland, and operate fluently in German, English, and French, depending on the situation. I am fully embedded in the operational realities of the Swiss public sector, including its legal frameworks, procurement regimes, and federated governance. I understand the difference between strategic ambition and institutional bandwidth and how to move one in the direction of the other.</p>
+            <p>I live and work in Bern, Switzerland, and operate fluently in German and English. I have a working knowledge of French sufficient for professional contexts, though my primary operational languages are German and English. I am fully embedded in the operational realities of the Swiss public sector, including its legal frameworks, procurement regimes, and federated governance. I understand the difference between strategic ambition and institutional bandwidth and how to move one in the direction of the other.</p>
           </div>
           
           <div className="section-card">
