@@ -86,7 +86,7 @@ npm run seo:sitemap    # Regenerate sitemap
 
 ### Deploy commands (run in sequence, only when instructed):
 ```bash
-ssh andrew@192.168.178.44 "cd /var/www/andrew/andrewhermann && git pull && npm install --legacy-peer-deps && npm run seo:sitemap && npm run build 2>&1"
+ssh andrew@192.168.178.44 "cd /var/www/andrew/andrewhermann && git pull && npm install && npm run seo:sitemap && npm run build 2>&1"
 ssh andrew@192.168.178.44 "pm2 restart frontend"
 ```
 `npm install` keeps server dependencies in sync with package.json (required when new packages are added).
