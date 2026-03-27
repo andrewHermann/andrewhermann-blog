@@ -65,7 +65,7 @@ const ContactPage = () => {
         <div className="page-header">
           <h1 className="page-title">Contact</h1>
           <p className="page-subtitle">
-            If the problem is real and the stakes are high, let's talk.
+            If the problem is real and the stakes are high, let&apos;s talk.
           </p>
         </div>
         

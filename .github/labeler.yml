@@ -1,44 +1,52 @@
-# Auto-labeling based on file paths
+# Auto-labeling based on file paths (actions/labeler@v6 schema)
 
-# Frontend changes
 frontend:
-  - src/**
-  - public/**
-  - craco.config.js
-  - package.json
+  - changed-files:
+    - any-glob-to-any-file:
+      - src/**
+      - public/**
+      - craco.config.js
+      - package.json
 
-# Backend changes  
 backend:
-  - backend/**
-  - server.js
+  - changed-files:
+    - any-glob-to-any-file:
+      - backend/**
+      - server.js
 
-# Admin panel changes
 admin:
-  - src/admin/**
+  - changed-files:
+    - any-glob-to-any-file:
+      - src/admin/**
 
-# Styling changes
 styling:
-  - "**/*.css"
-  - "**/*.scss"
-  - "**/*.sass"
+  - changed-files:
+    - any-glob-to-any-file:
+      - "**/*.css"
+      - "**/*.scss"
+      - "**/*.sass"
 
-# Database changes
 database:
-  - "**/*.db"
-  - "**/migrations/**"
-  - "**/schema/**"
+  - changed-files:
+    - any-glob-to-any-file:
+      - "**/*.db"
+      - "**/migrations/**"
+      - "**/schema/**"
 
-# Documentation changes
 documentation:
-  - "**.md"
-  - docs/**
+  - changed-files:
+    - any-glob-to-any-file:
+      - "**.md"
+      - docs/**
 
-# GitHub/CI changes
 github-actions:
-  - .github/**
+  - changed-files:
+    - any-glob-to-any-file:
+      - .github/**
 
-# Security related
 security:
-  - SECURITY.md
-  - .github/workflows/security.yml
-  - "**/auth/**"
+  - changed-files:
+    - any-glob-to-any-file:
+      - SECURITY.md
+      - .github/workflows/security.yml
+      - "**/auth/**"
