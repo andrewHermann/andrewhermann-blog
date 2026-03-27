@@ -727,12 +727,16 @@ const trackingLimiter = rateLimit({
 const LOCAL_IPS = new Set(['::1', '127.0.0.1', '::ffff:127.0.0.1']);
 const isLocalIp = (ip) => LOCAL_IPS.has(ip) || ip.startsWith('192.168.') || ip.startsWith('10.') || ip.startsWith('172.');
 
+const IPV4_RE = /^(\d{1,3}\.){3}\d{1,3}$/;
+const IPV6_RE = /^[0-9a-fA-F:]+$/;
+const isValidIp = (ip) => IPV4_RE.test(ip) || IPV6_RE.test(ip);
+
 async function getGeoData(ip) {
-  if (!ip || isLocalIp(ip)) return { country: null, region: null, city: null, org: null, asn: null, isp: null, is_proxy: 0, is_hosting: 0 };
+  if (!ip || isLocalIp(ip) || !isValidIp(ip)) return { country: null, region: null, city: null, org: null, asn: null, isp: null, is_proxy: 0, is_hosting: 0 };
   const cached = geoCache.get(ip);
   if (cached && Date.now() - cached.ts < GEO_CACHE_TTL) return cached.data;
   try {
-    const res = await fetch(`http://ip-api.com/json/${ip}?fields=status,country,regionName,city,org,as,isp,proxy,hosting`, {
+    const res = await fetch(`http://ip-api.com/json/${encodeURIComponent(ip)}?fields=status,country,regionName,city,org,as,isp,proxy,hosting`, {
       signal: AbortSignal.timeout(3000),
     });
     const geo = await res.json();
