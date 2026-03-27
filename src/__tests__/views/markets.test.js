@@ -18,10 +18,7 @@ describe('Markets page', () => {
   })
 
   it('renders without crashing', () => {
-    global.fetch.mockResolvedValue({
-      ok: true,
-      json: () => Promise.resolve({ rates: { CHF: 0.9 } }),
-    })
+    global.fetch.mockImplementation(() => new Promise(() => {}))
     renderWithRouter(<Markets />)
     expect(document.body).toBeInTheDocument()
   })
@@ -41,10 +38,7 @@ describe('Markets page', () => {
   })
 
   it('renders navbar', () => {
-    global.fetch.mockResolvedValue({
-      ok: true,
-      json: () => Promise.resolve({ rates: { CHF: 0.9 } }),
-    })
+    global.fetch.mockImplementation(() => new Promise(() => {}))
     renderWithRouter(<Markets />)
     const logos = screen.getAllByAltText('Andrew J. Hermann Logo')
     expect(logos.length).toBeGreaterThanOrEqual(1)
