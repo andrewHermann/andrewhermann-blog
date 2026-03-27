@@ -21,7 +21,7 @@ import { BrowserRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 
 // Custom render function that includes common providers
-export function renderWithRouter(ui, { initialEntries = ['/'] } = {}) {
+export function renderWithRouter(ui) {
   return render(
     <BrowserRouter>
       {ui}

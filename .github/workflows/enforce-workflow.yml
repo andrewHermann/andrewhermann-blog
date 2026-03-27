@@ -28,11 +28,11 @@ jobs:
         env:
           BRANCH_NAME: ${{ github.head_ref }}
         run: |
-          if [[ "$BRANCH_NAME" =~ ^(feature|bugfix|hotfix|ci|chore|docs|refactor|test)/.+ ]]; then
+          if [[ "$BRANCH_NAME" =~ ^(feature|bugfix|hotfix|ci|chore|docs|refactor|test|security)/.+ ]]; then
             echo "✅ Branch name '$BRANCH_NAME' follows convention"
           else
             echo "❌ Branch name '$BRANCH_NAME' doesn't follow convention"
-            echo "Expected prefix: feature/, bugfix/, hotfix/, ci/, chore/, docs/, refactor/, or test/"
+            echo "Expected prefix: feature/, bugfix/, hotfix/, ci/, chore/, docs/, refactor/, test/, or security/"
             exit 1
           fi
 

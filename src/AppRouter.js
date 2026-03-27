@@ -19,7 +19,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 
-import { API_ENDPOINTS, apiRequest } from './config/api'
+import { API_ENDPOINTS, apiRequest, setCsrfToken } from './config/api'
 import Home from './views/home'
 import Portfolio from './views/portfolio'
 import About from './views/about'
@@ -98,6 +98,7 @@ const AppRouter = () => {
     try {
       const data = await apiRequest(API_ENDPOINTS.CHECK_AUTH)
       if (data.authenticated) {
+        setCsrfToken(data.csrfToken)
         setIsAuthenticated(true)
         setUserRole(data.role)
       }

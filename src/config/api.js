@@ -51,14 +51,19 @@ if (isLocalDevelopment) {
   currentConfig = config.production
 }
 
+// CSRF token — set after login or check-auth, sent with every state-changing request
+let _csrfToken = null;
+export const setCsrfToken = (token) => { _csrfToken = token; };
+
 // API request helper function
 export const apiRequest = async (endpoint, options = {}) => {
   const url = `${currentConfig.API_BASE_URL}${endpoint}`
-  
+
   const defaultOptions = {
     headers: {
       'Content-Type': 'application/json',
       'X-Requested-With': 'XMLFetch',
+      ...(_csrfToken ? { 'X-CSRF-Token': _csrfToken } : {}),
     },
   }
   

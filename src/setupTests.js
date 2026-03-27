@@ -19,6 +19,15 @@
 // jest-dom adds custom jest matchers for asserting on DOM nodes.
 import '@testing-library/jest-dom';
 
+// Mock crypto.randomUUID for jsdom (not available in the test environment)
+if (!global.crypto) {
+  global.crypto = {};
+}
+if (!global.crypto.randomUUID) {
+  let _counter = 0;
+  global.crypto.randomUUID = () => `test-uuid-${++_counter}`;
+}
+
 // Mock window.scrollTo for jsdom
 Object.defineProperty(window, 'scrollTo', {
   value: jest.fn(),

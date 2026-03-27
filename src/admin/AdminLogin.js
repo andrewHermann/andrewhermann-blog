@@ -19,7 +19,7 @@
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { API_ENDPOINTS, apiRequest } from '../config/api';
+import { API_ENDPOINTS, apiRequest, setCsrfToken } from '../config/api';
 import './AdminLogin.css';
 
 const AdminLogin = ({ onLogin }) => {
@@ -41,6 +41,7 @@ const AdminLogin = ({ onLogin }) => {
 
       // apiRequest already returns the JSON data, not a Response object
       if (response.message === 'Login successful') {
+        setCsrfToken(response.csrfToken);
         onLogin(response.role);
         navigate('/admin/dashboard');
       } else {

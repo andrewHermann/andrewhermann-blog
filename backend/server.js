@@ -24,7 +24,7 @@ if (!process.env.SESSION_SECRET) {
   process.exit(1);
 }
 
-const SERVER_VERSION = "2.0.0";
+const crypto = require('crypto');
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const bcrypt = require('bcrypt');
@@ -37,7 +37,6 @@ const UAParser = require('ua-parser-js');
 
 const app = express();
 const PORT = process.env.PORT || process.env.BACKEND_PORT || 5001;
-const isProduction = process.env.NODE_ENV === 'production';
 
 // Trust nginx proxy so req.secure reflects the original protocol (HTTPS via Cloudflare/nginx)
 app.set('trust proxy', 1);
@@ -59,6 +58,13 @@ const adminLimiter = rateLimit({
   legacyHeaders: false,
 });
 
+const publicLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 200,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -75,7 +81,7 @@ app.use(cors({
   origin: allowedOrigins,
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept']
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'X-CSRF-Token']
 }));
 
 // Session configuration with persistent SQLite store
@@ -97,6 +103,16 @@ app.use(session({
 const requireXRequestedWith = (req, res, next) => {
   if (req.headers['x-requested-with'] !== 'XMLFetch') {
     return res.status(403).json({ error: 'Forbidden' });
+  }
+  next();
+};
+
+// Synchronizer token validation — satisfies CodeQL js/missing-token-validation.
+// Token is generated on login and stored in the session; frontend sends it as X-CSRF-Token.
+const requireCsrfToken = (req, res, next) => {
+  const token = req.headers['x-csrf-token'];
+  if (!token || !req.session.csrfToken || token !== req.session.csrfToken) {
+    return res.status(403).json({ error: 'Invalid CSRF token' });
   }
   next();
 };
@@ -264,7 +280,8 @@ app.post('/api/admin/login', loginLimiter, (req, res) => {
     req.session.userId = user.id;
     req.session.userRole = user.role;
     req.session.username = user.username;
-    res.json({ message: 'Login successful', role: user.role, username: user.username });
+    req.session.csrfToken = crypto.randomBytes(32).toString('hex');
+    res.json({ message: 'Login successful', role: user.role, username: user.username, csrfToken: req.session.csrfToken });
   });
 });
 
@@ -275,10 +292,11 @@ app.post('/api/admin/logout', (req, res) => {
 
 app.get('/api/admin/check-auth', (req, res) => {
   if (req.session.isAuthenticated) {
-    res.json({ 
-      authenticated: true, 
+    res.json({
+      authenticated: true,
       role: req.session.userRole,
-      username: req.session.username 
+      username: req.session.username,
+      csrfToken: req.session.csrfToken,
     });
   } else {
     res.json({ authenticated: false });
@@ -295,7 +313,7 @@ app.get('/api/admin/users', adminLimiter, requireAdmin, (req, res) => {
   });
 });
 
-app.get('/api/admin/users/:id', requireAdmin, (req, res) => {
+app.get('/api/admin/users/:id', adminLimiter, requireAdmin, (req, res) => {
   const { id } = req.params;
   db.get('SELECT id, username, email, role, created_at, updated_at FROM admin_users WHERE id = ?', [id], (err, user) => {
     if (err) {
@@ -308,7 +326,7 @@ app.get('/api/admin/users/:id', requireAdmin, (req, res) => {
   });
 });
 
-app.post('/api/admin/users', adminLimiter, requireXRequestedWith, requireAdmin, (req, res) => {
+app.post('/api/admin/users', adminLimiter, requireXRequestedWith, requireCsrfToken, requireAdmin, (req, res) => {
   const { username, email, password, role } = req.body;
 
   if (!username || !password || !role) {
@@ -320,7 +338,7 @@ app.post('/api/admin/users', adminLimiter, requireXRequestedWith, requireAdmin, 
   if (password.length < 8) {
     return res.status(400).json({ error: 'Password must be at least 8 characters' });
   }
-  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  if (email && (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))) {
     return res.status(400).json({ error: 'Invalid email address' });
   }
 
@@ -345,7 +363,7 @@ app.post('/api/admin/users', adminLimiter, requireXRequestedWith, requireAdmin, 
   );
 });
 
-app.put('/api/admin/users/:id', adminLimiter, requireXRequestedWith, requireAdmin, (req, res) => {
+app.put('/api/admin/users/:id', adminLimiter, requireXRequestedWith, requireCsrfToken, requireAdmin, (req, res) => {
   const { id } = req.params;
   const { username, email, role } = req.body;
   
@@ -375,7 +393,7 @@ app.put('/api/admin/users/:id', adminLimiter, requireXRequestedWith, requireAdmi
   );
 });
 
-app.delete('/api/admin/users/:id', adminLimiter, requireXRequestedWith, requireAdmin, (req, res) => {
+app.delete('/api/admin/users/:id', adminLimiter, requireXRequestedWith, requireCsrfToken, requireAdmin, (req, res) => {
   const { id } = req.params;
   
   db.get('SELECT COUNT(*) as count FROM admin_users WHERE role = "admin"', (err, result) => {
@@ -412,7 +430,7 @@ app.delete('/api/admin/users/:id', adminLimiter, requireXRequestedWith, requireA
 });
 
 // Blog post endpoints
-app.get('/api/posts', (req, res) => {
+app.get('/api/posts', publicLimiter, (req, res) => {
   db.all('SELECT * FROM posts WHERE published = 1 ORDER BY created_at DESC', (err, posts) => {
     if (err) {
       return res.status(500).json({ error: 'Database error' });
@@ -421,7 +439,7 @@ app.get('/api/posts', (req, res) => {
   });
 });
 
-app.get('/api/posts/:slug', (req, res) => {
+app.get('/api/posts/:slug', publicLimiter, (req, res) => {
   const { slug } = req.params;
   db.get('SELECT * FROM posts WHERE slug = ? AND published = 1', [slug], (err, post) => {
     if (err) {
@@ -435,7 +453,7 @@ app.get('/api/posts/:slug', (req, res) => {
 });
 
 // Admin blog post endpoints
-app.get('/api/admin/posts', requireBlogger, (req, res) => {
+app.get('/api/admin/posts', adminLimiter, requireBlogger, (req, res) => {
   db.all('SELECT * FROM posts ORDER BY created_at DESC', (err, posts) => {
     if (err) {
       return res.status(500).json({ error: 'Database error' });
@@ -444,7 +462,7 @@ app.get('/api/admin/posts', requireBlogger, (req, res) => {
   });
 });
 
-app.get('/api/admin/posts/:id', requireBlogger, (req, res) => {
+app.get('/api/admin/posts/:id', adminLimiter, requireBlogger, (req, res) => {
   const { id } = req.params;
   db.get('SELECT * FROM posts WHERE id = ?', [id], (err, post) => {
     if (err) {
@@ -457,7 +475,7 @@ app.get('/api/admin/posts/:id', requireBlogger, (req, res) => {
   });
 });
 
-app.post('/api/admin/posts', requireXRequestedWith, requireBlogger, (req, res) => {
+app.post('/api/admin/posts', adminLimiter, requireXRequestedWith, requireCsrfToken, requireBlogger, (req, res) => {
   const { title, content, excerpt, slug, published, created_at, updated_at } = req.body;
   
   const createdAt = created_at || new Date().toISOString();
@@ -474,7 +492,7 @@ app.post('/api/admin/posts', requireXRequestedWith, requireBlogger, (req, res) =
   );
 });
 
-app.put('/api/admin/posts/:id', requireXRequestedWith, requireBlogger, (req, res) => {
+app.put('/api/admin/posts/:id', adminLimiter, requireXRequestedWith, requireCsrfToken, requireBlogger, (req, res) => {
   const { id } = req.params;
   const { title, content, excerpt, slug, published, created_at, updated_at } = req.body;
   
@@ -491,7 +509,7 @@ app.put('/api/admin/posts/:id', requireXRequestedWith, requireBlogger, (req, res
   );
 });
 
-app.delete('/api/admin/posts/:id', requireXRequestedWith, requireBlogger, (req, res) => {
+app.delete('/api/admin/posts/:id', adminLimiter, requireXRequestedWith, requireCsrfToken, requireBlogger, (req, res) => {
   const { id } = req.params;
   db.run('DELETE FROM posts WHERE id = ?', [id], function (err) {
     if (err) {
@@ -502,7 +520,7 @@ app.delete('/api/admin/posts/:id', requireXRequestedWith, requireBlogger, (req, 
 });
 
 // Change password endpoint
-app.post('/api/admin/change-password', loginLimiter, requireXRequestedWith, requireAuth, (req, res) => {
+app.post('/api/admin/change-password', loginLimiter, requireXRequestedWith, requireCsrfToken, requireAuth, (req, res) => {
   const { currentPassword, newPassword } = req.body;
   const userId = req.session.userId;
   
@@ -527,7 +545,7 @@ app.post('/api/admin/change-password', loginLimiter, requireXRequestedWith, requ
 });
 
 // Dynamic sitemap generation endpoint
-app.get('/api/sitemap', (req, res) => {
+app.get('/api/sitemap', publicLimiter, (req, res) => {
   // Get the base URL from environment or default
   const baseUrl = process.env.BASE_URL || 'https://andrew.cloudhopper.ch';
   
@@ -590,7 +608,7 @@ app.get('/api/sitemap', (req, res) => {
 });
 
 // Endpoint to regenerate static sitemap file
-app.post('/api/admin/regenerate-sitemap', requireXRequestedWith, requireBlogger, (req, res) => {
+app.post('/api/admin/regenerate-sitemap', adminLimiter, requireXRequestedWith, requireCsrfToken, requireBlogger, (req, res) => {
   const fs = require('fs');
   const path = require('path');
   
@@ -883,14 +901,14 @@ app.post('/api/track-leave', trackingLimiter, (req, res) => {
 });
 
 // Exclusion management
-app.get('/api/admin/analytics/excluded', requireAdmin, (req, res) => {
+app.get('/api/admin/analytics/excluded', adminLimiter, requireAdmin, (req, res) => {
   db.all('SELECT visitor_id, label, created_at FROM excluded_visitors ORDER BY created_at DESC', (err, rows) => {
     if (err) return res.status(500).json({ error: 'Database error' });
     res.json(rows);
   });
 });
 
-app.post('/api/admin/analytics/excluded', requireAdmin, requireXRequestedWith, (req, res) => {
+app.post('/api/admin/analytics/excluded', adminLimiter, requireAdmin, requireXRequestedWith, requireCsrfToken, (req, res) => {
   const { visitor_id, label } = req.body;
   if (!visitor_id) return res.status(400).json({ error: 'visitor_id required' });
   db.run(
@@ -903,7 +921,7 @@ app.post('/api/admin/analytics/excluded', requireAdmin, requireXRequestedWith, (
   );
 });
 
-app.delete('/api/admin/analytics/excluded/:id', requireAdmin, requireXRequestedWith, (req, res) => {
+app.delete('/api/admin/analytics/excluded/:id', adminLimiter, requireAdmin, requireXRequestedWith, requireCsrfToken, (req, res) => {
   db.run('DELETE FROM excluded_visitors WHERE visitor_id = ?', [req.params.id], (err) => {
     if (err) return res.status(500).json({ error: 'Database error' });
     res.json({ ok: true });
@@ -911,7 +929,7 @@ app.delete('/api/admin/analytics/excluded/:id', requireAdmin, requireXRequestedW
 });
 
 // Admin dashboard stats — top pages, top blog posts, threat type breakdown
-app.get('/api/admin/dashboard/stats', requireAdmin, (req, res) => {
+app.get('/api/admin/dashboard/stats', adminLimiter, requireAdmin, (req, res) => {
   const topPages = new Promise((resolve, reject) => {
     db.all(
       `SELECT page, COUNT(*) as views FROM page_views
@@ -950,7 +968,7 @@ app.get('/api/admin/dashboard/stats', requireAdmin, (req, res) => {
 });
 
 // Admin analytics — pages dashboard
-app.get('/api/admin/analytics/pages', requireAdmin, (req, res) => {
+app.get('/api/admin/analytics/pages', adminLimiter, requireAdmin, (req, res) => {
   const days = parseInt(req.query.days) || 30;
 
   const since = `datetime('now', '-${days} days')`;
@@ -1014,7 +1032,7 @@ app.get('/api/admin/analytics/pages', requireAdmin, (req, res) => {
 });
 
 // Admin analytics — visitors dashboard
-app.get('/api/admin/analytics/visitors', requireAdmin, (req, res) => {
+app.get('/api/admin/analytics/visitors', adminLimiter, requireAdmin, (req, res) => {
   const days = parseInt(req.query.days) || 30;
   const since = `datetime('now', '-${days} days')`;
 
@@ -1121,7 +1139,7 @@ app.get('/api/admin/analytics/visitors', requireAdmin, (req, res) => {
 });
 
 // Admin analytics — visitor profiles (per-visitor drill-down)
-app.get('/api/admin/analytics/visitor-profiles', requireAdmin, (req, res) => {
+app.get('/api/admin/analytics/visitor-profiles', adminLimiter, requireAdmin, (req, res) => {
   const days = parseInt(req.query.days) || 30;
   const since = `datetime('now', '-${days} days')`;
 
@@ -1159,7 +1177,7 @@ app.get('/api/admin/analytics/visitor-profiles', requireAdmin, (req, res) => {
   );
 });
 
-app.get('/api/admin/analytics/visitor-profiles/:id', requireAdmin, (req, res) => {
+app.get('/api/admin/analytics/visitor-profiles/:id', adminLimiter, requireAdmin, (req, res) => {
   const days = parseInt(req.query.days) || 30;
   const since = `datetime('now', '-${days} days')`;
 
@@ -1184,7 +1202,7 @@ app.get('/api/admin/analytics/visitor-profiles/:id', requireAdmin, (req, res) =>
 });
 
 // Admin analytics — threats dashboard
-app.get('/api/admin/analytics/threats', requireAdmin, (req, res) => {
+app.get('/api/admin/analytics/threats', adminLimiter, requireAdmin, (req, res) => {
   const days = parseInt(req.query.days) || 30;
   const since = `datetime('now', '-${days} days')`;
 
