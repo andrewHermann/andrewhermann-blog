@@ -12,7 +12,7 @@ jest.mock('../../config/api', () => ({
 }))
 
 // react-markdown renders markdown to HTML — mock to keep tests simple
-jest.mock('react-markdown', () => ({ children }) => <div>{children}</div>)
+jest.mock('react-markdown', () => function ReactMarkdown({ children }) { return <div>{children}</div> })
 
 const mockPost = {
   id: 1,
