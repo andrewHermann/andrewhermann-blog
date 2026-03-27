@@ -8,6 +8,7 @@ import ContactPage from '../../views/contact'
 import CookiesPolicy from '../../views/cookies-policy'
 import PrivacyPolicy from '../../views/privacy-policy'
 import TermsOfUse from '../../views/terms-of-use'
+import BehindTheSite from '../../views/behind-the-site'
 
 // Three.js doesn't run in jsdom — mock the WebGL component
 jest.mock('../../components/PageFloatingRobot', () => () => null)
@@ -123,6 +124,19 @@ describe('Page smoke tests', () => {
       renderWithRouter(<TermsOfUse />)
       expect(screen.getByText('1. Acceptance of Terms')).toBeInTheDocument()
       expect(screen.getByText('11. Governing Law')).toBeInTheDocument()
+    })
+  })
+
+  describe('Behind the Site', () => {
+    it('renders without crashing', () => {
+      renderWithRouter(<BehindTheSite />)
+      expect(screen.getByRole('heading', { name: 'Behind the Site', level: 1 })).toBeInTheDocument()
+    })
+
+    it('renders key sections', () => {
+      renderWithRouter(<BehindTheSite />)
+      expect(screen.getByText('My Digital Philosophy')).toBeInTheDocument()
+      expect(screen.getByText('Architecture & Hosting')).toBeInTheDocument()
     })
   })
 })
