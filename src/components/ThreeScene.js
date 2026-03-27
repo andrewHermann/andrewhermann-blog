@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import React, { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import SafeRobot from './Robot';
@@ -67,7 +67,7 @@ const InteractiveCameraController = () => {
 };
 
 const ThreeScene = () => {
-  const [useRobot, setUseRobot] = useState(true);
+  const [useRobot] = useState(true);
   
   return (
     <Canvas

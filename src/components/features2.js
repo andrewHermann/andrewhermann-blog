@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import PropTypes from 'prop-types'
 
