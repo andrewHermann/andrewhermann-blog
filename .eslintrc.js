@@ -25,7 +25,20 @@ module.exports = {
     'no-unused-vars': 'warn',
     'react/prop-types': 'off',
     'no-console': 'off',
-    'react/no-unescaped-entities': 'warn',
+    'react/no-unescaped-entities': 'error',
     'react/no-unknown-property': 'off', // Three.js components use unknown properties
   },
+  overrides: [
+    {
+      files: [
+        'src/__tests__/**/*.js',
+        'src/**/*.test.js',
+        'src/setupTests.js',
+        'src/testUtils.js',
+      ],
+      env: {
+        jest: true,
+      },
+    },
+  ],
 };

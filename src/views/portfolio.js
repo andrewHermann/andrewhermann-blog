@@ -112,7 +112,7 @@ const Portfolio = () => {
 
           <div className="section-card" id="ttr">
             <h2>TTR Rail Planning – European Coordination (SBB / FTE / RNE)</h2>
-            <h3>Goal: Give Europe's train operators a direct role in shaping the digital planning systems that govern them — breaking a structural deadlock between two bodies that had never formally cooperated.</h3>
+            <h3>Goal: Give Europe&apos;s train operators a direct role in shaping the digital planning systems that govern them — breaking a structural deadlock between two bodies that had never formally cooperated.</h3>
 
             <h3>My Role:</h3>
             <p>
