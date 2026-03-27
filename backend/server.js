@@ -24,6 +24,7 @@ if (!process.env.SESSION_SECRET) {
   process.exit(1);
 }
 
+const crypto = require('crypto');
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const bcrypt = require('bcrypt');
@@ -80,7 +81,7 @@ app.use(cors({
   origin: allowedOrigins,
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept']
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'X-CSRF-Token']
 }));
 
 // Session configuration with persistent SQLite store
@@ -102,6 +103,16 @@ app.use(session({
 const requireXRequestedWith = (req, res, next) => {
   if (req.headers['x-requested-with'] !== 'XMLFetch') {
     return res.status(403).json({ error: 'Forbidden' });
+  }
+  next();
+};
+
+// Synchronizer token validation — satisfies CodeQL js/missing-token-validation.
+// Token is generated on login and stored in the session; frontend sends it as X-CSRF-Token.
+const requireCsrfToken = (req, res, next) => {
+  const token = req.headers['x-csrf-token'];
+  if (!token || !req.session.csrfToken || token !== req.session.csrfToken) {
+    return res.status(403).json({ error: 'Invalid CSRF token' });
   }
   next();
 };
@@ -269,7 +280,8 @@ app.post('/api/admin/login', loginLimiter, (req, res) => {
     req.session.userId = user.id;
     req.session.userRole = user.role;
     req.session.username = user.username;
-    res.json({ message: 'Login successful', role: user.role, username: user.username });
+    req.session.csrfToken = crypto.randomBytes(32).toString('hex');
+    res.json({ message: 'Login successful', role: user.role, username: user.username, csrfToken: req.session.csrfToken });
   });
 });
 
@@ -280,10 +292,11 @@ app.post('/api/admin/logout', (req, res) => {
 
 app.get('/api/admin/check-auth', (req, res) => {
   if (req.session.isAuthenticated) {
-    res.json({ 
-      authenticated: true, 
+    res.json({
+      authenticated: true,
       role: req.session.userRole,
-      username: req.session.username 
+      username: req.session.username,
+      csrfToken: req.session.csrfToken,
     });
   } else {
     res.json({ authenticated: false });
@@ -313,7 +326,7 @@ app.get('/api/admin/users/:id', adminLimiter, requireAdmin, (req, res) => {
   });
 });
 
-app.post('/api/admin/users', adminLimiter, requireXRequestedWith, requireAdmin, (req, res) => {
+app.post('/api/admin/users', adminLimiter, requireXRequestedWith, requireCsrfToken, requireAdmin, (req, res) => {
   const { username, email, password, role } = req.body;
 
   if (!username || !password || !role) {
@@ -350,7 +363,7 @@ app.post('/api/admin/users', adminLimiter, requireXRequestedWith, requireAdmin, 
   );
 });
 
-app.put('/api/admin/users/:id', adminLimiter, requireXRequestedWith, requireAdmin, (req, res) => {
+app.put('/api/admin/users/:id', adminLimiter, requireXRequestedWith, requireCsrfToken, requireAdmin, (req, res) => {
   const { id } = req.params;
   const { username, email, role } = req.body;
   
@@ -380,7 +393,7 @@ app.put('/api/admin/users/:id', adminLimiter, requireXRequestedWith, requireAdmi
   );
 });
 
-app.delete('/api/admin/users/:id', adminLimiter, requireXRequestedWith, requireAdmin, (req, res) => {
+app.delete('/api/admin/users/:id', adminLimiter, requireXRequestedWith, requireCsrfToken, requireAdmin, (req, res) => {
   const { id } = req.params;
   
   db.get('SELECT COUNT(*) as count FROM admin_users WHERE role = "admin"', (err, result) => {
@@ -462,7 +475,7 @@ app.get('/api/admin/posts/:id', adminLimiter, requireBlogger, (req, res) => {
   });
 });
 
-app.post('/api/admin/posts', adminLimiter, requireXRequestedWith, requireBlogger, (req, res) => {
+app.post('/api/admin/posts', adminLimiter, requireXRequestedWith, requireCsrfToken, requireBlogger, (req, res) => {
   const { title, content, excerpt, slug, published, created_at, updated_at } = req.body;
   
   const createdAt = created_at || new Date().toISOString();
@@ -479,7 +492,7 @@ app.post('/api/admin/posts', adminLimiter, requireXRequestedWith, requireBlogger
   );
 });
 
-app.put('/api/admin/posts/:id', adminLimiter, requireXRequestedWith, requireBlogger, (req, res) => {
+app.put('/api/admin/posts/:id', adminLimiter, requireXRequestedWith, requireCsrfToken, requireBlogger, (req, res) => {
   const { id } = req.params;
   const { title, content, excerpt, slug, published, created_at, updated_at } = req.body;
   
@@ -496,7 +509,7 @@ app.put('/api/admin/posts/:id', adminLimiter, requireXRequestedWith, requireBlog
   );
 });
 
-app.delete('/api/admin/posts/:id', adminLimiter, requireXRequestedWith, requireBlogger, (req, res) => {
+app.delete('/api/admin/posts/:id', adminLimiter, requireXRequestedWith, requireCsrfToken, requireBlogger, (req, res) => {
   const { id } = req.params;
   db.run('DELETE FROM posts WHERE id = ?', [id], function (err) {
     if (err) {
@@ -507,7 +520,7 @@ app.delete('/api/admin/posts/:id', adminLimiter, requireXRequestedWith, requireB
 });
 
 // Change password endpoint
-app.post('/api/admin/change-password', loginLimiter, requireXRequestedWith, requireAuth, (req, res) => {
+app.post('/api/admin/change-password', loginLimiter, requireXRequestedWith, requireCsrfToken, requireAuth, (req, res) => {
   const { currentPassword, newPassword } = req.body;
   const userId = req.session.userId;
   
@@ -595,7 +608,7 @@ app.get('/api/sitemap', publicLimiter, (req, res) => {
 });
 
 // Endpoint to regenerate static sitemap file
-app.post('/api/admin/regenerate-sitemap', adminLimiter, requireXRequestedWith, requireBlogger, (req, res) => {
+app.post('/api/admin/regenerate-sitemap', adminLimiter, requireXRequestedWith, requireCsrfToken, requireBlogger, (req, res) => {
   const fs = require('fs');
   const path = require('path');
   
@@ -895,7 +908,7 @@ app.get('/api/admin/analytics/excluded', adminLimiter, requireAdmin, (req, res) 
   });
 });
 
-app.post('/api/admin/analytics/excluded', adminLimiter, requireAdmin, requireXRequestedWith, (req, res) => {
+app.post('/api/admin/analytics/excluded', adminLimiter, requireAdmin, requireXRequestedWith, requireCsrfToken, (req, res) => {
   const { visitor_id, label } = req.body;
   if (!visitor_id) return res.status(400).json({ error: 'visitor_id required' });
   db.run(
@@ -908,7 +921,7 @@ app.post('/api/admin/analytics/excluded', adminLimiter, requireAdmin, requireXRe
   );
 });
 
-app.delete('/api/admin/analytics/excluded/:id', adminLimiter, requireAdmin, requireXRequestedWith, (req, res) => {
+app.delete('/api/admin/analytics/excluded/:id', adminLimiter, requireAdmin, requireXRequestedWith, requireCsrfToken, (req, res) => {
   db.run('DELETE FROM excluded_visitors WHERE visitor_id = ?', [req.params.id], (err) => {
     if (err) return res.status(500).json({ error: 'Database error' });
     res.json({ ok: true });

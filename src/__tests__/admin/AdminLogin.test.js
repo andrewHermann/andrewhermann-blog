@@ -6,6 +6,7 @@ import { apiRequest } from '../../config/api'
 jest.mock('../../config/api', () => ({
   apiRequest: jest.fn(),
   API_ENDPOINTS: { LOGIN: '/api/admin/login' },
+  setCsrfToken: jest.fn(),
 }))
 
 // useNavigate requires a router context — renderWithRouter provides it
