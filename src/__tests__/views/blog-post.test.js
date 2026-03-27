@@ -1,5 +1,4 @@
 import { screen, waitFor } from '@testing-library/react'
-import { renderWithRouter } from '../../testUtils'
 import BlogPost from '../../views/blog-post'
 import { apiRequest } from '../../config/api'
 
