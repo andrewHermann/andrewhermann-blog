@@ -12,13 +12,13 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x, 20.x]
+        node-version: [20.x, 22.x]
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
 
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v6
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
@@ -33,8 +33,8 @@ jobs:
       run: npm test -- --coverage --watchAll=false --ci --verbose
 
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v4
-      if: matrix.node-version == '20.x'
+      uses: codecov/codecov-action@v6
+      if: matrix.node-version == '22.x'
       with:
         file: ./coverage/lcov.info
         fail_ci_if_error: false
@@ -44,10 +44,10 @@ jobs:
 
     - name: Check for critical security vulnerabilities
       run: |
-        # Allow dev-only vulnerabilities, only fail on production-critical issues
-        npm audit --omit=dev --audit-level=critical || echo "::warning::Development dependencies have non-critical vulnerabilities"
+        # Fail the build if any production dependency has a critical vulnerability
+        npm audit --omit=dev --audit-level=critical
 
-        # Run full audit for reporting but don't fail build
+        # Report high and above for visibility, but don't fail
         echo "::group::Full Security Audit Report"
         npm audit --audit-level=high || echo "Non-critical vulnerabilities found (see dependency management issue #26)"
         echo "::endgroup::"
@@ -59,10 +59,10 @@ jobs:
       security-events: write
       actions: read
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
 
     - name: Run Trivy vulnerability scanner
-      uses: aquasecurity/trivy-action@master
+      uses: aquasecurity/trivy-action@v0.35.0
       with:
         scan-type: 'fs'
         scan-ref: '.'
@@ -70,7 +70,7 @@ jobs:
         output: 'trivy-results.sarif'
 
     - name: Upload Trivy scan results to GitHub Security tab
-      uses: github/codeql-action/upload-sarif@v3
+      uses: github/codeql-action/upload-sarif@v4
       if: always()
       continue-on-error: true
       with:
@@ -78,7 +78,7 @@ jobs:
 
   deploy:
     runs-on: self-hosted
-    needs: [test]
+    needs: [test, security-check]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     steps:
@@ -104,9 +104,24 @@ jobs:
     - name: Restart backend if backend code changed
       working-directory: /var/www/andrew/andrewhermann
       run: |
-        if git diff HEAD~1 --name-only | grep -qE '^backend/'; then
+        if git log -1 --name-only --format="" | grep -qE '^backend/'; then
           echo "Backend files changed — restarting backend-api"
           pm2 restart backend-api
         else
           echo "No backend changes — skipping backend restart"
         fi
+
+    - name: Health check
+      run: |
+        echo "Waiting for frontend to come up..."
+        sleep 5
+        for i in 1 2 3; do
+          if curl -fsS --max-time 10 https://andrew.cloudhopper.ch > /dev/null; then
+            echo "Health check passed"
+            exit 0
+          fi
+          echo "Attempt $i failed, retrying in 5s..."
+          sleep 5
+        done
+        echo "Health check failed after 3 attempts — deploy may be broken"
+        exit 1

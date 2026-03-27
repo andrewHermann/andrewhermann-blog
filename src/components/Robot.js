@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import React, { useRef, useLayoutEffect, Suspense, useState, useEffect } from 'react';
+import { useRef, useLayoutEffect, Suspense, useState, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useGLTF, useAnimations } from '@react-three/drei';
 import * as THREE from 'three';
@@ -46,7 +46,7 @@ const Robot = () => {
   const { actions, mixer } = useAnimations(animations, group);
   
   // State for interactive controls
-  const [currentAnimation, setCurrentAnimation] = useState('Idle');
+  const [, setCurrentAnimation] = useState('Idle');
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [rotation, setRotation] = useState({ x: 0, y: Math.PI }); // Face forward
