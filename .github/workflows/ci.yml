@@ -75,3 +75,38 @@ jobs:
       continue-on-error: true
       with:
         sarif_file: 'trivy-results.sarif'
+
+  deploy:
+    runs-on: self-hosted
+    needs: [test]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+    - name: Pull latest code
+      working-directory: /var/www/andrew/andrewhermann
+      run: git pull
+
+    - name: Install dependencies
+      working-directory: /var/www/andrew/andrewhermann
+      run: npm install
+
+    - name: Regenerate sitemap
+      working-directory: /var/www/andrew/andrewhermann
+      run: npm run seo:sitemap
+
+    - name: Build frontend
+      working-directory: /var/www/andrew/andrewhermann
+      run: npm run build
+
+    - name: Restart frontend
+      run: pm2 restart frontend
+
+    - name: Restart backend if backend code changed
+      working-directory: /var/www/andrew/andrewhermann
+      run: |
+        if git diff HEAD~1 --name-only | grep -qE '^backend/'; then
+          echo "Backend files changed — restarting backend-api"
+          pm2 restart backend-api
+        else
+          echo "No backend changes — skipping backend restart"
+        fi
