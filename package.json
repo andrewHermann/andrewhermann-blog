@@ -23,7 +23,7 @@
     "react-helmet": "^6.1.0",
     "react-markdown": "^10.1.0",
     "react-router-dom": "^6.30.0",
-    "react-scroll-parallax": "^3.4.5",
+    "react-scroll-parallax": "^3.5.0",
     "recharts": "^3.8.1",
     "serve": "^14.2.4",
     "sqlite3": "^5.1.7",
