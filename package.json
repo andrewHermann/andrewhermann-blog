@@ -27,7 +27,7 @@
     "recharts": "^3.8.1",
     "serve": "^14.2.4",
     "sqlite3": "^5.1.7",
-    "three": "^0.178.0",
+    "three": "^0.183.2",
     "ua-parser-js": "^2.0.9"
   },
   "scripts": {
