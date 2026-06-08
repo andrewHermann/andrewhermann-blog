@@ -33,7 +33,7 @@ jobs:
       run: npm test -- --coverage --watchAll=false --ci --verbose
 
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v6
+      uses: codecov/codecov-action@v7
       if: matrix.node-version == '22.x'
       with:
         file: ./coverage/lcov.info
