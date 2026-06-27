@@ -227,6 +227,37 @@ body {
   margin-bottom: 0;
 }
 
+.page-lang-switcher {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.75rem;
+  font-size: 0.8125rem;
+  font-family: var(--font-body);
+  letter-spacing: 0.04em;
+}
+
+.page-lang-switcher .lang-link {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s;
+}
+
+.page-lang-switcher .lang-link:hover {
+  color: var(--color-text-primary);
+}
+
+.page-lang-switcher .lang-active {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+.page-lang-switcher .lang-sep {
+  color: var(--color-text-tertiary);
+  user-select: none;
+}
+
 /* Main Content Frame Pattern - White background with shadow */
 .content-main {
   width: 100%;
