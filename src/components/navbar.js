@@ -28,7 +28,6 @@ const Navbar = ({
   link1 = 'Home',
   link2 = 'Portfolio',
   link3 = 'Blog',
-  link4 = 'Markets',
   link5 = 'About',
   link6 = 'Contact',
 }) => {
@@ -152,9 +151,6 @@ const Navbar = ({
             <Link to="/blog" className={`thq-body-small thq-link ${location.pathname.startsWith('/blog') ? 'active' : ''}`}>
               {link3}
             </Link>
-            <Link to="/markets" className={`thq-body-small thq-link ${location.pathname === '/markets' ? 'active' : ''}`}>
-              {link4}
-            </Link>
             <Link to="/about" className={`thq-body-small thq-link ${location.pathname === '/about' ? 'active' : ''}`}>
               {link5}
             </Link>
@@ -237,21 +233,14 @@ const Navbar = ({
                 </Link>
               </div>
               
-              <Link 
-                to="/blog" 
+              <Link
+                to="/blog"
                 className={`thq-body-small thq-link ${location.pathname.startsWith('/blog') ? 'active' : ''}`}
                 onClick={handleMobileLinkClick}
               >
                 {link3}
               </Link>
-              <Link 
-                to="/markets" 
-                className={`thq-body-small thq-link ${location.pathname === '/markets' ? 'active' : ''}`}
-                onClick={handleMobileLinkClick}
-              >
-                {link4}
-              </Link>
-              <Link 
+              <Link
                 to="/about" 
                 className={`thq-body-small thq-link ${location.pathname === '/about' ? 'active' : ''}`}
                 onClick={handleMobileLinkClick}

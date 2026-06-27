@@ -556,12 +556,11 @@ app.get('/api/sitemap', publicLimiter, (req, res) => {
     { url: '/about', priority: '0.9', changefreq: 'monthly' },
     { url: '/blog', priority: '0.8', changefreq: 'weekly' },
     { url: '/contact', priority: '0.7', changefreq: 'monthly' },
-    { url: '/markets', priority: '0.6', changefreq: 'monthly' },
     { url: '/terms', priority: '0.3', changefreq: 'yearly' },
     { url: '/privacy', priority: '0.3', changefreq: 'yearly' },
     { url: '/cookies', priority: '0.3', changefreq: 'yearly' }
   ];
-  
+
   // Get published blog posts
   db.all('SELECT slug, created_at, updated_at FROM posts WHERE published = 1 ORDER BY created_at DESC', (err, posts) => {
     if (err) {
@@ -621,12 +620,11 @@ app.post('/api/admin/regenerate-sitemap', adminLimiter, requireXRequestedWith, r
     { url: '/about', priority: '0.9', changefreq: 'monthly' },
     { url: '/blog', priority: '0.8', changefreq: 'weekly' },
     { url: '/contact', priority: '0.7', changefreq: 'monthly' },
-    { url: '/markets', priority: '0.6', changefreq: 'monthly' },
     { url: '/terms', priority: '0.3', changefreq: 'yearly' },
     { url: '/privacy', priority: '0.3', changefreq: 'yearly' },
     { url: '/cookies', priority: '0.3', changefreq: 'yearly' }
   ];
-  
+
   db.all('SELECT slug, created_at, updated_at FROM posts WHERE published = 1 ORDER BY created_at DESC', (err, posts) => {
     if (err) {
       console.error('Database error regenerating sitemap:', err);
@@ -680,54 +678,6 @@ app.post('/api/admin/regenerate-sitemap', adminLimiter, requireXRequestedWith, r
       });
     });
   });
-});
-
-// Precious metals prices proxy
-// Fetches futures data from Yahoo Finance with a 5-minute server-side cache
-const metalsCache = { data: null, fetchedAt: 0 };
-const METALS_CACHE_TTL_MS = 5 * 60 * 1000;
-
-const METALS_MAP = [
-  { ticker: 'GC%3DF', name: 'Gold',      symbol: 'XAU' },
-  { ticker: 'SI%3DF', name: 'Silver',    symbol: 'XAG' },
-  { ticker: 'PL%3DF', name: 'Platinum',  symbol: 'XPT' },
-  { ticker: 'PA%3DF', name: 'Palladium', symbol: 'XPD' },
-];
-
-app.get('/api/markets/metals', async (req, res) => {
-  const now = Date.now();
-
-  if (metalsCache.data && (now - metalsCache.fetchedAt) < METALS_CACHE_TTL_MS) {
-    return res.json(metalsCache.data);
-  }
-
-  try {
-    const results = await Promise.all(METALS_MAP.map(async (m) => {
-      const url = `https://query1.finance.yahoo.com/v8/finance/chart/${m.ticker}?interval=1d&range=2d`;
-      const response = await fetch(url, {
-        headers: { 'User-Agent': 'Mozilla/5.0', 'Accept': 'application/json' },
-        signal: AbortSignal.timeout(8000),
-      });
-
-      if (!response.ok) throw new Error(`Yahoo Finance ${m.name}: ${response.status}`);
-
-      const data = await response.json();
-      const meta = data.chart.result[0].meta;
-      const price = meta.regularMarketPrice;
-      const prevClose = meta.chartPreviousClose;
-      const changePercent = prevClose ? ((price - prevClose) / prevClose) * 100 : null;
-
-      return { name: m.name, symbol: m.symbol, price, changePercent };
-    }));
-
-    metalsCache.data = { metals: results, fetchedAt: now };
-    metalsCache.fetchedAt = now;
-
-    res.json(metalsCache.data);
-  } catch (err) {
-    console.error('Metals fetch error:', err.message);
-    res.status(502).json({ error: 'Failed to fetch metals prices' });
-  }
 });
 
 // ─── Analytics ────────────────────────────────────────────────────────────────
