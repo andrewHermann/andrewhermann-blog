@@ -9,14 +9,14 @@
 }
 
 .what-i-do-header {
-  text-align: center;
+  text-align: left;
   margin-bottom: var(--space-2xl, 2rem);
 }
 
 .what-i-do-header h2 {
   color: var(--color-primary, #2563eb);
-  font-size: var(--font-size-2xl, 1.5rem);
-  font-weight: 600;
+  font-size: var(--font-size-3xl, 1.875rem);
+  font-weight: 700;
   margin-bottom: var(--space-sm, 0.5rem);
 }
 
