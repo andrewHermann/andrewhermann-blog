@@ -16,9 +16,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import { Link } from 'react-router-dom'
 import SEO from '../components/seo'
-import PageFloatingRobot from '../components/PageFloatingRobot'
-
 import Navbar from '../components/navbar'
 import Contact from '../components/contact'
 import Footer from '../components/footer'
@@ -28,15 +27,15 @@ const ContactPage = () => {
     "@context": "https://schema.org",
     "@type": "ContactPage",
     "name": "Contact Andrew J. Hermann",
-    "description": "Reach Andrew J. Hermann — senior IT executive with 40+ years of continuous hands-on experience in digital transformation, AI strategy, and institutional reform.",
+    "description": "Contact Andrew J. Hermann — AI platform leadership within the Swiss Armed Forces and federal AI governance at the Federal Chancellery.",
     "url": "https://andrew.cloudhopper.ch/contact",
     "mainEntity": {
       "@type": "Person",
       "name": "Andrew J. Hermann",
       "contactPoint": {
         "@type": "ContactPoint",
-        "contactType": "Professional Services",
-        "availableLanguage": ["English"]
+        "contactType": "Professional Enquiry",
+        "availableLanguage": ["English", "German", "French"]
       }
     }
   }
@@ -50,25 +49,27 @@ const ContactPage = () => {
     <div className="page-container">
       <SEO
         title="Contact"
-        description="Reach Andrew J. Hermann — senior IT executive with 40+ years of continuous hands-on experience in digital transformation, AI strategy, and institutional reform in the Swiss public sector."
-        keywords="contact Andrew Hermann, digital transformation, AI strategy, institutional reform, Swiss public sector, senior IT executive"
+        description="Contact Andrew J. Hermann — AI platform leadership within the Swiss Armed Forces and federal AI governance at the Federal Chancellery."
+        keywords="contact Andrew Hermann, AI governance, Swiss federal administration, Federal Chancellery, sovereign AI"
         url="https://andrew.cloudhopper.ch/contact"
         structuredData={contactStructuredData}
         breadcrumbs={contactBreadcrumbs}
       />
-      
-      {/* Floating Robot with red/rose body color */}
-      <PageFloatingRobot bodyColor="#d0dae4" glowColor="#2563eb" />
-      
+
       <Navbar />
       <div className="page-content">
         <div className="page-header">
           <h1 className="page-title">Contact</h1>
           <p className="page-subtitle">
-            If the problem is real and the stakes are high, let&apos;s talk.
+            If the context is complex and the stakes are institutional, I am available for a conversation.
           </p>
+          <div className="page-lang-switcher">
+            <span className="lang-active">EN</span>
+            <span className="lang-sep"> | </span>
+            <Link to="/contact/de" className="lang-link">DE</Link>
+          </div>
         </div>
-        
+
         <div className="content-main">
           <Contact />
         </div>

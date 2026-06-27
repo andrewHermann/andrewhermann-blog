@@ -123,7 +123,7 @@ const BlogPost = () => {
       <Helmet>
         <title>{post.title} - Andrew J. Hermann</title>
         <meta name="description" content={post.excerpt} />
-        <meta name="keywords" content="Andrew Hermann blog, strategic leadership, AI innovation, digital transformation" />
+        <meta name="keywords" content="Andrew Hermann blog, AI governance, institutional strategy, public sector technology" />
         <meta name="author" content="Andrew J. Hermann" />
         
         <meta property="og:title" content={`${post.title} - Andrew J. Hermann`} />

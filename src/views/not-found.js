@@ -21,7 +21,6 @@ import { Link } from 'react-router-dom'
 import SEO from '../components/seo'
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
-import PageFloatingRobot from '../components/PageFloatingRobot'
 import './not-found.css'
 
 const NotFound = () => {
@@ -34,7 +33,6 @@ const NotFound = () => {
         url="https://andrew.cloudhopper.ch/404"
       />
       
-      <PageFloatingRobot bodyColor="#d0dae4" glowColor="#2563eb" />
       
       <Navbar />
       

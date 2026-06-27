@@ -20,7 +20,6 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
-import PageFloatingRobot from '../components/PageFloatingRobot'
 import SEO from '../components/seo'
 import { API_ENDPOINTS, apiRequest } from '../config/api'
 
@@ -65,7 +64,7 @@ const Blog = () => {
     '@context': 'https://schema.org',
     '@type': 'Blog',
     name: 'Andrew J. Hermann Blog',
-    description: 'Insights on strategic leadership, AI innovation, and organizational transformation',
+    description: 'Insights on AI governance, institutional strategy, and public sector technology',
     url: 'https://andrew.cloudhopper.ch/blog',
     author: {
       '@type': 'Person',
@@ -88,22 +87,19 @@ const Blog = () => {
     <div className="page-container">
       <SEO
         title="Blog"
-        description="Read insights and articles about strategic leadership, AI innovation, organizational transformation, and digital strategy by Andrew J. Hermann. Expert perspectives on modern business challenges."
-        keywords="blog, articles, strategic leadership, AI innovation, organizational transformation, digital strategy, business insights, leadership thoughts"
+        description="Articles and insights on AI governance, institutional strategy, and public sector technology by Andrew J. Hermann."
+        keywords="blog, articles, AI governance, institutional strategy, public sector technology, Swiss federal administration, sovereign AI"
         url="https://andrew.cloudhopper.ch/blog"
         structuredData={blogStructuredData}
         breadcrumbs={blogBreadcrumbs}
       />
       
-      {/* Floating Robot with green/emerald body color */}
-      <PageFloatingRobot bodyColor="#d0dae4" glowColor="#2563eb" />
-      
       <Navbar />
       <div className="page-content">
         <div className="page-header">
-          <h1 className="page-title">Blog & Insights</h1>
+          <h1 className="page-title">Blog</h1>
           <p className="page-subtitle">
-            Thoughts and insights on strategic leadership, artificial intelligence, and organizational transformation.
+            Thoughts on AI governance, institutional strategy, and public sector technology.
           </p>
         </div>
         
@@ -119,7 +115,7 @@ const Blog = () => {
           ) : posts.length === 0 ? (
             <div className="section-card">
               <h2>Articles Coming Soon</h2>
-              <p>I&apos;m preparing thoughtful content about strategic leadership, AI innovation, and organizational transformation. Stay tuned for expert insights and practical guidance on modern business challenges.</p>
+              <p>Articles on AI governance, institutional strategy, and public sector technology are in preparation.</p>
             </div>
           ) : (
             <div style={{display: 'flex', gap: 'var(--space-xl)', flexWrap: 'wrap', width: '100%'}}>

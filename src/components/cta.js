@@ -16,15 +16,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import { useNavigate } from 'react-router-dom'
 import './cta.css'
 
 const CTA = () => {
-  // Define case snapshot cards
+  const navigate = useNavigate()
   const caseSnapshots = [
     {
-      title: "KI@V – Institutional AI for the Swiss Armed Forces",
-      description: "Led the institutional adoption of conversational AI inside the Swiss Armed Forces — governance design, stakeholder alignment, regulatory positioning, and user adoption. 150+ active users within six months. First AI governance framework in Swiss defense.",
-      tags: ["#AI", "#Defense", "#Governance", "#Strategy"],
+      title: "KI@V: Institutional AI for the Swiss Armed Forces",
+      description: "Led AI platform development and governance within ASTAB since 2022. The platform entered active pilot operations in June 2026, with validated ROI across three use cases confirmed through independent economic assessment with HSLU.",
       iconClass: "ai-icon",
       icon: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -36,9 +36,8 @@ const CTA = () => {
       link: "/portfolio#ki-v"
     },
     {
-      title: "COCKPIT – Portfolio Intelligence for ASTAB",
-      description: "Designed and led the delivery of a federated portfolio intelligence system across ASTAB — replacing a manual, fragmented reporting cycle with a single accountable pipeline. 11 dashboards. Delivered on scope and budget.",
-      tags: ["#Governance", "#Analytics", "#Portfolio", "#Leadership"],
+      title: "COCKPIT: Portfolio Intelligence for ASTAB",
+      description: "Designed and led delivery of a project portfolio intelligence platform across ASTAB, replacing a fragmented manual reporting cycle with an automated, governed pipeline and 11 Power BI dashboards.",
       iconClass: "analytics-icon",
       icon: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -50,9 +49,8 @@ const CTA = () => {
       link: "/portfolio#cockpit"
     },
     {
-      title: "TTR Rail Planning (SBB / RNE)",
-      description: "Led multi-stakeholder reform across 150+ organisations and 28 national rail operators. Brokered the first formal agreement between Forum Train Europe and RailNetEurope, and secured a €2M EU Horizon grant.",
-      tags: ["#EU", "#Transport", "#Reform", "#Stakeholders"],
+      title: "TTR Rail Planning: European Coordination (SBB / RNE)",
+      description: "Led multi-stakeholder coordination across 150+ organisations and 28 national rail operators. Brokered the first formal agreement between Forum Train Europe and RailNetEurope and secured an EU Horizon grant for Railway Undertaking interface development.",
       iconClass: "transport-icon",
       icon: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -69,7 +67,8 @@ const CTA = () => {
 
   const handleCardClick = (link) => {
     if (link !== "#") {
-      window.location.href = link;
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+      navigate(link)
     }
   }
 
@@ -77,9 +76,9 @@ const CTA = () => {
     <section className="cta">
       <div className="case-snapshots-header">
         <h2>Selected Work</h2>
-        <p>High-stakes transformation projects at the intersection of AI, data strategy, and institutional reform.</p>
+        <p>Key projects in AI governance, portfolio intelligence, and European institutional coordination.</p>
       </div>
-      
+
       <div className="case-cards">
         {caseSnapshots.map((snapshot, index) => (
           <div key={index} className="case-card">
@@ -90,13 +89,8 @@ const CTA = () => {
               <h3 className="case-card-title">{snapshot.title}</h3>
             </div>
             <p className="case-card-description">{snapshot.description}</p>
-            <div className="case-card-tags">
-              {snapshot.tags.map((tag, tagIndex) => (
-                <span key={tagIndex} className="case-card-tag">{tag}</span>
-              ))}
-            </div>
-            <button 
-              className="case-card-button" 
+            <button
+              className="case-card-button"
               onClick={() => handleCardClick(snapshot.link)}
             >
               → {snapshot.action}
@@ -109,6 +103,5 @@ const CTA = () => {
 }
 
 CTA.defaultProps = {}
-CTA.propTypes = {}
 
 export default CTA

@@ -24,9 +24,11 @@ import Home from './views/home'
 import Portfolio from './views/portfolio'
 import PortfolioDe from './views/portfolio-de'
 import About from './views/about'
+import AboutDe from './views/about-de'
 import Blog from './views/blog'
 import BlogPost from './views/blog-post'
 import ContactPage from './views/contact'
+import ContactDe from './views/contact-de'
 import BehindTheSite from './views/behind-the-site'
 import NotFound1 from './views/not-found'
 import TermsOfUse from './views/terms-of-use'
@@ -131,9 +133,11 @@ const AppRouter = () => {
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/portfolio/de" element={<PortfolioDe />} />
         <Route path="/about" element={<About />} />
+        <Route path="/about/de" element={<AboutDe />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/contact/de" element={<ContactDe />} />
         <Route path="/behind-the-site" element={<BehindTheSite />} />
         <Route path="/terms" element={<TermsOfUse />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
