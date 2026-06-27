@@ -16,6 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import { Link } from 'react-router-dom'
 import SEO from '../components/seo'
 import PageFloatingRobot from '../components/PageFloatingRobot'
 import Navbar from '../components/navbar'
@@ -57,6 +58,11 @@ const Portfolio = () => {
           <p className="page-subtitle">
             AI projects within Swiss federal institutions and European rail — from platform inception through operational deployment and policy contribution.
           </p>
+          <div className="page-lang-switcher">
+            <span className="lang-active">EN</span>
+            <span className="lang-sep"> | </span>
+            <Link to="/portfolio/de" className="lang-link">DE</Link>
+          </div>
         </div>
         
         <div className="content-main">
