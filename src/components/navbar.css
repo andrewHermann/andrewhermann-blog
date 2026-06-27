@@ -88,6 +88,11 @@
   color: var(--color-text-secondary);
   text-decoration: none;
   transition: color 0.15s;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
 }
 
 .navbar-lang-link:hover {
@@ -118,6 +123,9 @@
   border-radius: var(--dl-layout-radius-radius8);
   transition: all 0.3s ease;
   margin-bottom: 0;
+  min-height: 2.75rem;
+  display: flex;
+  align-items: center;
 }
 
 .navbar-links1 .thq-link:hover {
