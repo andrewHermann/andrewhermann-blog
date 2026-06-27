@@ -64,7 +64,6 @@ const NotFound = () => {
               <ul>
                 <li><Link to="/blog" className="link-primary">Blog Posts</Link></li>
                 <li><Link to="/contact" className="link-primary">Contact Information</Link></li>
-                <li><Link to="/markets" className="link-primary">Market Data</Link></li>
               </ul>
             </div>
           </div>

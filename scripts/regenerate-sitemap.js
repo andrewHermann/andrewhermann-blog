@@ -27,7 +27,6 @@ const STATIC_PAGES = [
   { url: '/behind-the-site', priority: '0.8', changefreq: 'monthly' },
   { url: '/blog', priority: '0.8', changefreq: 'weekly' },
   { url: '/contact', priority: '0.7', changefreq: 'monthly' },
-  { url: '/markets', priority: '0.6', changefreq: 'monthly' },
   { url: '/terms', priority: '0.3', changefreq: 'yearly' },
   { url: '/privacy', priority: '0.3', changefreq: 'yearly' },
   { url: '/cookies', priority: '0.3', changefreq: 'yearly' }

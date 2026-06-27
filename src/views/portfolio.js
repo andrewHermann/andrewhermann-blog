@@ -25,8 +25,8 @@ const Portfolio = () => {
   const portfolioStructuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "Professional Portfolio",
-    "description": "Andrew J. Hermann's professional portfolio showcasing expertise in organizational strategy, AI innovation, and project management",
+    "name": "Portfolio",
+    "description": "Andrew Hermann's portfolio — AI platform development within the Swiss Armed Forces, federal AI governance at Federal Chancellery level, and institutional coordination across European rail.",
     "url": "https://andrew.cloudhopper.ch/portfolio"
   }
 
@@ -38,9 +38,9 @@ const Portfolio = () => {
   return (
     <div className="page-container">
       <SEO
-        title="Professional Portfolio"
-        description="View Andrew J. Hermann's professional portfolio showcasing expertise in organizational strategy, project portfolio management, AI innovation, and digital transformation. Discover successful projects and strategic initiatives."
-        keywords="portfolio, projects, case studies, organizational strategy, AI innovation, project management, digital transformation, strategic planning"
+        title="Portfolio"
+        description="Andrew Hermann's portfolio — AI platform development within the Swiss Armed Forces, federal AI governance at the Federal Chancellery, and institutional coordination across European rail."
+        keywords="portfolio, KI@V, Swiss Armed Forces, Federal Chancellery, AI governance, sovereign AI, institutional AI, ASTAB, armasuisse"
         url="https://andrew.cloudhopper.ch/portfolio"
         structuredData={portfolioStructuredData}
         breadcrumbs={portfolioBreadcrumbs}
@@ -55,36 +55,79 @@ const Portfolio = () => {
         <div className="page-header">
           <h1 className="page-title">Portfolio</h1>
           <p className="page-subtitle">
-            These are not strategy decks. These are live systems, running inside real institutions, built under real constraints. If you are considering AI transformation, this is what execution looks like.
+            AI projects within Swiss federal institutions and European rail — from platform inception through operational deployment and policy contribution.
           </p>
         </div>
         
         <div className="content-main">
           <div className="section-label">
-            <h2>Active Initiatives</h2>
+            <h2>Active Work</h2>
             <p>
-              Live systems, operating inside real institutions, built under real constraints.
+              Ongoing AI platform operations within the Swiss Armed Forces and policy contribution at Federal Chancellery level.
             </p>
           </div>
 
           <div className="section-card" id="ki-v">
-            <h2>KI@V – Institutional AI for the Swiss Armed Forces</h2>
-            <h3>Goal: Enable responsible AI experimentation inside one of Switzerland&apos;s most sensitive institutional domains.</h3>
-            
+            <h2>KI@V – Sovereign AI Platform, Swiss Armed Forces</h2>
+            <h3>Goal: Establish a production-grade AI platform for Gruppe Verteidigung — hosted within federal infrastructure, certified to Cloud-Stufe III, and operating across organizational boundaries that had previously never shared data or tooling.</h3>
+
             <h3>My Role:</h3>
             <p>
-              I initiated and led the KI@V innovation project across ASTAB, armasuisse, and RUAG. 
-              Designed the MVP architecture, negotiated access to sensitive datasets, and defined use case 
-              logic across 11 sub-organisations.
+              I initiated KI@V in December 2022 as Project Manager within ASTAB and led the project through MVP.
+              Since January 2026, I hold the Business Analyst role at Digital Factory Verteidigung (Armeestab),
+              leading the platform&apos;s operational development and the Evolve Phase.
             </p>
-            
+            <p>
+              I designed the platform architecture, built the governance structure across ASTAB, armasuisse, and RUAG
+              — including a 15-member Steuergruppe spanning business, product, and technical dimensions — and led
+              the economic validation with HSLU using the NIST AI RMF 2023 and UTAUT2 frameworks.
+            </p>
+            <p>
+              The platform delivers three capabilities: a RAG-based AI assistant with page-level citation over internal
+              knowledge bases; N8N-based workflow automation for agentic processes; and a hybrid retrieval infrastructure
+              (BM25 + vector retrieval, semantic reranking) tested against Fedlex, Curia Vista, Simap, and Armeebotschaften.
+            </p>
+
             <h3>Impact:</h3>
             <ul>
-              <li>Established the first AI governance logic for conversational systems within the Swiss defense administration</li>
-              <li>Built a federated working group across ASTAB, LBA, Kdo Cyber, and GS-VBS</li>
-              <li>Achieved 150+ active users within six months of MVP phase</li>
+              <li>Evolve Phase approved by the Innovationsboard ASTAB on 6 May 2026: CHF 352,000 secured (CHF 121K residual Grundvertrag + CHF 231K service setup and Pilotbetrieb)</li>
+              <li>700+ users as of June 2026 — following the Evolve Phase launch event at Mannschaftskaserne Bern, attended by approximately 100 representatives from ASTAB, Kdo Ausbildung, Kdo Op, armasuisse, Bundeskanzlei, LBA, BIT, and the KI-Netzwerk Bund</li>
+              <li>MVP investment: CHF 268,000. Validated ROI across three use cases: CV-Abgleich (~CHF 80K annual savings, 16-month payback), Personalgewinnung (~CHF 155K, 18-month payback), SAP-Beschaffung (~CHF 75K, 24-month payback); average payback 19 months</li>
+              <li>1,940 working hours recovered across validated use cases</li>
+              <li>Submitted as KI-Leuchttürme candidate for the federal KI-Community event on 14 September 2026, to be presented to Bundeskanzler Viktor Rossi</li>
+              <li>Co-presented at the armasuisse Digital Day, 5 May 2026, with a live RAG demonstration on Armeebotschaften</li>
+              <li>6+ internal initiatives now build on KI@V rather than creating parallel solutions; AISE (Kdo Ausbildung) has identified KI@V as the service layer for Fachanwendungen in LBA and Kdo Ausbildung</li>
             </ul>
-            
+
+          </div>
+
+          <div className="section-card" id="ki-fuer-alle">
+            <h2>KI-für-Alle – Federal AI Governance</h2>
+            <h3>Federal Chancellery · Cross-agency working group · Stream 1 (Technology &amp; FinOps) · Since early 2026</h3>
+
+            <h3>Context:</h3>
+            <p>
+              KI-für-Alle is the Federal Chancellery&apos;s cross-agency working group developing the implementation
+              framework for Switzerland&apos;s federal AI sub-strategy. Convened by Isabelle Rottmann, Stream 1 addresses
+              the technical architecture and financial operating model for AI across the federal administration.
+            </p>
+
+            <h3>My Role:</h3>
+            <p>
+              I hold a practitioner seat in Stream 1. KI@V — Switzerland&apos;s only production-grade sovereign AI
+              platform within Gruppe Verteidigung, with validated ROI across three use cases and Evolve Phase approval
+              from the Innovationsboard ASTAB — provides the operational evidence base for the governance positions I advance.
+            </p>
+
+            <h3>Contributions:</h3>
+            <ul>
+              <li>Proposed a maturity-staged evaluation approach for the WIPRO Bewertungsraster: Einstiegsphase (11 criteria) and Reifephase (all 16 criteria), with Projektreife anchored in lifecycle stage rather than use case type</li>
+              <li>Introduced a two-gate ISO lifecycle model — ISO/IEC 23894 as a mandatory gate before MVP funding, ISO/IEC 42001 before production — giving the Bewertungsraster an internationally auditable backbone</li>
+              <li>Drafted a capability-model governance paper repositioning AI from system-centric to capability-model framing, with mandatory interoperability requirements for GenAI platforms offered to other federal units and a Cloud-Stufe scoping standard</li>
+              <li>Developed a Cloud-Stufe compliance framework classifying GenAI project types by Cloud-Stufe requirements and legal implications under DSG Art. 21, 22, and 35</li>
+              <li>Contributed to the group&apos;s AI FinOps discussion, analysing usage-based pricing transitions and Omnigent (Databricks) as a reference pattern for cost governance at architecture level</li>
+            </ul>
+
           </div>
 
           <div className="section-card" id="cockpit">
@@ -218,11 +261,8 @@ const Portfolio = () => {
 
           <div className="section-card">
             <p>
-              I work best in environments where the stakes are high, the context is messy,
-              and the end goal is institutional clarity.
-            </p>
-            <p>
-              If that sounds like your reality:
+              If you are working on AI implementation or governance within the Swiss federal
+              administration, I am available for a conversation.
             </p>
             <p>
               <a href="/contact" className="btn btn-primary">→ Get in touch</a>

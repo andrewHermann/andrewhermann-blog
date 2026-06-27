@@ -958,7 +958,6 @@ body {
   }
 }
 
-/* Markets Page Specific Styles */
 .symbol-badge {
   display: inline-block;
   padding: 0.25rem 0.5rem;
@@ -973,39 +972,7 @@ body {
 }
 
 
-.change-badge {
-  display: inline-block;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
-}
-
-.change-badge.positive {
-  background: rgba(16, 185, 129, 0.1);
-  color: #059669;
-  border: 1px solid rgba(16, 185, 129, 0.2);
-}
-
-.change-badge.negative {
-  background: rgba(239, 68, 68, 0.1);
-  color: #dc2626;
-  border: 1px solid rgba(239, 68, 68, 0.2);
-}
-
-.last-updated {
-  text-align: center;
-  margin-top: 2rem;
-  padding: 1rem;
-  color: var(--color-text-secondary);
-  font-size: 0.875rem;
-  background: var(--color-background-secondary);
-  border-radius: 8px;
-  border: 1px solid var(--color-border);
-}
-
-/* Enhanced table styling for markets data */
+/* Table styling */
 .data-table .table th {
   background: var(--color-background-tertiary);
   color: var(--color-text-primary);
@@ -1024,7 +991,7 @@ body {
   background: var(--color-background-secondary);
 }
 
-/* Responsive markets table */
+/* Responsive table */
 @media (max-width: 768px) {
   .data-table {
     overflow-x: auto;

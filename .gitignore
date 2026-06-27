@@ -95,3 +95,4 @@ backend.log
 config.local.*
 *local.config.*
 nohup.out
+.gstack/

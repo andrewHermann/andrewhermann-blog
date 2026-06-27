@@ -25,7 +25,6 @@ import Portfolio from './views/portfolio'
 import About from './views/about'
 import Blog from './views/blog'
 import BlogPost from './views/blog-post'
-import Markets from './views/markets'
 import ContactPage from './views/contact'
 import BehindTheSite from './views/behind-the-site'
 import NotFound1 from './views/not-found'
@@ -132,7 +131,6 @@ const AppRouter = () => {
         <Route path="/about" element={<About />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
-        <Route path="/markets" element={<Markets />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/behind-the-site" element={<BehindTheSite />} />
         <Route path="/terms" element={<TermsOfUse />} />

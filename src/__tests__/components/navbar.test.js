@@ -15,7 +15,6 @@ describe('Navbar', () => {
     renderWithRouter(<Navbar />)
     expect(screen.getAllByRole('link', { name: 'Home' })[0]).toBeInTheDocument()
     expect(screen.getAllByRole('link', { name: 'Blog' })[0]).toBeInTheDocument()
-    expect(screen.getAllByRole('link', { name: 'Markets' })[0]).toBeInTheDocument()
     expect(screen.getAllByRole('link', { name: 'About' })[0]).toBeInTheDocument()
     expect(screen.getAllByRole('link', { name: 'Contact' })[0]).toBeInTheDocument()
   })
