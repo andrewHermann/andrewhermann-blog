@@ -16,7 +16,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Link } from 'react-router-dom'
 import SEO from '../components/seo'
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
@@ -55,11 +54,6 @@ const Portfolio = () => {
           <p className="page-subtitle">
             Sovereign AI in the Swiss Armed Forces. Active governance contribution at the Federal Chancellery. Institutional coordination at European scale.
           </p>
-          <div className="page-lang-switcher">
-            <span className="lang-active">EN</span>
-            <span className="lang-sep"> | </span>
-            <Link to="/portfolio/de" className="lang-link">DE</Link>
-          </div>
         </div>
 
         <div className="content-main">

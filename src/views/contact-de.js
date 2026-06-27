@@ -17,7 +17,6 @@
  */
 
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import SEO from '../components/seo'
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
@@ -95,11 +94,6 @@ const ContactDe = () => {
           <p className="page-subtitle">
             Wenn der Kontext komplex und die Anforderungen institutionell sind, stehe ich für ein Gespräch zur Verfügung.
           </p>
-          <div className="page-lang-switcher">
-            <Link to="/contact" className="lang-link">EN</Link>
-            <span className="lang-sep"> | </span>
-            <span className="lang-active">DE</span>
-          </div>
         </div>
 
         <div className="content-main">

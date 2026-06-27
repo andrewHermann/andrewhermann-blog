@@ -16,7 +16,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Link } from 'react-router-dom'
 import SEO from '../components/seo'
 import Navbar from '../components/navbar'
 import Contact from '../components/contact'
@@ -63,11 +62,6 @@ const ContactPage = () => {
           <p className="page-subtitle">
             If the context is complex and the stakes are institutional, I am available for a conversation.
           </p>
-          <div className="page-lang-switcher">
-            <span className="lang-active">EN</span>
-            <span className="lang-sep"> | </span>
-            <Link to="/contact/de" className="lang-link">DE</Link>
-          </div>
         </div>
 
         <div className="content-main">

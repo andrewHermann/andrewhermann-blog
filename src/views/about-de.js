@@ -16,7 +16,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Link } from 'react-router-dom'
 import SEO from '../components/seo'
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
@@ -77,11 +76,6 @@ const AboutDe = () => {
           <p className="page-subtitle">
             Zwei Jahrzehnte institutionelle Systemarbeit. Der Hintergrund, die Arbeitsweise und der Kontext.
           </p>
-          <div className="page-lang-switcher">
-            <Link to="/about" className="lang-link">EN</Link>
-            <span className="lang-sep"> | </span>
-            <span className="lang-active">DE</span>
-          </div>
         </div>
 
         <div className="content-main">

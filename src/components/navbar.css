@@ -47,17 +47,69 @@
 .navbar-desktop-menu {
   flex: 1;
   display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 
 .navbar-links1 {
   gap: var(--dl-layout-space-twounits);
-  flex: 1;
   display: flex;
   align-items: center;
   margin-left: var(--dl-layout-space-twounits);
   flex-direction: row;
   justify-content: flex-start;
+}
+
+/* Language switcher — desktop */
+.navbar-lang {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.07em;
+  font-weight: 500;
+  padding: 0.4rem 0.75rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.navbar-lang-active {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.navbar-lang-sep {
+  color: #ccc;
+  user-select: none;
+  margin: 0 0.1rem;
+}
+
+.navbar-lang-link {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.navbar-lang-link:hover {
+  color: var(--color-primary);
+}
+
+.navbar-lang-none {
+  color: #ccc;
+  cursor: default;
+}
+
+/* Language switcher — mobile */
+.navbar-lang-mobile {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--color-accent-1);
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+  justify-content: flex-end;
 }
 
 .navbar-links1 .thq-link {

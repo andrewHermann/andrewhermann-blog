@@ -19,17 +19,45 @@
 import { useNavigate } from 'react-router-dom'
 import './hero.css'
 
-const Hero = () => {
+const HERO_CONTENT = {
+  en: {
+    roleTag: 'Swiss Federal Administration',
+    headline: 'Complexity deserves clarity.',
+    subheadline: 'I have led AI platform development within the Swiss Armed Forces since 2022 and contribute to federal AI governance at the Federal Chancellery. The work spans technical architecture, institutional stakeholder management, and policy positioning in environments where accountability is non-negotiable.',
+    btnWork: 'See My Work',
+    btnContact: 'Contact Me',
+    credLabel1: 'Years in IT & Systems',
+    credLabel2: 'Users on KI@V since June 2026',
+    credLabel3: 'Bern, Switzerland',
+    portfolioPath: '/portfolio',
+    contactPath: '/contact',
+  },
+  de: {
+    roleTag: 'Schweizer Bundesverwaltung',
+    headline: 'Komplexität braucht Klarheit.',
+    subheadline: 'Ich leite die KI-Plattformentwicklung in der Schweizer Armee seit 2022 und trage zur föderalen KI-Governance bei der Bundeskanzlei bei. Die Arbeit umfasst technische Architektur, institutionelles Stakeholder-Management und Policy-Positionierung in Umgebungen, in denen Rechenschaftspflicht nicht verhandelbar ist.',
+    btnWork: 'Meine Arbeit ansehen',
+    btnContact: 'Kontakt aufnehmen',
+    credLabel1: 'Jahre IT und Systeme',
+    credLabel2: 'Nutzer auf KI@V seit Juni 2026',
+    credLabel3: 'Bern, Schweiz',
+    portfolioPath: '/portfolio/de',
+    contactPath: '/contact/de',
+  },
+}
+
+const Hero = ({ lang = 'en' }) => {
   const navigate = useNavigate()
+  const c = HERO_CONTENT[lang]
 
   const handleSeeWork = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
-    navigate('/portfolio')
+    navigate(c.portfolioPath)
   }
 
   const handleContact = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
-    navigate('/contact')
+    navigate(c.contactPath)
   }
 
   return (
@@ -43,40 +71,35 @@ const Hero = () => {
           <div className="hero-identity">
             <span className="hero-name">Andrew J. Hermann</span>
             <span className="hero-separator">·</span>
-            <span className="hero-role-tag">Swiss Federal Administration</span>
+            <span className="hero-role-tag">{c.roleTag}</span>
           </div>
-          <h1 className="hero-headline">Complexity deserves clarity.</h1>
-          <p className="hero-subheadline">
-            I have led AI platform development within the Swiss Armed Forces since 2022 and contribute
-            to federal AI governance at the Federal Chancellery. The work spans technical architecture,
-            institutional stakeholder management, and policy positioning in environments where
-            accountability is non-negotiable.
-          </p>
+          <h1 className="hero-headline">{c.headline}</h1>
+          <p className="hero-subheadline">{c.subheadline}</p>
         </div>
 
         <div className="hero-actions">
           <button className="hero-btn hero-btn-primary" onClick={handleSeeWork}>
-            See My Work
+            {c.btnWork}
           </button>
           <button className="hero-btn hero-btn-secondary" onClick={handleContact}>
-            Contact Me
+            {c.btnContact}
           </button>
         </div>
 
         <div className="hero-credentials">
           <div className="hero-cred">
             <span className="hero-cred-number">40+</span>
-            <span className="hero-cred-label">Years in IT &amp; Systems</span>
+            <span className="hero-cred-label">{c.credLabel1}</span>
           </div>
           <div className="hero-cred-divider"></div>
           <div className="hero-cred">
             <span className="hero-cred-number">700+</span>
-            <span className="hero-cred-label">Users on KI@V since June 2026</span>
+            <span className="hero-cred-label">{c.credLabel2}</span>
           </div>
           <div className="hero-cred-divider"></div>
           <div className="hero-cred">
             <span className="hero-cred-number">DE · FR · EN</span>
-            <span className="hero-cred-label">Bern, Switzerland</span>
+            <span className="hero-cred-label">{c.credLabel3}</span>
           </div>
         </div>
       </div>

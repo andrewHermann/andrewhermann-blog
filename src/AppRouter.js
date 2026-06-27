@@ -21,6 +21,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'r
 
 import { API_ENDPOINTS, apiRequest, setCsrfToken } from './config/api'
 import Home from './views/home'
+import HomeDe from './views/home-de'
 import Portfolio from './views/portfolio'
 import PortfolioDe from './views/portfolio-de'
 import About from './views/about'
@@ -130,6 +131,7 @@ const AppRouter = () => {
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
+        <Route path="/de" element={<HomeDe />} />
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/portfolio/de" element={<PortfolioDe />} />
         <Route path="/about" element={<About />} />

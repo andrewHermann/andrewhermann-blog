@@ -16,7 +16,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Link } from 'react-router-dom'
 import SEO from '../components/seo'
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
@@ -77,11 +76,6 @@ const About = () => {
           <p className="page-subtitle">
             Two decades of institutional systems work. The background, the approach, and the context.
           </p>
-          <div className="page-lang-switcher">
-            <span className="lang-active">EN</span>
-            <span className="lang-sep"> | </span>
-            <Link to="/about/de" className="lang-link">DE</Link>
-          </div>
         </div>
 
         <div className="content-main">
