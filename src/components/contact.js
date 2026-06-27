@@ -17,9 +17,8 @@
  */
 
 import { useState } from 'react'
-import PropTypes from 'prop-types'
 
-const Contact = (props) => {
+const Contact = ({ email1 = 'cloudhopper@icloud.com' }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -76,7 +75,7 @@ const Contact = (props) => {
           </svg>
           <div className="contact-info-content">
             <h3>Email</h3>
-            <span className="contact-detail">{props.email1}</span>
+            <span className="contact-detail">{email1}</span>
           </div>
         </div>
 
@@ -190,14 +189,6 @@ const Contact = (props) => {
       </div>
     </div>
   )
-}
-
-Contact.defaultProps = {
-  email1: 'cloudhopper@icloud.com',
-}
-
-Contact.propTypes = {
-  email1: PropTypes.string,
 }
 
 export default Contact
