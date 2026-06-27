@@ -47,7 +47,10 @@ const Hero = () => {
           </div>
           <h1 className="hero-headline">Complexity deserves clarity.</h1>
           <p className="hero-subheadline">
-            I have led the institutional adoption of AI inside one of Switzerland&apos;s most constrained environments — from governance design to stakeholder alignment to live deployment. I know what it takes to make transformation stick inside a bureaucracy.
+            I have led AI platform development within the Swiss Armed Forces since 2022 and contribute
+            to federal AI governance at the Federal Chancellery. The work spans technical architecture,
+            institutional stakeholder management, and policy positioning in environments where
+            accountability is non-negotiable.
           </p>
         </div>
 
@@ -63,12 +66,12 @@ const Hero = () => {
         <div className="hero-credentials">
           <div className="hero-cred">
             <span className="hero-cred-number">40+</span>
-            <span className="hero-cred-label">Years in IT & Systems</span>
+            <span className="hero-cred-label">Years in IT &amp; Systems</span>
           </div>
           <div className="hero-cred-divider"></div>
           <div className="hero-cred">
-            <span className="hero-cred-number">150+</span>
-            <span className="hero-cred-label">Active users on production AI system</span>
+            <span className="hero-cred-number">700+</span>
+            <span className="hero-cred-label">Users on KI@V since June 2026</span>
           </div>
           <div className="hero-cred-divider"></div>
           <div className="hero-cred">

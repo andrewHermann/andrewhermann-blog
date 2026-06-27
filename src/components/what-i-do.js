@@ -23,7 +23,7 @@ const WhatIDo = () => {
     <div className="what-i-do-container">
       <div className="what-i-do-header">
         <h2>What I Do</h2>
-        <p>Three domains where senior leadership experience translates into institutional results.</p>
+        <p>Three areas of active work within the Swiss federal administration and European institutional contexts.</p>
       </div>
 
       <div className="what-i-do-grid">
@@ -31,11 +31,11 @@ const WhatIDo = () => {
           <div className="what-i-do-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <circle cx="12" cy="12" r="3"/>
-              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
             </svg>
           </div>
-          <h3>AI Governance & Institutional Adoption</h3>
-          <p>Adopting AI is a governance challenge before it is a technology one. I lead the harder work — defining what responsible adoption looks like inside a specific institution, building the structures to sustain it, and managing the stakeholder risk that comes with being first.</p>
+          <h3>AI Governance &amp; Institutional Adoption</h3>
+          <p>I lead AI platform development and governance within the Swiss federal administration. The work involves building the mandate, establishing accountability structures, managing stakeholder alignment across organisational boundaries, and sustaining the governance framework through operational phases.</p>
         </div>
 
         <div className="what-i-do-card">
@@ -49,8 +49,8 @@ const WhatIDo = () => {
               <circle cx="7" cy="14.3" r="2"/>
             </svg>
           </div>
-          <h3>Portfolio Governance & Strategic Visibility</h3>
-          <p>Strategic decisions fail when leaders lack reliable intelligence. I design the governance architecture that gives leadership real visibility across a complex portfolio — and the accountability structures to act on it. Not dashboards. Decision infrastructure.</p>
+          <h3>Portfolio Governance &amp; Strategic Visibility</h3>
+          <p>I design the data infrastructure that gives institutional leadership accurate, current visibility across a project portfolio. Governed, automated pipelines replace manual compilation. Structured accountability replaces ad hoc reporting.</p>
         </div>
 
         <div className="what-i-do-card">
@@ -62,8 +62,8 @@ const WhatIDo = () => {
               <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
             </svg>
           </div>
-          <h3>Multi-Stakeholder Reform</h3>
-          <p>I lead change at the boundaries where institutions cannot agree and mandates conflict. Whether brokering between European rail bodies or aligning fragmented federal departments, I build the formal agreements and governance frameworks that move organisations from structural deadlock to funded delivery.</p>
+          <h3>Multi-Institutional Coordination</h3>
+          <p>I structure and sustain working relationships across legal, organisational, and political boundaries. My background spans defence administration, European transport policy, and federal AI governance, in contexts where no single institution holds the full mandate to act.</p>
         </div>
       </div>
     </div>

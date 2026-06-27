@@ -103,12 +103,9 @@ const Contact = (props) => {
 
       {/* Contact form */}
       <div className="section-card">
-        <h3 style={{ color: 'var(--color-primary)', marginBottom: 'var(--space-xs)', fontSize: 'var(--font-size-xl)', fontWeight: 600 }}>
+        <h3 style={{ color: 'var(--color-primary)', marginBottom: 'var(--space-xl)', fontSize: 'var(--font-size-xl)', fontWeight: 600 }}>
           Send me a message
         </h3>
-        <p style={{ color: 'var(--color-text-secondary)', marginBottom: 'var(--space-xl)', fontSize: 'var(--font-size-base)' }}>
-          I&apos;m always open to discussing new opportunities, sharing insights, or exploring potential collaborations.
-        </p>
 
         {showConfirmation && (
           <div className="info-card" style={{ background: 'rgba(34, 197, 94, 0.08)', borderColor: 'rgba(34, 197, 94, 0.25)', marginBottom: 'var(--space-lg)' }}>
