@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 220" role="img" aria-labelledby="title desc">
+  <title id="title">Andrew J. Hermann geometric AH logo</title>
+  <desc id="desc">A deep navy geometric AH monogram with a two-line Andrew J. Hermann wordmark.</desc>
+  <rect width="640" height="220" fill="#ffffff"/>
+  <g fill="none" stroke="#0f1c2e" stroke-linecap="square" stroke-linejoin="miter">
+    <path d="M68 164 L128 56 L178 164" stroke-width="18"/>
+    <path d="M96 116 H224" stroke-width="18"/>
+    <path d="M224 56 V164" stroke-width="18"/>
+    <path d="M240 116 H264" stroke-width="4"/>
+    <circle cx="272" cy="116" r="5" fill="#0f1c2e" stroke="none"/>
+  </g>
+  <g fill="#0f1c2e" font-family="Inter, Avenir Next, Helvetica Neue, Arial, sans-serif" font-weight="700" letter-spacing="5">
+    <text x="306" y="96" font-size="47"><tspan>ANDREW J</tspan><tspan dx="-4" letter-spacing="0">.</tspan></text>
+    <text x="306" y="151" font-size="47">HERMANN</text>
+  </g>
+</svg>

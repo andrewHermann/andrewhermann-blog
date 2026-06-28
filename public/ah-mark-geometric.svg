@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">Geometric AH monogram</title>
+  <desc id="desc">A merged geometric AH monogram in deep navy on white.</desc>
+  <rect width="64" height="64" fill="#ffffff"/>
+  <g fill="none" stroke="#0f1c2e" stroke-linecap="square" stroke-linejoin="miter">
+    <path d="M10 52 L28 12 L42 52" stroke-width="6"/>
+    <path d="M18 35 H52" stroke-width="6"/>
+    <path d="M52 12 V52" stroke-width="6"/>
+    <path d="M55 35 H59" stroke-width="1.5"/>
+    <circle cx="61" cy="35" r="1.8" fill="#0f1c2e" stroke="none"/>
+  </g>
+</svg>
