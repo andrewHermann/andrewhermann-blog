@@ -84,8 +84,8 @@ const About = () => {
             <h2>Current Work</h2>
             <p>
               I work within the Swiss federal administration. Since December 2022, I have led KI@V as
-              Project Manager within ASTAB, the Army Staff. The platform entered active pilot operations
-              for ASTAB in June 2026. It operates within federal infrastructure, certified to Cloud Level III,
+              Project Manager within the Army Staff. The platform entered active pilot operations
+              for the Army Staff in June 2026. It operates within federal infrastructure, certified to Cloud Level III,
               and has been validated economically across three use cases through independent assessment with HSLU.
             </p>
             <p>
@@ -168,20 +168,20 @@ const About = () => {
           <div className="section-card">
             <h2>Public Engagement</h2>
             <p>
-              <strong>KI-Leuchttürme · BK-DTI / KI-Netzwerk Bund · September 2026 · forthcoming</strong><br />
+              <strong>AI Lighthouses Programme · Federal Chancellery / Federal AI Network · September 2026 · forthcoming</strong><br />
               KI@V submitted as a candidate for the federal AI Lighthouse programme. If selected, the
               platform will be presented at the federal AI Community event on 14 September 2026.
             </p>
             <p>
-              <strong>KI-Netzwerk der Bundesverwaltung · August 2026 · forthcoming</strong><br />
+              <strong>Federal AI Network · August 2026 · forthcoming</strong><br />
               Video interview (7–8 minutes) on concrete AI implementation measures and challenges
               within the federal administration, for the Federal AI Network.
             </p>
             <p>
-              <strong>KI@V Evolve Phase Launch · 1 June 2026 · Mannschaftskaserne Bern</strong><br />
+              <strong>KI@V Evolve Phase Launch · 1 June 2026 · Bern Barracks</strong><br />
               Presented the platform&apos;s operational results and Evolve Phase roadmap to approximately
-              100 representatives from ASTAB, Training Command, Operations Command, armasuisse, the
-              Federal Chancellery, LBA, BIT, and the Federal AI Network.
+              100 representatives from the Army Staff, Training Command, Operations Command, armasuisse,
+              the Federal Chancellery, LBA, BIT, and the Federal AI Network.
             </p>
             <p>
               <strong>armasuisse Digital Day · 5 May 2026 · armasuisse, Bern</strong><br />
@@ -189,7 +189,7 @@ const About = () => {
               technology community.
             </p>
             <p>
-              <strong>IBM Maximo User Conference · circa 2015 · Frankfurt region</strong><br />
+              <strong>IBM Maximo User Conference · 2015 · Frankfurt region</strong><br />
               Presented on predictive maintenance integration patterns at the annual IBM Maximo
               user conference, during client engagements across the DACH region.
             </p>
