@@ -31,7 +31,7 @@ const EN_ROUTES = Object.fromEntries(Object.entries(DE_ROUTES).map(([en, de]) =>
 
 const Navbar = ({
   logoAlt = 'Andrew J. Hermann Logo',
-  logoSrc = '/ah-logo.png',
+  logoSrc = '/ah-mark-geometric.svg',
   link1 = 'Home',
   link2 = 'Portfolio',
   link3 = 'Blog',

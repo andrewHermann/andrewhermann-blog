@@ -31,7 +31,7 @@ const AdminNavbar = ({ userRole }) => {
         <Link to="/">
           <img
             alt="Andrew J. Hermann Logo"
-            src="/ah-logo.png"
+            src="/ah-mark-geometric.svg"
             className="navbar-image1"
           />
         </Link>
