@@ -166,6 +166,36 @@ const About = () => {
           </div>
 
           <div className="section-card">
+            <h2>Public Engagement</h2>
+            <p>
+              <strong>KI-Leuchttürme · BK-DTI / KI-Netzwerk Bund · September 2026 · forthcoming</strong><br />
+              KI@V submitted as a candidate for the federal AI Lighthouse programme. If selected, the
+              platform will be presented at the federal AI Community event on 14 September 2026.
+            </p>
+            <p>
+              <strong>KI-Netzwerk der Bundesverwaltung · August 2026 · forthcoming</strong><br />
+              Video interview (7–8 minutes) on concrete AI implementation measures and challenges
+              within the federal administration, for the Federal AI Network.
+            </p>
+            <p>
+              <strong>KI@V Evolve Phase Launch · 1 June 2026 · Mannschaftskaserne Bern</strong><br />
+              Presented the platform&apos;s operational results and Evolve Phase roadmap to approximately
+              100 representatives from ASTAB, Training Command, Operations Command, armasuisse, the
+              Federal Chancellery, LBA, BIT, and the Federal AI Network.
+            </p>
+            <p>
+              <strong>armasuisse Digital Day · 5 May 2026 · armasuisse, Bern</strong><br />
+              Co-presented KI@V with a live RAG demonstration on Army Messages for the defence
+              technology community.
+            </p>
+            <p>
+              <strong>IBM Maximo User Conference · circa 2015 · Frankfurt region</strong><br />
+              Presented on predictive maintenance integration patterns at the annual IBM Maximo
+              user conference, during client engagements across the DACH region.
+            </p>
+          </div>
+
+          <div className="section-card">
             <h2>Languages and Context</h2>
             <p>
               I live and work in Bern, Switzerland, and operate fluently in German and English. I have a

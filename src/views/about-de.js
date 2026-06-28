@@ -172,6 +172,36 @@ const AboutDe = () => {
           </div>
 
           <div className="section-card">
+            <h2>Öffentliche Auftritte</h2>
+            <p>
+              <strong>KI-Leuchttürme · BK-DTI / KI-Netzwerk Bund · September 2026 · bevorstehend</strong><br />
+              KI@V als Kandidat für das föderale KI-Leuchtturmprogramm eingereicht. Bei Auswahl wird die
+              Plattform am 14. September 2026 am föderalen KI-Community-Anlass vorgestellt.
+            </p>
+            <p>
+              <strong>KI-Netzwerk der Bundesverwaltung · August 2026 · bevorstehend</strong><br />
+              Video-Interview (7–8 Minuten) zu konkreten KI-Umsetzungsmassnahmen und Herausforderungen
+              in der Bundesverwaltung, für das KI-Netzwerk Bund.
+            </p>
+            <p>
+              <strong>KI@V Evolve-Phase-Launch · 1. Juni 2026 · Mannschaftskaserne Bern</strong><br />
+              Präsentation der operativen Ergebnisse und der Roadmap der Evolve-Phase vor rund 100
+              Vertreterinnen und Vertretern aus ASTAB, Kdo Ausbildung, Kdo Op, armasuisse,
+              Bundeskanzlei, LBA, BIT und dem KI-Netzwerk Bund.
+            </p>
+            <p>
+              <strong>armasuisse Digital Day · 5. Mai 2026 · armasuisse, Bern</strong><br />
+              Co-Präsentation von KI@V mit einer Live-RAG-Demo auf Armeebotschaften für die
+              Verteidigungs-Technologie-Community.
+            </p>
+            <p>
+              <strong>IBM-Maximo-Anwenderkonferenz · ca. 2015 · Raum Frankfurt</strong><br />
+              Vortrag zu Integrationsmustern für zustandsbasierte Instandhaltung an der jährlichen
+              IBM-Maximo-Anwenderkonferenz, im Rahmen von Kundenprojekten in der DACH-Region.
+            </p>
+          </div>
+
+          <div className="section-card">
             <h2>Sprachen und Kontext</h2>
             <p>
               Ich lebe und arbeite in Bern und bin in Deutsch und Englisch voll berufsfähig. Ich verfüge
