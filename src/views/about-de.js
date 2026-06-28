@@ -186,7 +186,7 @@ const AboutDe = () => {
             <p>
               <strong>KI@V Pilotstart · 1. Juni 2026 · Mannschaftskaserne Bern</strong><br />
               Präsentation von KI@V anlässlich der Aufnahme des aktiven Pilotbetriebs für den ASTAB,
-              vor rund 100 Vertreterinnen und Vertretern aus Kdo Ausbildung, Kdo Op, armasuisse,
+              vor rund 50 Vertreterinnen und Vertretern aus Kdo Ausbildung, Kdo Op, armasuisse,
               Bundeskanzlei, LBA, BIT und dem KI-Netzwerk Bund.
             </p>
             <p>

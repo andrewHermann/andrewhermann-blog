@@ -180,7 +180,7 @@ const About = () => {
             <p>
               <strong>KI@V Pilot Launch · 1 June 2026 · Bern Barracks</strong><br />
               Presented KI@V at its launch into active pilot operations for the Army Staff, to
-              approximately 100 representatives from Training Command, Operations Command, armasuisse,
+              approximately 50 representatives from Training Command, Operations Command, armasuisse,
               the Federal Chancellery, LBA, BIT, and the Federal AI Network.
             </p>
             <p>
