@@ -195,7 +195,7 @@ const AboutDe = () => {
               Verteidigungs-Technologie-Community.
             </p>
             <p>
-              <strong>IBM-Maximo-Anwenderkonferenz · ca. 2015 · Raum Frankfurt</strong><br />
+              <strong>IBM-Maximo-Anwenderkonferenz · 2015 · Raum Frankfurt</strong><br />
               Vortrag zu Integrationsmustern für zustandsbasierte Instandhaltung an der jährlichen
               IBM-Maximo-Anwenderkonferenz, im Rahmen von Kundenprojekten in der DACH-Region.
             </p>
