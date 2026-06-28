@@ -26,6 +26,7 @@ const HERO_CONTENT = {
     subheadline: 'I have led AI platform development within the Swiss Armed Forces since 2022 and contribute to federal AI governance at the Federal Chancellery. The work spans technical architecture, institutional stakeholder management, and policy positioning in environments where accountability is non-negotiable.',
     btnWork: 'See My Work',
     btnContact: 'Contact Me',
+    credNumber1: 'Since 1984',
     credLabel1: 'In Technology',
     credLabel2: 'Users on KI@V since June 2026',
     credLabel3: 'Bern, Switzerland',
@@ -38,6 +39,7 @@ const HERO_CONTENT = {
     subheadline: 'Ich leite die KI-Plattformentwicklung in der Schweizer Armee seit 2022 und trage zur föderalen KI-Governance bei der Bundeskanzlei bei. Die Arbeit umfasst technische Architektur, institutionelles Stakeholder-Management und Policy-Positionierung in Umgebungen, in denen Rechenschaftspflicht nicht verhandelbar ist.',
     btnWork: 'Meine Arbeit ansehen',
     btnContact: 'Kontakt aufnehmen',
+    credNumber1: 'Seit 1984',
     credLabel1: 'In der Technologie',
     credLabel2: 'Nutzer auf KI@V seit Juni 2026',
     credLabel3: 'Bern, Schweiz',
@@ -88,7 +90,7 @@ const Hero = ({ lang = 'en' }) => {
 
         <div className="hero-credentials">
           <div className="hero-cred">
-            <span className="hero-cred-number">Since 1984</span>
+            <span className="hero-cred-number">{c.credNumber1}</span>
             <span className="hero-cred-label">{c.credLabel1}</span>
           </div>
           <div className="hero-cred-divider"></div>
