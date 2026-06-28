@@ -34,7 +34,7 @@ const ContactPage = () => {
       "contactPoint": {
         "@type": "ContactPoint",
         "contactType": "Professional Enquiry",
-        "availableLanguage": ["English", "German", "French"]
+        "availableLanguage": ["English", "German"]
       }
     }
   }

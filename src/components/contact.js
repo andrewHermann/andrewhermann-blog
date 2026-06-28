@@ -95,7 +95,7 @@ const Contact = ({ email1 = 'cloudhopper@icloud.com' }) => {
           </svg>
           <div className="contact-info-content">
             <h3>Languages</h3>
-            <span className="contact-detail">German · French · English</span>
+            <span className="contact-detail">German · English</span>
           </div>
         </div>
       </div>
