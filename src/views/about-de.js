@@ -184,9 +184,9 @@ const AboutDe = () => {
               in der Bundesverwaltung, für das KI-Netzwerk Bund.
             </p>
             <p>
-              <strong>KI@V Evolve-Phase-Launch · 1. Juni 2026 · Mannschaftskaserne Bern</strong><br />
-              Präsentation der operativen Ergebnisse und der Roadmap der Evolve-Phase vor rund 100
-              Vertreterinnen und Vertretern aus ASTAB, Kdo Ausbildung, Kdo Op, armasuisse,
+              <strong>KI@V Pilotstart · 1. Juni 2026 · Mannschaftskaserne Bern</strong><br />
+              Präsentation von KI@V anlässlich der Aufnahme des aktiven Pilotbetriebs für den ASTAB,
+              vor rund 50 Vertreterinnen und Vertretern aus Kdo Ausbildung, Kdo Op, armasuisse,
               Bundeskanzlei, LBA, BIT und dem KI-Netzwerk Bund.
             </p>
             <p>

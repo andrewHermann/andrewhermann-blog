@@ -178,9 +178,9 @@ const About = () => {
               within the federal administration, for the Federal AI Network.
             </p>
             <p>
-              <strong>KI@V Evolve Phase Launch · 1 June 2026 · Bern Barracks</strong><br />
-              Presented the platform&apos;s operational results and Evolve Phase roadmap to approximately
-              100 representatives from the Army Staff, Training Command, Operations Command, armasuisse,
+              <strong>KI@V Pilot Launch · 1 June 2026 · Bern Barracks</strong><br />
+              Presented KI@V at its launch into active pilot operations for the Army Staff, to
+              approximately 50 representatives from Training Command, Operations Command, armasuisse,
               the Federal Chancellery, LBA, BIT, and the Federal AI Network.
             </p>
             <p>
