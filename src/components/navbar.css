@@ -37,7 +37,6 @@
 .navbar-image1 {
   display: block;
   height: 3rem;
-  filter: brightness(0) invert(1);
   transition: transform 0.3s ease;
 }
 
@@ -212,7 +211,6 @@
 
 .navbar-logo {
   height: 2.5rem;
-  filter: brightness(0) invert(1);
 }
 
 .navbar-close-menu {
