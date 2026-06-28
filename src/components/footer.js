@@ -28,7 +28,7 @@ const Footer = () => {
           <div className="footer-brand">
             <img
               alt="Andrew J. Hermann Logo"
-              src="/ah-logo.png"
+              src="/ah-mark-geometric.svg"
               className="footer-logo"
             />
             <p className="footer-tagline">Strategic Leadership & AI Innovation</p>

@@ -34,6 +34,7 @@
   width: auto;
   align-self: flex-start;
   margin-bottom: var(--space-xs);
+  filter: brightness(0) invert(1);
 }
 
 .footer-tagline {
