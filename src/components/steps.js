@@ -25,7 +25,7 @@ const STEPS_CONTENT = {
     body1: 'I do not solve problems by applying frameworks. I solve them by understanding what is actually at stake, who has the authority to act, and what change looks like inside a specific institution.',
     body2: 'The methodology follows the problem, not the other way around. Each engagement starts with constraints, authority structures, and the gap between strategic intent and operational reality.',
     cards: [
-      { id: '01', title: 'Explore My Portfolio', description: 'A record of projects across defence, transport, and public administration, built over four decades of continuous hands-on work.', link: '/portfolio' },
+      { id: '01', title: 'Explore My Portfolio', description: 'A record of projects across defence, transport, and public administration, spanning four decades of hands-on work.', link: '/portfolio' },
       { id: '02', title: 'About Andrew', description: 'Background, working philosophy, and the professional trajectory behind the work, from institutional systems to applied AI.', link: '/about' },
       { id: '03', title: 'Get in Touch', description: 'If the context is complex and the stakes are institutional, I am available for a conversation.', link: '/contact' },
     ],
@@ -35,7 +35,7 @@ const STEPS_CONTENT = {
     body1: 'Ich löse keine Probleme durch die Anwendung von Frameworks. Ich löse sie, indem ich verstehe, was tatsächlich auf dem Spiel steht, wer die Befugnis zu handeln hat und wie Veränderung innerhalb einer konkreten Institution aussieht.',
     body2: 'Die Methodik folgt dem Problem, nicht umgekehrt. Jedes Engagement beginnt mit Constraints, Autoritätsstrukturen und der Lücke zwischen strategischem Anspruch und operativer Realität.',
     cards: [
-      { id: '01', title: 'Mein Portfolio', description: 'Eine Dokumentation von Projekten in Verteidigung, Verkehr und öffentlicher Verwaltung, aufgebaut über vier Jahrzehnte kontinuierlicher praktischer Arbeit.', link: '/portfolio/de' },
+      { id: '01', title: 'Mein Portfolio', description: 'Eine Dokumentation von Projekten in Verteidigung, Verkehr und öffentlicher Verwaltung, über vier Jahrzehnte praktischer Arbeit.', link: '/portfolio/de' },
       { id: '02', title: 'Über mich', description: 'Hintergrund, Arbeitsphilosophie und die berufliche Laufbahn hinter der Arbeit, von institutionellen Systemen bis zu angewandter KI.', link: '/about/de' },
       { id: '03', title: 'Kontakt aufnehmen', description: 'Wenn der Kontext komplex und die Anforderungen institutionell sind, stehe ich für ein Gespräch zur Verfügung.', link: '/contact/de' },
     ],
