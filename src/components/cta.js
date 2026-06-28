@@ -20,6 +20,16 @@ import { useNavigate } from 'react-router-dom'
 import './cta.css'
 
 const CTA_ICONS = {
+  governance: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <circle cx="12" cy="5" r="2"/>
+      <circle cx="5" cy="19" r="2"/>
+      <circle cx="19" cy="19" r="2"/>
+      <line x1="12" y1="7" x2="5" y2="17"/>
+      <line x1="12" y1="7" x2="19" y2="17"/>
+      <line x1="5" y1="17" x2="19" y2="17"/>
+    </svg>
+  ),
   ai: (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
       <circle cx="12" cy="12" r="3"/>
@@ -56,6 +66,14 @@ const CTA_CONTENT = {
         link: '/portfolio#ki-v',
       },
       {
+        title: 'KI-für-Alle: Federal AI Governance',
+        description: 'Holds a practitioner seat in the Federal Chancellery\'s cross-agency working group developing the implementation framework for Switzerland\'s federal AI sub-strategy. Contributes proposals on ISO lifecycle standards, Cloud Level compliance, and the evaluation framework for AI projects across the federal administration.',
+        iconClass: 'governance-icon',
+        icon: 'governance',
+        action: 'View details',
+        link: '/portfolio#ki-fuer-alle',
+      },
+      {
         title: 'COCKPIT: Portfolio Intelligence for ASTAB',
         description: 'Designed and led delivery of a project portfolio intelligence platform across ASTAB, replacing a fragmented manual reporting cycle with an automated, governed pipeline and 11 Power BI dashboards.',
         iconClass: 'analytics-icon',
@@ -84,6 +102,14 @@ const CTA_CONTENT = {
         icon: 'ai',
         action: 'Mehr lesen',
         link: '/portfolio/de#ki-v',
+      },
+      {
+        title: 'KI-für-Alle: Föderale KI-Governance',
+        description: 'Mitglied der ressortübergreifenden Arbeitsgruppe der Bundeskanzlei zur Entwicklung des Umsetzungsrahmens der föderalen KI-Teilstrategie. Beiträge zu ISO-Lebenszyklusstandards, Cloud-Stufen-Compliance und dem Bewertungsraster für KI-Projekte in der Bundesverwaltung.',
+        iconClass: 'governance-icon',
+        icon: 'governance',
+        action: 'Details ansehen',
+        link: '/portfolio/de#ki-fuer-alle',
       },
       {
         title: 'COCKPIT: Portfolio-Intelligenz für ASTAB',

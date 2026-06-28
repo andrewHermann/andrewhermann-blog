@@ -125,7 +125,7 @@ const ContactDe = () => {
                 </svg>
                 <div className="contact-info-content">
                   <h3>Sprachen</h3>
-                  <span className="contact-detail">Deutsch · Französisch · Englisch</span>
+                  <span className="contact-detail">Deutsch · Englisch</span>
                 </div>
               </div>
             </div>
