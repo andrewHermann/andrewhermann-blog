@@ -96,11 +96,11 @@ lines, and overrides pinned transitive compression/shell-quote to patched releas
 The same registry audit finds none of those priority packages vulnerable in the
 candidate lockfile. Other findings remain, largely in the declared build chain;
 these are not all reachable from the running static site. Full remediation is not
-claimed. The application patch has not been deployed.
+claimed. Deployment status and evidence are recorded in the local dashboard.
 
 `npm run build` passes. Before and after the dependency changes, tests report
 91 passes and one failure: `AdminLogin > shows network error when API throws`.
-The failure is pre-existing and was not changed to make this patch appear green.
+A follow-up corrects the stale test fixture and covers both supplied and empty error messages. Authentication behavior is unchanged; all 93 application tests now pass.
 Dashboard smoke tests pass seven access/control checks. Python and shell syntax
 checks and the exact inline JavaScript syntax check also pass.
 
@@ -108,3 +108,12 @@ The blog database and configuration snapshot were copied to this Mac under the
 ignored private runtime directory. A separate SQLite restore passes integrity
 checking and the configuration archive can be read. This is partial backup
 evidence; full Nextcloud file and database restore coverage remains unverified.
+
+## Closing high-priority exposure
+
+The runner is marked `mitigated` only while health checks prove its service is
+inactive and disabled, with neither a listener nor a worker process. Missing
+evidence cannot close the risk. Monitoring reopens the high item if isolation
+stops holding. Vendor bundle patching remains a separate medium-priority task;
+mitigation does not claim that the installed vendor binaries are patched.
+The dashboard counts this as a closed exposure and labels it explicitly.

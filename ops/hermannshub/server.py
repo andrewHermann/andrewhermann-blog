@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Loopback-only maintenance dashboard with a fixed remote action allowlist."""
+from reconcile import runner_is_isolated
 import http.server,json,secrets,subprocess,threading,time,pathlib,os,sys,fcntl
 ROOT=pathlib.Path(__file__).resolve().parent
 RUNTIME=ROOT/'.runtime';RUNTIME.mkdir(exist_ok=True,mode=0o700);RUNTIME.chmod(0o700)
@@ -10,18 +11,18 @@ LOGS=RUNTIME/'logs';LOGS.mkdir(exist_ok=True)
 STATE=RUNTIME/'state.json';PORT=8788;HOST=f'127.0.0.1:{PORT}'
 TOKEN=secrets.token_urlsafe(32);LOCK=threading.RLock();WAKE=threading.Event();CHECK=threading.Event()
 SSH=['/usr/bin/ssh','-o','BatchMode=yes','-o','ConnectTimeout=8','-o','ServerAliveInterval=15','-o','ServerAliveCountMax=3','andrew@192.168.178.44']
-TASKS=[('high','High','nginx + both Node.js runtimes'),('runner','High','GitHub Actions runner runtime'),('repos','Medium','Repair GitHub CLI signing key'),('updates','Medium','Install remaining package updates'),('nextcloud','Medium','Nextcloud integration and warnings'),('storage','Monitor','Disk self-tests and RAID'),('esm','Decision','Ubuntu ESM coverage'),('dependencies','Medium','Production dependency audit'),('backups','Monitor','Backup and restore evidence'),('reboot','Medium','Controlled server reboot')]
+TASKS=[('high','High','nginx + both Node.js runtimes'),('runner','High','GitHub Actions runner runtime'),('runner-vendor','Medium','Vendor runner patch follow-up'),('repos','Medium','Repair GitHub CLI signing key'),('updates','Medium','Install remaining package updates'),('nextcloud','Medium','Nextcloud integration and warnings'),('storage','Monitor','Disk self-tests and RAID'),('esm','Decision','Ubuntu ESM coverage'),('dependencies','Medium','Production dependency audit'),('backups','Monitor','Backup and restore evidence'),('reboot','Medium','Controlled server reboot')]
 def save():
     tmp=STATE.with_suffix('.tmp');tmp.write_text(json.dumps(state,indent=2));tmp.chmod(0o600);tmp.replace(STATE)
 def event(message):
     state['events'].append({'time':time.time(),'message':message});state['events']=state['events'][-500:]
 if STATE.exists():state=json.loads(STATE.read_text())
 else:
-    state={'paused':True,'jobs':[{'id':i,'priority':p,'title':t,'status':'attention' if i=='reboot' else ('complete' if i=='high' and (LOGS/'high.log').exists() and 'HIGH_PRIORITY_VERIFIED' in (LOGS/'high.log').read_text(errors='replace') else 'queued'),'detail':'Verified nginx 1.30.6, Node 22.23.4; services and HTTP baseline passed.' if i=='high' else ''} for i,p,t in TASKS],'events':[],'health':{},'history':[]}
+    state={'paused':True,'jobs':[{'id':i,'priority':p,'title':t,'status':'attention' if i in ('reboot','runner-vendor') else ('complete' if i=='high' and (LOGS/'high.log').exists() and 'HIGH_PRIORITY_VERIFIED' in (LOGS/'high.log').read_text(errors='replace') else 'queued'),'detail':'Verified nginx 1.30.6, Node 22.23.4; services and HTTP baseline passed.' if i=='high' else ''} for i,p,t in TASKS],'events':[],'health':{},'history':[]}
     event('Maintenance started. High-priority updates verified; configuration backup is on the server.')
 for ident,priority,title in TASKS:
     if not any(j['id']==ident for j in state['jobs']):
-        state['jobs'].insert(1 if ident=='runner' else len(state['jobs']),{'id':ident,'priority':priority,'title':title,'status':'attention' if ident=='reboot' else 'queued','detail':'Updates installed; run this task when a brief server outage is acceptable.' if ident=='reboot' else ''})
+        state['jobs'].insert(1 if ident=='runner' else len(state['jobs']),{'id':ident,'priority':priority,'title':title,'status':'attention' if ident in ('reboot','runner-vendor') else 'queued','detail':'Updates installed; run this task when a brief server outage is acceptable.' if ident=='reboot' else ''})
 for j in state['jobs']:
     if j['status']=='running':j['status']='attention';j['detail']='Dashboard restarted during execution. Inspect log and server state before retrying.'
     log=LOGS/(j['id']+'.log')
@@ -74,6 +75,13 @@ def monitor():
             if r.returncode:raise RuntimeError(r.stderr[-400:])
             health=json.loads(r.stdout)
             with LOCK:
+                runner=next((j for j in state['jobs'] if j['id']=='runner'),None)
+                if runner and runner['status'] not in ('running','queued'):
+                    isolated=runner_is_isolated(health.get('runner',{}))
+                    status='mitigated' if isolated else 'attention'
+                    if runner['status']!=status:event('Runner exposure '+('closed by verified isolation; vendor patch remains open.' if isolated else 'reopened: isolation proof no longer holds.'))
+                    runner['status']=status
+                    runner['detail']='Closed by isolation: stopped, disabled, no listener or workers. Vulnerable vendor binaries remain installed; patch follow-up is separate.' if isolated else 'Isolation is not fully verified; inspect runner service and processes.'
                 storage=next((j for j in state['jobs'] if j['id']=='storage'),None)
                 if storage and storage['status']=='attention' and all(any('Completed without error' in t for t in d['selftests']) for d in health['disks'].values()):storage['detail']='All three short SMART self-tests completed without error. /dev/sdc retains 9 reallocated sectors and remains under observation.'
                 previous=state.get('health',{})

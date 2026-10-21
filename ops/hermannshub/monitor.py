@@ -33,5 +33,7 @@ for proc in pathlib.Path('/proc').iterdir():
             exe=(proc/'exe').resolve()
             if exe.name=='node':out['node_processes'].append({'pid':int(proc.name),'executable':str(exe),'version':run([str(exe),'--version'])})
         except (OSError,RuntimeError):pass
+runner_service='actions.runner.andrewHermann-andrewhermann-blog.hermannshub.service'
+out['runner']={'service':run(['systemctl','is-active',runner_service]),'enabled':run(['systemctl','is-enabled',runner_service]),'listener_present':bool(run(['pgrep','-x','Runner.Listener'])),'worker_present':bool(run(['pgrep','-x','Runner.Worker']))}
 out['nextcloud']=run(['curl','-fsS','--max-time','5','http://127.0.0.1:5080/status.php'])
 print(json.dumps(out))
