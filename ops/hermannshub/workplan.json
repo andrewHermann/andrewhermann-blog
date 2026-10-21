@@ -1,0 +1,9 @@
+{
+  "repository": "andrewHermann/andrewhermann-blog",
+  "parent": 98,
+  "tasks": [
+    {"issue": 99, "title": "Pause Nextcloud and background jobs", "priority": "High", "depends_on": [], "next": "Read acceptance checks; obtain instruction to execute containment, then capture service rollback states."},
+    {"issue": 100, "title": "Restrict ingress to LAN", "priority": "High", "depends_on": [99], "next": "After verified Nextcloud pause, capture ingress paths and prove a second LAN SSH session."},
+    {"issue": 101, "title": "Repair trust and verify recovery", "priority": "High", "depends_on": [99, 100], "next": "Inventory actual TLS clients; plan contained reboot and independent Nextcloud restore verification."}
+  ]
+}

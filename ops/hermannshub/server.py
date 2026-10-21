@@ -9,7 +9,7 @@ try:fcntl.flock(CONTROLLER_LOCK,fcntl.LOCK_EX|fcntl.LOCK_NB)
 except BlockingIOError:raise SystemExit('Maintenance controller already running')
 LOGS=RUNTIME/'logs';LOGS.mkdir(exist_ok=True)
 STATE=RUNTIME/'state.json';PORT=8788;HOST=f'127.0.0.1:{PORT}'
-TOKEN=secrets.token_urlsafe(32);LOCK=threading.RLock();WAKE=threading.Event();CHECK=threading.Event()
+TOKEN=secrets.token_urlsafe(32);LOCK=threading.RLock();WAKE=threading.Event();CHECK=threading.Event();SYNC=threading.Event()
 SSH=['/usr/bin/ssh','-o','BatchMode=yes','-o','ConnectTimeout=8','-o','ServerAliveInterval=15','-o','ServerAliveCountMax=3','andrew@192.168.178.44']
 TASKS=[('high','High','nginx + both Node.js runtimes'),('runner','High','GitHub Actions runner runtime'),('runner-vendor','Medium','Vendor runner patch follow-up'),('repos','Medium','Repair GitHub CLI signing key'),('updates','Medium','Install remaining package updates'),('nextcloud','Medium','Nextcloud integration and warnings'),('storage','Monitor','Disk self-tests and RAID'),('esm','Decision','Ubuntu ESM coverage'),('dependencies','Medium','Production dependency audit'),('backups','Monitor','Backup and restore evidence'),('reboot','Medium','Controlled server reboot')]
 def save():
@@ -93,6 +93,11 @@ def monitor():
         except Exception as e:
             with LOCK:state['monitor_error']=str(e);save()
         CHECK.wait(300);CHECK.clear()
+def workplan_sync():
+    while True:
+        try:subprocess.run([sys.executable,str(ROOT/'worklog.py'),'sync'],capture_output=True,timeout=240)
+        except Exception:pass  # worklog keeps pending records; stale timestamp is visible in UI.
+        SYNC.wait(300);SYNC.clear()
 class Handler(http.server.BaseHTTPRequestHandler):
     def log_message(self,*args):pass
     def reply(self,code,data,kind='application/json'):
@@ -104,6 +109,11 @@ class Handler(http.server.BaseHTTPRequestHandler):
         if self.path=='/api/state':
             with LOCK:
                 snapshot=json.loads(json.dumps(state))
+                snapshot['workplan']=json.loads((ROOT/'workplan.json').read_text())
+                mirror=RUNTIME/'github-workplan.json'
+                snapshot['workplan_sync']=json.loads(mirror.read_text()) if mirror.exists() else {}
+                journal=RUNTIME/'worklog.jsonl'
+                snapshot['workplan_local']=[json.loads(line) for line in journal.read_text().splitlines() if line][-100:] if journal.exists() else []
                 evidence=RUNTIME/'evidence.json'
                 if evidence.exists():snapshot['evidence']=json.loads(evidence.read_text())
                 return self.reply(200,snapshot)
@@ -125,6 +135,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
             if self.path=='/api/pause':state['paused']=True;event('Queue paused. Active package operation will finish safely.')
             elif self.path=='/api/resume':state['paused']=False;event('Queue resumed.');WAKE.set()
             elif self.path=='/api/refresh':CHECK.set()
+            elif self.path=='/api/sync':SYNC.set()
             elif self.path=='/api/run':
                 job=next((j for j in state['jobs'] if j['id']==data.get('id')),None)
                 if not job or job['status'] in ['running','queued'] or (job['id']=='high' and job['status']=='complete'):return self.reply(409,{'error':'Unknown or already active task'})
@@ -133,5 +144,5 @@ class Handler(http.server.BaseHTTPRequestHandler):
             save();self.reply(200,{'ok':True})
 if __name__=='__main__':
     server=http.server.ThreadingHTTPServer(('127.0.0.1',PORT),Handler)
-    threading.Thread(target=worker,daemon=True).start();threading.Thread(target=monitor,daemon=True).start()
+    threading.Thread(target=worker,daemon=True).start();threading.Thread(target=monitor,daemon=True).start();threading.Thread(target=workplan_sync,daemon=True).start()
     print(f'http://{HOST}/',flush=True);server.serve_forever()

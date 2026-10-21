@@ -122,3 +122,7 @@ For more information about GPL v3, visit: https://www.gnu.org/licenses/gpl-3.0.h
 Copyright (C) 2024 Andrew Hermann
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+## Server maintenance handoff
+
+For Hermannshub operations, start with [the shared workplan](ops/hermannshub/WORKPLAN.md) and [GitHub #98](https://github.com/andrewHermann/andrewhermann-blog/issues/98). The local dashboard is at http://127.0.0.1:8788/.

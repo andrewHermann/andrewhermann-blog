@@ -117,3 +117,11 @@ evidence cannot close the risk. Monitoring reopens the high item if isolation
 stops holding. Vendor bundle patching remains a separate medium-priority task;
 mitigation does not claim that the installed vendor binaries are patched.
 The dashboard counts this as a closed exposure and labels it explicitly.
+
+## Shared containment and recovery workplan
+
+Start with [WORKPLAN.md](WORKPLAN.md) and [GitHub #98](https://github.com/andrewHermann/andrewhermann-blog/issues/98).
+The three dependent issues are mirrored in the dashboard. Use `worklog.py record`
+for every claim, action, check, blocker, and handoff so updates survive between
+sessions on both GitHub and the dashboard. Pending writes and stale syncs are
+visible; a failed sync never counts as a completed handoff.
