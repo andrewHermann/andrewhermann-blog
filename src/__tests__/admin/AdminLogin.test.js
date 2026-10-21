@@ -57,14 +57,17 @@ describe('AdminLogin', () => {
     })
   })
 
-  it('shows network error when API throws', async () => {
-    apiRequest.mockRejectedValue(new Error('Network error'))
+  it.each([
+    ['the supplied error message', 'Network error', 'Network error'],
+    ['the fallback for an empty error message', '', 'Network error. Please try again.'],
+  ])('shows %s when API throws', async (_case, message, expected) => {
+    apiRequest.mockRejectedValue(new Error(message))
     renderWithRouter(<AdminLogin onLogin={mockOnLogin} />)
     fireEvent.change(screen.getByLabelText('Username'), { target: { name: 'username', value: 'admin' } })
     fireEvent.change(screen.getByLabelText('Password'), { target: { name: 'password', value: 'pass' } })
     fireEvent.submit(screen.getByRole('button', { name: 'Login' }))
     await waitFor(() => {
-      expect(screen.getByText('Network error. Please try again.')).toBeInTheDocument()
+      expect(screen.getByText(expected)).toBeInTheDocument()
     })
   })
 
