@@ -1,0 +1,2 @@
+set -euo pipefail
+sudo pro status --format json | python3 -c 'import sys,json; d=json.load(sys.stdin); print(json.dumps({"attached":d.get("attached"),"services":[{"name":s.get("name"),"status":s.get("status")} for s in d.get("services",[]) if s.get("name") in ["esm-apps","esm-infra"]]})); print("ATTENTION: Ubuntu Pro entitlement needed; no account attached or subscription purchased." if not d.get("attached") else "Review attached service coverage.")'

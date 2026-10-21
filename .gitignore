@@ -96,3 +96,8 @@ config.local.*
 *local.config.*
 nohup.out
 .gstack/
+
+# Local server maintenance runtime
+ops/hermannshub/.runtime/
+
+ops/hermannshub/__pycache__/
