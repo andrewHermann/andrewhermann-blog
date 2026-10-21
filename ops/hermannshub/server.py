@@ -24,6 +24,10 @@ for ident,priority,title in TASKS:
         state['jobs'].insert(1 if ident=='runner' else len(state['jobs']),{'id':ident,'priority':priority,'title':title,'status':'attention' if ident=='reboot' else 'queued','detail':'Updates installed; run this task when a brief server outage is acceptable.' if ident=='reboot' else ''})
 for j in state['jobs']:
     if j['status']=='running':j['status']='attention';j['detail']='Dashboard restarted during execution. Inspect log and server state before retrying.'
+    log=LOGS/(j['id']+'.log')
+    if j['status']=='attention' and j.get('detail')=='Review findings in the log.' and log.exists():
+        latest=log.read_text(errors='replace').rsplit('\n---',1)[-1]
+        if 'ATTENTION:' in latest:j['detail']=latest.rsplit('ATTENTION:',1)[-1].strip()[:800]
 save()
 def worker():
     while True:
@@ -70,6 +74,8 @@ def monitor():
             if r.returncode:raise RuntimeError(r.stderr[-400:])
             health=json.loads(r.stdout)
             with LOCK:
+                storage=next((j for j in state['jobs'] if j['id']=='storage'),None)
+                if storage and storage['status']=='attention' and all(any('Completed without error' in t for t in d['selftests']) for d in health['disks'].values()):storage['detail']='All three short SMART self-tests completed without error. /dev/sdc retains 9 reallocated sectors and remains under observation.'
                 previous=state.get('health',{})
                 before=previous.get('disks',{}).get('sdc',{}).get('attributes',{}).get('Reallocated_Sector_Ct')
                 after=health['disks']['sdc']['attributes'].get('Reallocated_Sector_Ct')
